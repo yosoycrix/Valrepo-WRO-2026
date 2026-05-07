@@ -34,7 +34,7 @@
      - [4.2 Desafio Cerrado](#desafio-cerrado)
        - [4.2.1 Flowchart Cerrada](#flowchart-cerrada)
        - [4.2.2 Explicación del Código](#explicación-del-código-1)
-    - [5. Lista de Recursos para armar nuestro robot](#lista-de-recursos-para-armar-nuestro-robot)
+    - [5. Lista de Recursos para armar nuestro robot](#recursos-para-hacer-el-robot)
     - [6. Licencia](#licencia)
       
 ---
