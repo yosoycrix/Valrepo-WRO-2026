@@ -276,7 +276,7 @@ En el caso particular del robot Heimdall, originalmente se consideró una transm
 
 ---
 
-**INJORA 7KG 2065 Digital Micro Servo 360°**
+2. ### **INJORA 7KG 2065 Digital Micro Servo 360°**
 
 El servo INJS2065 360° es un micro servo digital compacto, de alto par y rotación continua, especialmente orientado a aplicaciones de robótica móvil, automatización y sistemas de tracción donde se requiere control de velocidad y dirección más que de posición angular fija. Gracias a su diseño robusto y eficiente, el servo 2065 360° es ideal para sistemas embebidos que demandan movimiento continuo, como robots seguidores de línea, plataformas móviles y mecanismos de accionamiento. Destaca por su alta precisión en el control de velocidad, rápida respuesta y una excelente relación peso-potencia, permitiendo así su integración en diseños ligeros y eficientes. Su motor de núcleo con rodamientos de bolas proporciona un funcionamiento suave y duradero, mientras que el amplio rango de voltaje soportado le otorga flexibilidad para diferentes sistemas de control.
 
@@ -311,31 +311,7 @@ El servo INJS2065 360° es un micro servo digital compacto, de alto par y rotaci
     </td>
   </tr>
 </table>
-
-[![IMG-1126-1200x1200.jpg](https://i.postimg.cc/52JgQgQr/IMG-1126-1200x1200.jpg)](https://postimg.cc/bs6kKQT0)
-
-| :wrench: **Especificaciones del Servo INJS2065 360°** |                                                    |
-|:------------------------------------------------------|:--------------------------------------------------:|
-| **Tipo**                                              | Servo de rotación continua, digital                |
-| **Banda muerta**                                      | 2 μs                                               |
-| **Señal de control**                                  | PWM (500-2500 μs, 330 Hz)                         |
-| **Motor**                                             | Motor de núcleo                                    |
-| **Rango de voltaje**                                  | 4.8V - 8.4V                                        |
-| **Velocidad de operación (6.0V)**                     | 0.09 s/60° (aprox. 110 rpm)                        |
-| **Velocidad de operación (8.4V)**                     | 0.06 s/60° (aprox. 150 rpm)                        |
-| **Torque de retención (6.0V)**                        | 6.0 kg·cm / 83.3 oz·in                             |
-| **Torque de retención (8.4V)**                        | 7.0 kg·cm / 97.2 oz·in                             |
-| **Dimensiones**                                       | 23 × 13 × 25.8 mm                                  |
-| **Peso**                                              | 20 g                                               |
-| **Longitud del cable conector**                       | JR 300 mm                                          |
-| **Rodamientos**                                       | 1BB                                                |
-| **Peso con empaque**                                  | 28 g                                               |
-| **Tamaño del paquete**                                | 36 × 23 × 38 mm                                    |
-| **Modo de control**                                   | Velocidad y dirección según ancho de pulso PWM     |
-| **Posición neutra (detenido)**                        | ~1500 μs                                           |
-| **Giro horario**                                      | PWM > 1500 μs (más ancho, más rápido)              |
-| **Giro antihorario**                                  | PWM < 1500 μs (más estrecho, más rápido)           |
-
+          
 ---
 
 | :wrench: **Herramientas requeridas**            |                                                            |
