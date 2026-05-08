@@ -440,7 +440,7 @@ Para el proyecto, decidimos usar;
   <tr>
     <!-- Columna de la Foto (Abarca todas las filas de la tabla) -->
     <td rowspan="9" width="350px" align="center" style="vertical-align: middle;">
-      <img src="injora.jpg" alt="Componente" width="100%">
+      <img src="./images/stepdown.jpg" alt="Componente" width="400">
       <br>
       <p><b>Visualización del Componente</b></p>
     </td>
