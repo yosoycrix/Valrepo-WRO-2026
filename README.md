@@ -274,8 +274,6 @@ En el caso particular del robot Heimdall, originalmente se consideró una transm
 | **Consumo energético**          | Más elevado por la transmisión a cuatro ruedas. | Menor, lo que puede aumentar la autonomía.                                |
 | **Aplicación recomendada**      | Terrenos difíciles, obstáculos, máxima tracción. | Pistas controladas, mayor maniobrabilidad y agilidad.                     |
 
-2. Claro, aquí tienes el texto actualizado para un servo **INJORA 2065 360°** (rotación continua), manteniendo el formato markdown y adaptando la descripción y tabla a este tipo de servo:
-
 ---
 
 **INJORA 7KG 2065 Digital Micro Servo 360°**
