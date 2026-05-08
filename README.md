@@ -288,7 +288,7 @@ El servo INJS2065 360° es un micro servo digital compacto, de alto par y rotaci
       <img src="./images/injora.jpg" alt="injora.jpg" >
     </td>
     <td>
-      <h3>:wrench: Especificaciones del Servo INJS2065 360°:</h3>
+      <h3>:wrench: Especificaciones del Servo INJS2065 360°</h3>
       <ul>
         <li>Tipo: Servo de rotación continua, digital</li>
         <li>Banda muerta: 2 μs</li>
@@ -297,18 +297,18 @@ El servo INJS2065 360° es un micro servo digital compacto, de alto par y rotaci
         <li>Rango de voltaje: 4.8V - 8.4V</li>
         <li>Velocidad de operación (6.0V): 0.09 s/60° (aprox. 110 rpm)</li>
         <li>Velocidad de operación (8.4V): 0.06 s/60° (aprox. 150 rpm)</li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li>Torque de retención (6.0V): 6.0 kg·cm / 83.3 oz·in</li>
+        <li>Torque de retención (8.4V: 7.0 kg·cm / 97.2 oz·in</li>
+        <li>Dimensiones: 23 × 13 × 25.8 mm</li>
+        <li>Peso: 20 g</li>
+        <li>Longitud del cable conector: JR 300 mm</li>
+        <li>Rodamientos: 1BB</li>
+        <li>Peso con empaque: 28 g</li>
+        <li>Tamaño del paquete: 36 × 23 × 38 mm</li>
+        <li>Modo de control: Velocidad y dirección según ancho de pulso PWM</li>
+        <li>Posición neutra (detenido): ~1500 μs</li>
+        <li>Giro horario: PWM > 1500 μs (más ancho, más rápido)</li>
+        <li>Giro antihorario: PWM < 1500 μs (más estrecho, más rápido)</li>
       </ul>
     </td>
   </tr>
