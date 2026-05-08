@@ -282,6 +282,38 @@ En el caso particular del robot Heimdall, originalmente se consideró una transm
 
 El servo INJS2065 360° es un micro servo digital compacto, de alto par y rotación continua, especialmente orientado a aplicaciones de robótica móvil, automatización y sistemas de tracción donde se requiere control de velocidad y dirección más que de posición angular fija. Gracias a su diseño robusto y eficiente, el servo 2065 360° es ideal para sistemas embebidos que demandan movimiento continuo, como robots seguidores de línea, plataformas móviles y mecanismos de accionamiento. Destaca por su alta precisión en el control de velocidad, rápida respuesta y una excelente relación peso-potencia, permitiendo así su integración en diseños ligeros y eficientes. Su motor de núcleo con rodamientos de bolas proporciona un funcionamiento suave y duradero, mientras que el amplio rango de voltaje soportado le otorga flexibilidad para diferentes sistemas de control.
 
+<table>
+  <tr>
+    <td align="center" width="300" >
+      <img src="./images/injora.jpg" alt="injora.jpg" >
+    </td>
+    <td>
+      <h3>**Especificaciones del Servo INJS2065 360°**:</h3>
+      <ul>
+        <li>**Tipo**: Servo de rotación continua, digital</li>
+        <li>**Banda muerta**: 2 μs</li>
+        <li>**Señal de control**: PWM (500-2500 μs, 330 Hz)</li>
+        <li>**Motor**: Motor de núcleo</li>
+        <li>**Rango de voltaje**: 4.8V - 8.4V</li>
+        <li>**Velocidad de operación (6.0V)**: 0.09 s/60° (aprox. 110 rpm)</li>
+        <li>**Velocidad de operación (8.4V)**: 0.06 s/60° (aprox. 150 rpm)</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
 [![IMG-1126-1200x1200.jpg](https://i.postimg.cc/52JgQgQr/IMG-1126-1200x1200.jpg)](https://postimg.cc/bs6kKQT0)
 
 | :wrench: **Especificaciones del Servo INJS2065 360°** |                                                    |
