@@ -43,8 +43,7 @@
 
 [![IMG-20250611-WA0013.jpg](https://i.postimg.cc/KvM5HgKW/IMG-20250611-WA0013.jpg)](https://postimg.cc/rKqWdsNG)
 
-Somos **[Team ValGrind]**, entusiastas de la robótica y la innovación. Representamos a nuestra institución en la fase Nacionalq1ñq
-qq de la **WRO 2025**.
+Somos **[Team ValGrind]**, entusiastas de la robótica y la innovación. Representamos a nuestra institución en las fases Regionales de la **WRO 2026**.
 
 ---
 
@@ -82,7 +81,7 @@ qq de la **WRO 2025**.
 
 - **Institución:** [Colegio Salto Ángel](https://www.instagram.com/colegiosaltoangel)
 - **Instagram Oficial:** [@team_valgrind](https://instagram.com/team_valgrind)
-- **Contáctanos:** [valgrind2025@gmail.com](mailto:valgrind2025@gmail.com)
+- **Contáctanos:** [valgrind2025@gmail.com](mailto:valgrind2026@gmail.com)
 - **Youtube:**
 [Team ValGrind](https://youtube.com/@teamvalgrind?si=ZJbz7CX9eOX75H2U)
 
