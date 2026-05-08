@@ -378,7 +378,7 @@ Dos palabras clave: `Velocidad` y `Torque`. Al aumentar la reducción, la veloci
 
 4.  **Tornillos, Tuercas de Seguridad y Arandelas (M2 y M3)**
 
-[![71jo-Lr4ep-SL-AC-UF894-1000-QL80.jpg](https://i.postimg.cc/Hk0rnwfq/71jo-Lr4ep-SL-AC-UF894-1000-QL80.jpg)](https://postimg.cc/cvHx5n1h)
+<img src="./images/tornillos.jpg" alt="Tornillos m2 y m3" width=300>
 
  ##### Ya sean M2 o M3, son piezas imprescindibles para la mecanica de nuestro robot, debido a la fijacion de piezas pequeñas, estabilización de componentes, y la garantía de seguridad que otorgan con respecto al uso prolongado del robot ya sea en practicas o en la competición.
  ##### Se decidió tomar la decisión de tener tornillos M2 y M3 de forma simultánea para velar por la eficiencia del espacio, para permitir compatibilidad con los componentes más pequeños, y al mismo tiempo para garantizar que los tornillos resistan y permitan estabilidad en el robot.
