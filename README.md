@@ -37,6 +37,8 @@
     - [5. Recursos para armar nuestro robot](#recursos-para-hacer-el-robot)
     - [6. Licencia](#licencia)
 
+---
+
 ## Estructura del Repositorio
 - [t-photos/](https://github.com/Samu4035/REDMACHINE-2025/tree/main/t-photos) - Team photos
 - [v-photos/](https://github.com/Samu4035/REDMACHINE-2025/tree/main/v-photos) - Vehicle photos
