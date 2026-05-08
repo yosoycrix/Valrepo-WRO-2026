@@ -17,6 +17,7 @@
       - [2.4 Videos del Robot](#videos-del-robot)
       - [2.5 Sistema de Movimiento y Traccion](#sistema-de-movimiento-y-traccion)
       - [2.6 Piezas de Mecanica](#piezas-de-mecanica)
+      - [2.7 Calculo de la Reduccion Total](#calculo-de-la-reduccion-total)
   - [3. Apartado Electronico](#apartado-electronico)
     - [3.1 Piezas de Electronica](#piezas-de-electronica)
        - [3.1.1 Baterias](#baterias)
