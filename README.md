@@ -404,7 +404,29 @@ Para el proyecto, decidimos usar;
 
 #### **Baterias**
 
-[![61ke-U06-D5v-L-UF1000-1000-QL80-FMwebp.webp](https://i.postimg.cc/G902qrBx/61ke-U06-D5v-L-UF1000-1000-QL80-FMwebp.webp)](https://postimg.cc/K3Nx86D1)
+<table>
+  <tr>
+    <td align="center" width="450" >
+      <img src="./images/bateria.webp" alt="bateria.webp" >
+    </td>
+    <td>
+      <h3>:battery: Especificaciones</h3>
+      <ul>
+      <li>Voltaje: 12 Voltios</li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
 ##### Diseñadas para potenciar el rendimiento en competiciones de robótica como la WRO, las baterías Tenergy NiMH de 12 V y 2000 mAh ofrecen dos ventajas críticas: su ausencia de efecto memoria garantiza máxima capacidad en cada uso tras recargas frecuentes (ideal para sesiones de prueba extensas), y su formato compacto (1.969x1.142x2.835 pulgadas) con cables desnudos facilita la integración en espacios reducidos de robots. Con carga rápida ≤1A y larga vida útil, son una solución fiable para  cuando necesitemos usarlas por un tiempo prolongado, ya sea en la propia competición o en pruebas.
 
