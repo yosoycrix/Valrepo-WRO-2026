@@ -413,16 +413,16 @@ Para el proyecto, decidimos usar;
       <h3>:battery: Especificaciones</h3>
       <ul>
       <li>Voltaje: 12 Voltios</li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
+      <li>Amperaje: 2 Amperios</li>
+      <li>Reutilización: Recargable</li>
+      <li>Peso de la batería: 225 Gramos</li>
+      <li>Dimensiones del producto: 2,13 x 2,91 x 1,22 pulgadas</li>
+      <li>Fabricante: Tenergy</li>
+      <li>Opinión media de los clientes: 4.5 de 5 estrellas (748 opiniones)</li>
+      <li>Producto en amazon.com desde: marzo 10, 2018</li>
+      <li>Descatalogado por el fabricante: No </li>
+      <li>UPC: 844949030014</li>
+      <li>Número de modelo del producto: 19676</li>
       </ul>
     </td>
   </tr>
@@ -432,26 +432,6 @@ Para el proyecto, decidimos usar;
 
 > [!TIP]
 > Para maximizar rendimiento y seguridad en robots**, cargue siempre estas baterías con un cargador compatible NiMH (como el Tenergy 6V-12V) a ≤1A para evitar sobrecalentamiento y prolongar su vida útil (~500 ciclos). Durante competiciones WRO, monitoree la temperatura (detenga si supera 45°C) y verifique el voltaje post-uso (>10.8V ideal); evite descargas profundas (<0.9V/celda) recargando tras 3-4 sesiones. Almacénelas con 40-60% de carga en ambiente fresco (15-25°C), realice mantenimiento cada 4 semanas si no se usan, y en robots proteja el pack contra golpes con aislante anti-vibración. 
-
-| Característica                         | Detalle                                   |
-|-----------------------------------------|-------------------------------------------|
-| Dimensiones del producto                | 2,13 x 2,91 x 1,22 pulgadas               |
-| ASIN                                    | B077Y9HNTF                                |
-| Número de modelo del producto           | 19676                                     |
-| Pilas                                   | 10 12V (Tipo de pila necesaria)           |
-| Opinión media de los clientes           | 4.5 de 5 estrellas (748 opiniones)        |
-| Clasificación en los más vendidos       | nº108,878 en Salud y Hogar                |
-|                                         | nº250 en Pilas 12 V                       |
-| Descatalogado por el fabricante         | No                                        |
-| Producto en amazon.com desde            | marzo 10, 2018                            |
-| Voltaje                                 | 12 Voltios                                |
-| Reutilización                           | Recargable                                |
-| Peso de la batería                      | 225 Gramos                                |
-| Dimensiones del artículo LxWxH          | 2,13 x 2,91 x 1,22 pulgadas               |
-| Peso del artículo                       | 255 Gramos                                |
-| Amperaje                                | 1 Amperios                                |
-| UPC                                     | 844949030014                              |
-| Fabricante                              | Tenergy                                   |
 
 
 ### **Step Down**
