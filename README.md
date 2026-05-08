@@ -36,6 +36,14 @@
        - [4.2.2 Explicación del Código](#explicación-del-código-1)
     - [5. Recursos para armar nuestro robot](#recursos-para-hacer-el-robot)
     - [6. Licencia](#licencia)
+
+## Estructura del Repositorio
+- [t-photos/](https://github.com/Samu4035/REDMACHINE-2025/tree/main/t-photos) - Team photos
+- [v-photos/](https://github.com/Samu4035/REDMACHINE-2025/tree/main/v-photos) - Vehicle photos
+- [schemes/](https://github.com/Samu4035/REDMACHINE-2025/tree/main/schemes) - Eschematic diagrams
+- [src/](https://github.com/Samu4035/REDMACHINE-2025/tree/main/src) - Code
+- [models/](https://github.com/Samu4035/REDMACHINE-2025/tree/main/models) - 3D Designs
+- [otros/](https://github.com/Samu4035/REDMACHINE-2025/tree/main/otros) - Other archives
       
 ---
 
