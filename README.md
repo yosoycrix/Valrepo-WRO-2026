@@ -368,8 +368,7 @@ Dando un total de 521 rpm las cuales se transmiten directamente a los ejes de tr
 
 Dos palabras clave: `Velocidad` y `Torque`. Al aumentar la reducción, la velocidad de salida disminuye, permitiendo un control más preciso del robot, y paralelamente  La reducción aumenta el torque disponible en las ruedas, lo que mejora la capacidad de mover el robot o superar obstáculos.
 
-### Razones para elegir este motor y sistema de r
-educción
+### Razones para elegir este motor y sistema de reducción
 
 - **Versatilidad y control:** El motor de 12V es estándar y confiable. La reducción interna más la reducción por engranajes externos se adapta perfectamente a las necesidades del robot.
 - **Adaptabilidad:** Cambiando los engranajes externos se puede ajustar fácilmente la velocidad y el torque final.
