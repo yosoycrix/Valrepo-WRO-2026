@@ -288,15 +288,15 @@ El servo INJS2065 360° es un micro servo digital compacto, de alto par y rotaci
       <img src="./images/injora.jpg" alt="injora.jpg" >
     </td>
     <td>
-      <h3>**Especificaciones del Servo INJS2065 360°**:</h3>
+      <h3>:wrench: Especificaciones del Servo INJS2065 360°:</h3>
       <ul>
-        <li>**Tipo**: Servo de rotación continua, digital</li>
-        <li>**Banda muerta**: 2 μs</li>
-        <li>**Señal de control**: PWM (500-2500 μs, 330 Hz)</li>
-        <li>**Motor**: Motor de núcleo</li>
-        <li>**Rango de voltaje**: 4.8V - 8.4V</li>
-        <li>**Velocidad de operación (6.0V)**: 0.09 s/60° (aprox. 110 rpm)</li>
-        <li>**Velocidad de operación (8.4V)**: 0.06 s/60° (aprox. 150 rpm)</li>
+        <li>Tipo: Servo de rotación continua, digital</li>
+        <li>Banda muerta: 2 μs</li>
+        <li>Señal de control: PWM (500-2500 μs, 330 Hz)</li>
+        <li>Motor: Motor de núcleo</li>
+        <li>Rango de voltaje: 4.8V - 8.4V</li>
+        <li>Velocidad de operación (6.0V): 0.09 s/60° (aprox. 110 rpm)</li>
+        <li>Velocidad de operación (8.4V): 0.06 s/60° (aprox. 150 rpm)</li>
         <li></li>
         <li></li>
         <li></li>
