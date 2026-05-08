@@ -294,7 +294,7 @@ El servo INJS2065 360° es un micro servo digital compacto, de alto par y rotaci
 
 <table>
   <tr>
-    <td align="center" width="400" >
+    <td align="center" width="450" >
       <img src="./images/injora.jpg" alt="injora.jpg" >
     </td>
     <td>
