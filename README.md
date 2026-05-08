@@ -436,6 +436,61 @@ Para el proyecto, decidimos usar;
 
 ### **Step Down**
 
+<table>
+  <tr>
+    <!-- Columna de la Foto (Abarca todas las filas de la tabla) -->
+    <td rowspan="9" width="350px" align="center" style="vertical-align: middle;">
+      <img src="injora.jpg" alt="Componente" width="100%">
+      <br>
+      <p><b>Visualización del Componente</b></p>
+    </td>
+    <!-- Encabezados de la Tabla -->
+    <th>Parámetro</th>
+    <th>Valor/Descripción</th>
+    <th>Puntos Relevantes</th>
+  </tr>
+  <tr>
+    <td><b>Rango de entrada</b></td>
+    <td>3.2–40 V DC</td>
+    <td>Compatible con baterías LiPo (7.4V), Pb-ácido (12V), o paneles solares.</td>
+  </tr>
+  <tr>
+    <td><b>Rango de salida</b></td>
+    <td>1.25–37 V DC ajustable</td>
+    <td>Ideal para microcontroladores (5V), sensores (3.3V) o motores (6–12V).</td>
+  </tr>
+  <tr>
+    <td><b>Corriente máxima</b></td>
+    <td>3 A (pico), 2 A continuo sin disipador</td>
+    <td>Suficiente para servomotores, drivers de motores, o sistemas de control.</td>
+  </tr>
+  <tr>
+    <td><b>Eficiencia</b></td>
+    <td>Hasta 92% , ≈73% @3A</td>
+    <td>Reduce pérdidas térmicas vs. reguladores lineales, crucial en sesiones largas.</td>
+  </tr>
+  <tr>
+    <td><b>Frecuencia</b></td>
+    <td>150 kHz</td>
+    <td>Permite usar componentes magnéticos pequeños (compacto).</td>
+  </tr>
+  <tr>
+    <td><b>Temperatura operativa</b></td>
+    <td>-40°C a +85°C</td>
+    <td>Funciona en entornos extremos (competiciones exteriores).</td>
+  </tr>
+  <tr>
+    <td><b>Dimensiones</b></td>
+    <td>45×20×14 mm (estándar)</td>
+    <td>Fácil integración en espacios reducidos de robots.</td>
+  </tr>
+  <tr>
+    <td><b>Protecciones</b></td>
+    <td>Limitación de corriente</td>
+    <td>Previene daños por cortocircuitos en cables o motores.</td>
+  </tr>
+</table>
+
 [![images-20.jpg](https://i.postimg.cc/j2fgHz4h/images-20.jpg)](https://postimg.cc/RJML9J83)
 
 
