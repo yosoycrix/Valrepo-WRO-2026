@@ -26,7 +26,7 @@
        - [3.1.4 Ultrasonico](#sensor-de-ultrasonido)
        - [3.1.5 Giroscopio](#giroscopio)
        - [3.1.6 Modulo SD](#modulo-de-micro-sd)
-       - [3.1. PixyCam](#pixycam)
+       - [3.1.7 PixyCam](#pixycam)
     - [3.2 Microcontrolador](#microcontrolador)
        - [3.2.1 ESP32](#esp32)
        - [3.2.2 Diagrama de Conexiones](#diagrama-de-conexiones)
@@ -885,7 +885,84 @@ Usa un circuito **puente H (H-bridge)** interno:
 <br>
 <hr>
 
-#### PixyCam
+### **PixyCam**
+
+<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
+  <tr style="background-color: rgba(255, 255, 255, 0.05);">
+    <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
+      <img src="./images/pixy.jpg" alt="Pixy2 CMUcam5" width="100%">
+    </td>
+    <td style="padding: 20px; border: 1px solid #444; vertical-align: top;">
+      <h4 style="margin-top: 0;">⚡ Especificaciones Técnicas</h4>
+      <ul>
+        <li><b>Librería utilizada:</b> Pixy2SPI_SS.h</li>
+        <li><b>Sensor:</b> Sony IMX322 (1/4") con captura de 60 FPS.</li>
+        <li><b>Resolución:</b> 1296x976 (RAW), 400x296 (Procesada).</li>
+        <li><b>Consumo de corriente:</b> 140 mA @ 5V (máximo).</li>
+        <li><b>Interfaces:</b> SPI (Bus VSPI), UART, I2C, USB, GPIO.</li>
+        <li><b>Latencia:</b> < 3 ms por objeto detectado.</li>
+        <li><b>Pin Chip Select (CS):</b> GPIO 5.</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+<p style="margin-top: 15px;">
+  La <b>Pixy2</b> es el "ojo" de nuestro robot y constituye una cámara de visión artificial diseñada para robots que requieren detección rápida y fiable de objetos, colores y códigos de barras. Junto con su software <b>PixyMon</b>, forma un ecosistema accesible que resulta ideal para la detección de los bloques del desafío cerrado. A diferencia de las soluciones basadas en cámaras genéricas, la Pixy2 procesa imágenes <b>onboard</b> con algoritmos optimizados, liberando al procesador principal (ESP32) de tareas intensivas y permitiendo que <b>Heimdall</b> tome decisiones en milisegundos basadas en el color y la posición de los obstáculos. Además, su enfoque en "aprender por demostración" simplifica el entrenamiento del robot sin necesidad de programación compleja.
+</p>
+
+
+
+<p><b>¿Por qué decidimos usar esta camara?:</b></p>
+
+<ul>
+  <li><b>Gestión de Firmas con Pixy2SPI_SS:</b> Mediante la librería <code>Pixy2SPI_SS.h</code>, accedemos a la estructura <code>pixy.ccc.getBlocks()</code>. En nuestro código, la <b>Firma 1</b> detecta bloques verdes y la <b>Firma 2</b> bloques rojos, permitiendo diferenciar la dirección de esquiva necesaria.</li>
+  <li><b>Filtrado por Tamaño (Umbrales):</b> Implementamos umbrales específicos para evitar detecciones lejanas o falsos positivos: <code>920</code> para verde y <code>820</code> para rojo. Solo cuando el bloque es lo suficientemente grande, el robot inicia la maniobra de evasión.</li>
+  <li><b>Control de Iluminación:</b> El sistema activa los LEDs integrados mediante la función <code>pixy.setLamp(1, 1)</code> para asegurar una detección estable sin importar las variaciones de luz ambiental en la pista.</li>
+  <li><b>Prioridad de Bus SPI:</b> El código gestiona estrictamente el pin <code>PIXY_CS</code> para evitar conflictos con el bus de la tarjeta SD, garantizando que los datos de visión tengan prioridad durante la navegación activa.</li>
+</ul>
+
+<p><b>Lógica de Posicionamiento:</b></p>
+<p>
+  Dividimos el campo visual en tres sectores (Izquierda, Centro, Derecha) comparando la coordenada <code>m_x</code> del bloque con el <code>UMBRAL_CENTRO_PIXY (15)</code>. Esto permite que el robot sepa no solo qué color ve, sino exactamente dónde está el obstáculo para decidir si debe realizar una <b>esquiva preventiva</b> o una <b>maniobra de evasión completa</b>.
+</p>
+
+<p><b>Conexión de Pines (Bus VSPI):</b></p>
+
+<table width="100%" style="border: 1px solid #444; border-collapse: collapse;">
+  <thead style="background-color: rgba(255, 255, 255, 0.1);">
+    <tr>
+      <th style="padding: 10px; border: 1px solid #444;">Pin Pixy2</th>
+      <th style="padding: 10px; border: 1px solid #444;">Pin ESP32 (VSPI)</th>
+      <th style="padding: 10px; border: 1px solid #444;">Función</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>CS</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 5</td>
+      <td style="padding: 10px; border: 1px solid #444;">Selección de dispositivo para SPI.</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>MOSI</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 23</td>
+      <td style="padding: 10px; border: 1px solid #444;">Transmisión de comandos.</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>MISO</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 19</td>
+      <td style="padding: 10px; border: 1px solid #444;">Recepción de datos de bloques.</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>SCK</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 18</td>
+      <td style="padding: 10px; border: 1px solid #444;">Reloj de sincronización SPI.</td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<hr>
 
 [![D-NQ-NP-783616-MLV52840552796-122022-O.webp](https://i.postimg.cc/cHHvF0mV/D-NQ-NP-783616-MLV52840552796-122022-O.webp)](https://postimg.cc/p9wVTN3Z)
 
