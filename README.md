@@ -564,7 +564,7 @@ El LM2596 sigue una topología **buck clásica** con cuatro componentes clave:
       <img src="./images/puenteh.jpg" alt="Puente H L298N" width="100%">
     </td>
     <td style="vertical-align: top; padding-left: 20px;">
-      <h3>⚡ Especificaciones Técnicas</h3>
+      <h3>⚡ Especificaciones</h3>
       <ul>
         <li>Chip de control: L298N (Doble Puente H)</li>
         <li>Voltaje de operación (Motores): 5V a 35V DC</li>
@@ -893,7 +893,7 @@ Usa un circuito **puente H (H-bridge)** interno:
       <img src="./images/pixy.jpg" alt="Pixy2 CMUcam5" width="100%">
     </td>
     <td style="padding: 20px; border: 1px solid #444; vertical-align: top;">
-      <h4 style="margin-top: 0;">⚡ Especificaciones Técnicas</h4>
+      <h4 style="margin-top: 0;">⚡ Especificaciones</h4>
       <ul>
         <li><b>Librería utilizada:</b> Pixy2SPI_SS.h</li>
         <li><b>Sensor:</b> Sony IMX322 (1/4") con captura de 60 FPS.</li>
@@ -969,7 +969,7 @@ Usa un circuito **puente H (H-bridge)** interno:
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <tr style="background-color: rgba(255, 255, 255, 0.05);">
     <td align="center" style="padding: 20px; border: 1px solid #444;">
-      <img src="deteccionpixy.jpg" alt="Entrenamiento en PixyMon" width="80%" style="border-radius: 5px; border: 1px solid #666;">
+      <img src="./images/deteccionpixy.jpg" alt="Entrenamiento en PixyMon" width="80%" style="border-radius: 5px; border: 1px solid #666;">
       <p><i>Interfaz de PixyMon v2 durante el entrenamiento de firmas de color.</i></p>
     </td>
   </tr>
