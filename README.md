@@ -515,7 +515,30 @@ El LM2596 sigue una topología **buck clásica** con cuatro componentes clave:
 
 #### Motor Driver
 
-[![AR0203-L298n-v3.jpg](https://i.postimg.cc/KzGxcjTW/AR0203-L298n-v3.jpg)](https://postimg.cc/Jy29P1P3)
+<table>
+  <tr>
+    <td width="350px" align="center" style="vertical-align: middle;">
+      <img src="./images/puenteh.jpg" alt="Puente H L298N" width="100%">
+    </td>
+    <td style="vertical-align: top; padding-left: 20px;">
+      <h3>⚡ Especificaciones Técnicas</h3>
+      <ul>
+        <li>Chip de control: L298N (Doble Puente H)</li>
+        <li>Voltaje de operación (Motores): 5V a 35V DC</li>
+        <li>Corriente máxima (Pico): 2 Amperios por canal</li>
+        <li>Corriente continua: 1.2 Amperios por canal</li>
+        <li>Voltaje lógico: 5V DC</li>
+        <li>Corriente lógica: 0mA - 36mA</li>
+        <li>Potencia máxima: 25 Watts</li>
+        <li>Modo de control: PWM (Modulación por ancho de pulsos)</li>
+        <li>Temperatura operativa: -20°C a +135°C</li>
+        <li>Dimensiones: 43 x 43 x 27 mm</li>
+        <li>Peso: 30 Gramos aprox.</li>
+        <li>Extras: Regulador 78M05 integrado y diodos de protección</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
 Es un **controlador de motores de doble puente H (dual H-bridge)** encapsulado en un circuito integrado. Su función principal es actuar como un "intermediario de potencia" entre dispositivos de control de baja potencia (como Arduino) y motores de alta potencia (como tu motor DC 12V).
 
