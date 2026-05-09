@@ -333,48 +333,69 @@ En el caso particular del robot Heimdall, originalmente se consideró una transm
 
 2. ### **INJORA 7KG 2065 Digital Micro Servo 360°**
 
-El servo INJS2065 360° es un micro servo digital compacto, de alto par y rotación continua, especialmente orientado a aplicaciones de robótica móvil, automatización y sistemas de tracción donde se requiere control de velocidad y dirección más que de posición angular fija. Gracias a su diseño robusto y eficiente, el servo 2065 360° es ideal para sistemas embebidos que demandan movimiento continuo, como robots seguidores de línea, plataformas móviles y mecanismos de accionamiento. Destaca por su alta precisión en el control de velocidad, rápida respuesta y una excelente relación peso-potencia, permitiendo así su integración en diseños ligeros y eficientes. Su motor de núcleo con rodamientos de bolas proporciona un funcionamiento suave y duradero, mientras que el amplio rango de voltaje soportado le otorga flexibilidad para diferentes sistemas de control.
-
-<table>
-  <tr>
-    <td align="center" width="450" >
-      <img src="./images/injora.jpg" alt="injora.jpg" >
+<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
+  <tr style="background-color: rgba(255, 255, 255, 0.05);">
+    <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
+      <img src="./images/injora.jpg" alt="Injora 7KG 2065" width="100%">
     </td>
-    <td>
-      <h3>:wrench: Especificaciones del Servo INJS2065 360°</h3>
+    <td style="padding: 20px; border: 1px solid #444; vertical-align: top;">
+      <h4 style="margin-top: 0;">⚡ Especificaciones</h4>
       <ul>
-        <li>Tipo: Servo de rotación continua, digital</li>
-        <li>Banda muerta: 2 μs</li>
-        <li>Señal de control: PWM (500-2500 μs, 330 Hz)</li>
-        <li>Motor: Motor de núcleo</li>
-        <li>Rango de voltaje: 4.8V - 8.4V</li>
-        <li>Velocidad de operación (6.0V): 0.09 s/60° (aprox. 110 rpm)</li>
-        <li>Velocidad de operación (8.4V): 0.06 s/60° (aprox. 150 rpm)</li>
-        <li>Torque de retención (6.0V): 6.0 kg·cm / 83.3 oz·in</li>
-        <li>Torque de retención (8.4V: 7.0 kg·cm / 97.2 oz·in</li>
-        <li>Dimensiones: 23 × 13 × 25.8 mm</li>
-        <li>Peso: 20 g</li>
-        <li>Longitud del cable conector: JR 300 mm</li>
-        <li>Rodamientos: 1BB</li>
-        <li>Peso con empaque: 28 g</li>
-        <li>Tamaño del paquete: 36 × 23 × 38 mm</li>
-        <li>Modo de control: Velocidad y dirección según ancho de pulso PWM</li>
-        <li>Posición neutra (detenido): ~1500 μs</li>
-        <li>Giro horario: PWM > 1500 μs (más ancho, más rápido)</li>
-        <li>Giro antihorario: PWM < 1500 μs (más estrecho, más rápido)</li>
+        <li><b>Tipo:</b> Servo digital de alta precisión.</li>
+        <li><b>Banda muerta:</b> 2 µs.</li>
+        <li><b>Señal de control:</b> PWM (500-2500 µs, 330 Hz).</li>
+        <li><b>Torque de retención (8.4V):</b> 7.0 kg-cm / 97.2 oz-in.</li>
+        <li><b>Velocidad (8.4V):</b> 0.06 s/60° (aprox. 150 rpm).</li>
+        <li><b>Rodamientos:</b> 1BB (Bolas de acero).</li>
+        <li><b>Engranajes:</b> Metálicos para alta durabilidad.</li>
       </ul>
     </td>
   </tr>
 </table>
-          
----
 
-| :wrench: **Herramientas requeridas**            |                                                            |
-|:------------------------------------------------|:----------------------------------------------------------:|
-| 1 × Destornillador hexagonal 1.5 mm             |                                                            |
-| 1 × Destornillador hexagonal 2.0 mm             |                                                            |
+<p style="margin-top: 15px;">
+  El servo <b>Injora 2065</b> es un micro servo digital de alto par, diseñado para aplicaciones que demandan movimientos precisos y una respuesta rápida. En <b>Heimdall</b>, este componente es el encargado de ejecutar el sistema de dirección delantera, permitiendo que el robot realice maniobras de esquiva milimétricas gracias a su excelente relación peso-potencia.
+</p>
 
----
+
+
+<p><b>Configuración de Software en Heimdall:</b></p>
+<p>
+  Utilizamos la librería <code>ESP32Servo.h</code> para gestionar la señal PWM en el <b>GPIO 2</b>. Hemos calibrado los límites físicos del mecanismo de dirección para evitar bloqueos mecánicos y optimizar el radio de giro:
+</p>
+
+<ul>
+  <li><b>Ángulo Central:</b> 98° (Alineación neutra para línea recta).</li>
+  <li><b>Rango Máximo (Derecha):</b> 128°.</li>
+  <li><b>Rango Mínimo (Izquierda):</b> 68°.</li>
+  <li><b>Ángulo de Esquiva:</b> 25° (Giro primario) y 20° (Giro secundario) para maniobras rápidas.</li>
+</ul>
+
+<p><b>Ventajas en Competencia:</b></p>
+<ul>
+  <li><b>Respuesta Dinámica:</b> Su motor de núcleo permite cambios de dirección instantáneos, esenciales cuando la cámara Pixy2 detecta un bloque a alta velocidad.</li>
+  <li><b>Soporte de Voltaje:</b> Al soportar hasta 8.4V, podemos alimentarlo directamente desde el sistema de potencia para maximizar su torque y velocidad.</li>
+  <li><b>Maniobras Preventivas:</b> Gracias a su precisión, implementamos ángulos de 20° para las esquivas preventivas, logrando trayectorias más fluidas y evitando colisiones accidentales.</li>
+</ul>
+
+<table style="border: 1px solid #444; border-collapse: collapse;">
+  <thead style="background-color: rgba(255, 255, 255, 0.1);">
+    <tr>
+      <th style="padding: 10px; border: 1px solid #444;">🛠️ Herramientas Requeridas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;">1 × Destornillador hexagonal 1.5 mm</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;">1 × Destornillador hexagonal 2.0 mm</td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<hr>
 
 3. ### Motor DC 12V Greartisan zga37irg9i
 
