@@ -641,7 +641,7 @@ Usa un circuito **puente H (H-bridge)** interno:
         <li><b>Frecuencia acústica:</b> 40 kHz</li>
         <li><b>Unidades en Heimdall:</b> 3 (Ecosistema de detección periférica)</li>
         <li><b>Librería de control:</b> NewPing (Gestión de triggers no bloqueantes)</li>
-        <li><b>Rango de medición:</b> 2cm a 400cm</li>
+        <li><b>Rango de medición:</b> 1cm 357cm</li>
         <li><b>Precisión de resolución:</b> 0.3 cm</li>
         <li><b>Ángulo de detección:</b> < 15°</li>
         <li><b>Protocolo:</b> Pulso TTL de activación (10µs) y respuesta proporcional</li>
