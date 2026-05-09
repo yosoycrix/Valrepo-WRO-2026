@@ -24,7 +24,7 @@
        - [3.1.2 Step Down](#step-down)
        - [3.1.3 Motor Driver](#motor-driver)
        - [3.1.4 Ultrasonico](#sensor-de-ultrasonido)
-       - [3.1.5 Giroscopio](#giroscopio-(mpu050))
+       - [3.1.5 Giroscopio](#giroscopio-(mpu6050))
        - [3.1. PixyCam](#pixycam)
     - [3.2 Microcontrolador](#microcontrolador)
        - [3.2.1 ESP32](#esp32)
@@ -752,7 +752,7 @@ Usa un circuito **puente H (H-bridge)** interno:
 > [!WARNING]
 > - En caso de usar la SD verificar que se halla guardado correctamente el archivo con los datos de calibracion en caso que esto no pase el robot tiene como prioridad volver a calibrarse lo cual te puede quitar segundos importantes a la hora de la competencia.
 > - En caso de que la SD falle y no suba el archivo, el robot volvera a reecalibrarse aunque suele ocurrir muy periodicamente esta la probabilidad.
-> - En casos como los dos primeros se recomienda cambiar el tiempo de calibracion ya despues de calibrarlo previamente en la pista en la ronda de practica para que en caso de que la SD falle no gastar 10 segundos y usar menos (cabe mencionar que si el archivo no se guardo y se calibra en las rondas guardar ese nuevo archivo con los datos de calibracion en caso de que la SD funcione si no funciona se calibrar a la hora den girar cada vez que termine de esquivar los bloques
+> - En casos como los dos primeros se recomienda cambiar el tiempo de calibracion ya despues de calibrarlo previamente en la pista en la ronda de practica para que en caso de que la SD falle no gastar 10 segundos y usar menos (cabe mencionar que si el archivo no se guardo y se calibra en las rondas guardar ese nuevo archivo con los datos de calibracion en caso de que la SD funcione si no funciona se calibrar a la hora den girar cada vez que termine de esquivar los bloques).
 
 ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
 
