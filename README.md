@@ -61,6 +61,53 @@ Somos **[Team ValGrind]**, entusiastas de la robótica y la innovación. Represe
 
 ### Integrantes
 
+<table>
+  <tr>
+    <!-- Foto de Perfil -->
+    <td width="280px" align="center" style="border: none;">
+      <img src="./images/salina.jpg" width="100%" style="border-radius: 15px;">
+    </td>
+    <!-- Información del Integrante -->
+    <td style="border: none; padding-left: 20px; vertical-align: top;">
+      <h2>Sebastián Salina</h2>
+      <p><b>🎂 Edad:</b> 17 años (22/08/2008)</p>
+      <p><b>🎖️ Rol:</b> Capitán / Mecánico del equipo</p>
+      <hr>
+      <p><b>🛠️ Habilidades:</b></p>
+      <ul>
+        <li>Estudiante de ing Mecatronica</li>
+        <li>Diseño de piezas en 3D (CAD).</li>
+        <li>Tecnico en impresión 3D.</li>
+        <li>Mantenimiento y ensamblaje mecánico.</li>
+      </ul>
+      <p><b>✨ Fun Fact:</b> <i>Una vez imprimió un Pokémon gigante de filamento para Cristóbal.</i></p>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <!-- Foto de Perfil -->
+    <td width="280px" align="center" style="border: none;">
+      <img src="https://i.postimg.cc/43XVFVRw/IMG-20250607-043532.jpg" width="100%" style="border-radius: 15px;">
+    </td>
+    <!-- Información del Integrante -->
+    <td style="border: none; padding-left: 20px; vertical-align: top;">
+      <h2>Cristobal Mogollón</h2>
+      <p><b>🎂 Edad:</b> 15 años (14/07/2010)</p>
+      <p><b>🎖️ Rol:</b> Programador / Documentador</p>
+      <hr>
+      <p><b>💻 Habilidades:</b></p>
+      <ul>
+        <li>Programación en C++ y Arduino IDE.</li>
+        <li>Manejo de la electrónica y sensores.</li>
+        <li>Dominio con Git y GitHub.</li>
+      </ul>
+      <p><b>✨ Fun Fact:</b> <i>Una vez le pidió a Sebastián imprimir un Pokémon gigante de filamento.</i></p>
+    </td>
+  </tr>
+</table>
+
 - **Samuel Burgos**  
   17 años, 09/01/2008
 
