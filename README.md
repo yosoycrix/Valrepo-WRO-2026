@@ -24,7 +24,8 @@
        - [3.1.2 Step Down](#step-down)
        - [3.1.3 Motor Driver](#motor-driver)
        - [3.1.4 Ultrasonico](#sensor-de-ultrasonido)
-       - [3.1.5 PixyCam](#pixycam)
+       - [3.1.5 Giroscopio](#giroscopio-(mpu050))
+       - [3.1. PixyCam](#pixycam)
     - [3.2 Microcontrolador](#microcontrolador)
        - [3.2.1 ESP32](#esp32)
        - [3.2.2 Diagrama de Conexiones](#diagrama-de-conexiones)
@@ -76,7 +77,7 @@ Somos **[Team ValGrind]**, entusiastas de la robótica y la innovación. Represe
       <hr>
       <p><b>🛠️ Habilidades:</b></p>
       <ul>
-        <li>Estudiante de ing Mecatronica</li>
+        <li>Estudiante de ing Mecatronica.</li>
         <li>Diseño de piezas en 3D (CAD).</li>
         <li>Tecnico en impresión 3D.</li>
         <li>Mantenimiento y ensamblaje mecánico.</li>
@@ -705,6 +706,100 @@ Usa un circuito **puente H (H-bridge)** interno:
     </tr>
   </tbody>
 </table>
+<br>
+<hr>
+
+### **Giroscopio (MPU6050)**
+
+<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
+  <tr style="background-color: rgba(255, 255, 255, 0.05);">
+    <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
+      <img src="./images/giroscopio.jpg" alt="MPU6050 Sensor" width="100%">
+    </td>
+    <td style="padding: 20px; border: 1px solid #444; vertical-align: top;">
+      <h4 style="margin-top: 0;">⚡ Especificaciones</h4>
+      <ul>
+        <li><b>Sensor:</b> MEMS de 3 ejes (Giroscopio + Acelerómetro)</li>
+        <li><b>Librería de control:</b> MPU6050_light.h</li>
+        <li><b>Rango del Giroscopio:</b> ±250, ±500, ±1000, ±2000 °/s</li>
+        <li><b>Precisión del convertidor ADC:</b> 16 bits</li>
+        <li><b>Protocolo de comunicación:</b> I2C (Wire.h)</li>
+        <li><b>Frecuencia de actualización:</b> Hasta 400 kHz</li>
+        <li><b>Voltaje de operación:</b> 3.3V - 5V</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+<p style="margin-top: 15px;">
+  El <b>MPU6050</b> es la brújula inercial de nuestro robot. Su función principal es medir la orientación en el eje Z (yaw), permitiendo que el robot mantenga trayectorias perfectamente rectas y ejecute giros con precisión milimétrica mediante un sistema de control de lazo cerrado.
+</p>
+
+
+<p><b>¿Por qué decidimos usar este sensor y la librería MPU6050_light?</b></p>
+
+<ul>
+  <li><b>Calibración Precisa:</b> Utilizamos la librería <b>MPU6050_light.h</b> porque automatiza el cálculo de <i>offsets</i> de una manera extremadamente precisa, eliminando gran parte del "drift" (deriva) natural del sensor.</li>
+  <li><b>Facilidad de Implementación:</b> Es un sensor muy común en robótica competitiva, lo que facilita encontrar repuestos rápidamente si es necesario. Si se sabe configurar correctamente, ofrece una estabilidad comparable a sensores industriales de mayor costo.</li>
+  <li><b>Integración con PID:</b> Los datos del giroscopio alimentan nuestro algoritmo PID, permitiendo correcciones de dirección automáticas en tiempo real para contrarrestar irregularidades en la pista o desajustes mecánicos.</li>
+</ul>
+ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
+
+> [!TIP]
+> - Se recomienda calibrar cada cierto tiempo para mantener la precision de los datos del sensor ya que la pierde aproximadamente en 1 minuto despues de su uso.
+> - Para evitar recalibrarlo en pista optamos por el uso de un modulo SD donde en las rondas de practica el robot Heimdall se calibra por unos 10 segundos lo que son alrededor de 1000 lecturas y guarda estos datos en la SD  para despues de esquivar los bloques y girar subir la calibracion directo desde la SD lo cual toma menos de 1 segundo, asi evitando volver a recalibrarlo por 10 segundos y ahorrando segundos de alta importancia.
+
+> [!WARNING]
+> - En caso de usar la SD verificar que se halla guardado correctamente el archivo con los datos de calibracion en caso que esto no pase el robot tiene como prioridad volver a calibrarse lo cual te puede quitar segundos importantes a la hora de la competencia.
+> - En caso de que la SD falle y no suba el archivo, el robot volvera a reecalibrarse aunque suele ocurrir muy periodicamente esta la probabilidad.
+> - En casos como los dos primeros se recomienda cambiar el tiempo de calibracion ya despues de calibrarlo previamente en la pista en la ronda de practica para que en caso de que la SD falle no gastar 10 segundos y usar menos (cabe mencionar que si el archivo no se guardo y se calibra en las rondas guardar ese nuevo archivo con los datos de calibracion en caso de que la SD funcione si no funciona se calibrar a la hora den girar cada vez que termine de esquivar los bloques
+
+ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
+
+<p><b>Gestión Avanzada en el Desafío Cerrado:</b></p>
+
+<p>Dada la importancia de la orientación en el desafío cerrado de la WRO, implementamos un sistema robusto de gestión de datos inerciales:</p>
+
+<ul>
+  <li><b>Persistencia en SD:</b> Para evitar calibraciones manuales antes de cada ronda, el sistema guarda los parámetros de calibración precisa en una tarjeta SD, permitiendo que el robot inicie su funcionamiento de forma inmediata y estable.</li>
+  <li><b>Compensación Dinámica:</b> El código incluye una lógica de verificación que detecta errores críticos de orientación (mayores a 45°), ejecutando un reinicio físico del sensor si es necesario para garantizar la integridad de la navegación.</li>
+  <li><b>Dead-Band Control:</b> Implementamos una "banda muerta" de 3° para evitar que pequeñas vibraciones o ruidos del sensor generen correcciones innecesarias en el servo, logrando un movimiento más fluido.</li>
+</ul>
+
+<p><b>Pines y Conexiones (I2C):</b></p>
+
+<table width="100%" style="border: 1px solid #444; border-collapse: collapse;">
+  <thead style="background-color: rgba(255, 255, 255, 0.1);">
+    <tr>
+      <th style="padding: 10px; border: 1px solid #444;">Pin MPU6050</th>
+      <th style="padding: 10px; border: 1px solid #444;">Pin ESP32</th>
+      <th style="padding: 10px; border: 1px solid #444;">Descripción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>VCC</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">3.3V</td>
+      <td style="padding: 10px; border: 1px solid #444;">Alimentación del sensor.</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>GND</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GND</td>
+      <td style="padding: 10px; border: 1px solid #444;">Tierra común.</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>SCL</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 22</td>
+      <td style="padding: 10px; border: 1px solid #444;">Reloj de la comunicación I2C.</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>SDA</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 21</td>
+      <td style="padding: 10px; border: 1px solid #444;">Datos de la comunicación I2C.</td>
+    </tr>
+  </tbody>
+</table>
+
 <br>
 <hr>
 
