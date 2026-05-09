@@ -705,11 +705,9 @@ Usa un circuito **puente H (H-bridge)** interno:
     </tr>
   </tbody>
 </table>
-
 <br>
 <hr>
 
----
 
 #### PixyCam
 
