@@ -830,10 +830,10 @@ Usa un circuito **puente H (H-bridge)** interno:
 </p>
 
 > [!WARNING]
-> - Al usar el modulo SD asegurate de no estar ocupando los pines de comunicacion SPI
+> - Al usar el modulo SD asegurate de no estar ocupando los pines de comunicacion SPI.
 
 > [!TIP]
-> - En caso de tener los pines SPI ocupados (como es nuestro caso que estan siendo usados por la pixy) puedes optar por usar comunicacion HSPI la cual si se configura de manera correcta no interferira con lo que tengas en los pines SPI
+> - En caso de tener los pines SPI ocupados (como es nuestro caso que estan siendo usados por la pixy) puedes optar por usar comunicacion HSPI la cual si se configura de manera correcta no interferira con lo que tengas en los pines SPI.
 
 <p><b>¿Por qué decidimos usar este módulo?:</b></p>
 
@@ -911,7 +911,12 @@ Usa un circuito **puente H (H-bridge)** interno:
   La <b>Pixy2</b> es el "ojo" de nuestro robot y constituye una cámara de visión artificial diseñada para robots que requieren detección rápida y fiable de objetos, colores y códigos de barras. Junto con su software <b>PixyMon</b>, forma un ecosistema accesible que resulta ideal para la detección de los bloques del desafío cerrado. A diferencia de las soluciones basadas en cámaras genéricas, la Pixy2 procesa imágenes <b>onboard</b> con algoritmos optimizados, liberando al procesador principal (ESP32) de tareas intensivas y permitiendo que <b>Heimdall</b> tome decisiones en milisegundos basadas en el color y la posición de los obstáculos. Además, su enfoque en "aprender por demostración" simplifica el entrenamiento del robot sin necesidad de programación compleja.
 </p>
 
+> [!TIP]
+> - En las rondas de practica asegurate de volver a calibrar los colores para ahorrarte problemas futuros.
+> - Asegurate de configurar bien la pixy, me refiero a ajustar brilo, encender luces y demas para evitar que los cambios de luz te afecten.
 
+> [!WARNING]
+> - Aveces por mas de que hayas configurado bien la camara si no vuelves a calibrar los colores en ronda de practica puede llegar a tener problemas y no detectar bien el color de los bloques.
 
 <p><b>¿Por qué decidimos usar esta camara?:</b></p>
 
@@ -921,6 +926,53 @@ Usa un circuito **puente H (H-bridge)** interno:
   <li><b>Control de Iluminación:</b> El sistema activa los LEDs integrados mediante la función <code>pixy.setLamp(1, 1)</code> para asegurar una detección estable sin importar las variaciones de luz ambiental en la pista.</li>
   <li><b>Prioridad de Bus SPI:</b> El código gestiona estrictamente el pin <code>PIXY_CS</code> para evitar conflictos con el bus de la tarjeta SD, garantizando que los datos de visión tengan prioridad durante la navegación activa.</li>
 </ul>
+
+<pb><b>¿Por qué Pixy2SPI.h?:</b></p>
+
+<p>
+  La decisión entre usar <b>Pixy2SPI.h</b> (comunicación SPI) o <b>Pixy2.h</b> (comunicación I2C) fue un reto técnico que enfrentamos al inicio del proyecto. En nuestra experiencia, podemos declarar que el protocolo SPI transmite datos de forma más rápida y estable, lo que resulta fundamental para recibir las <i>signatures</i> y datos de procesamiento apenas la Pixy los procese.
+</p>
+
+<table width="100%" style="border: 1px solid #444; border-collapse: collapse; margin: 20px 0;">
+  <thead>
+    <tr style="background-color: rgba(88, 166, 255, 0.1);">
+      <th style="padding: 10px; border: 1px solid #444; text-align: left;">Parámetro</th>
+      <th style="padding: 10px; border: 1px solid #444; text-align: left;">Pixy2SPI.h (SPI)</th>
+      <th style="padding: 10px; border: 1px solid #444; text-align: left;">Pixy2.h (I2C)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Velocidad Máxima</b></td>
+      <td style="padding: 10px; border: 1px solid #444;"><b>10 Mbps</b> (Alta velocidad)</td>
+      <td style="padding: 10px; border: 1px solid #444;">400 kHz - 1 MHz (Limitado)</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Tipo de Enlace</b></td>
+      <td style="padding: 10px; border: 1px solid #444;">Full-Duplex (Simultáneo)</td>
+      <td style="padding: 10px; border: 1px solid #444;">Half-Duplex</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Estabilidad</b></td>
+      <td style="padding: 10px; border: 1px solid #444;">Inmune a interferencia de motores</td>
+      <td style="padding: 10px; border: 1px solid #444;">Sensible al ruido eléctrico</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!WARNING]
+> ☑️ **Elige SPI si:** Necesitas máxima velocidad (ej: seguimiento de objetos rápidos, FPS alto).
+> 
+> ☑️ **Elige SPI si:** Trabajas en entornos eléctricamente ruidosos como un robot de la WRO.
+
+<p><b>Otras razones por las cuales el protocolo SPI nos resultó favorable en Heimdall:</b></p>
+<ul>
+  <li><b>Inmunidad al ruido:</b> Menos susceptible gracias a señales de reloj dedicadas y conexiones punto a punto.</li>
+  <li><b>Entorno Competitivo:</b> Ideal para la WRO donde los motores generan interferencias electromagnéticas constantes.</li>
+  <li><b>Simplificación de Hardware:</b> No requiere resistencias <i>pull-up</i> adicionales, simplificando el diseño del bus.</li>
+  <li><b>Sincronización:</b> Al usar un reloj (SCK) dedicado, el ESP32 recibe los datos en el instante exacto en que la cámara los genera.</li>
+</ul>
+<br>
 
 <p><b>Lógica de Posicionamiento:</b></p>
 <p>
@@ -1034,40 +1086,6 @@ La librería NewPing simplifica y optimiza el uso de sensores ultrasónicos como
 5 **`SPI.h` (Comunicación SPI en Arduino):**
     La librería SPI.h facilita la comunicación rápida y síncrona entre Arduino (como maestro) y dispositivos periféricos mediante el protocolo Serial Peripheral Interface (SPI). Se inicializa con SPI.begin(), y permite enviar y recibir datos simultáneamente con SPI.transfer(). Es ideal para conectar sensores, memorias, pantallas, y otros módulos que requieren alta velocidad y comunicación full-duplex en distancias cortas. SPI maneja automáticamente las señales de reloj, selección de esclavos (SS), y líneas de datos (MOSI y MISO), simplificando la gestión del bus. Además, ofrece funciones para configurar la velocidad, orden de bits y modo de reloj, adaptándose a distintos dispositivos y aplicaciones industriales o robóticas.
 
-### ¿Por qué Pixy2SPI.h?
-
- La decisión entre usar **`Pixy2SPI.h`** (comunicación SPI) o **`Pixy2.h`** (comunicación I2C) fue un problema con el que nos encontramos apenas comenzamos a utilizar la PixyCam™. En nuestra experiencia, podemos declarar que el protocolo de comunicación SPI transmite datos de forma más rápida que mediante I²C, y por tanto creemos que vale la pena el elegir Pixy2SPI para poder recibir `signatures`
-y datos apenas la pixy los procese
-
-### **1. Rendimiento y Velocidad**  
-- **`Pixy2SPI.h` (SPI)**:  
-  - **Velocidad máxima**: Hasta **10 Mbps** (dependiendo del microcontrolador).  
-  - **Ventaja**: Ideal para aplicaciones que requieren **alta velocidad** (ej: robots en competiciones, procesamiento en tiempo real).  
-  - SPI es **full-duplex**, permitiendo transmisión y recepción simultáneas.  
-
-- **`Pixy2.h` (I2C)**:  
-  - **Velocidad máxima**: Típicamente **400 kHz** (modo estándar) o **1 MHz** (modo rápido).  
-  - **Limitación**: Puede causar cuellos de botella si se transfieren muchos bloques/objetos por fotograma.  
-
-> [!WARNING] 
-> ☑️ **Elige SPI si:** Necesitas máxima velocidad (ej: seguimiento de objetos rápidos, FPS alto).
-> 
-> ☑️**Elige SPI si:** Trabajas en entornos eléctricamente ruidosos (un robot de la WRO)
-
----
-
-#### Otras razones por las cuales el protocolo SPI nos resultó favorable en testeo y ejecución de la PixyCam en pista:
-
-##### **SPI**:  
-  - **Menos susceptible a ruido** gracias a señales de reloj dedicadas y conexiones punto a punto.  
-  - Ideal para entornos con motores o fuentes de interferencia (ej: competiciones **FIRST Robotics**).  
-
-##### **I2C**:  
-  - Más sensible al ruido debido a su diseño multi-dispositivo en 2 cables.  
-  - Puede requerir pull-up resistors adicionales para evitar fallos.  
-
-
----
 
 ### Diagrama de Conexiones
 
