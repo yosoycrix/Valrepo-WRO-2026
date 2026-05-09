@@ -25,6 +25,7 @@
        - [3.1.3 Motor Driver](#motor-driver)
        - [3.1.4 Ultrasonico](#sensor-de-ultrasonido)
        - [3.1.5 Giroscopio](#giroscopio)
+       - [3.1.6 Modulo SD](#modulo-de-sd)
        - [3.1. PixyCam](#pixycam)
     - [3.2 Microcontrolador](#microcontrolador)
        - [3.2.1 ESP32](#esp32)
@@ -636,7 +637,7 @@ Usa un circuito **puente H (H-bridge)** interno:
     </td>
     <!-- Cuadro de Especificaciones -->
     <td style="padding: 20px; border: 1px solid #444; vertical-align: top;">
-      <h4 style="margin-top: 0;">⚡ Especificaciones Técnicas</h4>
+      <h4 style="margin-top: 0;">⚡ Especificaciones</h4>
       <ul>
         <li><b>Voltaje de operación:</b> 5V DC</li>
         <li><b>Frecuencia acústica:</b> 40 kHz</li>
@@ -743,7 +744,6 @@ Usa un circuito **puente H (H-bridge)** interno:
   <li><b>Facilidad de Implementación:</b> Es un sensor muy común en robótica competitiva, lo que facilita encontrar repuestos rápidamente si es necesario. Si se sabe configurar correctamente, ofrece una estabilidad comparable a sensores industriales de mayor costo.</li>
   <li><b>Integración con PID:</b> Los datos del giroscopio alimentan nuestro algoritmo PID, permitiendo correcciones de dirección automáticas en tiempo real para contrarrestar irregularidades en la pista o desajustes mecánicos.</li>
 </ul>
-ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
 
 > [!TIP]
 > - Se recomienda calibrar cada cierto tiempo para mantener la precision de los datos del sensor ya que la pierde aproximadamente en 1 minuto despues de su uso.
@@ -753,8 +753,6 @@ Usa un circuito **puente H (H-bridge)** interno:
 > - En caso de usar la SD verificar que se halla guardado correctamente el archivo con los datos de calibracion en caso que esto no pase el robot tiene como prioridad volver a calibrarse lo cual te puede quitar segundos importantes a la hora de la competencia.
 > - En caso de que la SD falle y no suba el archivo, el robot volvera a reecalibrarse aunque suele ocurrir muy periodicamente esta la probabilidad.
 > - En casos como los dos primeros se recomienda cambiar el tiempo de calibracion ya despues de calibrarlo previamente en la pista en la ronda de practica para que en caso de que la SD falle no gastar 10 segundos y usar menos (cabe mencionar que si el archivo no se guardo y se calibra en las rondas guardar ese nuevo archivo con los datos de calibracion en caso de que la SD funcione si no funciona se calibrar a la hora den girar cada vez que termine de esquivar los bloques).
-
-ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
 
 <p><b>Gestión Avanzada en el Desafío Cerrado:</b></p>
 
@@ -803,6 +801,89 @@ Usa un circuito **puente H (H-bridge)** interno:
 <br>
 <hr>
 
+### **Modulo de Micro SD**
+
+<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
+  <tr style="background-color: rgba(255, 255, 255, 0.05);">
+    <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
+      <img src="./images/sd.webp" alt="Micro SD Module" width="100%">
+    </td>
+    <td style="padding: 20px; border: 1px solid #444; vertical-align: top;">
+      <h4 style="margin-top: 0;">⚡ Especificaciones</h4>
+      <ul>
+        <li><b>Librería utilizada:</b> SD.h</li>
+        <li><b>Consumo de corriente:</b> 80mA - 100mA (Durante lectura/escritura)</li>
+        <li><b>Voltaje de operación:</b> 3.3V / 5V (Con regulador integrado)</li>
+        <li><b>Interfaz de comunicación:</b> SPI (Bus HSPI en nuestro ESP32)</li>
+        <li><b>Frecuencia de trabajo:</b> 1MHz / 500kHz para máxima estabilidad</li>
+        <li><b>Formato de archivos:</b> FAT16 / FAT32</li>
+        <li><b>Pin Chip Select (CS):</b> GPIO 4</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+
+
+<p style="margin-top: 15px;">
+  El <b>Módulo Micro SD</b> funciona como la memoria persistente de <b>Heimdall</b>. Su implementación mediante la librería <code>SD.h</code> es vital para el éxito en el desafío cerrado, ya que permite almacenar datos críticos que no se borran al reiniciar el robot.
+</p>
+
+> [!WARNING]
+> - Al usar el modulo SD asegurate de no estar ocupando los pines de comunicacion SPI
+
+> [!TIP]
+> - En caso de tener los pines SPI ocupados (como es nuestro caso que estan siendo usados por la pixy) puedes optar por usar comunicacion HSPI la cual si se configura de manera correcta no interferira con lo que tengas en los pines SPI
+
+<p><b>¿Por qué decidimos usar este módulo?:</b></p>
+
+<ul>
+  <li><b>Optimización del Tiempo de Inicio:</b> Calibrar el giroscopio con precisión mediante <code>MPU6050_light.h</code> toma una cantidad considerable de tiempo (aproximadamente 10 segundos en nuestro código) y requiere que el robot esté totalmente inmóvil. En competencia, repetir esto antes de cada ronda consume tiempo valioso y aumenta el riesgo de errores por vibraciones externas. Al usar la SD, facilitamos este proceso guardando los datos una sola vez.</li>
+  <li><b>Persistencia y Carga Inmediata:</b> Al utilizar la tarjeta SD, guardamos los resultados de una calibración óptima en el archivo <code>calibracion.txt</code>. Esto permite que, al encender el robot, este cargue los <i>offsets</i> almacenados y esté listo para navegar de forma inmediata con una precisión del 100%, sin esperas en la línea de salida.</li>
+  <li><b>Gestión de Errores y Diagnóstico:</b> El módulo permite verificar si el sistema se inició correctamente y ejecutar funciones como <code>borrarCalibracionCorrupta()</code>, la cual verifica la integridad de los datos guardados antes de usarlos, garantizando que el robot nunca use parámetros de navegación erróneos.</li>
+</ul>
+
+<p><b>Configuración de Hardware (Bus HSPI):</b></p>
+<p>
+  Para evitar interferencias con la Pixy2, separamos los dispositivos utilizando el bus <b>HSPI</b> exclusivamente para la tarjeta SD (pines GPIO 32, 33 y 39), alternando estrictamente los pines Chip Select para eliminar interferencias en las lecturas de visión y escritura.
+</p>
+
+<p><b>Conexión de Pines:</b></p>
+
+<table width="100%" style="border: 1px solid #444; border-collapse: collapse;">
+  <thead style="background-color: rgba(255, 255, 255, 0.1);">
+    <tr>
+      <th style="padding: 10px; border: 1px solid #444;">Pin del Módulo</th>
+      <th style="padding: 10px; border: 1px solid #444;">Pin ESP32 (HSPI)</th>
+      <th style="padding: 10px; border: 1px solid #444;">Función</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>CS</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 4</td>
+      <td style="padding: 10px; border: 1px solid #444;">Selección del dispositivo.</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>MOSI</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 32</td>
+      <td style="padding: 10px; border: 1px solid #444;">Salida de datos desde el ESP32.</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>MISO</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 39</td>
+      <td style="padding: 10px; border: 1px solid #444;">Entrada de datos hacia el ESP32.</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>SCK</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 33</td>
+      <td style="padding: 10px; border: 1px solid #444;">Reloj de sincronización.</td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<hr>
 
 #### PixyCam
 
