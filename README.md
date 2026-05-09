@@ -89,7 +89,7 @@ Somos **[Team ValGrind]**, entusiastas de la robótica y la innovación. Represe
   <tr>
     <!-- Foto de Perfil -->
     <td width="280px" align="center" style="border: none;">
-      <img src="https://i.postimg.cc/43XVFVRw/IMG-20250607-043532.jpg" width="100%" style="border-radius: 15px;">
+      <img src="./images/Cristobal.jpg" width="100%" style="border-radius: 15px;">
     </td>
     <!-- Información del Integrante -->
     <td style="border: none; padding-left: 20px; vertical-align: top;">
@@ -108,35 +108,28 @@ Somos **[Team ValGrind]**, entusiastas de la robótica y la innovación. Represe
   </tr>
 </table>
 
-- **Samuel Burgos**  
-  17 años, 09/01/2008
-
-  > **Rol:** : **Programador**  
-> *Especialista en Python. Domina GitHub y PyCharm además de algoritmos complejos*.
-> **Fun Fact:**  
-> *Su banda favorita es Foo Fighters* 
-
-
-[![IMG-20250607-044258.jpg](https://i.postimg.cc/Rh55QMjr/IMG-20250607-044258.jpg)](https://postimg.cc/BLgVJGSN)
-
-- **Sebastián Salina**  
-  17 años, 22/08/2008 
-
-  > **Rol:** **Capitán**
-> *Diseña piezas en 3D y además posee la capacidad de imprimir estos mismos al manejar una impresora 3D además de ser el mecánico del equipo*  
-> **Fun Fact:**  
-> *Una vez imprimió un Pokémon gigante de filamento para Cristobal* 
-
-[![IMG-20250607-043801.jpg](https://i.postimg.cc/Bns7Qb1y/IMG-20250607-043801.jpg)](https://postimg.cc/GH7xXcKJ)
-
-- **Cristobal Mogollón**
-   14 años, 14/07/2010
-    
-   > **Rol:**  **Programador**  
-> *Experto en C++, Arduino IDE, y el apartado Electrónico de nuestro robot*  
-> **Fun Fact:**  
-> *Una vez le pidió a Sebastián imprimir un Pokémon gigante de filamento*
- [![IMG-20250607-043532.jpg](https://i.postimg.cc/43XVFVRw/IMG-20250607-043532.jpg)](https://postimg.cc/WdfddD3J)
+<table>
+  <tr>
+    <!-- Foto de Perfil -->
+    <td width="280px" align="center" style="border: none;">
+      <img src="./images/Malaver.jpg" width="100%" style="border-radius: 15px;">
+    </td>
+    <!-- Información del Integrante -->
+    <td style="border: none; padding-left: 20px; vertical-align: top;">
+      <h2>Diego Malaver</h2>
+      <p><b>🎂 Edad:</b> 15 años (09/09/2010)</p>
+      <p><b>🎖️ Rol:</b> Mecanico / Electronico</p>
+      <hr>
+      <p><b>⚙️ Habilidades:</b></p>
+      <ul>
+        <li>Manejo de la Mecanica.</li>
+        <li>Manejo de la electrónica.</li>
+        <li>Dominio con Github.</li>
+      </ul>
+      <p><b>✨ Fun Fact:</b> <i>Le prestaron la camisa de Cristobal del equipo y le quedo apretada.</i></p>
+    </td>
+  </tr>
+</table>
 
 - **Institución:** [Colegio Salto Ángel](https://www.instagram.com/colegiosaltoangel)
 - **Instagram Oficial:** [@team_valgrind](https://instagram.com/team_valgrind)
