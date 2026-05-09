@@ -24,7 +24,7 @@
        - [3.1.2 Step Down](#step-down)
        - [3.1.3 Motor Driver](#motor-driver)
        - [3.1.4 Ultrasonico](#sensor-de-ultrasonido)
-       - [3.1.5 Giroscopio](#giroscopio-(mpu6050))
+       - [3.1.5 Giroscopio](#giroscopio)
        - [3.1. PixyCam](#pixycam)
     - [3.2 Microcontrolador](#microcontrolador)
        - [3.2.1 ESP32](#esp32)
@@ -709,7 +709,7 @@ Usa un circuito **puente H (H-bridge)** interno:
 <br>
 <hr>
 
-### **Giroscopio (MPU6050)**
+### **Giroscopio**
 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <tr style="background-color: rgba(255, 255, 255, 0.05);">
