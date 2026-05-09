@@ -972,7 +972,6 @@ Usa un circuito **puente H (H-bridge)** interno:
   <li><b>Simplificación de Hardware:</b> No requiere resistencias <i>pull-up</i> adicionales, simplificando el diseño del bus.</li>
   <li><b>Sincronización:</b> Al usar un reloj (SCK) dedicado, el ESP32 recibe los datos en el instante exacto en que la cámara los genera.</li>
 </ul>
-<br>
 
 <p><b>Lógica de Posicionamiento:</b></p>
 <p>
