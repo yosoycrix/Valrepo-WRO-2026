@@ -964,51 +964,55 @@ Usa un circuito **puente H (H-bridge)** interno:
 <br>
 <hr>
 
-[![D-NQ-NP-783616-MLV52840552796-122022-O.webp](https://i.postimg.cc/cHHvF0mV/D-NQ-NP-783616-MLV52840552796-122022-O.webp)](https://postimg.cc/p9wVTN3Z)
-
-La **Pixy2** es una cámara de visión artificial diseñada para robots que requieren detección rápida y fiable de objetos, colores y códigos de barras. Junto con su software **PixyMon**, forma un ecosistema accesible para principiantes y avanzados, ideal para la detección de los bloques del desafío cerrado. A diferencia de soluciones basadas en cámaras genéricas, Pixy2 procesa imágenes *onboard* con algoritmos optimizados, liberando al microcontrolador principal (Arduino, Raspberry Pi) de tareas intensivas. Su enfoque en **"aprender por demostración"** simplifica el entrenamiento sin necesidad de programación compleja.
-
----
-
-###  Cuadro de Datos Técnicos  
-| **Parámetro**             | **Pixy2 CMUcam5**                               | **Puntos Relevantes**                                                |     |
-| ------------------------- | ----------------------------------------------- | -------------------------------------------------------------------- | --- |
-| **Sensor**                | Sony IMX322 (1/4")                              | Captura 60 FPS en baja luz (torneos indoor/outdoor).                 |     |
-| **Resolución**            | 1296×976 (RAW), 400×296 (procesada)             | Balance óptimo entre detección y velocidad.                          |     |
-| **Detección**             | Colores (7 firmas), Líneas, Códigos QR, Objetos | Ideal para seguimiento de trayectorias, identificación de objetivos. |     |
-| **Interfaces**            | UART, SPI, I²C, USB, GPIO                       | Conexión directa a Arduino, Raspberry Pi, PLCs.                      |     |
-| **Latencia**              | <3 ms (por objeto)                              | Respuesta en tiempo real para robots ágiles.                         |     |
-| **Consumo**               | 140 mA @ 5V (máx.)                              | Alimentable desde puerto USB o fuente de robot.                      |     |
-| **Algoritmos integrados** | RANSAC, Vectorización                           | Detección precisa de líneas incluso con curvas o rupturas.           |     |
-| **Dimensiones/Weight**    | 40×40×13 mm / 26 g                              | Montaje en drones o mini-robots sin afectar movilidad.               |     |
-
----
-
 ###  Configuración para Entrenamiento de Detección de Colores
 
-[![Screenshot-2025-07-02-00-58-39-425-com-google-android-youtube-edit.jpg](https://i.postimg.cc/T3WFcqt9/Screenshot-2025-07-02-00-58-39-425-com-google-android-youtube-edit.jpg)](https://postimg.cc/mPBmLMfz) 
+<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
+  <tr style="background-color: rgba(255, 255, 255, 0.05);">
+    <td align="center" style="padding: 20px; border: 1px solid #444;">
+      <img src="deteccionpixy.jpg" alt="Entrenamiento en PixyMon" width="80%" style="border-radius: 5px; border: 1px solid #666;">
+      <p><i>Interfaz de PixyMon v2 durante el entrenamiento de firmas de color.</i></p>
+    </td>
+  </tr>
+</table>
 
-1. **Preparación del entorno**:  
-   - Iluminar el objeto uniformemente (evite sombras/reflejos).  
-   - Usar fondos contrastados (ej: objeto rojo sobre fondo blanco).  
+<br>
 
-2. **Captura de firmas (signatures)**:  
-   - Conecte Pixy2 vía USB y abrir PixyMon → Menú `Action` → `Set signature...`.  
-   - Presione el botón físico en Pixy2 o haga clic en `Detect objects` para capturar el color.  
-   - Ajuste la sensibilidad con el deslizador `Saturation` (alto para colores vivos, bajo para pasteles).  
+<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
+  <tr>
+    <td style="padding: 20px; vertical-align: top;">
+      <h4 style="margin-top: 0; color: #58a6ff;">1. Preparación del Entorno</h4>
+      <ul>
+        <li><b>Iluminación:</b> Se debe iluminar el objeto de manera uniforme para evitar sombras o reflejos que distorsionen la firma.</li>
+        <li><b>Contraste:</b> Utilizar fondos contrastados (ej: bloque rojo sobre superficie blanca) para facilitar la segmentación del color.</li>
+      </ul>
+      <h4 style="color: #58a6ff;">2. Captura de Firmas (Signatures)</h4>
+      <ul>
+        <li><b>Conexión:</b> Conectar la Pixy2 vía USB y abrir <b>PixyMon → Menú Action → Set Signature...</b></li>
+        <li><b>Selección:</b> Presionar el botón físico en la cámara o usar el ratón en PixyMon para seleccionar el área del bloque.</li>
+        <li><b>Saturación:</b> Ajustar el deslizador de saturación según la intensidad del color (alto para colores vivos).</li>
+      </ul>
+    </td>
+    <td style="padding: 20px; vertical-align: top; border-left: 1px solid #444;">
+      <h4 style="margin-top: 0; color: #58a6ff;">3. Afinación Avanzada (Expert Mode)</h4>
+      <ul>
+        <li><b>Rangos HSV:</b> Ajustar manualmente los rangos de Matiz (Hue), Saturación y Valor para reducir falsos positivos.</li>
+        <li><b>Color Codes:</b> Configurar firmas adyacentes para detectar combinaciones de colores específicas de la WRO.</li>
+      </ul>
+      <h4 style="color: #58a6ff;">4. Pruebas en Tiempo Real</h4>
+      <ul>
+        <li><b>Frame View:</b> Activar la vista de cuadros para verificar que los rectángulos de detección sigan al bloque sin parpadeos.</li>
+        <li><b>Min/Max Area:</b> Filtrar objetos por tamaño para ignorar ruidos visuales pequeños en el fondo de la pista.</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
-3. **Afinación avanzada**:  
-   - En `Expert mode`, defina rangos HSV (`Hue`, `Saturation`, `Value`) para reducir falsos positivos.  
-   - Use `Color codes` para crear códigos de barras con 2-3 colores (ej: logotipo de competencia WRO).  
+<br>
+<hr>
 
-4. **Pruebas en tiempo real**:  
-   - Active `Frame view` en PixyMon para ver detecciones superpuestas (objetos = rectángulos, líneas = vectores).  
-   - Ajuste `Min/max area` para filtrar objetos por tamaño (evitar ruido).
+### Microcontrolador
 
-  
-#### Microcontrolador
-
-##### ESP-32
+### ESP-32
 
 [![esp32-wroom-32e.jpg](https://i.postimg.cc/mDT9SXGN/esp32-wroom-32e.jpg)](https://postimg.cc/f3gkzvyJ)
 
