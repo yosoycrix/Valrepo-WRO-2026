@@ -23,7 +23,8 @@
        - [3.1.1 Baterias](#baterias)
        - [3.1.2 Step Down](#step-down)
        - [3.1.3 Motor Driver](#motor-driver)
-       - [3.1.4 PixyCam](#pixycam)
+       - [3.1.4 Ultrasonico](#sensor-de-ultrasonido)
+       - [3.1.5 PixyCam](#pixycam)
     - [3.2 Microcontrolador](#microcontrolador)
        - [3.2.1 ESP32](#esp32)
        - [3.2.2 Diagrama de Conexiones](#diagrama-de-conexiones)
@@ -442,7 +443,7 @@ Dos palabras clave: `Velocidad` y `Torque`. Al aumentar la reducción, la veloci
 #### _Piezas de Electronica_
 Para el proyecto, decidimos usar;
 
-#### **Baterias**
+### **Baterias**
 
 <table>
   <tr>
@@ -544,16 +545,16 @@ El LM2596 sigue una topología **buck clásica** con cuatro componentes clave:
 4. **Capacitor**: Filtra rizados (<50 mV ), crucial para microcontroladores sensibles al ruido.  
 
 > [!TIP]
->     - Usar disipador si la corriente supera 1.5A .  
->  - Monitorear temperatura con termómetro IR (>45°C indica riesgo) .  
-  - Mantener diferencia mínima de **1.5V entre entrada/salida** (ej: 7.4V entrada → 5V salida) .  
-  - Para motores, agregar un **fusible de 2–3A** en serie .    
-  - Usar cables AWG 18+ para corrientes >2A .  
-  - Evitar loops largos en entrada/salida para reducir rizado.  
+>  - Usar disipador si la corriente supera 1.5A.  
+>  - Monitorear temperatura con termómetro IR (>45°C indica riesgo).  
+>  - Mantener diferencia mínima de **1.5V entre entrada/salida** (ej: 7.4V entrada → 5V salida).  
+>  - Para motores, agregar un **fusible de 2–3A** en serie.    
+>  - Usar cables AWG 18+ para corrientes >2A.  
+>  - Evitar loops largos en entrada/salida para reducir rizado.  
 
 ---
 
-#### Motor Driver
+### **Motor Driver**
 
 <table>
   <tr>
@@ -624,6 +625,92 @@ Usa un circuito **puente H (H-bridge)** interno:
 
 ---
 
+### **Sensor de Ultrasonido**
+
+<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
+  <tr style="background-color: rgba(255, 255, 255, 0.05);">
+    <!-- Imagen del Sensor -->
+    <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
+      <img src="./images/ultrasonico.jpg" alt="HC-SR04" width="100%">
+    </td>
+    <!-- Cuadro de Especificaciones -->
+    <td style="padding: 20px; border: 1px solid #444; vertical-align: top;">
+      <h4 style="margin-top: 0;">⚡ Especificaciones Técnicas</h4>
+      <ul>
+        <li><b>Voltaje de operación:</b> 5V DC</li>
+        <li><b>Frecuencia acústica:</b> 40 kHz</li>
+        <li><b>Unidades en Heimdall:</b> 3 (Ecosistema de detección periférica)</li>
+        <li><b>Librería de control:</b> NewPing (Gestión de triggers no bloqueantes)</li>
+        <li><b>Rango de medición:</b> 2cm a 400cm</li>
+        <li><b>Precisión de resolución:</b> 0.3 cm</li>
+        <li><b>Ángulo de detección:</b> < 15°</li>
+        <li><b>Protocolo:</b> Pulso TTL de activación (10µs) y respuesta proporcional</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+<p style="margin-top: 15px;">
+  El <b>HC-SR04</b> es un sensor de telemetría acústica diseñado para medir distancias mediante la emisión de ondas ultrasónicas. A diferencia de los sensores ópticos que pueden fallar ante cambios de iluminación, el HC-SR04 procesa el "tiempo de vuelo" (Time of Flight) de una ráfaga sonora, permitiendo que <b>Heimdall</b> conozca su posición exacta respecto a los muros de la pista de forma fiable y constante.
+</p>
+
+> [!TIP]
+>  - En el codigo recomiendo usar un promedio de las 5 lecturas y que agarre las mas similares para evitar fallos.
+>  - Recomiendo el ignorar distancias como 357 por que puede dar falsos picos de lectura.   
+
+<p><b>Ventajas competitivas en la navegación del robot:</b></p>
+
+<ul>
+  <li><b>Detección de Obstáculos por Eco:</b> El sensor emite 8 ráfagas de 40 kHz que rebotan en los muros. Al calcular el tiempo que tarda el sonido en regresar, el robot puede "ver" a qué distancia se encuentra de las colisiones sin contacto físico.</li>
+  <li><b>Optimización con la libreria NewPing:</b> Implementamos esta librería para gestionar el ecosistema de 3 sensores de forma paralela. NewPing optimiza el ciclo de trabajo del ESP32, descartando ecos residuales y permitiendo una frecuencia de muestreo más alta..</li>
+  <li><b>Sustitución en Caliente:</b> Su arquitectura estandarizada permite un reemplazo modular inmediato. En una competencia de alto nivel, la capacidad de reparar el sistema de navegación en segundos ante un fallo eléctrico es una ventaja estratégica clave.</li>
+</ul>
+
+<p><b>Principio de Operación Técnica:</b></p>
+
+<p>Para obtener la distancia, el sistema realiza un proceso de cuatro etapas sincronizado por hardware y software:</p>
+
+<ul>
+  <li><b>Disparo (Trigger):</b> Se envía un pulso de 10 microsegundos para activar el transductor emisor.</li>
+  <li><b>Emisión:</b> El sensor genera automáticamente una ráfaga de ultrasonido inaudible.</li>
+  <li><b>Captura (Echo):</b> El receptor detecta la onda reflejada y pone el pin de Echo en nivel alto.</li>
+  <li><b>Cálculo Cinemático:</b> Basándonos en la velocidad del sonido (~340m/s), el código transforma el tiempo medido en una magnitud lineal (cm).</li>
+</ul>
+
+<p><b>Distribución de Pines en Heimdall:</b></p>
+
+<table width="100%" style="border: 1px solid #444; border-collapse: collapse;">
+  <thead style="background-color: rgba(255, 255, 255, 0.1);">
+    <tr>
+      <th style="padding: 10px; border: 1px solid #444;">Eje de Detección</th>
+      <th style="padding: 10px; border: 1px solid #444;">Pin Trigger</th>
+      <th style="padding: 10px; border: 1px solid #444;">Pin Echo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>Frontal:</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">13</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">12</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>Izquierdo:</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">14</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">27</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>Derecho:</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">26</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">25</td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<hr>
+
+---
+
 #### PixyCam
 
 [![D-NQ-NP-783616-MLV52840552796-122022-O.webp](https://i.postimg.cc/cHHvF0mV/D-NQ-NP-783616-MLV52840552796-122022-O.webp)](https://postimg.cc/p9wVTN3Z)
@@ -632,7 +719,7 @@ La **Pixy2** es una cámara de visión artificial diseñada para robots que requ
 
 ---
 
-### ** Cuadro de Datos Técnicos**  
+###  Cuadro de Datos Técnicos  
 | **Parámetro**             | **Pixy2 CMUcam5**                               | **Puntos Relevantes**                                                |     |
 | ------------------------- | ----------------------------------------------- | -------------------------------------------------------------------- | --- |
 | **Sensor**                | Sony IMX322 (1/4")                              | Captura 60 FPS en baja luz (torneos indoor/outdoor).                 |     |
@@ -665,8 +752,9 @@ La **Pixy2** es una cámara de visión artificial diseñada para robots que requ
 
 4. **Pruebas en tiempo real**:  
    - Active `Frame view` en PixyMon para ver detecciones superpuestas (objetos = rectángulos, líneas = vectores).  
-   - Ajuste `Min/max area` para filtrar objetos por tamaño (evitar ruido).   
+   - Ajuste `Min/max area` para filtrar objetos por tamaño (evitar ruido).
 
+  
 #### Microcontrolador
 
 ##### ESP-32
