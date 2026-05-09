@@ -28,7 +28,7 @@
        - [3.1.6 Modulo SD](#modulo-de-micro-sd)
        - [3.1.7 PixyCam](#pixycam)
     - [3.2 Microcontrolador](#microcontrolador)
-       - [3.2.1 ESP32](#esp32)
+       - [3.2.1 ESP32](#esp32-wroom-32)
        - [3.2.2 Diagrama de Conexiones](#diagrama-de-conexiones)
   - [4. Apartado de Programacion](#apartado-de-programacion)
      - [4.1.1 Desafio Abierto](#desafio-abierto)
@@ -1063,28 +1063,116 @@ Usa un circuito **puente H (H-bridge)** interno:
 
 ### Microcontrolador
 
-### ESP-32
+### **ESP32-WROOM-32**
 
-[![esp32-wroom-32e.jpg](https://i.postimg.cc/mDT9SXGN/esp32-wroom-32e.jpg)](https://postimg.cc/f3gkzvyJ)
+<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
+  <tr style="background-color: rgba(255, 255, 255, 0.05);">
+    <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
+      <img src="./images/esp32.jpg" alt="ESP32-WROOM-32 Module" width="100%">
+    </td>
+    <td style="padding: 20px; border: 1px solid #444; vertical-align: top;">
+      <h4 style="margin-top: 0;">⚡ Especificaciones del Módulo</h4>
+      <ul>
+        <li><b>Módulo:</b> ESP32-WROOM-32 (Integrado con chip ESP32-D0WDQ6).</li>
+        <li><b>CPU:</b> Dual-core Xtensa® 32-bit LX6 (hasta 240 MHz).</li>
+        <li><b>ROM/SRAM:</b> 448 KB ROM / 520 KB SRAM.</li>
+        <li><b>Flash Externa:</b> 4 MB integrados en el módulo.</li>
+        <li><b>Cristal Oscilador:</b> 40 MHz integrado.</li>
+        <li><b>Seguridad:</b> Aceleradores de hardware para AES, SHA-2, RSA y ECC.</li>
+        <li><b>Temperatura de operación:</b> -40°C a +85°C (Ideal para competencia).</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
-##### El **ESP32-WROOM** es un módulo todo-en-uno potente y económico basado en el chip ESP32, que integra un **procesador dual-core de hasta 240 MHz**, **Wi-Fi 802.11 b/g/n (2.4 GHz)**, y **Bluetooth (Clásico y BLE)**, junto con **4 MB de memoria flash SPI y 520 KB de RAM** en el mismo encapsulado, además de una antena PCB integrada; ofrece múltiples periféricos (GPIOs, ADC, DAC, UART, SPI, I2C, PWM, etc.), soporta modos de bajo consumo para baterías, y es ideal para proyectos de IoT, domótica, robótica o interfaces, siendo fácil de programar con Arduino IDE, ESP-IDF o MicroPython.
-##### Además del microcontrolador, también es necesario tener un buen entorno con las librerías necesarias para compilar y interpretar el código, y eventualmente crear un ecosistema óptimo para nuestro robot. Por esto, hemos decidido utilizar 4 librerías esenciales para lograr nuestro objetivo:
+<p style="margin-top: 15px;">
+  El <b>ESP32-WROOM-32</b> es un potente módulo MCU todo-en-uno que actúa como el cerebro central de <b>Heimdall</b>. Elegimos esta plataforma por su arquitectura de doble núcleo, que permite gestionar procesos multihilo: mientras un núcleo se encarga de la lógica de visión artificial, el otro procesa la lectura de sensores ultrasónicos y el control PID en tiempo real. Su versatilidad lo hace ideal para robótica móvil, permitiendo una programación eficiente mediante Arduino IDE.
+</p>
 
-1.  **`Wire.h` (Comunicación I²C):**  
-    Esencial para conectar sensores, pantallas (OLED) o memorias (EEPROM) que usen el bus I²C. Con `Wire.begin(SDA, SCL)` configuras los pines, luego usas `Wire.beginTransmission()`, `Wire.write()`, `Wire.read()` y `Wire.endTransmission()` para enviar/recibir datos. A partir de esta librería establecemos comunicación con el ESP-32.
+<p><b>Ventajas para nuestro robot Heimdall:</b></p>
 
-2.  **`NewPing` (Sensor de Distancia Ultrasónico):**
-La librería NewPing simplifica y optimiza el uso de sensores ultrasónicos como el HC-SR04. Se inicializa con NewPing sonar(TRIG, ECHO, MAX_DISTANCE), y métodos como sonar.ping_cm() devuelven la distancia en centímetros de forma rápida y precisa. Es ideal para proyectos que requieren detección de proximidad sin contacto, como evitar obstáculos en pistas, prevenir colisiones con paredes internas o externas, sistemas de estacionamiento, y robótica móvil. NewPing maneja automáticamente la generación y recepción de pulsos ultrasónicos, mejora la velocidad de medición y reduce errores gracias a funciones avanzadas como mediciones medianas y control de tiempo máximo de eco.
+<ul>
+  <li><b>Arquitectura Dual-Core:</b> Aprovechamos el procesamiento en paralelo para que el control PID del <code>MPU6050</code> no se vea interrumpido por la latencia de escritura en la <code>Tarjeta SD</code>.</li>
+  <li><b>Gestión de Buses SPI:</b> El WROOM-32 expone eficientemente los buses <b>VSPI</b> y <b>HSPI</b>, permitiendo que la Pixy2 y el módulo SD compartan el microcontrolador con transferencias de datos independientes.</li>
+  <li><b>Versatilidad PWM (LEDC):</b> La precisión del hardware nos permite controlar el servomotor en el <code>GPIO 2</code> con una resolución de 13 bits, garantizando giros suaves en las curvas del desafío.</li>
+</ul>
 
-3.  **`ESP32Servo.h` (Control de Servomotores):**  
-    Librería específica para manejar servos en el ESP32, ya que los timers PWM son distintos a Arduino. Con `servo.attach(PIN)` configuras y `servo.write(grados)` posicionas el servo (0°-180°). Crucial para manejar automatismos y conseguir movimiento angular preciso con motores de bajo torque.
+<p><b>Librerías Esenciales:</b></p>
+<p>
+  Para que el hardware opere a su máximo potencial, hemos establecido un ecosistema de software basado en librerías específicas que optimizan la comunicación y el control:
+</p>
 
-4.  **`PixySPI2.h` (Cámara Inteligente Pixy2):**  
-    Facilita la comunicación con la cámara Pixy2 (vía SPI) para visión artificial simple. Detecta objetos por color, formas (bloques) o líneas. Usas `pixy.init()` y `pixy.ccc.getBlocks()` para obtener datos. A partir de la pixy, podemos crear código que pueda identificar los bloques verdes, rojos, y el estacionamiento magenta para que actúe acorde y pueda realizar el desafío cerrado.
+<ul>
+  <li><b>Wire.h (Comunicación I²C):</b> Fundamental para establecer el bus de datos con el giroscopio MPU6050. Permite configurar los pines SDA/SCL y gestionar el intercambio de datos mediante el protocolo I²C.</li>
+  <li><b>NewPing:</b> Optimiza el uso de los 3 sensores ultrasónicos HC-SR04. Maneja automáticamente los pulsos y reduce errores de eco, permitiendo que el robot evite obstáculos y mantenga la distancia con las paredes de forma precisa.</li>
+  <li><b>ESP32Servo.h:</b> Crucial para el manejo del servomotor de dirección. Esta librería adapta los timers PWM específicos del ESP32 para lograr un movimiento angular exacto (0°-180°) en el eje delantero.</li>
+  <li><b>Pixy2SPI_SS.h / SPI.h:</b> Facilitan la comunicación rápida y síncrona con la cámara Pixy2. El protocolo SPI permite una transmisión <i>full-duplex</i> de alta velocidad (hasta 10 Mbps), necesaria para identificar bloques verdes, rojos y el estacionamiento magenta en milisegundos.</li>
+  <li><b>MPU6050_light.h:</b> Librería de alto rendimiento que utilizamos para simplificar la calibración y el filtrado de datos del giroscopio, garantizando una navegación estable.</li>
+  <li><b>SD.h:</b> Gestiona el almacenamiento persistente en el bus HSPI, permitiendo guardar y cargar los <i>offsets</i> de calibración para un inicio de competencia inmediato.</li>
+</ul>
 
-5 **`SPI.h` (Comunicación SPI en Arduino):**
-    La librería SPI.h facilita la comunicación rápida y síncrona entre Arduino (como maestro) y dispositivos periféricos mediante el protocolo Serial Peripheral Interface (SPI). Se inicializa con SPI.begin(), y permite enviar y recibir datos simultáneamente con SPI.transfer(). Es ideal para conectar sensores, memorias, pantallas, y otros módulos que requieren alta velocidad y comunicación full-duplex en distancias cortas. SPI maneja automáticamente las señales de reloj, selección de esclavos (SS), y líneas de datos (MOSI y MISO), simplificando la gestión del bus. Además, ofrece funciones para configurar la velocidad, orden de bits y modo de reloj, adaptándose a distintos dispositivos y aplicaciones industriales o robóticas.
+> [!WARNING]
+> ☑️ **Niveles Lógicos:** El módulo opera estrictamente a 3.3V. Todos los periféricos de 5V integrados en Heimdall pasan por una etapa de acondicionamiento de señal para proteger las entradas del WROOM-32.
 
+<p><b>Distribución de Pines en Heimdall (Pinout):</b></p>
+
+<table width="100%" style="border: 1px solid #444; border-collapse: collapse;">
+  <thead style="background-color: rgba(255, 255, 255, 0.1);">
+    <tr>
+      <th style="padding: 10px; border: 1px solid #444;">Categoría</th>
+      <th style="padding: 10px; border: 1px solid #444;">Componente</th>
+      <th style="padding: 10px; border: 1px solid #444;">Pines GPIO</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>Control</b></td>
+      <td style="padding: 10px; border: 1px solid #444;">Motor Tracción (IN1/IN2)</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">16, 17</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;">Servomotor Dirección</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">2</td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>Ultrasónicos</b></td>
+      <td style="padding: 10px; border: 1px solid #444;">Sensor Frontal (Trig: 12 / Echo: 13)</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">12, 13</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;">Sensor Izquierdo (Trig: 14 / Echo: 27)</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">14, 27</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;">Sensor Derecho (Trig: 25 / Echo: 26)</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">25, 26</td>
+    </tr>
+    <tr>
+      <td rowspan="2" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>Buses SPI</b></td>
+      <td style="padding: 10px; border: 1px solid #444;"><b>VSPI</b> (Pixy2: CS:5, MISO:19, MOSI:23, SCK:18)</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">5, 19, 23, 18</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;"><b>HSPI</b> (SD Card: CS:4, MISO:39, MOSI:32, SCK:33)</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">4, 39, 32, 33</td>
+    </tr>
+    <tr>
+      <td rowspan="2" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>I2C & Sistema</b></td>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Giroscopio MPU6050</b> (SDA: 21 / SCL: 22)</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">21, 22</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;">Botón de Inicio</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">15</td>
+    </tr>
+  </tbody>
+</table>
+
+> [!WARNING]
+> ☑️ **Aislamiento de Buses:** La separación física en el ESP32 del bus **VSPI** (Visión) y **HSPI** (Almacenamiento) es crítica para evitar latencias en el procesamiento de <i>signatures</i> de color durante la carrera.
+
+<br>
+<hr>
 
 ### Diagrama de Conexiones
 
