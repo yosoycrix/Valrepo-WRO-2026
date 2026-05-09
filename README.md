@@ -25,7 +25,7 @@
        - [3.1.3 Motor Driver](#motor-driver)
        - [3.1.4 Ultrasonico](#sensor-de-ultrasonido)
        - [3.1.5 Giroscopio](#giroscopio)
-       - [3.1.6 Modulo SD](#modulo-de-sd)
+       - [3.1.6 Modulo SD](#modulo-de-micro-sd)
        - [3.1. PixyCam](#pixycam)
     - [3.2 Microcontrolador](#microcontrolador)
        - [3.2.1 ESP32](#esp32)
