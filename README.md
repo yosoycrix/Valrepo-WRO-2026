@@ -142,7 +142,7 @@ Somos **[Team ValGrind]**, entusiastas de la robótica y la innovación. Represe
 
 ---
 
-### _Origenes_
+### Origenes
 
 El nombre de nuestro equipo fue decidido por los tres integrantes a partir de un clásico compilador de C++ llamado de la misma forma, el cual es representado por un logotipo de un dragón hecho con origami. El nombre "ValGrind" también hace referencia a la mitología nórdica debido a las legendarias Valquirias que habitan en este.
 
@@ -155,12 +155,12 @@ Este nombre no solo es un guiño a la mitología mencionada, sino que además co
 
 ---  
 
-### _Nuestro Objetivo_
+### Nuestro Objetivo
 
 [![Logo-wro.png](https://i.postimg.cc/85CCHB4G/Logo-wro.png)](https://postimg.cc/t1LyR68v)
 
 #### "Diseñar, Construir y Programar"
- Un robot autónomo capaz de superar los desafíos de la WRO 2025, utilizando innovación y trabajo en equipo para lograr un desempeño sobresaliente en la etapa regional y avanzar a la nacional. Para llegar a esto, hemos pasado los últimos meses diseñando, construyendo, armando y programando nuestro más nuevo proyecto "Heimdall"
+ Un robot autónomo capaz de superar los desafíos de la WRO 2026, utilizando innovación y trabajo en equipo para lograr un desempeño sobresaliente en la etapa regional y avanzar a la nacional. Para llegar a esto, hemos pasado los últimos meses diseñando, construyendo, armando y programando nuestro más nuevo proyecto "Heimdall"
 
  
 > [!NOTE]
@@ -172,11 +172,11 @@ Aún así, nuestro único objetivo no es solamente ganar, como un equipo unido t
 
 ---
 
-## _El Robot_
+## El Robot
 
 [![IMG-20250614-051714-898.jpg](https://i.postimg.cc/q7fZxFMX/IMG-20250614-051714-898.jpg)](https://postimg.cc/Yv33pbFh)
 
-### _Apartado Mecanico_
+### Apartado Mecanico
 
 | [![IMG-20250924-WA0009.jpg](https://i.postimg.cc/zfwFK98Y/IMG-20250924-WA0009.jpg)](https://postimg.cc/94M9jgDL) | [![IMG-20250924-WA0006.jpg](https://i.postimg.cc/Hxhcy2cC/IMG-20250924-WA0006.jpg)](https://postimg.cc/1nD3xDrW)| 
 | :--: | :--: | 
