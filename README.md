@@ -174,19 +174,42 @@ Aún así, nuestro único objetivo no es solamente ganar, como un equipo unido t
 
 ## El Robot
 
-[![IMG-20250614-051714-898.jpg](https://i.postimg.cc/q7fZxFMX/IMG-20250614-051714-898.jpg)](https://postimg.cc/Yv33pbFh)
+<table>
+  <tr>
+    <td align="center">
+      <b>Frontal</b><br>
+      <img src="./images/frontal.jpg" width="100%">
+    </td>
+    <td align="center">
+      <b>Posterior</b><br>
+      <img src="./images/atras.jpg" width="100%">
+    </td>
+    <td align="center">
+      <b>Lado Izquierdo</b><br>
+      <img src="./images/izquierda.jpg" width="100%">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <b>Lado Derecho</b><br>
+      <img src="./images/derecha.jpg" width="100%">
+    </td>
+  <td align="center">
+  <b>Superior</b><br>
+  <img src="./images/arriba.jpg" width="100%">
+</td>
+    <td align="center">
+      <b>Inferior</b><br>
+      <img src="./images/abajo.jpg" width="100%">
+    </td>
+  </tr>
+</table>
+
+---
 
 ### Apartado Mecanico
 
-| [![IMG-20250924-WA0009.jpg](https://i.postimg.cc/zfwFK98Y/IMG-20250924-WA0009.jpg)](https://postimg.cc/94M9jgDL) | [![IMG-20250924-WA0006.jpg](https://i.postimg.cc/Hxhcy2cC/IMG-20250924-WA0006.jpg)](https://postimg.cc/1nD3xDrW)| 
-| :--: | :--: | 
-| *Frontal* | *Posterior* |
-|[![IMG-20250924-WA0007.jpg](https://i.postimg.cc/g003LrS8/IMG-20250924-WA0007.jpg)](https://postimg.cc/PCBCBfk5) | [![IMG-20250924-WA0005.jpg](https://i.postimg.cc/KYKRyTpq/IMG-20250924-WA0005.jpg)](https://postimg.cc/d7Yq2hYr)| 
-| *Izquierda* | *Derecha* |
-|[![IMG-20250924-WA0013.jpg](https://i.postimg.cc/HsBxczfv/IMG-20250924-WA0013.jpg)](https://postimg.cc/dLZvg2QG)| [![IMG-20250924-WA0008.jpg](https://i.postimg.cc/mZSZJV2Z/IMG-20250924-WA0008.jpg)](https://postimg.cc/kDBdtQbL) |
-| *Superior* | *Inferior* |
-
-#### _Impresion 3D_
+#### Impresion 3D
 
 Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay que explicar nuestros métodos de Diseño e Impresión 3D, los cuales se llevaron a cabo mediante Fusion 360
 
