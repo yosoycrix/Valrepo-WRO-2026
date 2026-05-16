@@ -17,7 +17,7 @@
   - [2.4 Videos del Robot](#24-videos-del-robot)
   - [2.5 Sistema de Movimiento y Traccion](#25-sistema-de-movimiento-y-traccion)
   - [2.6 Piezas de Mecanica](#26-piezas-de-mecanica)
-    - [2.6.1 Diferenciales y Ejes de transmision](#261-diferenciales-y-ejes-de-transmision-118)
+    - [2.6.1 Diferencial y Eje de transmision](#261-diferenciales-y-ejes-de-transmision-impreso-en-3d)
     - [2.6.2 Servomotor](#262-servomotor-injora-180)
     - [2.6.3 Motor](#263-motor-hytech-ga37-520)
     - [2.6.4 Tornillos, Tuercas y Arandelas](#264-tornillos-tuercas-de-seguridad-y-arandelas-m2-y-m3)
@@ -335,7 +335,7 @@ El núcleo de la movilidad de nuestro robot reside en su **subsistema mecánico 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <tr style="background-color: rgba(255, 255, 255, 0.05);">
     <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
-      <img src="./images/difencial.jpg" alt="1" width="100%">
+      <img src="./images/diferencial.jpg" alt="1" width="100%">
     </td>
    <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
       <img src="./images/diferencialcompleto.jpg" alt="2" width="100%">
