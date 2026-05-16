@@ -59,7 +59,7 @@
 
 ## 1. Nuestro Equipo
 
-<img src="./images/equipovalgrind.jpg" alt="Team Photo" width=600>
+<img src="./images/equipovalgrind.jpg" alt="Team Photo" width=100%>
 
 Somos **[Team ValGrind]**, entusiastas de la robótica y la innovación. Representamos a nuestra institución en las fases Regionales de la **WRO 2026**.
 
