@@ -323,7 +323,7 @@ flowchart LR
 [![Ackermann-turning-svg.png](https://i.postimg.cc/CL08P93k/Ackermann-turning-svg.png)](https://postimg.cc/8syssXPz)
 
 
-#### _Piezas de Mecanica_
+#### Piezas de Mecanic
 El núcleo de la movilidad de nuestro robot reside en su **subsistema mecánico de transmisión y tracción**, cuidadosamente seleccionado con componentes específicos de alta calidad. Vamos a desglosar cómo cada pieza encaja en este rompecabezas de ingeniería en miniatura, usando la escala **1/18** como referencia clave para tamaño e integración:
 
 1.  **Diferenciales y Ejes de Transmisión (1/18)**
@@ -502,7 +502,6 @@ En el caso particular del robot Heimdall, originalmente se consideró una transm
   </tbody>
 </table>
 <br>
-<hr>
 
 ### Calculo de la Reduccion total
 
@@ -542,10 +541,25 @@ Dos palabras clave: `Velocidad` y `Torque`. Al aumentar la reducción, la veloci
      
 ---
 
-### _Apartado Electronico_
+### Apartado Electronico
 
-#### _Piezas de Electronica_
-Para el proyecto, decidimos usar;
+#### Piezas de Electronica
+<p align="justify">
+  El apartado electrónico de nuestro robot <b>Heimdall</b> ha sido diseñado bajo una arquitectura modular que prioriza la estabilidad de voltaje y la velocidad de procesamiento. La integración de estos componentes permite que el robot procese datos sensoriales en tiempo real, garantizando una respuesta inmediata ante los desafíos del entorno de la <b>WRO 2026</b>.
+</p>
+
+<p><b>La arquitectura se divide en cuatro pilares fundamentales:</b></p>
+
+<ul>
+  <li><b>Gestión de Energía:</b> Sistemas de regulación para estabilizar la potencia de las baterías.</li>
+  <li><b>Unidad de Procesamiento:</b> Cerebro central encargado de la lógica y visión.</li>
+  <li><b>Control de Actuadores:</b> Drivers para el manejo de motores y dirección.</li>
+  <li><b>Percepción Sensorial:</b> Sensores ultrasónicos, inerciales y de visión artificial.</li>
+</ul>
+
+Por lo tanto hemos decidido usar:
+
+---
 
 ### **Baterias**
 
