@@ -17,6 +17,10 @@
   - [2.4 Videos del Robot](#24-videos-del-robot)
   - [2.5 Sistema de Movimiento y Traccion](#25-sistema-de-movimiento-y-traccion)
   - [2.6 Piezas de Mecanica](#26-piezas-de-mecanica)
+    - [2.6.1 Servomotor](#servomotor-injora-180°)
+    - [2.6.2 Motor](#motor-hytech-ga37-520)
+    - [2.6.1 Servomotor](#servomotor-injora-180°)\
+    - [2.6.1 Servomotor](#servomotor-injora-180°)
 - [3. Apartado Electronico](#3-apartado-electronico)
   - [3.1 Piezas de Electronica](#31-piezas-de-electronica)
     - [3.1.1 Baterias](#311-baterias)
@@ -30,7 +34,7 @@
     - [3.2.1 ESP32](#321-esp32-wroom-32)
     - [3.2.2 Diagrama de Conexiones](#322-diagrama-de-conexiones)
 - [4. Apartado de Programacion](#4-apartado-de-programacion)
-    - [4.1 Desafio Abierto](#41-desafio-abierto)
+  - [4.1 Desafio Abierto](#41-desafio-abierto)
     - [4.1.1 Flowchart Abierta](#411-flowchart-abierta)
     - [4.1.2 Explicacion del Codigo](#412-explicacion-del-codigo)
   - [4.2 Desafio Cerrado](#42-desafio-cerrado)
@@ -353,7 +357,7 @@ En el caso particular del robot Heimdall, originalmente se consideró una transm
 
 ---
 
-### 2.6.2 **INJORA 7KG 2065 Digital Micro Servo 360°**
+### 2.6.2 **Servomotor INJORA 180°**
 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <tr style="background-color: rgba(255, 255, 255, 0.05);">
