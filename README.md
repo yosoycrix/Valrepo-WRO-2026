@@ -33,6 +33,7 @@
   - [3.2 Microcontrolador](#32-microcontrolador)
     - [3.2.1 ESP32](#321-esp32-wroom-32)
     - [3.2.2 Diagrama de Conexiones](#322-diagrama-de-conexiones)
+    - [3.2.3 Consumo de Energia](#323-consumo-de-energia)
 - [4. Apartado de Programacion](#4-apartado-de-programacion)
   - [4.1 Desafio Abierto](#41-desafio-abierto)
     - [4.1.1 Flowchart Abierta](#411-flowchart-abierta)
@@ -1302,11 +1303,95 @@ Usa un circuito **puente H (H-bridge)** interno:
 <br>
 <hr>
 
-### 3.2.2 Diagrama de Conexiones
+## 3.2.2 Diagrama de Conexiones
 
 [![IMG-20250924-WA0019-1.jpg](https://i.postimg.cc/Df4Qvksy/IMG-20250924-WA0019-1.jpg)](https://postimg.cc/4nZHP0Br)
 
 ---
+
+## 3.2.3 Consumo de Energia
+
+<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
+  <thead>
+    <tr style="background-color: rgba(255, 255, 255, 0.08); border-bottom: 2px solid #444;">
+      <th style="padding: 12px; border: 1px solid #444; text-align: left;">Componente</th>
+      <th style="padding: 12px; border: 1px solid #444; text-align: center;">Cantidad</th>
+      <th style="padding: 12px; border: 1px solid #444; text-align: center;">Voltaje</th>
+      <th style="padding: 12px; border: 1px solid #444; text-align: center;">Corriente sin Carga</th>
+      <th style="padding: 12px; border: 1px solid #444; text-align: center;">Corriente Nominal</th>
+      <th style="padding: 12px; border: 1px solid #444; text-align: center;">Corriente Pico</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;"><b>ESP32-WROOM-32</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">1</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">5V</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">20 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">100 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">260 mA</td>
+    </tr>
+    <tr style="background-color: rgba(255, 255, 255, 0.02);">
+      <td style="padding: 10px; border: 1px solid #444;"><b>Motor Hytech GA37-520</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">1</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">12V</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">10 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">1 A</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">2 A</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Servo INJORA 180°</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">1</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">6V</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">150 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">500 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">1.5 A</td>
+    </tr>
+    <tr style="background-color: rgba(255, 255, 255, 0.02);">
+      <td style="padding: 10px; border: 1px solid #444;"><b>Pixy2 Cam</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">1</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">5V</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">70 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">300 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">1 A</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Driver L298N (Lógica)</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">1</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">12V</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">30 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">70 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">100 mA</td>
+    </tr>
+    <tr style="background-color: rgba(255, 255, 255, 0.02);">
+      <td style="padding: 10px; border: 1px solid #444;"><b>Ultrasonicos HC-SR04</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">3</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">5V</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">5 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">20 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">40 mA</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Giroscopio MPU6050</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">1</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">3.3V</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">140 uA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">3.6 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">6 mA</td>
+    </tr>
+    <tr style="background-color: rgba(255, 255, 255, 0.02);">
+      <td style="padding: 10px; border: 1px solid #444;"><b>Módulo Tarjeta SD</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">1</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">3.3V</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">0.2 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">40 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">200 mA</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
 ## 4. Apartado de Programacion
 
 ## 4.1 Desafio Abierto
