@@ -19,7 +19,7 @@
   - [2.6 Piezas de Mecanica](#26-piezas-de-mecanica)
     - [2.6.2 Servomotor](#262-servomotor-injora-180)
     - [2.6.3 Motor](#263-motor-hytech-ga37-520)
-    - [2.6.4 Tornillos, Tuercas y Arandelas](#tornillos-tuercas-de-seguridad-y-arandelas-(m2-y-m3))
+    - [2.6.4 Tornillos, Tuercas y Arandelas](#tornillos,-tuercas-de-seguridad-y-arandelas-(m2-y-m3))
 - [3. Apartado Electronico](#3-apartado-electronico)
   - [3.1 Piezas de Electronica](#31-piezas-de-electronica)
     - [3.1.1 Baterias](#311-baterias)
