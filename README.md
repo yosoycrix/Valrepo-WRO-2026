@@ -425,7 +425,7 @@ En el caso particular del robot Heimdall, originalmente se consideró una transm
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <tr style="background-color: rgba(255, 255, 255, 0.05);">
     <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
-      <img src="./images/ga37_encoder.jpg" alt="Motor GA37-520" width="100%">
+      <img src="./images/motor.jpg" alt="Motor GA37-520" width="100%">
     </td>
     <td style="padding: 20px; border: 1px solid #444; vertical-align: top;">
       <h4 style="margin-top: 0;">⚡ Especificaciones</h4>
@@ -504,29 +504,7 @@ En el caso particular del robot Heimdall, originalmente se consideró una transm
 <br>
 <hr>
 
-
-Un Motor de Engranajes DC Greartisan es un tipo de motor eléctrico de corriente continua (DC) que tiene una caja de engranajes (también llamada reductora o caja reductora) integrada directamente en su construcción. La principal funcionalidad de este motor en un sistema robótico radica en su capacidad para ofrecer **alto par a velocidades reducidas**. A diferencia de un motor DC estándar que gira a muy altas RPM con poco par, el motor Greartisan integra una **caja de engranajes** (reductora) directamente en su diseño. Esta caja de engranajes transforma la velocidad de rotación del motor en una fuerza mucho mayor.
- El **eje de salida céntrico de 1.45 pulgadas de diámetro** proporciona una conexión robusta y directa a los sistemas mecánicos del robot, como ruedas, brazos articulados o mecanismos de elevación, asegurando que el par generado se transmita de manera eficiente.
-
-> [!TIP]
->  Evita los movimientos bruscos y difíciles de controlar de los motores de alta velocidad sin reducción.
->     Aunque parezca contradictorio, al operar con una relación de engranajes adecuada, el motor puede trabajar más cerca de su punto de eficiencia óptima para la carga que está manejando, lo que puede resultar en un **menor consumo de energía** en comparación con un motor sin engranajes que lucha por alcanzar el par requerido.
-
-### Especificaciones del Motor
-
-| **Característica**                          | **Valor**                                         |
-|---------------------------------------------|---------------------------------------------------|
-| **Voltaje nominal**                         | 12V                                               |
-| **Velocidad**                               | 10 RPM                                            |
-| **Material**                                | Metal                                             |
-| **Par nominal**                             | 33.1 lbs·cm                                       |
-| **Relación de reducción interna**           | 1:314                                             |
-| **Corriente nominal**                       | 0.05A                                             |
-| **Tamaño del eje de salida (forma D)**      | 6 × 14 mm (0.24" × 0.55") (D × L)                 |
-| **Tamaño de la caja de cambios**            | 37 × 31 mm (1.46" × 1.22") (D × L)                |
-| **Tamaño del motor**                        | 36.2 × 33.3 mm (1.43" × 1.31") (D × L)            |
-
-#### _Calculo de la Reduccion total_
+### Calculo de la Reduccion total
 
 Para adaptar la salida del motor a las necesidades del robot, realizamos un cálculo de la reducción total combinando la reducción interna del motor con la de un sistema de engranajes externo. Utilizamos un piñón de ataque estándar (acoplado al eje del motor) y engranajes de 17 y 28 dientes.
 
