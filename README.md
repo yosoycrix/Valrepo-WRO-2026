@@ -21,16 +21,6 @@
     - [2.6.2 Servomotor](#262-servomotor-injora-180)
     - [2.6.3 Motor](#263-motor-hytech-ga37-520)
     - [2.6.4 Tornillos, Tuercas y Arandelas](#264-tornillos-tuercas-de-seguridad-y-arandelas-m2-y-m3)
-- [2.1 Apartado Mecanico](#21-apartado-mecanico)
-- [2.2 Impresion 3D](#22-impresion-3d)
-- [2.3 Movilidad](#23-movilidad)
-- [2.4 Videos del Robot](#24-videos-del-robot)
-- [2.5 Sistema de Movimiento y Traccion](#25-sistema-de-movimiento-y-traccion)
-- [2.6 Piezas de Mecanica](#26-piezas-de-mecanica)
-  - [2.6.1 Diferenciales y Ejes de transmision](#261-diferenciales-y-ejes-de-transmisión-118)
-  - [2.6.2 Servomotor](#262-servomotor-injora-180)
-  - [2.6.3 Motor](#263-motor-hytech-ga37-520)
-  - [2.6.4 Tornillos, Tuercas y Arandelas](#264-tornillos-tuercas-de-seguridad-y-arandelas-m2-y-m3)
 - [3. Apartado Electronico](#3-apartado-electronico)
   - [3.1 Piezas de Electronica](#31-piezas-de-electronica)
     - [3.1.1 Baterias](#311-baterias)
@@ -339,7 +329,7 @@ flowchart LR
 ## 2.6 Piezas de Mecanica
 El núcleo de la movilidad de nuestro robot reside en su **subsistema mecánico de transmisión y tracción**, cuidadosamente seleccionado con componentes específicos de alta calidad. Vamos a desglosar cómo cada pieza encaja en este rompecabezas de ingeniería en miniatura, usando la escala **1/18** como referencia clave para tamaño e integración:
 
-### 2.6.1  **Diferenciales y Ejes de Transmisión (1/18)**
+### 2.6.1  **Diferenciales y Ejes de Transmision (1/18)**
 
 [![61-Gzbd9-XBj-L-AC-UF894-1000-QL80.jpg](https://i.postimg.cc/7ZqxBpWR/61-Gzbd9-XBj-L-AC-UF894-1000-QL80.jpg)](https://postimg.cc/Cz6T56YC)
 
