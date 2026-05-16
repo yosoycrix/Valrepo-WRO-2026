@@ -6,39 +6,38 @@
 
 # Índice
 
-- [1. Nuestro Equipo](#nuestro-equipo)
-  - [1.1 Integrantes](#integrantes)
-  - [1.2 Origenes](#origenes)
-  - [1.3 Nuestro Objetivo](#nuestro-objetivo)
-- [2. El Robot](#el-robot)
-  - [2.1 Apartado Mecanico](#apartado-mecanico)
-    - [2.2 Impresion 3D](#Impresion-3d)
-    - [2.3 Movilidad](#movilidad)
-      - [2.4 Videos del Robot](#videos-del-robot)
-      - [2.5 Sistema de Movimiento y Traccion](#sistema-de-movimiento-y-traccion)
-      - [2.6 Piezas de Mecanica](#piezas-de-mecanica)
-      - [2.7 Calculo de la Reduccion Total](#calculo-de-la-reduccion-total)
-  - [3. Apartado Electronico](#apartado-electronico)
-    - [3.1 Piezas de Electronica](#piezas-de-electronica)
-       - [3.1.1 Baterias](#baterias)
-       - [3.1.2 Step Down](#step-down)
-       - [3.1.3 Motor Driver](#motor-driver)
-       - [3.1.4 Ultrasonico](#sensor-de-ultrasonido)
-       - [3.1.5 Giroscopio](#giroscopio)
-       - [3.1.6 Modulo SD](#modulo-de-micro-sd)
-       - [3.1.7 PixyCam](#pixycam)
-    - [3.2 Microcontrolador](#microcontrolador)
-       - [3.2.1 ESP32](#esp32-wroom-32)
-       - [3.2.2 Diagrama de Conexiones](#diagrama-de-conexiones)
-  - [4. Apartado de Programacion](#apartado-de-programacion)
-     - [4.1.1 Desafio Abierto](#desafio-abierto)
-       - [4.1.2 Flowchart Abierta](#flowchart-abierta)
-       - [4.1.3 Explicacion del Codigo](#explicacion-del-codigo)
-     - [4.2 Desafio Cerrado](#desafio-cerrado)
-       - [4.2.1 Flowchart Cerrada](#flowchart-cerrada)
-       - [4.2.2 Explicación del Código](#explicación-del-código-1)
-    - [5. Recursos para armar nuestro robot](#recursos-para-hacer-el-robot)
-    - [6. Licencia](#licencia)
+- [1. Nuestro Equipo](#1-nuestro-equipo)
+  - [1.1 Integrantes](#11-integrantes)
+  - [1.2 Origenes](#12-origenes)
+  - [1.3 Nuestro Objetivo](#13-nuestro-objetivo)
+- [2. El Robot](#2-el-robot)
+  - [2.1 Apartado Mecanico](21-#apartado-mecanico)
+  - [2.2 Impresion 3D](#22-Impresion-3d)
+  - [2.3 Movilidad](#23-movilidad)
+  - [2.4 Videos del Robot](#24-videos-del-robot)
+  - [2.5 Sistema de Movimiento y Traccion](#25-sistema-de-movimiento-y-traccion)
+  - [2.6 Piezas de Mecanica](#26-piezas-de-mecanica)
+- [3. Apartado Electronico](#3-apartado-electronico)
+  - [3.1 Piezas de Electronica](#31-piezas-de-electronica)
+    - [3.1.1 Baterias](#311-baterias)
+    - [3.1.2 Step Down](#312-step-down)
+    - [3.1.3 Motor Driver](#313-motor-driver)
+    - [3.1.4 Ultrasonico](#314-sensor-de-ultrasonido)
+    - [3.1.5 Giroscopio](#315-giroscopio)
+    - [3.1.6 Modulo SD](#316-modulo-de-micro-sd)
+    - [3.1.7 PixyCam](#317-pixycam)
+  - [3.2 Microcontrolador](#32-microcontrolador)
+    - [3.2.1 ESP32](#321-esp32-wroom-32)
+    - [3.2.2 Diagrama de Conexiones](#322-diagrama-de-conexiones)
+- [4. Apartado de Programacion](#4-apartado-de-programacion)
+    - [4.1 Desafio Abierto](#41-desafio-abierto)
+    - [4.1.1 Flowchart Abierta](#411-flowchart-abierta)
+    - [4.1.2 Explicacion del Codigo](#412-explicacion-del-codigo)
+  - [4.2 Desafio Cerrado](#42-desafio-cerrado)
+    - [4.2.1 Flowchart Cerrada](#421-lowchart-cerrada)
+    - [4.2.2 Explicación del Código](#422-explicación-del-código-1)
+- [5. Recursos para armar nuestro robot](#5-recursos-para-hacer-el-robot)
+- [6. Licencia](#6-licencia)
 
 ---
 
@@ -54,7 +53,7 @@
       
 ---
 
-## _Nuestro Equipo_
+## 1. Nuestro Equipo
 
 [![IMG-20250611-WA0013.jpg](https://i.postimg.cc/KvM5HgKW/IMG-20250611-WA0013.jpg)](https://postimg.cc/rKqWdsNG)
 
@@ -62,7 +61,7 @@ Somos **[Team ValGrind]**, entusiastas de la robótica y la innovación. Represe
 
 ---
 
-### Integrantes
+### 1.1 Integrantes
 
 <table>
   <tr>
@@ -142,20 +141,20 @@ Somos **[Team ValGrind]**, entusiastas de la robótica y la innovación. Represe
 
 ---
 
-### Origenes
+### 1.2 Origenes
 
 El nombre de nuestro equipo fue decidido por los tres integrantes a partir de un clásico compilador de C++ llamado de la misma forma, el cual es representado por un logotipo de un dragón hecho con origami. El nombre "ValGrind" también hace referencia a la mitología nórdica debido a las legendarias Valquirias que habitan en este.
 
  [![images-18.jpg](https://i.postimg.cc/dQp02CyM/images-18.jpg)](https://postimg.cc/gryddns4)
 
 
-> #### ¿Por qué nuestro robot se llama Heimdall?
+> ### ¿Por qué nuestro robot se llama Heimdall?
 
 Este nombre no solo es un guiño a la mitología mencionada, sino que además corresponde al dios conocido como el guardián de las puertas de Asgard y del puente Bifröst, que conecta los Nueve Mundos. Al ser un personaje imponente, consideramos que es un nombre apropiado para representar a nuestro robot en la WRO.
 
 ---  
 
-### Nuestro Objetivo
+### 1.3 Nuestro Objetivo
 
 [![Logo-wro.png](https://i.postimg.cc/85CCHB4G/Logo-wro.png)](https://postimg.cc/t1LyR68v)
 
@@ -172,7 +171,7 @@ Aún así, nuestro único objetivo no es solamente ganar, como un equipo unido t
 
 ---
 
-## El Robot
+## 2. El Robot
 
 <table>
   <tr>
@@ -207,9 +206,9 @@ Aún así, nuestro único objetivo no es solamente ganar, como un equipo unido t
 
 ---
 
-### Apartado Mecanico
+## 2.1 Apartado Mecanico
 
-#### Impresion 3D
+### 2.2 Impresion 3D
 
 Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay que explicar nuestros métodos de Diseño e Impresión 3D, los cuales se llevaron a cabo mediante Fusion 360
 
@@ -219,11 +218,11 @@ Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay qu
 
 [![IMG-20250613-WA0053.jpg](https://i.postimg.cc/Pr5b7SVZ/IMG-20250613-WA0053.jpg)](https://postimg.cc/G96s8xCh)
 
-#### _Movilidad_
+## 2.3 Movilidad
 
 Ahora bien, ya habiendo dilucidado como podemos elegir, diseñar y imprimir las piezas de nuestro robot, hay que asegurarnos de que este cuente con las herramientas necesarias para moverse y evadir los obstáculos de la pista.
 
-#### _Videos Del Robot_
+## 2.4 Videos Del Robot
 
 > [!NOTE]
 > Video de Heimdall realizando el Open Challenge
@@ -241,7 +240,7 @@ Nuestro robot emplea un sistema de tracción diferencial, ofreciendo maniobrabil
 
 [![10a4.jpg](https://i.postimg.cc/K89xJC6v/10a4.jpg)](https://postimg.cc/G4sWpg3Z)
 
-####  _Sistema de Movimiento y Traccion_
+## 2.5 Sistema de Movimiento y Traccion
 
 Ahondando en lo mencionado anteriormente, Heimdall utiliza lo que normalmente es denominado sistema ackermann positivo, el cual es un sistema derivado del principio de Ackermann, cuyo objetivo es lograr que en curvas la **rueda interior (θᵢ) gire más que la exterior (θₒ)** para minimizar deslizamiento lateral (*scrub*).  
 
@@ -323,10 +322,10 @@ flowchart LR
 [![Ackermann-turning-svg.png](https://i.postimg.cc/CL08P93k/Ackermann-turning-svg.png)](https://postimg.cc/8syssXPz)
 
 
-#### Piezas de Mecanic
+## 2.6 Piezas de Mecanica
 El núcleo de la movilidad de nuestro robot reside en su **subsistema mecánico de transmisión y tracción**, cuidadosamente seleccionado con componentes específicos de alta calidad. Vamos a desglosar cómo cada pieza encaja en este rompecabezas de ingeniería en miniatura, usando la escala **1/18** como referencia clave para tamaño e integración:
 
-1.  **Diferenciales y Ejes de Transmisión (1/18)**
+### 2.6.1  **Diferenciales y Ejes de Transmisión (1/18)**
 
 [![61-Gzbd9-XBj-L-AC-UF894-1000-QL80.jpg](https://i.postimg.cc/7ZqxBpWR/61-Gzbd9-XBj-L-AC-UF894-1000-QL80.jpg)](https://postimg.cc/Cz6T56YC)
 
@@ -354,7 +353,7 @@ En el caso particular del robot Heimdall, originalmente se consideró una transm
 
 ---
 
-2. ### **INJORA 7KG 2065 Digital Micro Servo 360°**
+### 2.6.2 **INJORA 7KG 2065 Digital Micro Servo 360°**
 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <tr style="background-color: rgba(255, 255, 255, 0.05);">
@@ -379,8 +378,6 @@ En el caso particular del robot Heimdall, originalmente se consideró una transm
 <p style="margin-top: 15px;">
   El servo <b>Injora 2065</b> es un micro servo digital de alto par, diseñado para aplicaciones que demandan movimientos precisos y una respuesta rápida. En <b>Heimdall</b>, este componente es el encargado de ejecutar el sistema de dirección delantera, permitiendo que el robot realice maniobras de esquiva milimétricas gracias a su excelente relación peso-potencia.
 </p>
-
-
 
 <p><b>Configuración de Software en Heimdall:</b></p>
 <p>
@@ -420,7 +417,7 @@ En el caso particular del robot Heimdall, originalmente se consideró una transm
 <br>
 <hr>
 
-3. ### **Motor Hytech GA37-520**
+### 2.6.3 **Motor Hytech GA37-520**
 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <tr style="background-color: rgba(255, 255, 255, 0.05);">
@@ -532,7 +529,7 @@ Dos palabras clave: `Velocidad` y `Torque`. Al aumentar la reducción, la veloci
 
 ---
 
-4.  **Tornillos, Tuercas de Seguridad y Arandelas (M2 y M3)**
+### 2.6.4 **Tornillos, Tuercas de Seguridad y Arandelas (M2 y M3)**
 
 <img src="./images/tornillos.jpg" alt="Tornillos m2 y m3" width=300>
 
@@ -541,9 +538,8 @@ Dos palabras clave: `Velocidad` y `Torque`. Al aumentar la reducción, la veloci
      
 ---
 
-### Apartado Electronico
+## 3. Apartado Electronico
 
-#### Piezas de Electronica
 <p align="justify">
   El apartado electrónico de nuestro robot <b>Heimdall</b> ha sido diseñado bajo una arquitectura modular que prioriza la estabilidad de voltaje y la velocidad de procesamiento. La integración de estos componentes permite que el robot procese datos sensoriales en tiempo real, garantizando una respuesta inmediata ante los desafíos del entorno de la <b>WRO 2026</b>.
 </p>
@@ -557,11 +553,13 @@ Dos palabras clave: `Velocidad` y `Torque`. Al aumentar la reducción, la veloci
   <li><b>Percepción Sensorial:</b> Sensores ultrasónicos, inerciales y de visión artificial.</li>
 </ul>
 
-Por lo tanto hemos decidido usar:
-
 ---
 
-### **Baterias**
+### 3.1 Piezas de Electronica
+
+Por lo tanto hemos decidido usar:
+
+### 3.1.1 **Baterias**
 
 <table>
   <tr>
@@ -594,7 +592,7 @@ Diseñadas para potenciar el rendimiento en competiciones de robótica como la W
 
 ---
 
-### **Step Down**
+### 3.1.2 **Step Down**
 
 <table style="border: 1px solid #30363d; border-collapse: collapse; width: 100%; background-color: #0d1117;">
   <tr>
@@ -678,7 +676,7 @@ El LM2596 sigue una topología **buck clásica** con cuatro componentes clave:
 
 ---
 
-### **Motor Driver**
+### 3.1.3 **Motor Driver**
 
 <table>
   <tr>
@@ -749,7 +747,7 @@ Usa un circuito **puente H (H-bridge)** interno:
 
 ---
 
-### **Sensor de Ultrasonido**
+### 3.1.4 **Sensor de Ultrasonido**
 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <tr style="background-color: rgba(255, 255, 255, 0.05);">
@@ -832,7 +830,7 @@ Usa un circuito **puente H (H-bridge)** interno:
 <br>
 <hr>
 
-### **Giroscopio**
+### 3.1.5 **Giroscopio**
 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <tr style="background-color: rgba(255, 255, 255, 0.05);">
@@ -923,7 +921,7 @@ Usa un circuito **puente H (H-bridge)** interno:
 <br>
 <hr>
 
-### **Modulo de Micro SD**
+### 3.1.6 **Modulo de Micro SD**
 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <tr style="background-color: rgba(255, 255, 255, 0.05);">
@@ -1007,7 +1005,7 @@ Usa un circuito **puente H (H-bridge)** interno:
 <br>
 <hr>
 
-### **PixyCam**
+### 3.1.7 **PixyCam**
 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <tr style="background-color: rgba(255, 255, 255, 0.05);">
@@ -1183,9 +1181,9 @@ Usa un circuito **puente H (H-bridge)** interno:
 <br>
 <hr>
 
-### Microcontrolador
+## 3.2 Microcontrolador
 
-### **ESP32-WROOM-32**
+### 3.2.1 **ESP32-WROOM-32**
 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <tr style="background-color: rgba(255, 255, 255, 0.05);">
@@ -1296,14 +1294,16 @@ Usa un circuito **puente H (H-bridge)** interno:
 <br>
 <hr>
 
-### Diagrama de Conexiones
+### 3.2.2 Diagrama de Conexiones
 
 [![IMG-20250924-WA0019-1.jpg](https://i.postimg.cc/Df4Qvksy/IMG-20250924-WA0019-1.jpg)](https://postimg.cc/4nZHP0Br)
 
 ---
-### Apartado de Programacion
+## 4. Apartado de Programacion
 
-##### Flowchart Abierta
+## 4.1 Desafio Abierto
+
+## 4.1.1 Flowchart Abierta
 
 En este diagrama de flujo se halla una representación gráfica del funcionamiento lógico de nuestra programación, así como de lo que se espera sea el desempeño del robot al inicializar el programa.
 
@@ -1592,9 +1592,9 @@ Mecánica de giro:
     Los giros se controlan por tiempo, no por feedback
 ```
 
-##### Desafío Cerrado
+## 4.2 Desafío Cerrado
 
-##### Flowchart Cerrada
+## 4.2.1 Flowchart Cerrada
 
 En este diagrama de flujo se halla una representación gráfica del funcionamiento lógico de nuestra programación, así como de lo que se espera sea el desempeño del robot al inicializar el programa.
 
@@ -1621,7 +1621,7 @@ flowchart LR
     O --> G
 ```
 
-##### Explicacion del Código
+## 4.2.2 Explicacion del Código
 Desafío Cerrado - Análisis de Componentes Clave
 1. Sistema de Comunicación Dual SPI
 cpp
@@ -1845,7 +1845,7 @@ Esta arquitectura permite un control robusto y adaptable para el desafío cerrad
 - **Comunicación:** Dual SPI, Serial Communication, UART
 ---
 
-## Recursos para Hacer el Robot
+## 5. Recursos para Hacer el Robot
 
 | Producto | Cantidad | Precio | Tipo | Link |
 |---|---|---|---|---|
