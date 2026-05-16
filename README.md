@@ -1309,7 +1309,7 @@ Usa un circuito **puente H (H-bridge)** interno:
 
 ---
 
-## 3.1.3 Consumo de Energia
+## 3.3.1 Consumo de Energia
 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <thead>
