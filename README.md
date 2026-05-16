@@ -329,7 +329,7 @@ flowchart LR
 ## 2.6 Piezas de Mecanica
 El núcleo de la movilidad de nuestro robot reside en su **subsistema mecánico de transmisión y tracción**, cuidadosamente seleccionado con componentes específicos de alta calidad. Vamos a desglosar cómo cada pieza encaja en este rompecabezas de ingeniería en miniatura, usando la escala **1/18** como referencia clave para tamaño e integración:
 
-### 2.6.1  **Diferenciales y Ejes de Transmision (1/18)**
+### 2.6.1 **Diferenciales y Ejes de Transmision (1/18)**
 
 [![61-Gzbd9-XBj-L-AC-UF894-1000-QL80.jpg](https://i.postimg.cc/7ZqxBpWR/61-Gzbd9-XBj-L-AC-UF894-1000-QL80.jpg)](https://postimg.cc/Cz6T56YC)
 
