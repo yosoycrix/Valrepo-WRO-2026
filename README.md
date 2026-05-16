@@ -420,9 +420,89 @@ En el caso particular del robot Heimdall, originalmente se consideró una transm
 <br>
 <hr>
 
-3. ### Motor DC 12V Greartisan zga37irg9i
+3. ### **Motor Hytech GA37-520**
 
-[![61pi-8-J6q-L.jpg](https://i.postimg.cc/C5wWw8pB/61pi-8-J6q-L.jpg)](https://postimg.cc/LY0yTnX2)
+<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
+  <tr style="background-color: rgba(255, 255, 255, 0.05);">
+    <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
+      <img src="./images/ga37_encoder.jpg" alt="Motor GA37-520" width="100%">
+    </td>
+    <td style="padding: 20px; border: 1px solid #444; vertical-align: top;">
+      <h4 style="margin-top: 0;">⚡ Especificaciones</h4>
+      <ul>
+        <li><b>Voltaje nominal:</b> 12V DC</li>
+        <li><b>Velocidad nominal:</b> 360 RPM</li>
+        <li><b>Torque nominal:</b> 4.5 kg.cm</li>
+        <li><b>Corriente (Sin carga):</b> ≤ 100mA</li>
+        <li><b>Encoder:</b> Magnético de fase dual (Fases A y B)</li>
+        <li><b>PPR del Encoder:</b> 11 pulsos por vuelta (330 PPR en eje de salida)</li>
+        <li><b>Material:</b> Caja de cambios totalmente metálica</li>
+        <li><b>Relación de reducción:</b> 1:30</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+<p style="margin-top: 15px;">
+  El <b>GA37-520</b> es el motor principal de tracción para nuestro robot. A diferencia de otros motores de corriente continua convencionales, este modelo fue elegido específicamente por integrar un <b>encoder magnético</b> de efecto Hall. Esta pieza es fundamental para transformar a <b>Heimdall</b> de un sistema de bucle abierto a uno de <b>lazo cerrado (Closed-Loop)</b>, permitiendo un monitoreo constante del movimiento real del chasis y garantizando que los giros de 90° sean siempre precisos e idénticos.
+</p>
+
+> [!TIP]
+> **Ventaja del Encoder:** Al tener retroalimentación de las fases A y B, el código puede detectar no solo la velocidad, sino también la dirección del giro y la posición exacta de las ruedas. Esto es vital para corregir desviaciones en tiempo real y asegurar que los giros de 90° sean siempre idénticos, independientemente de la carga o el estado de la batería.
+
+<p><b>¿Por qué decidimos usar este motor?:</b></p>
+
+<ul>
+  <li><b>Precisión en Odometría:</b> El encoder permite al ESP32 contar cada pulso del motor, lo que nos otorga la capacidad de medir distancias recorridas en centímetros. Esto es crítico para las fases del desafío donde el robot debe avanzar distancias fijas con error mínimo.</li>
+  <li><b>Control de Velocidad PID:</b> Gracias a la lectura constante del encoder, implementamos un algoritmo PID para mantener una velocidad crucero estable, evitando que el robot se acelere o frene bruscamente por irregularidades en la pista.</li>
+  <li><b>Robustez Mecánica:</b> Su construcción con engranajes de acero garantiza que el par motor se mantenga constante durante toda la competencia, soportando el estrés de las maniobras de esquiva agresivas.</li>
+</ul>
+
+<p><b>Configuración de Pines del Encoder y Motor:</b></p>
+
+<table width="100%" style="border: 1px solid #444; border-collapse: collapse;">
+  <thead style="background-color: rgba(255, 255, 255, 0.1);">
+    <tr>
+      <th style="padding: 10px; border: 1px solid #444;">Pines</th>
+      <th style="padding: 10px; border: 1px solid #444;">Función</th>
+      <th style="padding: 10px; border: 1px solid #444;">Conexión ESP32</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">IN1</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">Dirección / PWM</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>GPIO 16</b></td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">IN2</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">Dirección / PWM</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>GPIO 17</b></td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">VCC Encoder</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">Alimentación Lógica</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">5V DC</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GND Encoder</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">Tierra</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GND Negativo</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">Fase A (Blanco)</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">Señal de Pulso</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>GPIO 35</b></td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">Fase B (Blanco)</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">Señal de Giro</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>GPIO 34</b></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<hr>
 
 
 Un Motor de Engranajes DC Greartisan es un tipo de motor eléctrico de corriente continua (DC) que tiene una caja de engranajes (también llamada reductora o caja reductora) integrada directamente en su construcción. La principal funcionalidad de este motor en un sistema robótico radica en su capacidad para ofrecer **alto par a velocidades reducidas**. A diferencia de un motor DC estándar que gira a muy altas RPM con poco par, el motor Greartisan integra una **caja de engranajes** (reductora) directamente en su diseño. Esta caja de engranajes transforma la velocidad de rotación del motor en una fuerza mucho mayor.
