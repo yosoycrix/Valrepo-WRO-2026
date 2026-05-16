@@ -582,64 +582,70 @@ Diseñadas para potenciar el rendimiento en competiciones de robótica como la W
 
 ### **Step Down**
 
-<table>
+<table style="border: 1px solid #30363d; border-collapse: collapse; width: 100%; background-color: #0d1117;">
   <tr>
-    <!-- Columna de la Foto (Abarca todas las filas de la tabla) -->
-    <td rowspan="9" width="350px" align="center" style="vertical-align: middle;">
-      <img src="./images/stepdown.jpg" alt="Componente" width="2000">
-      <br>
+    <td width="30%" align="center" style="border: 1px solid #30363d; background-color: #f0f6fc; padding: 10px;">
+      <img src="./images/stepdown.jpg" alt="Step Down LM2596" width="100%" style="border-radius: 4px;">
     </td>
-    <!-- Encabezados de la Tabla -->
-    <th>Parámetro</th>
-    <th>Valor/Descripción</th>
-    <th>Puntos Relevantes</th>
-  </tr>
-  <tr>
-    <td><b>Rango de entrada</b></td>
-    <td>3.2–40 V DC</td>
-    <td>Compatible con baterías LiPo (7.4V), Pb-ácido (12V), o paneles solares.</td>
-  </tr>
-  <tr>
-    <td><b>Rango de salida</b></td>
-    <td>1.25–37 V DC ajustable</td>
-    <td>Ideal para microcontroladores (5V), sensores (3.3V) o motores (6–12V).</td>
-  </tr>
-  <tr>
-    <td><b>Corriente máxima</b></td>
-    <td>3 A (pico), 2 A continuo sin disipador</td>
-    <td>Suficiente para servomotores, drivers de motores, o sistemas de control.</td>
-  </tr>
-  <tr>
-    <td><b>Eficiencia</b></td>
-    <td>Hasta 92% , ≈73% @3A</td>
-    <td>Reduce pérdidas térmicas vs. reguladores lineales, crucial en sesiones largas.</td>
-  </tr>
-  <tr>
-    <td><b>Frecuencia</b></td>
-    <td>150 kHz</td>
-    <td>Permite usar componentes magnéticos pequeños (compacto).</td>
-  </tr>
-  <tr>
-    <td><b>Temperatura operativa</b></td>
-    <td>-40°C a +85°C</td>
-    <td>Funciona en entornos extremos (competiciones exteriores).</td>
-  </tr>
-  <tr>
-    <td><b>Dimensiones</b></td>
-    <td>45×20×14 mm (estándar)</td>
-    <td>Fácil integración en espacios reducidos de robots.</td>
-  </tr>
-  <tr>
-    <td><b>Protecciones</b></td>
-    <td>Limitación de corriente</td>
-    <td>Previene daños por cortocircuitos en cables o motores.</td>
+    <td width="70%" style="border: 1px solid #30363d; vertical-align: top; padding: 0;">
+      <table style="width: 100%; border-collapse: collapse; color: #c9d1d9; font-size: 14px;">
+        <thead style="background-color: #161b22; color: #f0f6fc;">
+          <tr>
+            <th style="padding: 10px; border-bottom: 1px solid #30363d; text-align: left;">Parámetro</th>
+            <th style="padding: 10px; border-bottom: 1px solid #30363d; text-align: left;">Valor</th>
+            <th style="padding: 10px; border-bottom: 1px solid #30363d; text-align: left;">Puntos Relevantes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Rango Entrada</b></td>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">3.2–40 V DC</td>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Compatible con LiPo, Pb y solares.</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Rango Salida</b></td>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">1.25–37 V DC</td>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">microcontroladores, sensores o motores.</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Corriente</b></td>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">2A (3A Pico)</td>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Suficiente para servos y sensores.</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Eficiencia</b></td>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Hasta 92%</td>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Reduce pérdidas térmicas.</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Frecuencia</b></td>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">150 kHz</td>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Diseño compacto y eficiente.</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 10px;"><b>Protecciones</b></td>
+            <td style="padding: 8px 10px;">Limitación de corriente.</td>
+            <td style="padding: 8px 10px;">Evita daños por cortocircuitos.</td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
   </tr>
 </table>
 
+<br>
 
 El LM2596 es un regulador step down DC-DC diseñado para transformar tensiones elevadas en niveles adecuados para circuitos electrónicos.  Acepta un rango de entrada entre 3.2 y 40V, Lo cual evidentemente demuestra que es un componente electrónico bastante versátil en lo que al manejo de voltaje respecta, por lo tanto nuestro equipo decidió utilizarlo para poder manejar el voltaje en el circuito del robot de forma idónea.
 
----
+<div style="margin-top: 15px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px; font-size: 14px; color: #c9d1d9;">
+  <p style="margin-bottom: 10px;"><b>Es extremadamente útil para nuestro proyecto debido a su:</b></p>
+  <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+    <li><b>Regulación eficiente:</b> Convierte los 12V de la batería a los 5V estables que requiere la lógica, minimizando el calor generado.</li>
+    <li><b>Protección de componentes:</b> Aísla al ESP32 y sensores de los ruidos eléctricos y picos de tensión de los motores.</li>
+    <li><b>Alta potencia:</b> Soporta hasta 3A, suficiente para alimentar la PixyCam, el servo y el microcontrolador al mismo tiempo.</li>
+    <li><b>Versatilidad:</b> Su amplio rango de entrada permite adaptar diferentes tipos de baterías sin cambiar el hardware.</li>
+  </ul>
+</div>
 
 ### Funcionamiento Técnico 
 El LM2596 sigue una topología **buck clásica** con cuatro componentes clave:  
