@@ -59,7 +59,7 @@
 
 ## 1. Nuestro Equipo
 
-<img src="./images/equipovalgrind.jpg" alt="Team Photo" width=100%>
+<img src="./images/equipovalgrind.jpg" alt="Team Photo" width=80%>
 
 Somos **[Team ValGrind]**, entusiastas de la robótica y la innovación. Representamos a nuestra institución en las fases Regionales de la **WRO 2026**.
 
@@ -220,7 +220,7 @@ Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay qu
 > [!NOTE]
 > Fusion 360 es una plataforma de software de modelado 3D, CAD, CAM, CAE y PCB basada en la nube, destinada al diseño y la fabricación de productos. Nos permite diseñar y crear productos de acuerdo a sus especificaciones particulares, garantizando que cada pieza cumpla con los más exigentes criterios de estética, forma, ajuste y funcionalidad. Además, incorpora un conjunto integral de herramientas avanzadas para el diseño de placas de circuito impreso y componentes electrónicos, lo que facilita la conceptualización y materialización de cualquier idea, incluso las más complejas. Al implementar estas funciones, la plataforma optimiza significativamente tanto el tiempo como los costos asociados, asegurando que el proceso de producción se realice de manera eficiente y que las piezas obtenidas sean de la más alta calidad. Nosotros usamos esta herramienta gráfica y de diseño para realizar los diseños del chasis y las piezas personalizadas de nuestro robot.
 
-<img src="./images/3dheimdall.jpg" alt="Hei=mdall3d" width=600>
+<img src="./images/3dheimdall.jpg" alt="Hei=mdall3d" width=80%>
 
 ## 2.3 Movilidad
 
