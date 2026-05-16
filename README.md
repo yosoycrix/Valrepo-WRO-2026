@@ -17,7 +17,7 @@
   - [2.4 Videos del Robot](#24-videos-del-robot)
   - [2.5 Sistema de Movimiento y Traccion](#25-sistema-de-movimiento-y-traccion)
   - [2.6 Piezas de Mecanica](#26-piezas-de-mecanica)
-    - [2.6.1 Diferenciales y Ejes de transmision](#261-diferenciales-y-ejes-de-transmision-(1/18))
+    - [2.6.1 Diferenciales y Ejes de transmision](#261-diferenciales-y-ejes-de-transmision-1/18)
     - [2.6.2 Servomotor](#262-servomotor-injora-180)
     - [2.6.3 Motor](#263-motor-hytech-ga37-520)
     - [2.6.4 Tornillos, Tuercas y Arandelas](#264-tornillos,-tuercas-de-seguridad-y-arandelas-(m2-y-m3))
