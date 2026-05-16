@@ -330,17 +330,26 @@ flowchart LR
 ## 2.6 Piezas de Mecanica
 El núcleo de la movilidad de nuestro robot reside en su **subsistema mecánico de transmisión y tracción**, cuidadosamente seleccionado con componentes específicos de alta calidad. Vamos a desglosar cómo cada pieza encaja en este rompecabezas de ingeniería en miniatura, usando la escala **1/18** como referencia clave para tamaño e integración:
 
-### 2.6.1 **Diferenciales y Ejes de Transmision (1/18)**
+### 2.6.1 **Diferencial y Eje de Transmision Impreso en 3D**
 
-[![61-Gzbd9-XBj-L-AC-UF894-1000-QL80.jpg](https://i.postimg.cc/7ZqxBpWR/61-Gzbd9-XBj-L-AC-UF894-1000-QL80.jpg)](https://postimg.cc/Cz6T56YC)
+<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
+  <tr style="background-color: rgba(255, 255, 255, 0.05);">
+    <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
+      <img src="./images/difencial.jpg" alt="1" width="100%">
+    </td>
+   <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
+      <img src="./images/diferencialcompleto.jpg" alt="2" width="100%">
+    </td>
+  </tr>
+</table>
 
 ---
 
-Los diferenciales se ubican en el eje motriz y permiten que las ruedas izquierda y derecha giren a velocidades diferentes al tomar curvas. Esta característica es fundamental para evitar que el robot patine o experimente esfuerzos innecesarios en giros cerrados, manteniendo así la estabilidad incluso durante maniobras agresivas. Su diseño a escala 1/18 asegura que sean compactos, ligeros y proporcionales al resto del chasis y ruedas del robot de competición.
+El diferencial se ubica en el eje motriz y permite que las ruedas izquierda y derecha giren a velocidades diferentes al tomar curvas. Esta característica es fundamental para evitar que el robot patine o experimente esfuerzos innecesarios en giros cerrados, manteniendo así la estabilidad incluso durante maniobras agresivas. Su diseño personalizado para el tamaño del robot Heimdall asegura que sea compacto, ligero y proporcional al resto del chasis y ruedas del robot.
 
-Por otro lado, los ejes de transmisión conectan directamente la salida de los diferenciales (1/18) a las ruedas motrices. Son responsables de transferir el par motor generado hacia las ruedas, permitiendo el giro de los neumáticos. El diseño a escala 1/18 garantiza la longitud y resistencia necesarias para soportar las fuerzas de torsión y tracción, sin añadir peso excesivo ni desbalancear el robot.
+Por otro lado, el eje de transmisión conecta directamente la salida de el diferencial personalizado a las ruedas motrices. Son responsables de transferir el par del motor generado hacia las ruedas, permitiendo el giro de los neumáticos. Su diseño personalizado garantiza la longitud y resistencia necesarias para soportar las fuerzas de torsión y tracción, sin añadir peso excesivo ni desbalancear el robot.
 
-En el caso particular del robot Heimdall, originalmente se consideró una transmisión 4x4. Sin embargo, tras observar las limitaciones en los ángulos de cruce y la maniobrabilidad, se optó por priorizar la movilidad. Por ello, se decidió retirar los ejes de transmisión delanteros, transformando el robot en un sistema de tracción 4x2.
+En el caso particular del robot Heimdall, originalmente se consideró una transmisión 4x4. Sin embargo, tras observar las limitaciones en los ángulos de cruce y la maniobrabilidad, se optó por priorizar la movilidad. Por ello, se decidió retirar el eje de transmisión y el diferencial delantero, transformando el robot en un sistema de tracción 4x2.
 
 ---
 
