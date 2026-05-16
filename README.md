@@ -32,8 +32,8 @@
     - [3.1.7 PixyCam](#317-pixycam)
   - [3.2 Microcontrolador](#32-microcontrolador)
     - [3.2.1 ESP32](#321-esp32-wroom-32)
-    - [3.2.2 Diagrama de Conexiones](#322-diagrama-de-conexiones)
-    - [3.2.3 Consumo de Energia](#323-consumo-de-energia)
+  - [3.3 Diagrama de Conexiones](#33-diagrama-de-conexiones)
+    - [3.3.1 Consumo de Energia](#331-consumo-de-energia)
 - [4. Apartado de Programacion](#4-apartado-de-programacion)
   - [4.1 Desafio Abierto](#41-desafio-abierto)
     - [4.1.1 Flowchart Abierta](#411-flowchart-abierta)
@@ -1303,13 +1303,13 @@ Usa un circuito **puente H (H-bridge)** interno:
 <br>
 <hr>
 
-## 3.2.2 Diagrama de Conexiones
+## 3.3 Diagrama de Conexiones
 
 [![IMG-20250924-WA0019-1.jpg](https://i.postimg.cc/Df4Qvksy/IMG-20250924-WA0019-1.jpg)](https://postimg.cc/4nZHP0Br)
 
 ---
 
-## 3.2.3 Consumo de Energia
+## 3.1.3 Consumo de Energia
 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <thead>
