@@ -1250,9 +1250,13 @@ Usa un circuito **puente H (H-bridge)** interno:
   </thead>
   <tbody>
     <tr>
-      <td rowspan="2" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>Control</b></td>
+      <td rowspan="3" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>Control</b></td>
       <td style="padding: 10px; border: 1px solid #444;">Motor Tracción (IN1/IN2)</td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">16, 17</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">16, 17</td
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;">Encoder</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">34, 35</td>
     </tr>
     <tr>
       <td style="padding: 10px; border: 1px solid #444;">Servomotor Dirección</td>
