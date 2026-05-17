@@ -17,7 +17,7 @@
   - [2.4 Videos del Robot](#24-videos-del-robot)
   - [2.5 Sistema de Movimiento y Traccion](#25-sistema-de-movimiento-y-traccion)
   - [2.6 Piezas de Mecanica](#26-piezas-de-mecanica)
-    - [2.6.1 Diferencial y Eje de transmision](#261-diferenciales-y-ejes-de-transmision-impreso-en-3d)
+    - [2.6.1 Diferencial y Eje de transmision](#261-diferencial-y-eje-de-transmision-impreso-en-3d)
     - [2.6.2 Servomotor](#262-servomotor-injora-180)
     - [2.6.3 Motor](#263-motor-hytech-ga37-520)
     - [2.6.4 Tornillos, Tuercas y Arandelas](#264-tornillos-tuercas-de-seguridad-y-arandelas-m2-y-m3)
@@ -1384,7 +1384,7 @@ Usa un circuito **puente H (H-bridge)** interno:
       <td style="padding: 10px; border: 1px solid #444;"><b>Giroscopio MPU6050</b></td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">1</td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">3.3V</td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">140 uA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">140 μA</td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">3.6 mA</td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">6 mA</td>
     </tr>
