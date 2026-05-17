@@ -332,26 +332,17 @@ El núcleo de la movilidad de nuestro robot reside en su **subsistema mecánico 
 
 ### 2.6.1 **Diferencial y Eje de Transmision Impreso en 3D**
 
-<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
-  <tr style="background-color: rgba(255, 255, 255, 0.05);">
-    <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
-      <img src="./images/diferencial.jpg" alt="1" width="100%">
-    </td>
-   <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
-      <img src="./images/diferencialcompleto.jpg" alt="2" width="100%">
+<table style="border: 1px solid #444; border-collapse: collapse; width: 100%; max-width: 550px; margin: 0 auto;">
+  <tr style="background-color: rgba(255, 255, 255, 0.02);">
+    <td align="center" style="padding: 20px; border-bottom: 1px solid #444;">
+      <b style="font-size: 14px; display: block; margin-bottom: 12px; color: #c9d1d9;">Componentes del Diferencial</b>
+      <img src="./images/diferencial.jpg" alt="Componentes del diferencial" style="width: 95%; max-height: 350px; object-fit: contain; border-radius: 8px; border: 1px solid #555;">
     </td>
   </tr>
-</table>
-
-<table style="border: 1px solid #444; border-collapse: collapse; width: 100%; table-layout: fixed;">
   <tr style="background-color: rgba(255, 255, 255, 0.02);">
-    <td width="50%" align="center" style="padding: 15px; border: 1px solid #444; vertical-align: middle;">
-      <b style="font-size: 14px; display: block; margin-bottom: 10px;">Opción A</b>
-      <img src="./images/diferencial.jpg" alt="1" style="width: 100%; max-height: 300px; object-fit: contain; border-radius: 8px; border: 1px solid #555;">
-    </td>
-    <td width="50%" align="center" style="padding: 15px; border: 1px solid #444; vertical-align: middle;">
-      <b style="font-size: 14px; display: block; margin-bottom: 10px;">Opción B</b>
-      <img src="./images/diferencialcompleto.jpg" alt="2" style="width: 100%; max-height: 300px; object-fit: contain; border-radius: 8px; border: 1px solid #555;">
+    <td align="center" style="padding: 20px;">
+      <b style="font-size: 14px; display: block; margin-bottom: 12px; color: #c9d1d9;">Ensamble Final del Diferencial</b>
+      <img src="./images/diferencialcompleto.jpg" alt="Diferencial completo" style="width: 95%; max-height: 350px; object-fit: contain; border-radius: 8px; border: 1px solid #555;">
     </td>
   </tr>
 </table>
