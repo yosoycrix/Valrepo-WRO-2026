@@ -330,7 +330,7 @@ flowchart LR
 ## 2.6 Piezas de Mecanica
 El núcleo de la movilidad de nuestro robot reside en su **subsistema mecánico de transmisión y tracción**, cuidadosamente seleccionado con componentes específicos de alta calidad. Vamos a desglosar cómo cada pieza encaja en este rompecabezas de ingeniería en miniatura, usando la escala **1/18** como referencia clave para tamaño e integración:
 
-### 2.6.1 Diferencial y Eje de Transmisión Impreso en 3D
+## 2.6.1 Diferencial y Eje de Transmisión Impreso en 3D
 
 <table style="border: 1px solid #30363d; border-collapse: collapse; width: 100%; background-color: #161b22; border-radius: 8px; overflow: hidden; margin-bottom: 25px;">
   <tr>
@@ -359,7 +359,9 @@ El núcleo de la movilidad de nuestro robot reside en su **subsistema mecánico 
   </tr>
 </table>
 
-#### Diferencias mas importantes entre transmisión 4x4 y 4x2 
+---
+
+## Diferencias mas importantes entre transmisión 4x4 y 4x2 
 
 | Característica                  | 4x4 (Tracción en las 4 ruedas)            | 4x2 (Tracción en 2 ruedas)                  |
 |----------------------------------|-------------------------------------------|---------------------------------------------|
