@@ -343,6 +343,19 @@ El núcleo de la movilidad de nuestro robot reside en su **subsistema mecánico 
   </tr>
 </table>
 
+<table style="border: 1px solid #444; border-collapse: collapse; width: 100%; table-layout: fixed;">
+  <tr style="background-color: rgba(255, 255, 255, 0.02);">
+    <td width="50%" align="center" style="padding: 15px; border: 1px solid #444; vertical-align: middle;">
+      <b style="font-size: 14px; display: block; margin-bottom: 10px;">Opción A</b>
+      <img src="./images/diferencial.jpg" alt="1" style="width: 100%; max-height: 300px; object-fit: contain; border-radius: 8px; border: 1px solid #555;">
+    </td>
+    <td width="50%" align="center" style="padding: 15px; border: 1px solid #444; vertical-align: middle;">
+      <b style="font-size: 14px; display: block; margin-bottom: 10px;">Opción B</b>
+      <img src="./images/diferencialcompleto.jpg" alt="2" style="width: 100%; max-height: 300px; object-fit: contain; border-radius: 8px; border: 1px solid #555;">
+    </td>
+  </tr>
+</table>
+
 ---
 
 El diferencial se ubica en el eje motriz y permite que las ruedas izquierda y derecha giren a velocidades diferentes al tomar curvas. Esta característica es fundamental para evitar que el robot patine o experimente esfuerzos innecesarios en giros cerrados, manteniendo así la estabilidad incluso durante maniobras agresivas. Su diseño personalizado para el tamaño del robot Heimdall asegura que sea compacto, ligero y proporcional al resto del chasis y ruedas del robot.
