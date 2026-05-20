@@ -1,8 +1,8 @@
-# 📜 WRO 2026 Futuros Ingenieros - Reglas Oficiales
+# WRO 2026 Futuros Ingenieros - Reglas Oficiales
 
 Este directorio contiene el reglamento técnico y de competencia oficial para la temporada 2026. Es el marco legal obligatorio que define los retos en pista, los criterios de puntuación y las restricciones de hardware que los equipos de la competencia debe cumplir rigurosamente.
 
-## 📂 Archivo Incluido
+## Archivo Incluido
 
 **[`ESPANOL-WRO-2026-Future-Engineers-Self-Driving-Cars-General-Rules-Final.pdf`](https://github.com/yosoycrix/Valrepo-WRO-2026/blob/main/others/rules-wro-2026/ESPANOL-WRO-2026-Future-Engineers-Self-Driving-Cars-General-Rules-Final.pdf)**: Documento oficial de la WRO con las normas generales, especificaciones milimétricas del circuito, regulaciones de materiales y directrices de inspección técnica.
 
