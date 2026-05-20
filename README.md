@@ -37,10 +37,10 @@
 - [4. Apartado de Programacion](#4-apartado-de-programacion)
   - [4.1 Desafio Abierto](#41-desafio-abierto)
     - [4.1.1 Flowchart Abierta](#411-flowchart-abierta)
-    - [4.1.2 Explicacion del Codigo](#412-explicacion-del-codigo)
+    - [4.1.2 Explicación del Codigo](#412-explicacion-del-codigo)
   - [4.2 Desafio Cerrado](#42-desafio-cerrado)
     - [4.2.1 Flowchart Cerrada](#421-flowchart-cerrada)
-    - [4.2.2 Explicación del Código](#422-explicación-del-código-1)
+    - [4.2.2 Explicación del Codigo](#422-explicacion-del-codigo)
 - [5. Recursos para armar nuestro robot](#5-recursos-para-hacer-el-robot)
 - [6. Licencia](#6-licencia)
 
@@ -1439,7 +1439,7 @@ flowchart LR
     M -- No --> I
 ```
 
-## Explicacion del Codigo
+## 4.1.2 Explicacion del Codigo
 
 - Definición de Pines y Constantes
 
