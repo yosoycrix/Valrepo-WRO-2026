@@ -1961,7 +1961,7 @@ Esta arquitectura permite un control robusto y adaptable para el desafío cerrad
 
 Para optimizar nuestro rendimiento en la pista y asegurar la adaptabilidad del robot, el Team Valgrind ha desarrollado un randomizador de la pista de la categoria Futuros Ingenieros de la WRO 2026. En el Desafío Abierto, genera de forma totalmente aleatoria el cuadrado central y el sentido de orientacion y en el Desafío Cerrado genera los bloques de tráfico y el estacionamiento de una forma aleatoria, permitiendo un mejor desempeño en la pista al darnos diferentes ejemplos para poder practicar. Puedes encontrar mas informacion del Randomizador aca:
 
-- [Others/Randomizador](https://github.com/yosoycrix/Valrepo-WRO-2026/tree/main/others/randomizador/readme.md)
+- [Randomizador](https://github.com/yosoycrix/Valrepo-WRO-2026/blob/main/others/randomizador/README.md)
 
 ---
 
