@@ -39,7 +39,7 @@
     - [4.1.1 Flowchart Abierta](#411-flowchart-abierta)
     - [4.1.2 Explicacion del Codigo](#412-explicacion-del-codigo)
   - [4.2 Desafio Cerrado](#42-desafio-cerrado)
-    - [4.2.1 Flowchart Cerrada](#421-lowchart-cerrada)
+    - [4.2.1 Flowchart Cerrada](#421-flowchart-cerrada)
     - [4.2.2 Explicación del Código](#422-explicación-del-código-1)
 - [5. Recursos para armar nuestro robot](#5-recursos-para-hacer-el-robot)
 - [6. Licencia](#6-licencia)
@@ -1439,7 +1439,7 @@ flowchart LR
     M -- No --> I
 ```
 
-##### Explicacion del Codigo
+## Explicacion del Codigo
 
 - Definición de Pines y Constantes
 
@@ -1703,7 +1703,7 @@ Mecánica de giro:
     Los giros se controlan por tiempo, no por feedback
 ```
 
-## 4.2 Desafío Cerrado
+## 4.2 Desafio Cerrado
 
 ## 4.2.1 Flowchart Cerrada
 
@@ -1732,7 +1732,7 @@ flowchart LR
     O --> G
 ```
 
-## 4.2.2 Explicacion del Código
+## 4.2.2 Explicacion del Codigo
 Desafío Cerrado - Análisis de Componentes Clave
 1. Sistema de Comunicación Dual SPI
 cpp
