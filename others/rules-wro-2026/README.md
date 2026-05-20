@@ -15,6 +15,6 @@ Este directorio contiene el reglamento técnico y de competencia oficial para la
 
 ### 2. Reto Cerrado (Closed Challenge)
 * **Gestión de Tráfico:** Se introducen pilares o bloques de tráfico de colores en la pista que el vehículo debe identificar y evadir en tiempo real utilizando sus sistemas de visión o sensores:
-**Bloques Rojos:** Deben ser evadidos obligatoriamente por el lado **derecho**.
-**Bloques Verdes:** Deben ser evadidos obligatoriamente por el lado **izquierdo**.
-**Estacionamiento Autónomo (Parqueo):** Tras completar las vueltas correspondientes, el vehículo debe detectar de manera autónoma una zona con bloques magenta (ubicada en uno de los cuadrantes de la pista) y realizar una maniobra de aparcamiento paralela completa y estática dentro de los límites señalados.
+* **Bloques Rojos:** Deben ser evadidos obligatoriamente por el lado **derecho**.
+* **Bloques Verdes:** Deben ser evadidos obligatoriamente por el lado **izquierdo**.
+* **Estacionamiento Autónomo (Parqueo):** Tras completar las vueltas correspondientes, el vehículo debe detectar de manera autónoma una zona con bloques magenta (ubicada en uno de los cuadrantes de la pista) y realizar una maniobra de aparcamiento paralela completa y estática dentro de los límites señalados.
