@@ -15,13 +15,3 @@ Este Randomizador permite llegar a generar de una manera visual la pista de una 
 * **Cronómetro Integrado:** Permite medir el tiempo exacto de cada lanzamiento en minutos, segundos y milisegundos para llevar un control de velocidad.
 * **Historial de Lanzamientos:** Un registro interactivo que guarda cada pista generada con un identificador único, marca de tiempo y detalles específicos.
 * **Sistema de Filtros avanzados:** Filtra el historial por tipo de ronda o por cuadrante específico para analizar escenarios particulares.
-
----
-
-## Estructura del Proyecto
-
-```text
-├── index.html       # Estructura de la interfaz de usuario
-├── style.css        # Estilos modernos de la aplicación (Modo Oscuro)
-├── script.js       # Lógica matemática, randomizador y control del flujo
-└── field.png        # Imagen base del tapete oficial de la WRO
