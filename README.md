@@ -41,8 +41,9 @@
   - [4.2 Desafio Cerrado](#42-desafio-cerrado)
     - [4.2.1 Flowchart Cerrada](#421-flowchart-cerrada)
     - [4.2.2 Explicación del Codigo](#422-explicacion-del-codigo)
-- [5. Recursos para armar nuestro robot](#5-recursos-para-hacer-el-robot)
-- [6. Licencia](#6-licencia)
+- [5. Randomizador](#5-Randomizador)
+- [6. Recursos para armar nuestro robot](#6-recursos-para-hacer-el-robot)
+- [7. Licencia](#7-licencia)
 
 ---
 
@@ -1956,7 +1957,12 @@ Esta arquitectura permite un control robusto y adaptable para el desafío cerrad
 - **Comunicación:** Dual SPI, Serial Communication, UART
 ---
 
-## 5. Recursos para Hacer el Robot
+## 5. Randomizador
+
+Para optimizar nuestro rendimiento en la pista y asegurar la adaptabilidad del robot, el Team Valgrind ha desarrollado un randomizador de la pista de la categoria Futuros Ingenieros de la WRO 2026. En el Desafío Abierto, genera de forma totalmente aleatoria el cuadrado central y el sentido de orientacion y en el Desafío Cerrado genera los bloques de tráfico y el estacionamiento de una forma aleatoria, permitiendo un mejor desempeño en la pista al darnos diferentes ejemplos para poder practicar. Puedes encontrar este Randomizador en el siguiente enlace: https://yosoycrix.github.io/wro-futuros-ingenieros-randomizador-team-valgrind/
+---
+
+## 6. Recursos para Hacer el Robot
 
 | Producto | Cantidad | Precio | Tipo | Link |
 |---|---|---|---|---|
