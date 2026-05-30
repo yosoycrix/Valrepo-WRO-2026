@@ -177,6 +177,10 @@ Este nombre no solo es un guiño a la mitología mencionada, sino que además co
 
 Aún así, nuestro único objetivo no es solamente ganar, como un equipo unido también tenemos la convicción de poder crear un robot no solo funcional, sino que llene nuestras expectativas; A pesar de ser intangible nuestro deseo de poder culminar nuestro proyecto como un equipo unido y verlo brillar, también es una meta importante para nosotros.
 
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
+
 ---
 
 ## 2. El Robot
@@ -378,6 +382,10 @@ A continuación, se desglosa cómo cada pieza clave se integra en la arquitectur
 | **Consumo energético** | Más elevado por la transmisión a cuatro ruedas. | Menor, lo que puede aumento de la autonomía.                                |
 | **Aplicación recomendada** | Terrenos difíciles, obstáculos, máxima tracción. | Pistas controladas, mayor maniobrabilidad y agilidad.                     |
 
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
+
 ---
 ### 2.6.2 **Servomotor INJORA 180°**
 
@@ -441,6 +449,11 @@ A continuación, se desglosa cómo cada pieza clave se integra en la arquitectur
 </table>
 
 <br>
+
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
+
 <hr>
 
 ### 2.6.3 **Motor Hytech GA37-520**
@@ -553,6 +566,10 @@ Dos palabras clave: `Velocidad` y `Torque`. Al aumentar la reducción, la veloci
 - **Adaptabilidad:** Cambiando los engranajes externos se puede ajustar fácilmente la velocidad y el torque final.
 - **Eficiencia y disponibilidad:** Los componentes son fáciles de conseguir y económicos.
 
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
+
 ---
 
 ### 2.6.4 **Tornillos, Tuercas de Seguridad y Arandelas (M2 y M3)**
@@ -561,6 +578,10 @@ Dos palabras clave: `Velocidad` y `Torque`. Al aumentar la reducción, la veloci
 
  ##### Ya sean M2 o M3, son piezas imprescindibles para la mecanica de nuestro robot, debido a la fijacion de piezas pequeñas, estabilización de componentes, y la garantía de seguridad que otorgan con respecto al uso prolongado del robot ya sea en practicas o en la competición.
  ##### Se decidió tomar la decisión de tener tornillos M2 y M3 de forma simultánea para velar por la eficiencia del espacio, para permitir compatibilidad con los componentes más pequeños, y al mismo tiempo para garantizar que los tornillos resistan y permitan estabilidad en el robot.
+
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
      
 ---
 
@@ -615,6 +636,10 @@ Diseñadas para potenciar el rendimiento en competiciones de robótica como la W
 
 > [!TIP]
 > Para maximizar rendimiento y seguridad en robots**, cargue siempre estas baterías con un cargador compatible NiMH (como el Tenergy 6V-12V) a ≤1A para evitar sobrecalentamiento y prolongar su vida útil (~500 ciclos). Durante competiciones WRO, monitoree la temperatura (detenga si supera 45°C) y verifique el voltaje post-uso (>10.8V ideal); evite descargas profundas (<0.9V/celda) recargando tras 3-4 sesiones. Almacénelas con 40-60% de carga en ambiente fresco (15-25°C), realice mantenimiento cada 4 semanas si no se usan, y en robots proteja el pack contra golpes con aislante anti-vibración.
+
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
 
 ---
 
@@ -700,6 +725,10 @@ El LM2596 sigue una topología **buck clásica** con cuatro componentes clave:
 >  - Usar cables AWG 18+ para corrientes >2A.  
 >  - Evitar loops largos en entrada/salida para reducir rizado.  
 
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
+
 ---
 
 ### 3.1.3 **Motor Driver**
@@ -770,6 +799,10 @@ Usa un circuito **puente H (H-bridge)** interno:
   `IN1 = LOW` (SW2 cerrado) + `IN2 = HIGH` (SW3 cerrado) → Corriente fluye: SW3 → Motor → SW2  
 - **Frenado:**  
   `IN1 = HIGH` + `IN2 = HIGH` → Cortocircuito en bornes del motor (frena rápidamente).  
+
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
 
 ---
 
@@ -854,6 +887,11 @@ Usa un circuito **puente H (H-bridge)** interno:
   </tbody>
 </table>
 <br>
+
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
+
 <hr>
 
 ### 3.1.5 **Giroscopio**
@@ -944,6 +982,10 @@ Usa un circuito **puente H (H-bridge)** interno:
   </tbody>
 </table>
 
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
+
 <br>
 <hr>
 
@@ -1027,6 +1069,10 @@ Usa un circuito **puente H (H-bridge)** interno:
     </tr>
   </tbody>
 </table>
+
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
 
 <br>
 <hr>
@@ -1158,6 +1204,10 @@ Usa un circuito **puente H (H-bridge)** interno:
   </tbody>
 </table>
 
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
+
 <br>
 <hr>
 
@@ -1203,6 +1253,10 @@ Usa un circuito **puente H (H-bridge)** interno:
     </td>
   </tr>
 </table>
+
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
 
 <br>
 <hr>
@@ -1321,12 +1375,20 @@ Usa un circuito **puente H (H-bridge)** interno:
 > [!WARNING]
 > ☑️ **Aislamiento de Buses:** La separación física en el ESP32 del bus **VSPI** (Visión) y **HSPI** (Almacenamiento) es crítica para evitar latencias en el procesamiento de <i>signatures</i> de color durante la carrera.
 
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
+
 <br>
 <hr>
 
 ## 3.3 Diagrama de Conexiones
 
 <img src="./schemes/electronics/heimdall_diagrama.jpg" alt="Diagrama de Conexiones" width=70%>
+
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
 
 ---
 
@@ -1410,6 +1472,10 @@ Usa un circuito **puente H (H-bridge)** interno:
     </tr>
   </tbody>
 </table>
+
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
 
 ---
 
