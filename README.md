@@ -4,6 +4,8 @@
 
 ---
 
+<a name="inicio"></a>
+
 # Índice
 
 - [1. Nuestro Equipo](#1-nuestro-equipo)
