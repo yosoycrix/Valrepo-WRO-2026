@@ -1489,13 +1489,19 @@ Usa un circuito **puente H (H-bridge)** interno:
   * **Sentido de la Marcha:** La dirección en la que el carro debe circular (sentido horario o antihorario) se determina al azar.
   * **Dimensiones de la Pista:** Las dimensiones y la geometría de las paredes del circuito se modifican de forma aleatoria, obligando a los sensores (como ultrasonidos, LiDAR o cámaras) a recalcular las distancias y ajustar el centro del carril en tiempo real.
 
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
+
 ## 4.1.1 Flowchart Abierta
 
 En este diagrama de flujo se halla una representación gráfica del funcionamiento lógico de nuestra programación, así como de lo que se espera sea el desempeño del robot al inicializar el programa.
 
 <img src="./schemes/flowcharts/flowchart_open_challenge.png" alt="Team Photo" width=500>
 
----
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
 
 ## 4.1.2 Explicacion del Codigo
 
