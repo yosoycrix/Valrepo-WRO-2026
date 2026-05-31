@@ -1505,266 +1505,242 @@ En este diagrama de flujo se halla una representación gráfica del funcionamien
 
 ## 4.1.2 Explicacion del Codigo
 
-- Definición de Pines y Constantes
+<p>Nuestro algoritmo implementa una <b>Máquina de Estados Finitos (FSM)</b> que opera en tiempo real de forma asíncrona. La toma de decisiones está diseñada para ejecutarse de manera lineal y estrecha, eliminando retrasos bloqueantes (<code>delay()</code>) para garantizar lecturas fluidas del giroscopio (<b>MPU6050</b>) y de los sensores ultrasónicos a través de marcas de tiempo concurrentes (<code>millis()</code>).</p>
+
+<p>A continuación, se detalla cómo interactúa cada función crítica del código con las variables de control, las banderas (<code>flags</code>) de estado y los actuadores físicos del robot durante la carrera:</p>
+
+<hr />
+
+<details style="border: 1px solid #ddd; padding: 15px; border-radius: 6px; margin-bottom: 15px; background-color: #fafafa;">
+  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;"> 1. Definición de Variables y Pines</summary>
+  <div style="margin-top: 10px;">
+    <p>Este parte del codigo define las librerias, los pines en el ESP32 y las diferentes del variables del sistema.</p>
 
 ```cpp
-// Pines ESP32 para sensores ultrasónicos
-#define USTFRONT 12    // Trigger del sensor frontal
-#define USEFRONT 13    // Echo del sensor frontal  
-#define USTLEFT 14     // Trigger del sensor izquierdo
-#define USELEFT 27     // Echo del sensor izquierdo
-#define USTRIGHT 25    // Trigger del sensor derecho
-#define USERIGHT 26    // Echo del sensor derecho
+#include Wire.h
+#include NewPing.h
+#include ESP32Servo.h
+#include MPU6050_light.h
 
-#define MAX_DISTANCE 357  // Distancia máxima de medición en cm
+#define USTFRONT 13
+#define USEFRONT 12
+#define USTLEFT 14
+#define USELEFT 27
+#define USTRIGHT 26
+#define USERIGHT 25
 
-// Pines de control
-#define IN2 17         // Control motor (puente H)
-#define IN1 16         // Control motor (puente H)
-#define PIN_SERVO 2    // Señal del servomotor
-#define PIN_BOTON 15   // Entrada del botón de inicio
-```
+#define MAX_DISTANCE 357
 
+#define IN2 16
+#define IN1 17
+#define PIN_SERVO 2
+#define PIN_BOTON 15
 
-Cada sensor ultrasónico necesita 2 pines: Trigger (envía señal) y Echo (recibe eco)
-
-MAX_DISTANCE: Límite práctico del sensor HC-SR04
-
-IN1/IN2: Controlan la dirección del motor mediante puente H
-
-PIN_SERVO: Controla la posición del servo de dirección
-
-- Instanciación de Objetos
-
-```cpp
 NewPing USFRONT(USTFRONT, USEFRONT, MAX_DISTANCE);
 NewPing USLEFT(USTLEFT, USELEFT, MAX_DISTANCE);
 NewPing USRIGHT(USTRIGHT, USERIGHT, MAX_DISTANCE);
 
 Servo myservo;
+MPU6050 mpu(Wire);
+
+const int DISTANCIA_OBSTACULO_FRONTAL = 20;
+const int DISTANCIA_OBSTACULO_LATERAL = 120;
+const unsigned long TIEMPO_ESPERA_GIRO = 1000;
+const int MAX_GIROS = 12;
+
+bool programaIniciado = false;
+bool finalizado = false;
+bool girando = false;
+bool enAvanceFinal = false;
+
+unsigned long tiempoUltimoGiro = 0;
+unsigned long tiempoInicioFinal = 0;
+int contadorGiros = 0;
+
+float angulof = 0;
+float gyro = 0;
 ```
 
-Crea objetos para interactuar con los sensores y el servo usando las librerías.
+  <p><b>Explicacion:</b> Configura las instancias de los tres sensores ultrasónicos usando la librería <code>NewPing</code> (fijando un rango máximo de 357 cm). Las constantes determinan los umbrales: frenado frontal de emergencia a 20 cm, detección de esquinas libres a 120 cm, y una recorrido total de <b>12 giros</b> (equivalentes a las 3 vueltas).</p>
+  </div>
+</details>
 
-- Parámetros de Control
-```cpp
+<details style="border: 1px solid #ddd; padding: 15px; border-radius: 6px; margin-bottom: 15px; background-color: #fafafa;">
+  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;">⚙️ 2. Inicialización y Calibración Inercial (setup)</summary>
+  <div style="margin-top: 10px;">
+    <p>Sección encargada de establecer los modos de los pines de entrada/salida y calcular las desviaciones iniciales de la Unidad de Medición Inercial (IMU).</p>
 
-const int DISTANCIA_OBSTACULO_FRONTAL = 20;    // Umbral frontal para detección
-const int DISTANCIA_OBSTACULO_LATERAL = 200;   // Umbral lateral para giros
-const unsigned long DURACION_GIRO_I = 420;     // Tiempo giro izquierda (ms)
-const unsigned long DURACION_GIRO_D = 350;     // Tiempo giro derecha (ms)
-const unsigned long TIEMPO_ESPERA_GIRO = 300;  // Espera entre giros (ms)
+<pre><code class="language-cpp">void setup() {
+  Serial.begin(115200);
 
-Valores optimizados experimentalmente:
+  pinMode(PIN_BOTON, INPUT_PULLUP);
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
 
-    20cm frontal: Distancia segura para detectar obstáculos sin chocar
+  myservo.attach(PIN_SERVO);
+  servoCentro();
 
-    200cm lateral: Indica que hay espacio suficiente para girar
+  Wire.begin();
+  byte status = mpu.begin();
+  while (status != 0) {
+    Serial.println("Error MPU6050");
+    delay(1000);
+  }
 
-    420ms/350ms: Tiempos calibrados para giros de 90 grados
+  Serial.println("Calculando offsets, no mover el MPU...");
+  delay(1000);
+  mpu.calcOffsets();
 
-    300ms: Evita giros consecutivos demasiado rápidos
-```
+  actualizarMPU();
+  angulof = gyro;
 
--  Variables de Estado
-```cpp
-bool programaIniciado = false;    // Control de inicio del programa
-bool finalizado = false;          // Indica si completó los 12 giros
-
-unsigned long tiempoUltimoGiro = 0;  // Marca temporal del último giro
-int contadorGiros = 0;               // Cuenta giros realizados
-```
-
-- Función setup() - Inicialización
-```cpp
-
-void setup() {
-  myservo.attach(PIN_SERVO);      // Vincula servo al pin
-  Serial.begin(115200);           // Inicia comunicación serial
-
-  // Configuración de pines
-  pinMode(PIN_BOTON, INPUT_PULLUP);  // Botón con resistencia pull-up interna
-  pinMode(IN1, OUTPUT);           // Salida para control motor
-  pinMode(IN2, OUTPUT);           // Salida para control motor
-
-  // Estado inicial
-  digitalWrite(IN1, LOW);         // Motor apagado
-  digitalWrite(IN2, LOW);         // Motor apagado
-  myservo.write(98);              // Servo en posición central
-
+  Parar();
+  delay(3000);
   Serial.println("Esperando pulsar botón para iniciar...");
-}
+}</code></pre>
 
-Flujo de inicialización:
+  <p><b>Propósito técnico:</b> El método <code>mpu.calcOffsets()</code> calcula los errores del giroscopio en estado de reposo estático, lo que mitiga la deriva inercial (<i>gyro drift</i>) durante la ejecución. Al concluir, el robot toma su orientación actual como referencia absoluta de partida (0°) y se bloquea en modo de bajo consumo hasta recibir el flanco de bajada físico en el pulsador.</p>
+  </div>
+</details>
 
-    Configura hardware
+<details style="border: 1px solid #ddd; padding: 15px; border-radius: 6px; margin-bottom: 15px; background-color: #fafafa;">
+  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;">🔄 3. El Bucle Principal y la Gestión de Estados (loop)</summary>
+  <div style="margin-top: 10px;">
+    <p>El núcleo del programa funciona como un despachador jerárquico de prioridad que decide qué subproceso físico debe tomar control del hardware en cada ciclo de reloj.</p>
 
-    Establece estado seguro (motor off, servo centrado)
-
-    Espera señal de inicio
-```
-
-- Función loop() - Bucle Principal
-
-```cpp
-
-void loop() {
+<pre><code class="language-cpp">void loop() {
   if (!programaIniciado) {
-    // Espera activa del botón
     if (digitalRead(PIN_BOTON) == LOW) {
       programaIniciado = true;
       Serial.println("Botón presionado, iniciando programa...");
-      delay(500);  // Anti-rebote
+      delay(300);
     }
-  } else if (!finalizado) {
-    docegiros();  // Ejecuta lógica principal
+    return;
   }
-  // Si finalizado, el loop no hace nada
+
+  if (finalizado) {
+    Parar();
+    return;
+  }
+
+  if (enAvanceFinal) {
+    actualizarFinal();
+    return;
+  }
+
+  if (girando) {
+    actualizarGiro();
+    return;
+  }
+
+  int frontal = leerUltrasonico(USFRONT);
+  int izquierda = leerUltrasonico(USLEFT);
+  int derecha = leerUltrasonico(USRIGHT);
+
+  if (frontal != -1 && frontal <= DISTANCIA_OBSTACULO_FRONTAL) {
+    Parar();
+    return;
+  }
+
+  Adelante();
+
+  if (millis() - tiempoUltimoGiro < TIEMPO_ESPERA_GIRO) {
+    return;
+  }
+
+  if (izquierda != -1 && izquierda > DISTANCIA_OBSTACULO_LATERAL) {
+    Serial.println("Girando a la izquierda por espacio libre");
+    iniciarGiroIzquierda();
+    return;
+  }
+
+  if (derecha != -1 && derecha > DISTANCIA_OBSTACULO_LATERAL) {
+    Serial.println("Girando a la derecha por espacio libre");
+    iniciarGiroDerecha();
+    return;
+  }
+}</code></pre>
+
+  <p><b>Propósito técnico:</b> Organiza las acciones en cascada lógica. Las compuertas de seguridad superiores impiden que el robot lea los sensores de distancia si se está ejecutando activamente una maniobra de giro inercial o el remate de meta. De este modo, se asegura la integridad estructural del flujo operativo.</p>
+  </div>
+</details>
+
+<details style="border: 1px solid #ddd; padding: 15px; border-radius: 6px; margin-bottom: 15px; background-color: #fafafa;">
+  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;">🎯 4. Control Angular en Bucle Cerrado (actualizarGiro)</summary>
+  <div style="margin-top: 10px;">
+    <p>Rutina matemática avanzada encargada de medir el desplazamiento angular absoluto y corregir dinámicamente el servo de dirección durante las curvas.</p>
+
+<pre><code class="language-cpp">void iniciarGiroIzquierda() {
+  girando = true;
+  angulof += 90;
+  myservo.write(120);
+  motorAdelante();
 }
-```
 
-- Función docegiros() - Lógica Principal
+void iniciarGiroDerecha() {
+  girando = true;
+  angulof -= 90;
+  myservo.write(60);
+  motorAdelante();
+}
 
-```cpp
-void docegiros() {
-  unsigned long ahora = millis();  // Tiempo actual
+void actualizarGiro() {
+  actualizarMPU();
 
-  // Lectura de sensores
-  int frontal = USFRONT.ping_cm();
-  int izquierda = USLEFT.ping_cm();
-  int derecha = USRIGHT.ping_cm();
+  float error = angulof - gyro;
+  if (error > 180) error -= 360;
+  if (error < -180) error += 360;
 
-  // Filtrado de valores erróneos
-  if (frontal == 357) frontal = -1;
-  if (izquierda == 357) izquierda = -1;
-  if (derecha == 357) derecha = -1;
+  if (abs(error) <= 5) {
+    motorParar();
+    servoCentro();
+    girando = false;
+    contadorGiros++;
+    tiempoUltimoGiro = millis();
 
-Procesamiento de lecturas:
-
-    ping_cm(): Método de NewPing que devuelve distancia en cm
-
-    357cm: Valor que indica medición fuera de rango → se convierte a -1
-
-cpp
-
-  // Verificación de finalización
-  if (contadorGiros >= 12) {
-    if (!finalizado) {
-      Serial.println("Se alcanzaron 12 giros, avanzando 1 segundo más y deteniéndose.");
-      Adelante();
-      delay(250);
-      Parar();
-      finalizado = true;
+    if (contadorGiros >= MAX_GIROS) {
+      enAvanceFinal = true;
+      tiempoInicioFinal = millis();
     }
-    return;  // Sale de la función
   }
+}</code></pre>
 
-Lógica de finalización:
+  <p><b>Propósito técnico:</b> Al detectar una esquina libre, se establece una meta relativa (&plusmn;90°). Para evitar inestabilidad o desbordamientos cuando el giroscopio cruza la barrera de transición entre +180° y -180°, el algoritmo normaliza el error de manera vectorial. El estado <code>girando</code> se mantiene activo bloqueando las ruedas hasta que la tolerancia cinemática de alineación sea menor o igual a un estricto umbral de &le; 5°.</p>
+  </div>
+</details>
 
-    Después de 12 giros, avanza 250ms extra y se detiene permanentemente
+<details style="border: 1px solid #ddd; padding: 15px; border-radius: 6px; margin-bottom: 15px; background-color: #fafafa;">
+  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;">🛡️ 5. Ventana de Amortiguación Temporal (Filtro Anti-Ecos)</summary>
+  <div style="margin-top: 10px;">
+    <p>Esta condicional específica actúa directamente como un escudo matemático frente al ruido acústico de la pista.</p>
 
-cpp
+<pre><code class="language-cpp">if (millis() - tiempoUltimoGiro < TIEMPO_ESPERA_GIRO) {
+  return;
+}</code></pre>
 
-  // Toma de decisiones de movimiento
-  if (frontal != -1 && frontal > DISTANCIA_OBSTACULO_FRONTAL) {
-    Adelante();  // Avanza si no hay obstáculo frontal
-    
-    // Verifica si puede girar (respetando tiempo de espera)
-    if (ahora - tiempoUltimoGiro > TIEMPO_ESPERA_GIRO) {
-      if (izquierda != -1 && izquierda > DISTANCIA_OBSTACULO_LATERAL) {
-        // Giro a izquierda
-        Serial.println("Girando a la izquierda por más de 190 cm libres");
-        delay(200);  // Pequeña pausa antes de girar
-        Izquierda();
-        contadorGiros++;
-        tiempoUltimoGiro = millis();
-        Adelante();
-      } else if (derecha != -1 && derecha > DISTANCIA_OBSTACULO_LATERAL) {
-        // Giro a derecha  
-        Serial.println("Girando a la derecha por más de 190 cm libres");
-        Derecha();
-        contadorGiros++;
-        tiempoUltimoGiro = millis();
-        Adelante();
-      }
-    }
+  <p><b>Propósito técnico:</b> Al completar un giro y enderezar las ruedas, los rebotes sónicos del ultrasonido contra las paredes angulares oblicuas producen ecos residuales falsos. Este filtro bloquea cualquier intención de muestreo lateral durante exactamente 1000 ms, garantizando que el carro estabilice por completo su marcha en línea recta antes de volver a escanear el entorno.</p>
+  </div>
+</details>
+
+<details style="border: 1px solid #ddd; padding: 15px; border-radius: 6px; margin-bottom: 15px; background-color: #fafafa;">
+  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;">🏁 6. Maniobra de Remate de Meta (actualizarFinal)</summary>
+  <div style="margin-top: 10px;">
+    <p>Proceso de desaceleración automatizado diseñado para cumplir de manera autónoma con las pautas de detención final de la competencia.</p>
+
+<pre><code class="language-cpp">void actualizarFinal() {
+  motorAdelante();
+  if (millis() - tiempoInicioFinal >= 700) {
+    Parar();
+    servoCentro();
+    enAvanceFinal = false;
+    finalizado = true;
+    Serial.println("Se completaron 12 giros, robot detenido.");
   }
-}
+}</code></pre>
 
-Algoritmo de decisión:
-
-    ¿Hay camino frontal? → Avanzar
-
-    ¿Pasó el tiempo de espera desde último giro? → Evaluar giros
-
-    ¿Hay espacio a izquierda? → Girar izquierda
-
-    ¿Hay espacio a derecha? → Girar derecha
-
-    Actualizar contadores y temporizadores
-```
-
-9. Funciones de Movimiento
-
-```cpp
-
-void Adelante() {
-  digitalWrite(IN1, HIGH);  // Activa motor
-  digitalWrite(IN2, LOW);   // Dirección forward
-  Serial.println("Motor en marcha hacia adelante");
-}
-
-void Parar() {
-  digitalWrite(IN1, LOW);   // Desactiva motor
-  digitalWrite(IN2, LOW);
-  Serial.println("Motor detenido");
-}
-
-Control del motor:
-
-    IN1=HIGH, IN2=LOW: Motor adelante
-
-    IN1=LOW, IN2=LOW: Motor detenido (frenado)
-
-void Izquierda() {
-  digitalWrite(IN1, HIGH);  // Motor activo
-  myservo.write(128);       // Servo a posición izquierda
-  
-  // Giro controlado por tiempo
-  unsigned long inicio = millis();
-  while (millis() - inicio < DURACION_GIRO_I) {
-    // Espera activa durante el giro
-  }
-  
-  myservo.write(96);        // Vuelve a centro
-  digitalWrite(IN1, LOW);   // Detiene motor
-  Serial.println("Giro izquierda completado");
-}
-
-void Derecha() {
-  digitalWrite(IN1, HIGH);
-  myservo.write(38);        // Servo a posición derecha
-  
-  unsigned long inicio = millis();
-  while (millis() - inicio < DURACION_GIRO_D) {
-    // Espera activa durante el giro
-  }
-  
-  myservo.write(100);       // Vuelve a centro
-  digitalWrite(IN1, LOW);
-  Serial.println("Giro derecha completado");
-}
-
-Mecánica de giro:
-
-    128: Ángulo para giro izquierda (servo gira a la derecha)
-
-    38: Ángulo para giro derecha (servo gira a la izquierda)
-
-    96/100: Posiciones centrales (diferencia por calibración)
-
-    Los giros se controlan por tiempo, no por feedback
-```
+  <p><b>Propósito técnico:</b> Tras registrar matemáticamente la esquina número 12 (lo que consolida las 3 vueltas exactas), el software rompe las subrutinas de navegación ordinaria e implementa una ventana de empuje lineal de 700 ms. Esto asegura el cruce inercial completo sobre la línea de cronometraje para luego desenergizar los puentes H y congelar el robot de forma permanente en la zona reglamentaria cambiando <code>finalizado = true</code>.</p>
+  </div>
+</details>
 
 ## 4.2 Desafio Cerrado
 
