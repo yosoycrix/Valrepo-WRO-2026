@@ -1493,33 +1493,9 @@ Usa un circuito **puente H (H-bridge)** interno:
 
 En este diagrama de flujo se halla una representación gráfica del funcionamiento lógico de nuestra programación, así como de lo que se espera sea el desempeño del robot al inicializar el programa.
 
-```mermaid
-flowchart TD
-    A[Inicio: setup y calibrarOffsets] --> B{¿Botón presionado?\ndigitalRead PIN_BOTON}
-    B -- No --> B
-    B -- Sí --> C[programaIniciado = true]
-    
-    C --> D{¿contadorGiros < 12?}
-    D -- No --> E[actualizarFinal: Avanzar 700ms y detenerse] --> F([finalizado = true \n Fin del Programa])
-    
-    D -- Sí --> G[leerUltrasonico: Frontal, Izq, Der]
-    G --> H{¿Frontal <= 20cm?}
-    H -- Sí --> H_Stop[Parar motores] --> G
-    
-    H -- No --> I[Adelante: Motores ON y servoCentro]
-    I --> J{¿Tiempo < 1s?\nmillis - tiempoUltimoGiro}
-    J -- Sí --> G
-    
-    J -- No --> K{¿Izquierda > 120cm?}
-    K -- Sí --> L[iniciarGiroIzquierda: meta +90°, servo 120°] --> Q
-    K -- No --> M{¿Derecha > 120cm?}
-    M -- Sí --> N[iniciarGiroDerecha: meta -90°, servo 60°] --> Q
-    M -- No --> G
+<img src="./schemes/flowcharts/flowchart_open_challenge.png" alt="Team Photo" width=500>
 
-    Q[actualizarGiro: Leer MPU y calcular error] --> R{¿Ángulo alcanzado?\nabs error <= 5°}
-    R -- No --> Q
-    R -- Sí --> S[Parar, servoCentro, girando=false, contadorGiros++] --> G
-```
+---
 
 ## 4.1.2 Explicacion del Codigo
 
