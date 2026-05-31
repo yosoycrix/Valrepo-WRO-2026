@@ -45,7 +45,6 @@
     - [4.2.2 Explicación del Codigo](#422-explicacion-del-codigo)
 - [5. Randomizador](#5-Randomizador)
 - [6. Recursos para armar nuestro robot](#6-recursos-para-hacer-el-robot)
-- [7. Licencia](#7-licencia)
 
 ---
 
