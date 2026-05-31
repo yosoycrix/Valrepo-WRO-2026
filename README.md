@@ -1505,14 +1505,14 @@ En este diagrama de flujo se halla una representación gráfica del funcionamien
 
 ## 4.1.2 Explicacion del Codigo
 
-<p>Nuestro algoritmo implementa una <b>Máquina de Estados Finitos (FSM)</b> que opera en tiempo real de forma asíncrona. La toma de decisiones está diseñada para ejecutarse de manera lineal y estrecha, eliminando retrasos bloqueantes (<code>delay()</code>) para garantizar lecturas fluidas del giroscopio (<b>MPU6050</b>) y de los sensores ultrasónicos a través de marcas de tiempo concurrentes (<code>millis()</code>).</p>
+<p>Nuestro codigo implementa una <b>Máquina de Estados Finitos (FSM)</b> que opera en tiempo real de forma asíncrona, la toma de decisiones está diseñada para ejecutarse de manera lineal y estrecha, eliminando los <code>delay()</code> para garantizar una respuesta rapida del giroscopio (<b>MPU6050</b>) y de los sensores ultrasónicos a través de la funcion <code>millis()</code>.</p>
 
-<p>A continuación, se detalla cómo interactúa cada función crítica del código con las variables de control, las banderas (<code>flags</code>) de estado y los actuadores físicos del robot durante la carrera:</p>
+<p>A continuación, se explica cómo funciona cada parte del código con las variables de control, las variables de estado y los sensores del robot durante la competencia:</p>
 
-<hr />
+<hr/>
 
 <details style="border: 1px solid #ddd; padding: 15px; border-radius: 6px; margin-bottom: 15px; background-color: #fafafa;">
-  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;"> 1. Definición de Variables y Pines</summary>
+  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;">1. Definición de Variables y Pines</summary>
   <div style="margin-top: 10px;">
     <p>Este parte del codigo define las librerias, los pines en el ESP32 y las diferentes del variables del sistema.</p>
 
@@ -1566,11 +1566,12 @@ float gyro = 0;
 </details>
 
 <details style="border: 1px solid #ddd; padding: 15px; border-radius: 6px; margin-bottom: 15px; background-color: #fafafa;">
-  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;">⚙️ 2. Inicialización y Calibración Inercial (setup)</summary>
+  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;">2. Inicialización y Calibración (setup)</summary>
   <div style="margin-top: 10px;">
-    <p>Sección encargada de establecer los modos de los pines de entrada/salida y calcular las desviaciones iniciales de la Unidad de Medición Inercial (IMU).</p>
+    <p>Esta parte se encarga de establecer los modos de los pines de entrada/salida y calcular las desviaciones iniciales de la Unidad de Medición Inercial (IMU).</p>
 
-<pre><code class="language-cpp">void setup() {
+```cpp
+void setup() {
   Serial.begin(115200);
 
   pinMode(PIN_BOTON, INPUT_PULLUP);
@@ -1597,18 +1598,20 @@ float gyro = 0;
   Parar();
   delay(3000);
   Serial.println("Esperando pulsar botón para iniciar...");
-}</code></pre>
+}
+```
 
-  <p><b>Propósito técnico:</b> El método <code>mpu.calcOffsets()</code> calcula los errores del giroscopio en estado de reposo estático, lo que mitiga la deriva inercial (<i>gyro drift</i>) durante la ejecución. Al concluir, el robot toma su orientación actual como referencia absoluta de partida (0°) y se bloquea en modo de bajo consumo hasta recibir el flanco de bajada físico en el pulsador.</p>
+  <p><b>Explicacion:</b> El método <code>mpu.calcOffsets()</code> calcula los errores del giroscopio en estado de reposo estático, lo que mitiga la deriva inercial (<i>gyro drift</i>) durante la ejecución. Al terminar el robot toma su orientación actual como referencia absoluta de partida (0°) y se bloquea en modo de bajo consumo hasta recibir la señal del pulsador.</p>
   </div>
 </details>
 
 <details style="border: 1px solid #ddd; padding: 15px; border-radius: 6px; margin-bottom: 15px; background-color: #fafafa;">
-  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;">🔄 3. El Bucle Principal y la Gestión de Estados (loop)</summary>
+  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;">3.Bucle Principal y Maquina de Estados (loop)</summary>
   <div style="margin-top: 10px;">
-    <p>El núcleo del programa funciona como un despachador jerárquico de prioridad que decide qué subproceso físico debe tomar control del hardware en cada ciclo de reloj.</p>
+    <p>Esta parte controla todo el comportamiento del robot, Ss trabajo es seguir una lista de tareas ordenada por prioridades, decidiendo en cada momento a qué sensor o motor le toca actuar para que el robot funcione sin problemas.</p>
 
-<pre><code class="language-cpp">void loop() {
+```cpp
+void loop() {
   if (!programaIniciado) {
     if (digitalRead(PIN_BOTON) == LOW) {
       programaIniciado = true;
@@ -1659,18 +1662,20 @@ float gyro = 0;
     iniciarGiroDerecha();
     return;
   }
-}</code></pre>
+}
+```
 
-  <p><b>Propósito técnico:</b> Organiza las acciones en cascada lógica. Las compuertas de seguridad superiores impiden que el robot lea los sensores de distancia si se está ejecutando activamente una maniobra de giro inercial o el remate de meta. De este modo, se asegura la integridad estructural del flujo operativo.</p>
+  <p><b>Explicacion:</b> Ordena los pasos uno por uno según su importancia, las compuertas de seguridad superiores impiden que el robot lea los sensores de distancia si se está ejecutando activamente una maniobra de giro inercial o avance final de esta manera se asegura la integridad estructural del flujo operativo.</p>
   </div>
 </details>
 
 <details style="border: 1px solid #ddd; padding: 15px; border-radius: 6px; margin-bottom: 15px; background-color: #fafafa;">
-  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;">🎯 4. Control Angular en Bucle Cerrado (actualizarGiro)</summary>
+  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;">4. Control Angular (actualizarGiro)</summary>
   <div style="margin-top: 10px;">
-    <p>Rutina matemática avanzada encargada de medir el desplazamiento angular absoluto y corregir dinámicamente el servo de dirección durante las curvas.</p>
-
-<pre><code class="language-cpp">void iniciarGiroIzquierda() {
+    <p>Rutina matemática encargada de medir el desplazamiento angular absoluto y corregir el servo de dirección durante las curvas.</p>
+    
+```cpp
+void iniciarGiroIzquierda() {
   girando = true;
   angulof += 90;
   myservo.write(120);
@@ -1703,31 +1708,35 @@ void actualizarGiro() {
       tiempoInicioFinal = millis();
     }
   }
-}</code></pre>
+}
+```
 
-  <p><b>Propósito técnico:</b> Al detectar una esquina libre, se establece una meta relativa (&plusmn;90°). Para evitar inestabilidad o desbordamientos cuando el giroscopio cruza la barrera de transición entre +180° y -180°, el algoritmo normaliza el error de manera vectorial. El estado <code>girando</code> se mantiene activo bloqueando las ruedas hasta que la tolerancia cinemática de alineación sea menor o igual a un estricto umbral de &le; 5°.</p>
+  <p><b>Explicacion:</b> Al detectar una esquina libre, se establece una meta de giro (90°). Para evitar inestabilidad o desbordamientos cuando el giroscopio cruza la barrera de transición entre +180° y -180°, el algoritmo normaliza el error de manera vectorial. El estado <code>girando</code> se mantiene activo bloqueando las ruedas hasta que la tolerancia cinemática de alineación sea menor o igual a un estricto umbral de 5°.</p>
   </div>
 </details>
 
 <details style="border: 1px solid #ddd; padding: 15px; border-radius: 6px; margin-bottom: 15px; background-color: #fafafa;">
-  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;">🛡️ 5. Ventana de Amortiguación Temporal (Filtro Anti-Ecos)</summary>
+  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;">5. Evitar giros innecesarios</summary>
   <div style="margin-top: 10px;">
-    <p>Esta condicional específica actúa directamente como un escudo matemático frente al ruido acústico de la pista.</p>
+    <p>Esta condicional específica actúa directamente como una prevencion para evitar que el robot vuelva a cruzar innecesariamente.</p>
 
-<pre><code class="language-cpp">if (millis() - tiempoUltimoGiro < TIEMPO_ESPERA_GIRO) {
+```cpp
+if (millis() - tiempoUltimoGiro < TIEMPO_ESPERA_GIRO) {
   return;
-}</code></pre>
+}
+```
 
-  <p><b>Propósito técnico:</b> Al completar un giro y enderezar las ruedas, los rebotes sónicos del ultrasonido contra las paredes angulares oblicuas producen ecos residuales falsos. Este filtro bloquea cualquier intención de muestreo lateral durante exactamente 1000 ms, garantizando que el carro estabilice por completo su marcha en línea recta antes de volver a escanear el entorno.</p>
+  <p><b>Explicacion:</b> Al completar un giro y enderezar las ruedas, los rebotes sónicos del ultrasonido contra las paredes producen ecos innecesarios, este filtro bloquea cualquier intención de muestreo lateral durante exactamente 1000 ms, garantizando que el carro estabilice por completo su marcha en línea recta antes de volver a escanear el entorno.</p>
   </div>
 </details>
 
 <details style="border: 1px solid #ddd; padding: 15px; border-radius: 6px; margin-bottom: 15px; background-color: #fafafa;">
-  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;">🏁 6. Maniobra de Remate de Meta (actualizarFinal)</summary>
+  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em;">6. Estacionamiento Open Challenge (actualizarFinal)</summary>
   <div style="margin-top: 10px;">
-    <p>Proceso de desaceleración automatizado diseñado para cumplir de manera autónoma con las pautas de detención final de la competencia.</p>
+    <p>Proceso automatizado para asegurar quedar dentro de la zona de estacionamiento en el Open Challenge.</p>
 
-<pre><code class="language-cpp">void actualizarFinal() {
+```cpp
+void actualizarFinal() {
   motorAdelante();
   if (millis() - tiempoInicioFinal >= 700) {
     Parar();
@@ -1736,9 +1745,10 @@ void actualizarGiro() {
     finalizado = true;
     Serial.println("Se completaron 12 giros, robot detenido.");
   }
-}</code></pre>
+}
+```
 
-  <p><b>Propósito técnico:</b> Tras registrar matemáticamente la esquina número 12 (lo que consolida las 3 vueltas exactas), el software rompe las subrutinas de navegación ordinaria e implementa una ventana de empuje lineal de 700 ms. Esto asegura el cruce inercial completo sobre la línea de cronometraje para luego desenergizar los puentes H y congelar el robot de forma permanente en la zona reglamentaria cambiando <code>finalizado = true</code>.</p>
+  <p><b>Explicacion:</b> Tras girar 12 veces (lo que consolida las 3 vueltas exactas), el software rompe las subrutinas de navegación ordinaria e implementa una ventana de empuje lineal de 700 ms, esto asegura que Heimdall quede completamente adentro de la zona de aparcamiento (cualquiera de las 6 secciones y esto solo es en el Open Challenge) para luego desenergizar los puentes H y detener el robot de forma permanente en la zona reglamentaria cambiando <code>finalizado = true</code>.</p>
   </div>
 </details>
 
