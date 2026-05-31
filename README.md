@@ -1483,29 +1483,42 @@ Usa un circuito **puente H (H-bridge)** interno:
 
 ## 4.1 Desafio Abierto
 
+* **Objetivo:** El vehículo autónomo debe completar con éxito **3 vueltas consecutivas** al circuito en el menor tiempo posible, manteniendo un control absoluto de su trayectoria y deteniéndose de forma controlada al finalizar el recorrido.
+* **Restricciónes:** Está estrictamente prohibido que el chasis o cualquier componente del robot toque las paredes o los muros internos de la pista. Cualquier impacto o roce continuo puede penalizar la puntuación de la ronda o invalidar el intento.
+* **Factores Aleatorios:** Para garantizar que el vehículo no dependa de una ruta preprogramada o fija, se introducen dos variables aleatorias justo antes de iniciar la competencia:
+  * **Sentido de la Marcha:** La dirección en la que el carro debe circular (sentido horario o antihorario) se determina al azar.
+  * **Dimensiones de la Pista:** Las dimensiones y la geometría de las paredes del circuito se modifican de forma aleatoria, obligando a los sensores (como ultrasonidos, LiDAR o cámaras) a recalcular las distancias y ajustar el centro del carril en tiempo real.
+
 ## 4.1.1 Flowchart Abierta
 
 En este diagrama de flujo se halla una representación gráfica del funcionamiento lógico de nuestra programación, así como de lo que se espera sea el desempeño del robot al inicializar el programa.
 
 ```mermaid
-flowchart LR
-    A[Inicio] --> B[Esperar botón de inicio]
-    B -- Botón presionado --> C[Iniciar programa]
-    C --> D[Contador de giros < 12?]
-    D -- No --> E[Avanzar 1.3s y detenerse]
-    E --> F[Fin]
-    D -- Sí --> G[Leer sensores ultrasónicos]
-    G --> H{¿Frontal > 20cm?}
-    H -- Sí --> I[Avanzar recto]
-    I --> J{¿En tiempo de espera tras giro?}
+flowchart TD
+    A[Inicio: setup y calibrarOffsets] --> B{¿Botón presionado?\ndigitalRead PIN_BOTON}
+    B -- No --> B
+    B -- Sí --> C[programaIniciado = true]
+    
+    C --> D{¿contadorGiros < 12?}
+    D -- No --> E[actualizarFinal: Avanzar 700ms y detenerse] --> F([finalizado = true \n Fin del Programa])
+    
+    D -- Sí --> G[leerUltrasonico: Frontal, Izq, Der]
+    G --> H{¿Frontal <= 20cm?}
+    H -- Sí --> H_Stop[Parar motores] --> G
+    
+    H -- No --> I[Adelante: Motores ON y servoCentro]
+    I --> J{¿Tiempo < 1s?\nmillis - tiempoUltimoGiro}
     J -- Sí --> G
-    J -- No --> K{¿Izquierda > 200cm?}
-    K -- Sí --> L[Girar izquierda, +1 giro, reset tiempo]
-    L --> I
-    K -- No --> M{¿Derecha > 200cm?}
-    M -- Sí --> N[Girar derecha, +1 giro, reset tiempo]
-    N --> I
-    M -- No --> I
+    
+    J -- No --> K{¿Izquierda > 120cm?}
+    K -- Sí --> L[iniciarGiroIzquierda: meta +90°, servo 120°] --> Q
+    K -- No --> M{¿Derecha > 120cm?}
+    M -- Sí --> N[iniciarGiroDerecha: meta -90°, servo 60°] --> Q
+    M -- No --> G
+
+    Q[actualizarGiro: Leer MPU y calcular error] --> R{¿Ángulo alcanzado?\nabs error <= 5°}
+    R -- No --> Q
+    R -- Sí --> S[Parar, servoCentro, girando=false, contadorGiros++] --> G
 ```
 
 ## 4.1.2 Explicacion del Codigo
@@ -1513,7 +1526,6 @@ flowchart LR
 - Definición de Pines y Constantes
 
 ```cpp
-
 // Pines ESP32 para sensores ultrasónicos
 #define USTFRONT 12    // Trigger del sensor frontal
 #define USEFRONT 13    // Echo del sensor frontal  
