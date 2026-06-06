@@ -13,10 +13,10 @@
   - [1.2 Origenes](#12-origenes)
   - [1.3 Nuestro Objetivo](#13-nuestro-objetivo)
 - [2. El Robot](#2-el-robot)
-  - [2.1 Apartado Mecanico](#21-apartado-mecanico)
-  - [2.2 Impresion 3D](#22-Impresion-3d)
-  - [2.3 Movilidad](#23-movilidad)
-  - [2.4 Videos del Robot](#24-videos-del-robot)
+  - [2.1 Videos del Robot](#21-videos-del-robot)
+  - [2.2 Apartado Mecanico](#22-apartado-mecanico)
+  - [2.3 Impresion 3D](#23-Impresion-3d)
+  - [2.4 Movilidad](#24-movilidad)
   - [2.5 Sistema de Movimiento y Traccion](#25-sistema-de-movimiento-y-traccion)
   - [2.6 Piezas de Mecanica](#26-piezas-de-mecanica)
     - [2.6.1 Diferencial y Eje de transmision](#261-diferencial-y-eje-de-transmision-impreso-en-3d)
@@ -217,9 +217,13 @@ Aún así, nuestro único objetivo no es solamente ganar, como un equipo unido t
 
 ---
 
-## 2.1 Apartado Mecanico
+## 2.1 Videos Del Robot
 
-### 2.2 Impresion 3D
+---
+
+## 2.2 Apartado Mecanico
+
+### 2.3 Impresion 3D
 
 Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay que explicar nuestros métodos de Diseño e Impresión 3D, los cuales se llevaron a cabo mediante Fusion 360
 
@@ -229,19 +233,9 @@ Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay qu
 
 <img src="./images/3dheimdall.jpg" alt="Hei=mdall3d" width=80%>
 
-## 2.3 Movilidad
+## 2.4 Movilidad
 
 Ahora bien, ya habiendo dilucidado como podemos elegir, diseñar y imprimir las piezas de nuestro robot, hay que asegurarnos de que este cuente con las herramientas necesarias para moverse y evadir los obstáculos de la pista.
-
-## 2.4 Videos Del Robot
-
-> [!NOTE]
-> Video de Heimdall realizando el Open Challenge
-[Video](https://youtu.be/A_cvS-tfQbw?si=AHV0PGeCZv9EyR4f)
-
-> [!NOTE]
-> Video de Heimdall realizando el Closed Challenge 
-[Video](https://youtu.be/xPg1Bdj31Bs?si=Ma-bSzcdHcq5AbVu)
 
 Nuestro robot emplea un sistema de tracción diferencial, ofreciendo maniobrabilidad precisa para enfrentar los retos del campo de competencia. El sistema de cruces se realiza mediante un servo que ajusta la dirección del robot en intersecciones de forma eficaz. También cabe destacar el hecho de que utilizamos una técnica llamada  Ackermann Positivo para emplear el sistema de movilidad de nuestro vehículo.
 
