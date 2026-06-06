@@ -219,6 +219,25 @@ Aún así, nuestro único objetivo no es solamente ganar, como un equipo unido t
 
 ## 2.1 Videos Del Robot
 
+<table align="center" style="border-collapse: collapse; border: none; margin-top: 10px; width: 100%;">
+  <tr style="border: none;">
+    <td align="center" style="padding: 10px; border: none; width: 50%; vertical-align: top;">
+         <a href="https://www.youtube.com/watch?v=o4KUQaZj4Cw" target="_blank" style="text-decoration: none; display: inline-block;">
+        <img src="https://img.youtube.com/vi/o4KUQaZj4Cw/0.jpg" alt="Open Challenge Video 1" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 1px solid #e1e4e8;" />
+        <br />
+        <span style="color: #0366d6; font-size: 0.9em; font-weight: 500; display: inline-block; margin-top: 8px;">▶ Open Challenge #1</span>
+      </a>
+    </td>
+    <td align="center" style="padding: 10px; border: none; width: 50%; vertical-align: top;">
+      <a href="https://www.youtube.com/watch?v=vgDqmwVccgY" target="_blank" style="text-decoration: none; display: inline-block;">
+        <img src="https://img.youtube.com/vi/vgDqmwVccgY/0.jpg" alt="Open Challenge Video 2" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 1px solid #e1e4e8;" />
+        <br />
+        <span style="color: #0366d6; font-size: 0.9em; font-weight: 500; display: inline-block; margin-top: 8px;">▶ Open Challenge #2</span>
+      </a>
+    </td>
+  </tr>
+</table>
+
 ---
 
 ## 2.2 Apartado Mecanico
