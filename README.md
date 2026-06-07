@@ -2068,19 +2068,19 @@ Para optimizar nuestro rendimiento en la pista y asegurar la adaptabilidad del r
 
 | Componente | Cantidad | Link |
 |------------|-----------|----------------|
-| ESP32 WROOM 32 Microcontroller | 1 | [Amazon](https://www.amazon.com/s?k=ESP32+WROOM+32) |
-| PixyCam (Pixy2 CMUcam5) | 1 | [Amazon](https://www.amazon.com/s?k=Pixy2+CMUcam5) |
-| Servomotor INJORA 180° (Injora 2065) | 1 | [Amazon](https://www.amazon.com/s?k=Injora+2065+Servo) |
-| Motor Hytech GA37-520 12V con Encoder | 1 | [Amazon](https://www.amazon.com/s?k=GA37-520+Motor+12V) |
-| Tenergy 12V 2000mAh NiMH Battery Pack | 1 | [Amazon](https://www.amazon.com/s?k=Tenergy+12V+2000mAh+NiMH) |
-| Sensor de Ultrasonido | 1 | [Amazon](https://www.amazon.com/s?k=Ultrasonic+Sensor+Arduino) |
-| Giroscopio (MPU6050 / IMU) | 1 | [Amazon](https://www.amazon.com/s?k=MPU6050+Gyroscope) |
-| Módulo de Micro SD | 1 | [Amazon](https://www.amazon.com/s?k=Micro+SD+Card+Module+Arduino) |
-| Step Down Voltage Regulator | 1 | [Amazon](https://www.amazon.com/s?k=DC-DC+Step+Down+Buck+Converter) |
-| Motor Driver Module | 1 | [Amazon](https://www.amazon.com/s?k=DC+Motor+Driver+Module) |
-| Tornillos, Tuercas de Seguridad y Arandelas M2 | Various | [Amazon](https://www.amazon.com/s?k=M2+Screws+and+Nuts+Kit) |
-| Tornillos, Tuercas de Seguridad y Arandelas M3 | Various | [Amazon](https://www.amazon.com/s?k=M3+Screws+and+Nuts+Kit) |
-| Filamento para Impresión 3D (Chasis/Diferencial) | 1–3 | [Amazon](https://www.amazon.com/s?k=PLA%2B+Filament+3D+Printer) |
+| ESP32 WROOM 32 Microcontroller | 1 | [Amazon](https://www.amazon.com/-/es/DIYables-ESP-WROOM-32-desarrollo-microcontrolador-compatible/dp/B0DRBKM49W?th=1) |
+| PixyCam (Pixy2 CMUcam5) | 1 | [Amazon](https://www.amazon.com/-/es/Charmed-Labs-Pixy2-Vision-Sensor/dp/B07D1CLYD2) |
+| Servomotor INJORA 180° (Injora 2065) | 1 | [Amazon](https://www.amazon.com/-/es/INJORA-digital-impermeable-voltaje-Sub-Micro/dp/B0BLBMVYCW?th=1) |
+| Motor Hytech GA37-520 12V con Encoder | 1 | [Amazon](https://www.amazon.com.mx/velocidad-inteligente-GA37-520-3V6V12V24V-engranado/dp/B0CWTW8NGN) |
+| Tenergy 12V 2000mAh NiMH Battery Pack | 1 | [Amazon](https://www.amazon.com/-/es/Tenergy-bater%C3%ADas-capacidad-recargable-bricolaje/dp/B077Y9HNTF?th=1) |
+| Sensor de Ultrasonido | 3 | [Amazon](https://www.amazon.com/-/es/HC-SR04-ultras%C3%B3nico-distancia-transmisor-compatible/dp/B07PFCVM9D) |
+| Giroscopio (MPU6050 / IMU) | 1 | [Amazon](https://www.amazon.com/-/es/MPU-6050-MPU6050-aceler%C3%B3metro-giroscopio-convertidor/dp/B09TVYVC6X?th=1) |
+| Módulo de Micro SD | 1 | [Amazon](https://www.amazon.com/-/es/HiLetgo-tarjeta-interfaz-controlador-conversi%C3%B3n/dp/B07BJ2P6X6) |
+| Step Down Voltage Regulator | 2 | [Amazon](https://www.amazon.com/-/es/Seloky-convertidores-estabilizador-electr%C3%B3nico-alimentaci%C3%B3n/dp/B0DBVYP91F?th=1) |
+| Motor Driver Module | 1 | [Amazon](https://www.amazon.com/-/es/BOJACK-H-puente-controlador-Inteligente-Potencia/dp/B0C5JCF5RS) |
+| Tornillos, Tuercas de Seguridad y Arandelas M2 | Various | [Amazon](https://www.amazon.com/-/es/Fgruh-tornillos-hexagonal-arandelas-niquelado/dp/B0FGV5K8BT?th=1) |
+| Tornillos, Tuercas de Seguridad y Arandelas M3 | Various | [Amazon](https://www.amazon.com/-/es/Fgruh-tornillos-M3-hexagonal-arandelas/dp/B0FGX859K8?th=1) |
+| Filamento para Impresión 3D (Chasis/Diferencial) | 1–3 | [Amazon](https://www.amazon.com/-/es/SUNLU-PLA-filamento-3D-dimensional/dp/B07XG3RM58?th=1) |
 ---
 
 > _¿Quieres contribuir o seguir nuestro avance? Síguenos en nuestras redes oficiales y revisa este repositorio para novedades y recursos_
