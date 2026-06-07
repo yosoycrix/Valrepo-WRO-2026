@@ -2066,56 +2066,21 @@ Para optimizar nuestro rendimiento en la pista y asegurar la adaptabilidad del r
 
 ## 6. Recursos para Hacer el Robot
 
-| Producto | Cantidad | Precio | Tipo | Link |
-|---|---|---|---|---|
-| Tenergy TB-6AB Balance Charger Discharger 1S-6S | 1 | 39.99$ | Electrónico | [Enlace](https://a.co/d/g4CIJV4) |
-| Tenergy 2 Pack 12V 2000mAh Battery Packs RC | 1 | 39.99$ | Electrónico | [Enlace](https://a.co/d/7CcqbaV) |
-| 1683 Pcs M3 Screw Assortment | 2 | 16.99$ | Herramienta | [Enlace](https://a.co/d/hlXXkAq) |
-| Vertical Heat Press Machine-Heat Set Insert Tool | 1 | 56.99$ | Herramienta | [Enlace](https://a.co/d/0QgemD) |
-| FNIRSI HS-02A 100W Portable Corded Soldering Iron Kit | 1 | 95.99$ | Herramienta | [Enlace](https://a.co/d/7zn4xyp) |
-| Kit de amortiguación y dirección escala 1/24 | 1 | 33$ | Herramienta | [Enlace](https://a.co/d/1lKXhpT) |
-| Caja de engranajes diferenciales escala 1/28 | 1 | 14$ | Herramienta | [Enlace](https://a.co/d/7Y6jsIC) |
-| Diferenciales y ejes de transmisión 1/28 | 1 | 27$ | Mecánico | [Enlace](https://a.co/d/1KSovrP) |
-| Conectores XT30 | 1 | 13$ | Electrónico | [Enlace](https://a.co/d/6dxQdtF) |
-| Conectores XT90 | 1 | 23$ | Electrónico | [Enlace](https://a.co/d/9AgJER6) |
-| Servomotores Injora 2065 7kg (3 Pcs) | 1 | 48$ | Mecánico | [Enlace](https://a.co/d/hfQbhOa) |
-| Brazo de Servomotor Injora 25T | 1 | 9$ | Mecánico | [Enlace](https://a.co/d/9PtCohQ) |
-| ESP32 | 1 | 10$ | Electrónico | [Enlace](https://www.amazon.com/ESP32-WROOM-32-Development-ESP-32S-Bluetooth-Arduino/dp/B084KWNMM4) |
-| Step Down LM2596 | 1 | 6$ | Electrónico | [Enlace](https://robu.in/product/lm2596s-dc-dc-buck-converter-power-supply/) |
-| Puente H L298N | 1 | 8$ | Electrónico | [Enlace](https://robu.in/product/l298-based-motor-driver-module-2a/)|
-| PixyCam 2 | 1 | 69.99$ | Electrónico | [Enlace](https://a.co/d/i1WNaRs) |
-| Motor Greartisan ZGA37IRG9I | 1 | 30$ | Mecánico |  |
-| Giroscopio acelerometro Mpu6050 | 1 | 11$ | Electrónico | [Enlace](https://a.co/d/4NUOxoY) |
-| Piñones de 5mm 1/8 13T y 14T | 1 | 12$ | Mecánico | [Enlace](https://a.co/d/0mrfcDG) |
-| Piñones de 5mm 1/8 11T y 12T | 1 | 12$ | Mecánico | [Enlace](https://a.co/d/7t5SzPr) |
-| Kit de conectores JST y DUPONT | 1 | 36$ | Electrónico | [Enlace](https://a.co/d/52pePQ9) |
-| Kit de motor y variador de velocidad brushless, MBL32 y PURPLE VIPER 1721 1/18 | 1 | 60$ | Electrónico | [Enlace](https://a.co/d/6NRLPNy) |
-| Tornillos M2 | 1 | 15$ | Mecánico | [Enlace](https://a.co/d/3gXOiNX) |
-| Tuercas de Seguridad M2 | 1 | 10$ | Mecánico | [Enlace](https://a.co/d/1h8A71e) |
-| Incertos roscados M2 | 1 | 9$ | Mecánico | [Enlace](https://a.co/d/eDrxGjF) |
-| Tornillos M3 | 1 | 20$ | Mecánico | [Enlace](https://a.co/d/hlXXkAq) |
-| Tuercas de Seguridad M3 | 1 | 7$ | Mecánico | [Enlace](https://a.co/d/2cXIxsE) |
-| Incertos roscados M3 | 1 | 10$ | Mecánico | [Enlace](https://a.co/d/dOq3qJt) |
-| Grasa de Litio Permatex | 1 | 11$ | Mecánico | [Enlace](https://a.co/d/6L1D8vk) |
-| Cable trenzado 18 AWG | 1 | 11$ | Electrónico | [Enlace](https://a.co/d/7DPsW0) |
-| Cable trenzado 22 AWG | 1 | 10$ | Electrónico | [Enlace](https://a.co/d/8ggmQSb) |
-| Cable trenzado 26 AWG | 1 | 10$ | Electrónico | [Enlace](https://a.co/d/5TG2W9) |
-| Filamento PETG para impresión 3D | 1 | 27$ | Electrónico | [Enlace](https://a.co/d/5QT5sDC) |
-| Base de fijación de insertos roscados M2-M8 | 1 | 57$ | Electrónico | [Enlace](https://a.co/d/0QgemD) |
-| Cautin Inalambrico de 100W | 1 | 95$ | Electrónico | [Enlace](https://a.co/d/7zn4xyp) |
-| Filamento Pet-cf con Fibra de Carbono Bambu Lab 0.5kg 1.75mm | 1 | 60$ | Mecánico | [Enlace](https://articulo.mercadolibre.com.ve/MLV-769899404-filamento-pet-cf-con-fibra-de-carbono-bambu-lab-05kg-175mm-_JM?attributes=COLOR_SECONDARY_COLOR%3ATMvcm8%3D) |
-| Kit de Actualización de Hotend Cerámico Ender V3 Se/Ke | 1 | 40$ | Mecánico | [Enlace](https://articulo.mercadolibre.com.ve/MLV-821933486-kit-de-actualizacion-de-hotend-ceramico-ender-3-v3-seke-_JM) |
-| Secador de Filamento Space Pi | 1 | 85$ | Mecánico | [Enlace](https://articulo.mercadolibre.com.ve/MLV-768138623-creality-secador-de-filamento-space-pi-_JM) |
-| Secador de Filamento Space Pi Plus | 1 | 140$ | Mecánico | [Enlace](https://articulo.mercadolibre.com.ve/MLV-821894608-creality-secador-de-filamento-space-pi-plus-_JM) |
-| Ejes de transmisión escala 1/18 | 1 | 11$ | Mecánico | [Enlace](https://www.amazon.com/dp/B09P1QV29K) |
-| Rolineras | 1 | 8.5$ | Mecánico | [Enlace](https://www.amazon.com/dp/B07XYPLPFL) |
-| Grasa 8cc | 1 | 8$ | Mecánico | [Enlace](https://www.amazon.com/dp/B009PBVYPK) |
-| Nudillos de cruce | 1 | 19$ | Mecánico | [Enlace](https://www.amazon.com/dp/B07D68MR25) |
-| Rolineras | 1 | 10$ | Mecánico | [Enlace](https://www.amazon.com/dp/B0DXV2QMN4) |
-| Ruedas de 40mm | 1 | 9$ | Mecánico | [Enlace](https://www.amazon.com/dp/B0DL8LJDH4) |
-| Espaciadores y tornillos de nylon m3 | 1 | 17$ | Mecánico | [Enlace](https://www.amazon.com/dp/B0CBPGKDP4) |
-| Diferenciales y ejes de transmisión escala 1/18 | 1 | 22$ | Mecánico | [Enlace](https://www.amazon.com/dp/B08GHC4D5M) |
-
+| Componente | Cantidad | Link |
+|------------|-----------|----------------|
+| ESP32 WROOM 32 Microcontroller | 1 | [Amazon](https://www.amazon.com/s?k=ESP32+WROOM+32) |
+| PixyCam (Pixy2 CMUcam5) | 1 | [Amazon](https://www.amazon.com/s?k=Pixy2+CMUcam5) |
+| Servomotor INJORA 180° (Injora 2065) | 1 | [Amazon](https://www.amazon.com/s?k=Injora+2065+Servo) |
+| Motor Hytech GA37-520 12V con Encoder | 1 | [Amazon](https://www.amazon.com/s?k=GA37-520+Motor+12V) |
+| Tenergy 12V 2000mAh NiMH Battery Pack | 1 | [Amazon](https://www.amazon.com/s?k=Tenergy+12V+2000mAh+NiMH) |
+| Sensor de Ultrasonido | 1 | [Amazon](https://www.amazon.com/s?k=Ultrasonic+Sensor+Arduino) |
+| Giroscopio (MPU6050 / IMU) | 1 | [Amazon](https://www.amazon.com/s?k=MPU6050+Gyroscope) |
+| Módulo de Micro SD | 1 | [Amazon](https://www.amazon.com/s?k=Micro+SD+Card+Module+Arduino) |
+| Step Down Voltage Regulator | 1 | [Amazon](https://www.amazon.com/s?k=DC-DC+Step+Down+Buck+Converter) |
+| Motor Driver Module | 1 | [Amazon](https://www.amazon.com/s?k=DC+Motor+Driver+Module) |
+| Tornillos, Tuercas de Seguridad y Arandelas M2 | Various | [Amazon](https://www.amazon.com/s?k=M2+Screws+and+Nuts+Kit) |
+| Tornillos, Tuercas de Seguridad y Arandelas M3 | Various | [Amazon](https://www.amazon.com/s?k=M3+Screws+and+Nuts+Kit) |
+| Filamento para Impresión 3D (Chasis/Diferencial) | 1–3 | [Amazon](https://www.amazon.com/s?k=PLA%2B+Filament+3D+Printer) |
 ---
 
 > _¿Quieres contribuir o seguir nuestro avance? Síguenos en nuestras redes oficiales y revisa este repositorio para novedades y recursos_
