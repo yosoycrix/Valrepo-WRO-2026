@@ -278,30 +278,41 @@ Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay qu
 
 <img src="./images/3dheimdall.jpg" alt="Hei=mdall3d" width=80%>
 
-## 2.4 Movilidad
+<h2>2.4 Movilidad</h2>
 
-Ahora bien, ya habiendo dilucidado como podemos elegir, diseñar y imprimir las piezas de nuestro robot, hay que asegurarnos de que este cuente con las herramientas necesarias para moverse y evadir los obstáculos de la pista.
+<p>Ahora bien, ya habiendo dilucidado cómo podemos elegir, diseñar e imprimir las piezas de nuestro robot, hay que asegurarnos de que este cuente con las herramientas necesarias para moverse y evadir los obstáculos de la pista.</p>
 
-Nuestro robot emplea un sistema de tracción diferencial, ofreciendo maniobrabilidad precisa para enfrentar los retos del campo de competencia. El sistema de cruces se realiza mediante un servo que ajusta la dirección del robot en intersecciones de forma eficaz. También cabe destacar el hecho de que utilizamos una técnica llamada  Ackermann Positivo para emplear el sistema de movilidad de nuestro vehículo.
+<p>Nuestro robot emplea un <strong>sistema de tracción diferencial</strong>, ofreciendo maniobrabilidad precisa para enfrentar los retos del campo de competencia. El sistema de cruces se realiza mediante un servo que ajusta la dirección del robot en intersecciones de forma eficaz. También cabe destacar el hecho de que utilizamos una técnica llamada <strong>Ackermann Positivo</strong> para emplear el sistema de movilidad de nuestro vehículo.</p>
 
-<img src="./images/delantera.jpeg" alt="delantera" width=80%>
+  <img src="./images/delantera.jpeg" alt="Delantera del vehículo" width="80%">
 
-##### El diferencial de los vehículos, como su nombre lo indica, permite que exista una diferencia en la velocidad de giro entre la rueda interna y la rueda externa del vehículo cuando se da una vuelta o se está girando la dirección. No importa si el vehículo es tracción trasera o delantera, la función es la misma.
+> [!NOTE]
+ El diferencial de los vehículos, como su nombre lo indica, permite que exista una diferencia en la velocidad de giro entre la rueda interna y la rueda externa del vehículo cuando se da una vuelta o se está girando la dirección. No importa si el vehículo es tracción trasera o delantera, la función es la misma.
 
-[![10a4.jpg](https://i.postimg.cc/K89xJC6v/10a4.jpg)](https://postimg.cc/G4sWpg3Z)
+  <a href="https://postimg.cc/G4sWpg3Z">
+    <img src="https://i.postimg.cc/K89xJC6v/10a4.jpg" alt="10a4.jpg" width="60%">
+  </a>
 
-## 2.5 Sistema de Movimiento y Traccion
+<hr>
 
-Ahondando en lo mencionado anteriormente, Heimdall utiliza lo que normalmente es denominado sistema ackermann positivo, el cual es un sistema derivado del principio de Ackermann, cuyo objetivo es lograr que en curvas la **rueda interior (θᵢ) gire más que la exterior (θₒ)** para minimizar deslizamiento lateral (*scrub*).  
+<h2>2.5 Sistema de Movimiento y Traccion</h2>
 
-- **Ecuación fundamental**:  
-  **cot(θₒ) - cot(θᵢ) = W / L**  
-  - *W*: Distancia entre pivotes de dirección (batalla)  
-  - *L*: Distancia entre ejes  
-  
+<p>Ahondando en lo mencionado anteriormente, <em>Heimdall</em> utiliza lo que normalmente es denominado <strong>sistema Ackermann positivo</strong>, el cual es un sistema derivado del principio de Ackermann, cuyo objetivo es lograr que en curvas la <strong>rueda interior (&theta;<sub>i</sub>) gire más que la exterior (&theta;<sub>o</sub>)</strong> para minimizar el deslizamiento lateral (<em>scrub</em>).</p>
 
-#### **Implementación Física**
-```asciidoc
+<h3>Ecuación Fundamental</h3>
+<p align="center">
+  <strong>cot(&theta;<sub>o</sub>) - cot(&theta;<sub>i</sub>) = W / L</strong>
+</p>
+
+<ul>
+  <li><strong>W</strong>: Distancia entre pivotes de dirección (batalla)</li>
+  <li><strong>L</strong>: Distancia entre ejes</li>
+</ul>
+
+<h3>Implementación Física</h3>
+
+```mermaid
+flowchart LR
 [Rueda exterior (θₒ)]
   │
   ├─── Brazo de dirección  
@@ -316,61 +327,92 @@ Ahondando en lo mencionado anteriormente, Heimdall utiliza lo que normalmente es
 [Rueda interior (θᵢ > θₒ)]
 ```
 
----
+<h3>Relación de Velocidades en Curva</h3>
+<p align="center">
+  <strong>&omega;<sub>o</sub> / &omega;<sub>i</sub> = (R + W/2) / (R - W/2)</strong>
+</p>
 
-##### **Relación de Velocidades en Curva**
+<ul>
+  <li><strong>&omega;<sub>o</sub></strong>: Velocidad angular de la rueda exterior.</li>
+  <li><strong>&omega;<sub>i</sub></strong>: Velocidad angular de la rueda interior.</li>
+  <li><strong>R</strong>: Radio de giro del centro del eje.</li>
+</ul>
 
-```
-ωₒ / ωᵢ = (R + W/2) / (R - W/2)
-```
-- `ωₒ`: Velocidad angular rueda exterior.  
-- `ωᵢ`: Velocidad angular rueda interior.  
-- `R`: Radio de giro del centro del eje.  
+<hr>
 
----
-
-##### **Fuerzas en Conflicto**
+<h3>Fuerzas en Conflicto</h3>
 
 ```mermaid
 flowchart LR
-    A[Motor] --> B[Diferencial]
-    B --> C[Semieje der.\nRueda ext. ωₒ]
-    B --> D[Semieje izq.\nRueda int. ωᵢ]
-    C --> E[Fuerza de tracción ↑]
-    D --> F[Ángulo de giro θᵢ > θₒ]
-    E & F --> G[Cuadro]
-    G --> H{Deflexión estructural?}
-    H -->|Sí| I[Pérdida de Ackermann]
-    H -->|No| J[Comportamiento ideal]
+    A[Motor] --&gt; B[Diferencial]
+    B --&gt; C[Semieje der.\nRueda ext. ωₒ]
+    B --&gt; D[Semieje izq.\nRueda int. ωᵢ]
+    C --&gt; E[Fuerza de tracción ↑]
+    D --&gt; F[Ángulo de giro θᵢ &gt; θₒ]
+    E &amp; F --&gt; G[Cuadro]
+    G --&gt; H{Deflexión estructural?}
+    H --&gt;|Sí| I[Pérdida de Ackermann]
+    H --&gt;|No| J[Comportamiento ideal]
 ```
 
-> [!WARNING]
-> De utilizar estos sistemas, recomendamos tener cuidado con los siguientes inconvenientes los cuales aparecieron dentro de nuestras prácticas con la implementación del mencionado sistema:
+<blockquote>
+  <p><strong>[WARNING]</strong><br>
+  <strong>Inconvenientes identificados en pruebas de pista:</strong></p>
+  <ol>
+    <li><strong>Paradox Steering</strong>
+      <ul>
+        <li><strong>Causa:</strong> La tracción en la rueda interior (baja adherencia) contrarresta el ángulo de giro.</li>
+        <li><strong>Solución:</strong> Control electrónico (freno vectorial).</li>
+      </ul>
+    </li>
+    <li><strong>Fatiga en semiejes</strong>
+      <ul>
+        <li><strong>Causa:</strong> Torsión excesiva en juntas homocinéticas debido a &theta;<sub>i</sub> máximo + par motor.</li>
+        <li><strong>Solución:</strong> Semiejes asimétricos con ángulos de trabajo optimizados.</li>
+      </ul>
+    </li>
+  </ol>
+</blockquote>
 
-1. **Paradox Steering**:  
-   - *Causa*: La tracción en la rueda interior (baja adherencia) contrarresta el ángulo de giro.  
-   - *Solución*: Control electrónico (freno vectorial).  
+<hr>
 
-2. **Fatiga en semiejes**:  
-   - *Causa*: Torsión excesiva en juntas homocinéticas debido a θᵢ máximo + par motor.  
-   - *Solución*: Semiejes asimétricos con ángulos de trabajo optimizados.  
+<h3>Soluciones de Ingeniería</h3>
+<h4><em>Estrategias Recomendadas</em></h4>
 
----
+<table width="100%">
+  <thead>
+    <tr>
+      <th align="left">Componente</th>
+      <th align="left">Innovación</th>
+      <th align="left">Beneficio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Cuadro</strong></td>
+      <td>Subchasis desmontable con rigidez variable.</td>
+      <td>Permite ajustes finos en competición.</td>
+    </tr>
+    <tr>
+      <td><strong>Diferencial</strong></td>
+      <td>Electrónico con mapas por ángulo de giro.</td>
+      <td>Regula par según &theta;<sub>i</sub> / &theta;<sub>o</sub> (ej: Honda SH-AWD).</td>
+    </tr>
+    <tr>
+      <td><strong>Dirección</strong></td>
+      <td>Brazo de Ackermann ajustable (rótulas roscadas).</td>
+      <td>Compensa desgaste o cambios de neumáticos.</td>
+    </tr>
+  </tbody>
+</table>
 
-##### _Soluciones de Ingeniería_
--  **Estrategias Recomendadas**
+<br>
 
-| **Componente**   | **Innovación**                                    | **Beneficio**                                  |
-|------------------|--------------------------------------------------|-----------------------------------------------|
-| **Cuadro**       | Subchasis desmontable con rigidez variable.      | Permite ajustes finos en competición.         |
-| **Diferencial**  | Electrónico con mapas por ángulo de giro.        | Regula par según θᵢ/θₒ (ej: Honda SH-AWD).   |
-| **Dirección**    | Brazo de Ackermann ajustable (rótulas roscadas). | Compensa desgaste o cambios de neumáticos.    |
-
---- 
-
-
-[![Ackermann-turning-svg.png](https://i.postimg.cc/CL08P93k/Ackermann-turning-svg.png)](https://postimg.cc/8syssXPz)
-
+<p align="center">
+  <a href="https://postimg.cc/8syssXPz">
+    <img src="https://i.postimg.cc/CL08P93k/Ackermann-turning-svg.png" alt="Ackermann-turning-svg.png" width="50%">
+  </a>
+</p>
 
 ## 2.6 Piezas de Mecanica
 El núcleo de la movilidad de nuestro robot reside en un subsistema mecánico de transmisión y tracción meticulosamente diseñado. Cada componente ha sido fabricado y seleccionado de forma personalizada para optimizar el espacio, la transferencia de potencia y la eficiencia dinámica del prototipo. 
@@ -662,7 +704,9 @@ Por lo tanto hemos decidido usar:
       <li>Fabricante: Tenergy</li>
       <li>Opinión media de los clientes: 4.5 de 5 estrellas (748 opiniones)</li>
       <li>Producto en amazon.com desde: marzo 10, 2018</li>
-      <li>Descatalogado por el fabricante: No </li>
+      <li>Descatalogado por el fabricante: No </li> necesito dejar esta parte el github lo mas estetica posible manteniendo
+
+la misma informacion que ya tiene y sin agregar o eliminar algo 
       <li>UPC: 844949030014</li>
       <li>Número de modelo del producto: 19676</li>
       </ul>
@@ -747,6 +791,86 @@ El LM2596 es un regulador step down DC-DC diseñado para transformar tensiones e
     <li><b>Versatilidad:</b> Su amplio rango de entrada permite adaptar diferentes tipos de baterías sin cambiar el hardware.</li>
   </ul>
 </div>
+<section style="display: block; width: 100%;">
+  <table align="left" style="border-collapse: collapse; border: none; margin-top: 0px; width: 50%;">
+    <tr style="border: none;">
+      <td align="center" style="padding: 10px; border: none; width: 100%; vertical-align: top;">
+        <a href="https://www.youtube.com/watch?v=xPg1Bdj31Bs" target="_blank" style="text-decoration: none; display: inline-block;">
+          <img src="https://img.youtube.com/vi/xPg1Bdj31Bs/0.jpg" alt="Obstacle Challenge Video 1" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 1px solid #e1e4e8;" />
+          <br />
+          <span style="color: #0366d6; font-size: 0.9em; font-weight: 500; display: inline-block; margin-top: 8px;">▶ Video Obstacle Challenge #1</span>
+        </a>
+      </td>
+    </tr>
+  </table>
+</section>
+
+<br clear="all" />
+<div style="height: 25px;"></div>
+
+---
+
+## 2.2 Apartado Mecanico
+
+### 2.3 Impresion 3D
+
+Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay que explicar nuestros métodos de Diseño e Impresión 3D, los cuales se llevaron a cabo mediante Fusion 360
+
+
+> [!NOTE]
+> Fusion 360 es una plataforma de software de modelado 3D, CAD, CAM, CAE y PCB basada en la nube, destinada al diseño y la fabricación de productos. Nos permite diseñar y crear productos de acuerdo a sus especificaciones particulares, garantizando que cada pieza cumpla con los más exigentes criterios de estética, forma, ajuste y funcionalidad. Además, incorpora un conjunto integral de herramientas avanzadas para el diseño de placas de circuito impreso y componentes electrónicos, lo que facilita la conceptualización y materialización de cualquier idea, incluso las más complejas. Al implementar estas funciones, la plataforma optimiza significativamente tanto el tiempo como los costos asociados, asegurando que el proceso de producción se realice de manera eficiente y que las piezas obtenidas sean de la más alta calidad. Nosotros usamos esta herramienta gráfica y de diseño para realizar los diseños del chasis y las piezas personalizadas de nuestro robot.
+
+<img src="./images/3dheimdall.jpg" alt="Hei=mdall3d" width=80%>
+
+<h2>2.4 Movilidad</h2>
+
+<p>Ahora bien, ya habiendo dilucidado cómo podemos elegir, diseñar e imprimir las piezas de nuestro robot, hay que asegurarnos de que este cuente con las herramientas necesarias para moverse y evadir los obstáculos de la pista.</p>
+
+<p>Nuestro robot emplea un <strong>sistema de tracción diferencial</strong>, ofreciendo maniobrabilidad precisa para enfrentar los retos del campo de competencia. El sistema de cruces se realiza mediante un servo que ajusta la dirección del robot en intersecciones de forma eficaz. También cabe destacar el hecho de que utilizamos una técnica llamada <strong>Ackermann Positivo</strong> para emplear el sistema de movilidad de nuestro vehículo.</p>
+
+  <img src="./images/delantera.jpeg" alt="Delantera del vehículo" width="80%">
+
+> [!NOTE]
+ El diferencial de los vehículos, como su nombre lo indica, permite que exista una diferencia en la velocidad de giro entre la rueda interna y la rueda externa del vehículo cuando se da una vuelta o se está girando la dirección. No importa si el vehículo es tracción trasera o delantera, la función es la misma.
+
+  <a href="https://postimg.cc/G4sWpg3Z">
+    <img src="https://i.postimg.cc/K89xJC6v/10a4.jpg" alt="10a4.jpg" width="60%">
+  </a>
+
+<hr>
+
+<h2>2.5 Sistema de Movimiento y Traccion</h2>
+
+<p>Ahondando en lo mencionado anteriormente, <em>Heimdall</em> utiliza lo que normalmente es denominado <strong>sistema Ackermann positivo</strong>, el cual es un sistema derivado del principio de Ackermann, cuyo objetivo es lograr que en curvas la <strong>rueda interior (&theta;<sub>i</sub>) gire más que la exterior (&theta;<sub>o</sub>)</strong> para minimizar el deslizamiento lateral (<em>scrub</em>).</p>
+
+<h3>Ecuación Fundamental</h3>
+<p align="center">
+  <strong>cot(&theta;<sub>o</sub>) - cot(&theta;<sub>i</sub>) = W / L</strong>
+</p>
+
+<ul>
+  <li><strong>W</strong>: Distancia entre pivotes de dirección (batalla)</li>
+  <li><strong>L</strong>: Distancia entre ejes</li>
+</ul>
+
+<h3>Implementación Física</h3>
+
+```mermaid
+flowchart LR
+[Rueda exterior (θₒ)]
+  │
+  ├─── Brazo de dirección  
+  │        \  
+[Cuadro]──┤         \  
+  │        │          \  
+  │        │           ●── Centro teórico (eje trasero)  
+  │        │          /  
+  │        │         /  
+  ├─── Brazo de dirección  
+  │  
+[Rueda interior (θᵢ > θₒ)]
+```
+
 
 ### Funcionamiento Técnico 
 El LM2596 sigue una topología **buck clásica** con cuatro componentes clave:  
