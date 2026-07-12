@@ -313,18 +313,23 @@ Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay qu
 
 ```mermaid
 flowchart LR
-[Rueda exterior (θₒ)]
-  │
-  ├─── Brazo de dirección  
-  │        \  
-[Cuadro]──┤         \  
-  │        │          \  
-  │        │           ●── Centro teórico (eje trasero)  
-  │        │          /  
-  │        │         /  
-  ├─── Brazo de dirección  
-  │  
-[Rueda interior (θᵢ > θₒ)]
+    %% Definición de Nodos
+    R_ext[Rueda exterior θₒ]
+    R_int[Rueda interior θᵢ > θₒ]
+    Cuadro[Cuadro / Chasis]
+    B_ext[Brazo de dirección Ext]
+    B_int[Brazo de dirección Int]
+    Centro((● Centro teórico<br>Eje trasero))
+
+    %% Conexiones y Flujo
+    Cuadro --- B_ext
+    Cuadro --- B_int
+    
+    R_ext --> B_ext
+    R_int --> B_int
+    
+    B_ext ----> Centro
+    B_int ----> Centro
 ```
 
 <h3>Relación de Velocidades en Curva</h3>
@@ -344,75 +349,50 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    A[Motor] --&gt; B[Diferencial]
-    B --&gt; C[Semieje der.\nRueda ext. ωₒ]
-    B --&gt; D[Semieje izq.\nRueda int. ωᵢ]
-    C --&gt; E[Fuerza de tracción ↑]
-    D --&gt; F[Ángulo de giro θᵢ &gt; θₒ]
-    E &amp; F --&gt; G[Cuadro]
-    G --&gt; H{Deflexión estructural?}
-    H --&gt;|Sí| I[Pérdida de Ackermann]
-    H --&gt;|No| J[Comportamiento ideal]
+    A[Motor] --> B[Diferencial]
+    B --> C[Semieje der.\nRueda ext. ωₒ]
+    B --> D[Semieje izq.\nRueda int. ωᵢ]
+    C --> E[Fuerza de tracción ↑]
+    D --> F[Ángulo de giro θᵢ > θₒ]
+    E & F --> G[Cuadro]
+    G --> H{Deflexión estructural?}
+    H -->|Sí| I[Pérdida de Ackermann]
+    H -->|No| J[Comportamiento ideal]
 ```
 
-<blockquote>
-  <p><strong>[WARNING]</strong><br>
-  <strong>Inconvenientes identificados en pruebas de pista:</strong></p>
-  <ol>
-    <li><strong>Paradox Steering</strong>
-      <ul>
-        <li><strong>Causa:</strong> La tracción en la rueda interior (baja adherencia) contrarresta el ángulo de giro.</li>
-        <li><strong>Solución:</strong> Control electrónico (freno vectorial).</li>
-      </ul>
-    </li>
-    <li><strong>Fatiga en semiejes</strong>
-      <ul>
-        <li><strong>Causa:</strong> Torsión excesiva en juntas homocinéticas debido a &theta;<sub>i</sub> máximo + par motor.</li>
-        <li><strong>Solución:</strong> Semiejes asimétricos con ángulos de trabajo optimizados.</li>
-      </ul>
-    </li>
-  </ol>
-</blockquote>
+> [!WARNING]
+> De utilizar estos sistemas, recomendamos tener cuidado con los siguientes inconvenientes los cuales aparecieron dentro de nuestras prácticas con la implementación del mencionado sistema:
+>
+> ---
+>
+> ### 1. Paradox Steering
+> * **Causa:** La tracción en la rueda interior (baja adherencia) contrarresta el ángulo de giro.  
+> * **Solución:** Control electrónico (freno vectorial).  
+>
+> ---
+>
+> ### 2. Fatiga en semiejes
+> * **Causa:** Torsión excesiva en juntas homocinéticas debido a θᵢ máximo + par motor.  
+> * **Solución:** Semiejes asimétricos con ángulos de trabajo optimizados.  
+>
 
 <hr>
 
-<h3>Soluciones de Ingeniería</h3>
-<h4><em>Estrategias Recomendadas</em></h4>
+### Soluciones de Ingeniería
+<h4>Estrategias Recomendadas</h4>
 
-<table width="100%">
-  <thead>
-    <tr>
-      <th align="left">Componente</th>
-      <th align="left">Innovación</th>
-      <th align="left">Beneficio</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Cuadro</strong></td>
-      <td>Subchasis desmontable con rigidez variable.</td>
-      <td>Permite ajustes finos en competición.</td>
-    </tr>
-    <tr>
-      <td><strong>Diferencial</strong></td>
-      <td>Electrónico con mapas por ángulo de giro.</td>
-      <td>Regula par según &theta;<sub>i</sub> / &theta;<sub>o</sub> (ej: Honda SH-AWD).</td>
-    </tr>
-    <tr>
-      <td><strong>Dirección</strong></td>
-      <td>Brazo de Ackermann ajustable (rótulas roscadas).</td>
-      <td>Compensa desgaste o cambios de neumáticos.</td>
-    </tr>
-  </tbody>
-</table>
-
-<br>
+| Componente | Innovación | Beneficio |
+| :--- | :--- | :--- |
+| **Cuadro** | Subchasis desmontable con rigidez variable. | Permite ajustes finos en competición. |
+| **Diferencial** | Electrónico con mapas por ángulo de giro. | Regula par según &theta;<sub>i</sub> / &theta;<sub>o</sub> (ej: Honda SH-AWD). |
+| **Dirección** | Brazo de Ackermann ajustable (rótulas roscadas). | Compensa desgaste o cambios de neumáticos. |
 
 <p align="center">
   <a href="https://postimg.cc/8syssXPz">
-    <img src="https://i.postimg.cc/CL08P93k/Ackermann-turning-svg.png" alt="Ackermann-turning-svg.png" width="50%">
+    <img src="https://i.postimg.cc/CL08P93k/Ackermann-turning-svg.png" alt="Geometría de giro de Ackermann" width="50%">
   </a>
 </p>
+<hr>
 
 ## 2.6 Piezas de Mecanica
 El núcleo de la movilidad de nuestro robot reside en un subsistema mecánico de transmisión y tracción meticulosamente diseñado. Cada componente ha sido fabricado y seleccionado de forma personalizada para optimizar el espacio, la transferencia de potencia y la eficiencia dinámica del prototipo. 
