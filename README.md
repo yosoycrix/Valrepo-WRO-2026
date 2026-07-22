@@ -944,91 +944,97 @@ Usa un circuito **puente H (H-bridge)** interno:
 
 ### 3.1.5 **Giroscopio**
 
-<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
-  <tr style="background-color: rgba(255, 255, 255, 0.05);">
-    <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
-      <img src="./images/giroscopio.jpg" alt="MPU6050 Sensor" width="100%">
-    </td>
-    <td style="padding: 20px; border: 1px solid #444; vertical-align: top;">
-      <h4 style="margin-top: 0;">⚡ Especificaciones</h4>
-      <ul>
-        <li><b>Sensor:</b> MEMS de 3 ejes (Giroscopio + Acelerómetro)</li>
-        <li><b>Librería de control:</b> MPU6050_light.h</li>
-        <li><b>Rango del Giroscopio:</b> ±250, ±500, ±1000, ±2000 °/s</li>
-        <li><b>Precisión del convertidor ADC:</b> 16 bits</li>
-        <li><b>Protocolo de comunicación:</b> I2C (Wire.h)</li>
-        <li><b>Frecuencia de actualización:</b> Hasta 400 kHz</li>
-        <li><b>Voltaje de operación:</b> 3.3V - 5V</li>
-      </ul>
-    </td>
-  </tr>
-</table>
+<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;"> 
+  <tr style="background-color: rgba(255, 255, 255, 0.05);"> 
+    <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;"> 
+      <img src="./images/giroscopio.png" alt="BNO055 Sensor" width="100%"> 
+    </td> 
+    <td style="padding: 20px; border: 1px solid #444; vertical-align: top;"> 
+      <h4 style="margin-top: 0;">⚡ Especificaciones</h4> 
+      <ul> 
+        <li><b>Sensor:</b> IMU de 9 grados de libertad (Acelerómetro + Giroscopio + Magnetómetro)</li> 
+        <li><b>Procesador interno:</b> ARM Cortex-M0 (Fusión de datos por hardware)</li> 
+        <li><b>Librerías de control:</b> Adafruit_BNO055.h, Adafruit_Sensor.h, utility/imumaths.h</li> 
+        <li><b>Rango del Giroscopio:</b> ±125 a ±2000 °/s</li> 
+        <li><b>Modos de Operación:</b> NDF, IMU, COMPASS, M4G, NDF_FMC_OFF, NDOF</li> 
+        <li><b>Protocolo de comunicación:</b> I2C (Wire.h) / UART</li> 
+        <li><b>Voltaje de operación:</b> 3.3V - 5V (mediante regulador integrado en Vin)</li> 
+      </ul> 
+    </td> 
+  </tr> 
+</table> 
 
-<p style="margin-top: 15px;">
-  El <b>MPU6050</b> es la brújula inercial de nuestro robot. Su función principal es medir la orientación en el eje Z (yaw), permitiendo que el robot mantenga trayectorias perfectamente rectas y ejecute giros con precisión milimétrica mediante un sistema de control de lazo cerrado.
-</p>
+<p style="margin-top: 15px;"> 
+  El <b>BNO055</b> es el sistema de orientación absoluta inercial de nuestro robot. A diferencia de un giroscopio tradicional, integra un microcontrolador de 32 bits que ejecuta algoritmos de fusión de sensores en tiempo real. Esto permite obtener ángulos de Euler directos y cuaterniones para medir el eje Z (yaw) sin sobrecargar el procesador principal, garantizando trayectorias completamente rectas y giros de alta precisión.
+</p> 
 
+<p><b>¿Por qué decidimos usar este sensor y las librerías de Adafruit?</b></p> 
 
-<p><b>¿Por qué decidimos usar este sensor y la librería MPU6050_light?</b></p>
+<ul> 
 
-<ul>
-  <li><b>Calibración Precisa:</b> Utilizamos la librería <b>MPU6050_light.h</b> porque automatiza el cálculo de <i>offsets</i> de una manera extremadamente precisa, eliminando gran parte del "drift" (deriva) natural del sensor.</li>
-  <li><b>Facilidad de Implementación:</b> Es un sensor muy común en robótica competitiva, lo que facilita encontrar repuestos rápidamente si es necesario. Si se sabe configurar correctamente, ofrece una estabilidad comparable a sensores industriales de mayor costo.</li>
-  <li><b>Integración con PID:</b> Los datos del giroscopio alimentan nuestro algoritmo PID, permitiendo correcciones de dirección automáticas en tiempo real para contrarrestar irregularidades en la pista o desajustes mecánicos.</li>
-</ul>
+  <li><b>Fusión de Datos Inteligente (Sensor Fusion):</b> Al combinar acelerómetro, giroscopio y magnetómetro de forma interna, calcula la orientación absoluta eliminando prácticamente todo el "drift" (deriva) de forma automática.</li> 
 
-> [!TIP]
-> - Se recomienda calibrar cada cierto tiempo para mantener la precision de los datos del sensor ya que la pierde aproximadamente en 1 minuto despues de su uso.
-> - Para evitar recalibrarlo en pista optamos por el uso de un modulo SD donde en las rondas de practica el robot Heimdall se calibra por unos 10 segundos lo que son alrededor de 1000 lecturas y guarda estos datos en la SD  para despues de esquivar los bloques y girar subir la calibracion directo desde la SD lo cual toma menos de 1 segundo, asi evitando volver a recalibrarlo por 10 segundos y ahorrando segundos de alta importancia.
+  <li><b>Ahorro de Carga de Procesamiento:</b> Las librerías <b>Adafruit_BNO055.h</b> y <b>utility/imumaths.h</b> entregan vectores matemáticos listos (grados o radianes) mediante estructuras directas de tipo vector o cuaternión, sin requerir cálculos complejos de filtros complementarios o de Kalman en el ESP32.</li> 
 
-> [!WARNING]
-> - En caso de usar la SD verificar que se halla guardado correctamente el archivo con los datos de calibracion en caso que esto no pase el robot tiene como prioridad volver a calibrarse lo cual te puede quitar segundos importantes a la hora de la competencia.
-> - En caso de que la SD falle y no suba el archivo, el robot volvera a reecalibrarse aunque suele ocurrir muy periodicamente esta la probabilidad.
-> - En casos como los dos primeros se recomienda cambiar el tiempo de calibracion ya despues de calibrarlo previamente en la pista en la ronda de practica para que en caso de que la SD falle no gastar 10 segundos y usar menos (cabe mencionar que si el archivo no se guardo y se calibra en las rondas guardar ese nuevo archivo con los datos de calibracion en caso de que la SD funcione si no funciona se calibrar a la hora den girar cada vez que termine de esquivar los bloques).
+  <li><b>Integración Directa con PID:</b> Los datos limpios de orientación alimentan nuestro algoritmo PID, permitiendo correcciones instantáneas frente a desvío de trayectoria, deslizamientos en pista o perturbaciones mecánicas.</li> 
 
-<p><b>Gestión Avanzada en el Desafío Cerrado:</b></p>
+</ul> 
 
-<p>Dada la importancia de la orientación en el desafío cerrado de la WRO, implementamos un sistema robusto de gestión de datos inerciales:</p>
+> [!TIP] 
+> - El BNO055 cuenta con un sistema de autocalibración constante para sus tres sensores (System, Gyro, Accel, Mag) clasificado del 0 al 3. 
+> - Puedes guardar los datos de offsets de calibración directamente en la memoria Flash o EEPROM del ESP32 tras la ronda de práctica. Al iniciar en competencia, el código recupera los offsets al instante, logrando una preparación inmediata sin esperar tiempos prolongados de calibración en la línea de salida.
 
-<ul>
-  <li><b>Persistencia en SD:</b> Para evitar calibraciones manuales antes de cada ronda, el sistema guarda los parámetros de calibración precisa en una tarjeta SD, permitiendo que el robot inicie su funcionamiento de forma inmediata y estable.</li>
-  <li><b>Compensación Dinámica:</b> El código incluye una lógica de verificación que detecta errores críticos de orientación (mayores a 45°), ejecutando un reinicio físico del sensor si es necesario para garantizar la integridad de la navegación.</li>
-  <li><b>Dead-Band Control:</b> Implementamos una "banda muerta" de 3° para evitar que pequeñas vibraciones o ruidos del sensor generen correcciones innecesarias en el servo, logrando un movimiento más fluido.</li>
-</ul>
+> [!WARNING] 
+> - Asegúrate de que el sensor no esté expuesto a interferencias magnéticas fuertes (motores de alta potencia muy cercanos sin blindaje), ya que el magnetómetro integrado podría afectar temporalmente la precisión del yaw si se opera en modo NDOF. 
+> - En caso de requerir máxima estabilidad en entornos con ruido magnético, se recomienda configurar el sensor en modo **IMU** (utilizando solo Acelerómetro + Giroscopio para la fusión).
 
-<p><b>Pines y Conexiones (I2C):</b></p>
+<p><b>Gestión Avanzada en el Desafío Cerrado:</b></p> 
 
-<table width="100%" style="border: 1px solid #444; border-collapse: collapse;">
-  <thead style="background-color: rgba(255, 255, 255, 0.1);">
-    <tr>
-      <th style="padding: 10px; border: 1px solid #444;">Pin MPU6050</th>
-      <th style="padding: 10px; border: 1px solid #444;">Pin ESP32</th>
-      <th style="padding: 10px; border: 1px solid #444;">Descripción</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>VCC</b></td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">3.3V</td>
-      <td style="padding: 10px; border: 1px solid #444;">Alimentación del sensor.</td>
-    </tr>
-    <tr>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>GND</b></td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GND</td>
-      <td style="padding: 10px; border: 1px solid #444;">Tierra común.</td>
-    </tr>
-    <tr>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>SCL</b></td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 22</td>
-      <td style="padding: 10px; border: 1px solid #444;">Reloj de la comunicación I2C.</td>
-    </tr>
-    <tr>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>SDA</b></td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 21</td>
-      <td style="padding: 10px; border: 1px solid #444;">Datos de la comunicación I2C.</td>
-    </tr>
-  </tbody>
-</table>
+<p>Dada la exigencia de navegación en la WRO, implementamos una gestión optimizada de datos inerciales con el BNO055:</p> 
+
+<ul> 
+
+  <li><b>Persistencia de Offsets en Memoria:</b> La librería nos permite extraer la estructura de datos `adafruit_bno055_offsets_t` e inyectarla al reiniciar. El robot inicia operativo en milisegundos sin requerir rutinas de movimiento previas.</li> 
+
+  <li><b>Compensación Dinámica:</b> Validamos la integridad de las lecturas mediante la verificación de estado (`getSystemStatus`), asegurando que si ocurre una desconexión o caída de voltaje, el código ejecute un restablecimiento controlado del bus I2C.</li> 
+
+  <li><b>Dead-Band Control:</b> Mantenemos una "banda muerta" de sensibilidad para evitar que ligeras vibraciones del chasis transmitidas al sensor generen oscilaciones o correcciones innecesarias en el servo de dirección.</li> 
+
+</ul> 
+
+<p><b>Pines y Conexiones (I2C):</b></p> 
+
+<table width="100%" style="border: 1px solid #444; border-collapse: collapse;"> 
+  <thead style="background-color: rgba(255, 255, 255, 0.1);"> 
+    <tr> 
+      <th style="padding: 10px; border: 1px solid #444;">Pin BNO055</th> 
+      <th style="padding: 10px; border: 1px solid #444;">Pin ESP32</th> 
+      <th style="padding: 10px; border: 1px solid #444;">Descripción</th> 
+    </tr> 
+  </thead> 
+  <tbody> 
+    <tr> 
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>Vin / VCC</b></td> 
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">3.3V / 5V</td> 
+      <td style="padding: 10px; border: 1px solid #444;">Alimentación del módulo (regulada internamente).</td> 
+    </tr> 
+    <tr> 
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>GND</b></td> 
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GND</td> 
+      <td style="padding: 10px; border: 1px solid #444;">Tierra común del sistema.</td> 
+    </tr> 
+    <tr> 
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>SCL</b></td> 
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 22</td> 
+      <td style="padding: 10px; border: 1px solid #444;">Línea de reloj del bus I2C.</td> 
+    </tr> 
+    <tr> 
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>SDA</b></td> 
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 21</td> 
+      <td style="padding: 10px; border: 1px solid #444;">Línea de datos del bus I2C.</td> 
+    </tr> 
+  </tbody> 
+</table> 
 
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
