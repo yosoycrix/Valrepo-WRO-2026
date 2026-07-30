@@ -1293,7 +1293,7 @@ Usa un circuito **puente H (H-bridge)** interno:
     <tr>
       <td rowspan="3" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>Control</b></td>
       <td style="padding: 10px; border: 1px solid #444;">Motor Tracción (IN1/IN2)</td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">16, 17</td
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">19, 18</td
     </tr>
     <tr>
       <td style="padding: 10px; border: 1px solid #444;">Encoder</td>
@@ -1317,8 +1317,8 @@ Usa un circuito **puente H (H-bridge)** interno:
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">25, 26</td>
     </tr>
     <tr>
-      <td rowspan="1" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>Camara</b></td>
-      <td style="padding: 10px; border: 1px solid #444;">Huskylens2 (UART: RX2: 16, TX2:17)</td>
+      <td rowspan="1" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>UART</b></td>
+      <td style="padding: 10px; border: 1px solid #444;">Huskylens2 (RX2: 16, TX2:17)</td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">16, 17</td>
     </tr>
     <tr>
