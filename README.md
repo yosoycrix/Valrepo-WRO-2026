@@ -188,29 +188,29 @@ Aún así, nuestro único objetivo no es solamente ganar, como un equipo unido t
   <tr>
     <td align="center">
       <b>Frontal</b><br>
-      <img src="./v-photos/frontal.jpeg" width="800">
+      <img src="./v-photos/frontal.jpeg" width="700">
     </td>
     <td align="center">
       <b>Posterior</b><br>
-      <img src="./v-photos/posterior.jpeg" width="800">
+      <img src="./v-photos/posterior.jpeg" width="700">
     </td>
     <td align="center">
       <b>Lado Izquierdo</b><br>
-      <img src="./v-photos/izquierda.jpeg" width="800">
+      <img src="./v-photos/izquierda.jpeg" width="700">
     </td>
   </tr>
   <tr>
     <td align="center">
       <b>Lado Derecho</b><br>
-      <img src="./v-photos/derecha.jpeg" width="800">
+      <img src="./v-photos/derecha.jpeg" width="700">
     </td>
   <td align="center">
   <b>Superior</b><br>
-  <img src="./v-photos/superior.jpeg" width="800">
+  <img src="./v-photos/superior.jpeg" width="700">
 </td>
     <td align="center">
       <b>Inferior</b><br>
-      <img src="./v-photos/inferior.jpeg" width="800">
+      <img src="./v-photos/inferior.jpeg" width="700">
     </td>
   </tr>
 </table>
