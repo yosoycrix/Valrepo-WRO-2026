@@ -1342,7 +1342,7 @@ Usa un circuito **puente H (H-bridge)** interno:
 
 ## 3.3 Diagrama de Conexiones
 
-<img src="./schemes/electronics/heimdall_diagram.jpg" alt="Diagrama de Conexiones" width=70%>
+<img src="./schemes/electronics/heimdall_diagrama.jpg" alt="Diagrama de Conexiones" width=70%>
 
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
