@@ -1043,94 +1043,6 @@ Usa un circuito **puente H (H-bridge)** interno:
 <br>
 <hr>
 
-### 3.1.6 **Modulo de Micro SD**
-
-<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
-  <tr style="background-color: rgba(255, 255, 255, 0.05);">
-    <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
-      <img src="./images/sd.webp" alt="Micro SD Module" width="100%">
-    </td>
-    <td style="padding: 20px; border: 1px solid #444; vertical-align: top;">
-      <h4 style="margin-top: 0;">⚡ Especificaciones</h4>
-      <ul>
-        <li><b>Librería utilizada:</b> SD.h</li>
-        <li><b>Consumo de corriente:</b> 80mA - 100mA (Durante lectura/escritura)</li>
-        <li><b>Voltaje de operación:</b> 3.3V / 5V (Con regulador integrado)</li>
-        <li><b>Interfaz de comunicación:</b> SPI (Bus HSPI en nuestro ESP32)</li>
-        <li><b>Frecuencia de trabajo:</b> 1MHz / 500kHz para máxima estabilidad</li>
-        <li><b>Formato de archivos:</b> FAT16 / FAT32</li>
-        <li><b>Pin Chip Select (CS):</b> GPIO 4</li>
-      </ul>
-    </td>
-  </tr>
-</table>
-
-
-
-<p style="margin-top: 15px;">
-  El <b>Módulo Micro SD</b> funciona como la memoria persistente de <b>Heimdall</b>. Su implementación mediante la librería <code>SD.h</code> es vital para el éxito en el desafío cerrado, ya que permite almacenar datos críticos que no se borran al reiniciar el robot.
-</p>
-
-> [!WARNING]
-> - Al usar el modulo SD asegurate de no estar ocupando los pines de comunicacion SPI.
-
-> [!TIP]
-> - En caso de tener los pines SPI ocupados (como es nuestro caso que estan siendo usados por la pixy) puedes optar por usar comunicacion HSPI la cual si se configura de manera correcta no interferira con lo que tengas en los pines SPI.
-
-<p><b>¿Por qué decidimos usar este módulo?:</b></p>
-
-<ul>
-  <li><b>Optimización del Tiempo de Inicio:</b> Calibrar el giroscopio con precisión mediante <code>MPU6050_light.h</code> toma una cantidad considerable de tiempo (aproximadamente 10 segundos en nuestro código) y requiere que el robot esté totalmente inmóvil. En competencia, repetir esto antes de cada ronda consume tiempo valioso y aumenta el riesgo de errores por vibraciones externas. Al usar la SD, facilitamos este proceso guardando los datos una sola vez.</li>
-  <li><b>Persistencia y Carga Inmediata:</b> Al utilizar la tarjeta SD, guardamos los resultados de una calibración óptima en el archivo <code>calibracion.txt</code>. Esto permite que, al encender el robot, este cargue los <i>offsets</i> almacenados y esté listo para navegar de forma inmediata con una precisión del 100%, sin esperas en la línea de salida.</li>
-  <li><b>Gestión de Errores y Diagnóstico:</b> El módulo permite verificar si el sistema se inició correctamente y ejecutar funciones como <code>borrarCalibracionCorrupta()</code>, la cual verifica la integridad de los datos guardados antes de usarlos, garantizando que el robot nunca use parámetros de navegación erróneos.</li>
-</ul>
-
-<p><b>Configuración de Hardware (Bus HSPI):</b></p>
-<p>
-  Para evitar interferencias con la Pixy2, separamos los dispositivos utilizando el bus <b>HSPI</b> exclusivamente para la tarjeta SD (pines GPIO 32, 33 y 39), alternando estrictamente los pines Chip Select para eliminar interferencias en las lecturas de visión y escritura.
-</p>
-
-<p><b>Conexión de Pines:</b></p>
-
-<table width="100%" style="border: 1px solid #444; border-collapse: collapse;">
-  <thead style="background-color: rgba(255, 255, 255, 0.1);">
-    <tr>
-      <th style="padding: 10px; border: 1px solid #444;">Pin del Módulo</th>
-      <th style="padding: 10px; border: 1px solid #444;">Pin ESP32 (HSPI)</th>
-      <th style="padding: 10px; border: 1px solid #444;">Función</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>CS</b></td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 4</td>
-      <td style="padding: 10px; border: 1px solid #444;">Selección del dispositivo.</td>
-    </tr>
-    <tr>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>MOSI</b></td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 32</td>
-      <td style="padding: 10px; border: 1px solid #444;">Salida de datos desde el ESP32.</td>
-    </tr>
-    <tr>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>MISO</b></td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 39</td>
-      <td style="padding: 10px; border: 1px solid #444;">Entrada de datos hacia el ESP32.</td>
-    </tr>
-    <tr>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>SCK</b></td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 33</td>
-      <td style="padding: 10px; border: 1px solid #444;">Reloj de sincronización.</td>
-    </tr>
-  </tbody>
-</table>
-
-<p align="right">
-  <a href="#inicio">Volver Al Inicio</a>
-</p>
-
-<br>
-<hr>
-
 ### 3.1.7 **PixyCam**
 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
@@ -1406,17 +1318,13 @@ Usa un circuito **puente H (H-bridge)** interno:
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">25, 26</td>
     </tr>
     <tr>
-      <td rowspan="2" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>Buses SPI</b></td>
-      <td style="padding: 10px; border: 1px solid #444;"><b>VSPI</b> (Pixy2: CS:5, MISO:19, MOSI:23, SCK:18)</td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">5, 19, 23, 18</td>
-    </tr>
-    <tr>
-      <td style="padding: 10px; border: 1px solid #444;"><b>HSPI</b> (SD Card: CS:4, MISO:39, MOSI:32, SCK:33)</td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">4, 39, 32, 33</td>
+      <td rowspan="2" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>UART</b></td>
+      <td style="padding: 10px; border: 1px solid #444;"><b>VSPI</b> (Huskylens2: RX2: 16, TX2:17)</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">16, 17</td>
     </tr>
     <tr>
       <td rowspan="2" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>I2C & Sistema</b></td>
-      <td style="padding: 10px; border: 1px solid #444;"><b>Giroscopio MPU6050</b> (SDA: 21 / SCL: 22)</td>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Giroscopio BNO055</b> (SDA: 21 / SCL: 22)</td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">21, 22</td>
     </tr>
     <tr>
@@ -1425,9 +1333,6 @@ Usa un circuito **puente H (H-bridge)** interno:
     </tr>
   </tbody>
 </table>
-
-> [!WARNING]
-> ☑️ **Aislamiento de Buses:** La separación física en el ESP32 del bus **VSPI** (Visión) y **HSPI** (Almacenamiento) es crítica para evitar latencias en el procesamiento de <i>signatures</i> de color durante la carrera.
 
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
@@ -1485,12 +1390,12 @@ Usa un circuito **puente H (H-bridge)** interno:
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">1.5 A</td>
     </tr>
     <tr style="background-color: rgba(255, 255, 255, 0.02);">
-      <td style="padding: 10px; border: 1px solid #444;"><b>Pixy2 Cam</b></td>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Huskylens2 Cam</b></td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">1</td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">5V</td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">70 mA</td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">300 mA</td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">1 A</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">350 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">500 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">600 mA</td>
     </tr>
     <tr>
       <td style="padding: 10px; border: 1px solid #444;"><b>Driver L298N (Lógica)</b></td>
@@ -1512,17 +1417,9 @@ Usa un circuito **puente H (H-bridge)** interno:
       <td style="padding: 10px; border: 1px solid #444;"><b>Giroscopio MPU6050</b></td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">1</td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">3.3V</td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">140 μA</td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">3.6 mA</td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">6 mA</td>
-    </tr>
-    <tr style="background-color: rgba(255, 255, 255, 0.02);">
-      <td style="padding: 10px; border: 1px solid #444;"><b>Módulo Tarjeta SD</b></td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">1</td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">3.3V</td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">0.2 mA</td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">40 mA</td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">200 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">40 μA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">12.5 mA</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">15 mA</td>
     </tr>
   </tbody>
 </table>
