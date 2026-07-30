@@ -7,41 +7,44 @@
 <a name="inicio"></a>
 
 # Índice
-  - [1. Nuestro Equipo](#1-nuestro-equipo)
-    - [1.1 Integrantes](#11-integrantes)
-    - [1.2 Origenes](#12-origenes)
-    - [1.3 Nuestro Objetivo](#13-nuestro-objetivo)
-  - [2. El Robot](#2-el-robot)
-  - [2.1 Videos Del Robot](#21-videos-del-robot)
+
+- [1. Nuestro Equipo](#1-nuestro-equipo)
+  - [1.1 Integrantes](#11-integrantes)
+  - [1.2 Origenes](#12-origenes)
+  - [1.3 Nuestro Objetivo](#13-nuestro-objetivo)
+- [2. El Robot](#2-el-robot)
+  - [2.1 Videos del Robot](#21-videos-del-robot)
   - [2.2 Apartado Mecanico](#22-apartado-mecanico)
-    - [2.3 Impresion 3D](#23-impresion-3d)
+  - [2.3 Impresion 3D](#23-Impresion-3d)
+  - [2.4 Movilidad](#24-movilidad)
+  - [2.5 Sistema de Movimiento y Traccion](#25-sistema-de-movimiento-y-traccion)
   - [2.6 Piezas de Mecanica](#26-piezas-de-mecanica)
-  - [2.6.1 Diferencial y Eje de Transmisión Impreso en 3D](#261-diferencial-y-eje-de-transmisión-impreso-en-3d)
-    - [2.6.2 **Servomotor INJORA 180°**](#262-servomotor-injora-180)
-    - [2.6.3 **Motor Hytech GA37-520**](#263-motor-hytech-ga37-520)
-    - [2.6.4 **Tornillos, Tuercas de Seguridad y Arandelas (M2 y M3)**](#264-tornillos-tuercas-de-seguridad-y-arandelas-m2-y-m3)
-  - [3. Apartado Electronico](#3-apartado-electronico)
-    - [3.1 Piezas de Electronica](#31-piezas-de-electronica)
-    - [3.1.1 **Baterias**](#311-baterias)
-    - [3.1.2 **Step Down**](#312-step-down)
-    - [3.1.3 **Motor Driver**](#313-motor-driver)
-    - [3.1.4 **Sensor de Ultrasonido**](#314-sensor-de-ultrasonido)
-    - [3.1.5 **Giroscopio**](#315-giroscopio)
-    - [3.1.6 **Modulo de Micro SD**](#316-modulo-de-micro-sd)
-    - [3.1.7 **PixyCam**](#317-pixycam)
+    - [2.6.1 Diferencial y Eje de transmision](#261-diferencial-y-eje-de-transmision-impreso-en-3d)
+    - [2.6.2 Servomotor](#262-servomotor-injora-180)
+    - [2.6.3 Motor](#263-motor-hytech-ga37-520)
+    - [2.6.4 Tornillos, Tuercas y Arandelas](#264-tornillos-tuercas-de-seguridad-y-arandelas-m2-y-m3)
+- [3. Apartado Electronico](#3-apartado-electronico)
+  - [3.1 Piezas de Electronica](#31-piezas-de-electronica)
+    - [3.1.1 Baterias](#311-baterias)
+    - [3.1.2 Step Down](#312-step-down)
+    - [3.1.3 Motor Driver](#313-motor-driver)
+    - [3.1.4 Ultrasonico](#314-sensor-de-ultrasonido)
+    - [3.1.5 Giroscopio](#315-giroscopio)
+    - [3.1.6 Modulo SD](#316-modulo-de-micro-sd)
+    - [3.1.7 PixyCam](#317-pixycam)
   - [3.2 Microcontrolador](#32-microcontrolador)
-    - [3.2.1 **ESP32-WROOM-32**](#321-esp32-wroom-32)
+    - [3.2.1 ESP32](#321-esp32-wroom-32)
   - [3.3 Diagrama de Conexiones](#33-diagrama-de-conexiones)
-  - [3.3.1 Consumo de Energia](#331-consumo-de-energia)
-  - [4. Apartado de Programacion](#4-apartado-de-programacion)
+    - [3.3.1 Consumo de Energia](#331-consumo-de-energia)
+- [4. Apartado de Programacion](#4-apartado-de-programacion)
   - [4.1 Desafio Abierto](#41-desafio-abierto)
-  - [4.1.1 Flowchart Abierta](#411-flowchart-abierta)
-  - [4.1.2 Explicacion del Codigo](#412-explicacion-del-codigo)
+    - [4.1.1 Flowchart Abierta](#411-flowchart-abierta)
+    - [4.1.2 Explicación del Codigo](#412-explicacion-del-codigo)
   - [4.2 Desafio Cerrado](#42-desafio-cerrado)
-  - [4.2.1 Flowchart Cerrada](#421-flowchart-cerrada)
-  - [4.2.2 Explicacion del Codigo](#422-explicacion-del-codigo)
-  - [5. Randomizador](#5-randomizador)
-  - [6. Recursos para Hacer el Robot](#6-recursos-para-hacer-el-robot)
+    - [4.2.1 Flowchart Cerrada](#421-flowchart-cerrada)
+    - [4.2.2 Explicación del Codigo](#422-explicacion-del-codigo)
+- [5. Randomizador](#5-Randomizador)
+- [6. Recursos para armar nuestro robot](#6-recursos-para-hacer-el-robot)
 
 ---
 
@@ -185,29 +188,29 @@ Aún así, nuestro único objetivo no es solamente ganar, como un equipo unido t
   <tr>
     <td align="center">
       <b>Frontal</b><br>
-      <img src="./v-photos/frontal.jpeg" width="800">
+      <img src="./v-photos/frontal.jpeg" width="80%">
     </td>
     <td align="center">
       <b>Posterior</b><br>
-      <img src="./v-photos/posterior.jpeg" width="800">
+      <img src="./v-photos/posterior.jpeg" width="80%">
     </td>
     <td align="center">
       <b>Lado Izquierdo</b><br>
-      <img src="./v-photos/izquierda.jpeg" width="800">
+      <img src="./v-photos/izquierda.jpeg" width="80%">
     </td>
   </tr>
   <tr>
     <td align="center">
       <b>Lado Derecho</b><br>
-      <img src="./v-photos/derecha.jpeg" width="800">
+      <img src="./v-photos/derecha.jpeg" width="80%">
     </td>
   <td align="center">
   <b>Superior</b><br>
-  <img src="./v-photos/superior.jpeg" width="800">
+  <img src="./v-photos/superior.jpeg" width="80%">
 </td>
     <td align="center">
       <b>Inferior</b><br>
-      <img src="./v-photos/inferior.jpeg" width="800">
+      <img src="./v-photos/inferior.jpeg" width="80%">
     </td>
   </tr>
 </table>
