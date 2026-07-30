@@ -7,7 +7,6 @@
 <a name="inicio"></a>
 
 # Índice
-
 - [Equipo \[Team ValGrind\]: WRO 2026](#equipo-team-valgrind-wro-2026)
 - [Índice](#índice)
   - [Estructura del Repositorio](#estructura-del-repositorio)
