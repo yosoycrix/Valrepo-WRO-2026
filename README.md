@@ -1317,13 +1317,11 @@ Usa un circuito **puente H (H-bridge)** interno:
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">25, 26</td>
     </tr>
     <tr>
-      <td rowspan="2" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>UART</b></td>
-      <td style="padding: 10px; border: 1px solid #444;"><b>UART</b> (Huskylens2: RX2: 16, TX2:17)</td>
+      <td style="padding: 10px; border: 1px solid #444;">>Huskylens2 (UART: RX2: 16, TX2:17)</td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">16, 17</td>
     </tr>
     <tr>
-      <td rowspan="2" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>I2C & Sistema</b></td>
-      <td style="padding: 10px; border: 1px solid #444;"><b>Giroscopio BNO055</b> (SDA: 21 / SCL: 22)</td>
+      <td style="padding: 10px; border: 1px solid #444;">Giroscopio BNO055 (SDA: 21 / SCL: 22)</td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">21, 22</td>
     </tr>
     <tr>
