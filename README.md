@@ -1272,9 +1272,8 @@ Usa un circuito **puente H (H-bridge)** interno:
   <li><b>Wire.h (Comunicación I²C):</b> Fundamental para establecer el bus de datos con el giroscopio MPU6050. Permite configurar los pines SDA/SCL y gestionar el intercambio de datos mediante el protocolo I²C.</li>
   <li><b>NewPing:</b> Optimiza el uso de los 3 sensores ultrasónicos HC-SR04. Maneja automáticamente los pulsos y reduce errores de eco, permitiendo que el robot evite obstáculos y mantenga la distancia con las paredes de forma precisa.</li>
   <li><b>ESP32Servo.h:</b> Crucial para el manejo del servomotor de dirección. Esta librería adapta los timers PWM específicos del ESP32 para lograr un movimiento angular exacto (0°-180°) en el eje delantero.</li>
-  <li><b>Pixy2SPI_SS.h / SPI.h:</b> Facilitan la comunicación rápida y síncrona con la cámara Pixy2. El protocolo SPI permite una transmisión <i>full-duplex</i> de alta velocidad (hasta 10 Mbps), necesaria para identificar bloques verdes, rojos y el estacionamiento magenta en milisegundos.</li>
-  <li><b>MPU6050_light.h:</b> Librería de alto rendimiento que utilizamos para simplificar la calibración y el filtrado de datos del giroscopio, garantizando una navegación estable.</li>
-  <li><b>SD.h:</b> Gestiona el almacenamiento persistente en el bus HSPI, permitiendo guardar y cargar los <i>offsets</i> de calibración para un inicio de competencia inmediato.</li>
+  <li><b>DFRobot_HuskylensV2.h:</b> Esencial para la comunicación con la cámara de visión artificial HuskyLens. Permite recibir rápidamente los datos visuales ya procesados por su IA, facilitando la detección de bloques y zonas de estacionamiento sin sobrecargar al ESP32.</li>
+  <li><b>Adafruit_BNO055.h / imumaths.h:</b> Fundamentales para el sensor BNO055. Procesan la orientación absoluta y cálculos complejos internamente, entregando un rumbo exacto para asegurar una navegación estable sin requerir filtros manuales.</li>
 </ul>
 
 > [!WARNING]
@@ -1319,7 +1318,7 @@ Usa un circuito **puente H (H-bridge)** interno:
     </tr>
     <tr>
       <td rowspan="2" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>UART</b></td>
-      <td style="padding: 10px; border: 1px solid #444;"><b>VSPI</b> (Huskylens2: RX2: 16, TX2:17)</td>
+      <td style="padding: 10px; border: 1px solid #444;"><b>UART</b> (Huskylens2: RX2: 16, TX2:17)</td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">16, 17</td>
     </tr>
     <tr>
@@ -1414,7 +1413,7 @@ Usa un circuito **puente H (H-bridge)** interno:
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">40 mA</td>
     </tr>
     <tr>
-      <td style="padding: 10px; border: 1px solid #444;"><b>Giroscopio MPU6050</b></td>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Giroscopio BNO055</b></td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">1</td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">3.3V</td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">40 μA</td>
