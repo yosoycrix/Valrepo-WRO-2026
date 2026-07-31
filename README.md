@@ -685,9 +685,7 @@ Por lo tanto hemos decidido usar:
       <li>Fabricante: Tenergy</li>
       <li>Opinión media de los clientes: 4.5 de 5 estrellas (748 opiniones)</li>
       <li>Producto en amazon.com desde: marzo 10, 2018</li>
-      <li>Descatalogado por el fabricante: No </li> necesito dejar esta parte el github lo mas estetica posible manteniendo
-
-la misma informacion que ya tiene y sin agregar o eliminar algo 
+      <li>Descatalogado por el fabricante: No </li> 
       <li>UPC: 844949030014</li>
       <li>Número de modelo del producto: 19676</li>
       </ul>
@@ -1043,129 +1041,128 @@ Usa un circuito **puente H (H-bridge)** interno:
 <br>
 <hr>
 
-### 3.1.7 **PixyCam**
+### 3.1.7 **HuskyLens 2**
 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <tr style="background-color: rgba(255, 255, 255, 0.05);">
     <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
-      <img src="./images/pixy.jpg" alt="Pixy2 CMUcam5" width="100%">
+      <img src="./images/huskylens.jpg" alt="DFRobot HuskyLens 2" width="100%">
     </td>
     <td style="padding: 20px; border: 1px solid #444; vertical-align: top;">
       <h4 style="margin-top: 0;">⚡ Especificaciones</h4>
       <ul>
-        <li><b>Librería utilizada:</b> Pixy2SPI_SS.h</li>
-        <li><b>Sensor:</b> Sony IMX322 (1/4") con captura de 60 FPS.</li>
-        <li><b>Resolución:</b> 1296x976 (RAW), 400x296 (Procesada).</li>
-        <li><b>Consumo de corriente:</b> 140 mA @ 5V (máximo).</li>
-        <li><b>Interfaces:</b> SPI (Bus VSPI), UART, I2C, USB, GPIO.</li>
-        <li><b>Latencia:</b> < 3 ms por objeto detectado.</li>
-        <li><b>Pin Chip Select (CS):</b> GPIO 5.</li>
+        <li><b>Librería utilizada:</b> DFRobot_HuskylensV2.h</li>
+        <li><b>Procesador AI:</b> Kendryte K210 (Dual-Core RISC-V 64-bit).</li>
+        <li><b>Sensor y Pantalla:</b> OV2640 (2.0 Megapíxeles) con pantalla IPS de 2.0" (320x240).</li>
+        <li><b>Consumo de corriente:</b> ~230 mA @ 5V (máximo con pantalla encendida).</li>
+        <li><b>Interfaces:</b> UART, I2C.</li>
+        <li><b>Algoritmos integrados:</b> Reconocimiento de color, seguimiento de objetos, AprilTags, reconocimiento facial.</li>
+        <li><b>Tasa de baudios (UART):</b> 115200 bps (configurable).</li>
       </ul>
     </td>
   </tr>
 </table>
 
 <p style="margin-top: 15px;">
-  La <b>Pixy2</b> es el "ojo" de nuestro robot y constituye una cámara de visión artificial diseñada para robots que requieren detección rápida y fiable de objetos, colores y códigos de barras. Junto con su software <b>PixyMon</b>, forma un ecosistema accesible que resulta ideal para la detección de los bloques del desafío cerrado. A diferencia de las soluciones basadas en cámaras genéricas, la Pixy2 procesa imágenes <b>onboard</b> con algoritmos optimizados, liberando al procesador principal (ESP32) de tareas intensivas y permitiendo que <b>Heimdall</b> tome decisiones en milisegundos basadas en el color y la posición de los obstáculos. Además, su enfoque en "aprender por demostración" simplifica el entrenamiento del robot sin necesidad de programación compleja.
+  La <b>HuskyLens 2</b> es el "ojo" inteligente de nuestro robot y constituye una cámara de visión artificial con inteligencia artificial integrada. Resulta ideal para la detección rápida y fiable de los bloques del desafío cerrado. A diferencia de las soluciones basadas en cámaras genéricas, la HuskyLens 2 procesa imágenes <b>onboard</b> gracias a su coprocesador K210, liberando al procesador principal (ESP32) de tareas intensivas y permitiendo que <b>Heimdall</b> tome decisiones en milisegundos. Además, cuenta con una pantalla integrada y un enfoque de "aprender por demostración" mediante botones físicos, lo que simplifica enormemente el entrenamiento en la pista sin necesidad de conectarla a una computadora.
 </p>
 
 > [!TIP]
-> - En las rondas de practica asegurate de volver a calibrar los colores para ahorrarte problemas futuros.
-> - Asegurate de configurar bien la pixy, me refiero a ajustar brilo, encender luces y demas para evitar que los cambios de luz te afecten.
+> - Aprovecha la pantalla integrada en las rondas de práctica para verificar visualmente que la cámara está enmarcando correctamente los bloques antes de iniciar la carrera.
+> - Si cambian de lado en la pista, utiliza el botón de aprendizaje rápido de la cámara para registrar los colores nuevamente bajo la nueva iluminación.
 
 > [!WARNING]
-> - Aveces por mas de que hayas configurado bien la camara si no vuelves a calibrar los colores en ronda de practica puede llegar a tener problemas y no detectar bien el color de los bloques.
+> - A veces, por más de que hayas configurado bien la cámara, si no vuelves a calibrar los colores en la ronda de práctica, los reflejos o cambios drásticos en la luz del recinto pueden causar falsos negativos.
 
-<p><b>¿Por qué decidimos usar esta camara?:</b></p>
+<p><b>¿Por qué decidimos usar esta cámara?:</b></p>
 
 <ul>
-  <li><b>Gestión de Firmas con Pixy2SPI_SS:</b> Mediante la librería <code>Pixy2SPI_SS.h</code>, accedemos a la estructura <code>pixy.ccc.getBlocks()</code>. En nuestro código, la <b>Firma 1</b> detecta bloques verdes y la <b>Firma 2</b> bloques rojos, permitiendo diferenciar la dirección de esquiva necesaria.</li>
-  <li><b>Filtrado por Tamaño (Umbrales):</b> Implementamos umbrales específicos para evitar detecciones lejanas o falsos positivos: <code>920</code> para verde y <code>820</code> para rojo. Solo cuando el bloque es lo suficientemente grande, el robot inicia la maniobra de evasión.</li>
-  <li><b>Control de Iluminación:</b> El sistema activa los LEDs integrados mediante la función <code>pixy.setLamp(1, 1)</code> para asegurar una detección estable sin importar las variaciones de luz ambiental en la pista.</li>
-  <li><b>Prioridad de Bus SPI:</b> El código gestiona estrictamente el pin <code>PIXY_CS</code> para evitar conflictos con el bus de la tarjeta SD, garantizando que los datos de visión tengan prioridad durante la navegación activa.</li>
+  <li><b>Gestión de IDs con DFRobot_HuskylensV2.h:</b> Mediante la librería oficial para esta versión, accedemos a los datos de visión estructurados. En nuestro código, el <b>ID 1</b> detecta bloques verdes y el <b>ID 2</b> bloques rojos, permitiendo diferenciar la dirección de esquiva necesaria al instante.</li>
+  <li><b>Filtrado por Tamaño (Umbrales):</b> Implementamos umbrales específicos evaluando las variables de ancho y alto del objeto detectado (<code>result.width</code> y <code>result.height</code>). Solo cuando el bloque ocupa el tamaño suficiente en pantalla, el robot lo considera un obstáculo cercano y no ruido de fondo, iniciando la maniobra de evasión.</li>
+  <li><b>Depuración Visual Directa:</b> La pantalla IPS nos permite ver en tiempo real qué está detectando el algoritmo (con cuadros delimitadores), lo que resulta invaluable en un entorno competitivo donde el tiempo de ajuste es limitado.</li>
+  <li><b>Independencia de Procesamiento:</b> El ESP32 solo recibe paquetes de datos por UART con las coordenadas (X, Y) y el ID, dedicando su potencia íntegramente al control PID de los motores y la lectura del giroscopio.</li>
 </ul>
 
-<pb><b>¿Por qué Pixy2SPI.h?:</b></p>
+<p><b>¿Por qué UART en lugar de I2C?:</b></p>
 
 <p>
-  La decisión entre usar <b>Pixy2SPI.h</b> (comunicación SPI) o <b>Pixy2.h</b> (comunicación I2C) fue un reto técnico que enfrentamos al inicio del proyecto. En nuestra experiencia, podemos declarar que el protocolo SPI transmite datos de forma más rápida y estable, lo que resulta fundamental para recibir las <i>signatures</i> y datos de procesamiento apenas la Pixy los procese.
+  La decisión entre usar el protocolo <b>UART</b> o <b>I2C</b> para la HuskyLens 2 fue un paso clave en la arquitectura de hardware. Decidimos utilizar UART para mantener la cámara en un canal de comunicación punto a punto dedicado (Hardware Serial), asegurando una transferencia constante de <i>frames</i> de datos y dejando el bus I2C del ESP32 completamente libre y exclusivo para la lectura de alta velocidad del giroscopio BNO055.
 </p>
 
 <table width="100%" style="border: 1px solid #444; border-collapse: collapse; margin: 20px 0;">
   <thead>
     <tr style="background-color: rgba(88, 166, 255, 0.1);">
       <th style="padding: 10px; border: 1px solid #444; text-align: left;">Parámetro</th>
-      <th style="padding: 10px; border: 1px solid #444; text-align: left;">Pixy2SPI.h (SPI)</th>
-      <th style="padding: 10px; border: 1px solid #444; text-align: left;">Pixy2.h (I2C)</th>
+      <th style="padding: 10px; border: 1px solid #444; text-align: left;">Protocolo UART</th>
+      <th style="padding: 10px; border: 1px solid #444; text-align: left;">Protocolo I2C</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="padding: 10px; border: 1px solid #444;"><b>Velocidad Máxima</b></td>
-      <td style="padding: 10px; border: 1px solid #444;"><b>10 Mbps</b> (Alta velocidad)</td>
-      <td style="padding: 10px; border: 1px solid #444;">400 kHz - 1 MHz (Limitado)</td>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Topología</b></td>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Punto a punto</b> (Dedicado)</td>
+      <td style="padding: 10px; border: 1px solid #444;">Bus compartido (Múltiples esclavos)</td>
     </tr>
     <tr>
       <td style="padding: 10px; border: 1px solid #444;"><b>Tipo de Enlace</b></td>
-      <td style="padding: 10px; border: 1px solid #444;">Full-Duplex (Simultáneo)</td>
+      <td style="padding: 10px; border: 1px solid #444;">Full-Duplex (RX y TX simultáneos)</td>
       <td style="padding: 10px; border: 1px solid #444;">Half-Duplex</td>
     </tr>
     <tr>
-      <td style="padding: 10px; border: 1px solid #444;"><b>Estabilidad</b></td>
-      <td style="padding: 10px; border: 1px solid #444;">Inmune a interferencia de motores</td>
-      <td style="padding: 10px; border: 1px solid #444;">Sensible al ruido eléctrico</td>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Gestión de Hardware</b></td>
+      <td style="padding: 10px; border: 1px solid #444;">Previene cuellos de botella con otros sensores</td>
+      <td style="padding: 10px; border: 1px solid #444;">Puede retrasar lecturas del giroscopio</td>
     </tr>
   </tbody>
 </table>
 
 > [!WARNING]
-> ☑️ **Elige SPI si:** Necesitas máxima velocidad (ej: seguimiento de objetos rápidos, FPS alto).
+> ☑️ **Elige UART si:** Necesitas un canal dedicado que no interfiera con otros sensores críticos de la pista (como el BNO055).
 > 
-> ☑️ **Elige SPI si:** Trabajas en entornos eléctricamente ruidosos como un robot de la WRO.
+> ☑️ **Elige UART si:** Quieres aprovechar los puertos Hardware Serial adicionales (Serial2) del ESP32 para una lectura ininterrumpida.
 
-<p><b>Otras razones por las cuales el protocolo SPI nos resultó favorable en Heimdall:</b></p>
+<p><b>Otras razones por las cuales el protocolo UART nos resultó favorable en Heimdall:</b></p>
 <ul>
-  <li><b>Inmunidad al ruido:</b> Menos susceptible gracias a señales de reloj dedicadas y conexiones punto a punto.</li>
-  <li><b>Entorno Competitivo:</b> Ideal para la WRO donde los motores generan interferencias electromagnéticas constantes.</li>
-  <li><b>Simplificación de Hardware:</b> No requiere resistencias <i>pull-up</i> adicionales, simplificando el diseño del bus.</li>
-  <li><b>Sincronización:</b> Al usar un reloj (SCK) dedicado, el ESP32 recibe los datos en el instante exacto en que la cámara los genera.</li>
+  <li><b>Independencia de Buses:</b> Si un sensor en el bus I2C falla o se desconecta por vibraciones, la cámara seguirá transmitiendo por UART sin colgar el sistema.</li>
+  <li><b>Buffer de Hardware:</b> El ESP32 maneja el buffer UART eficientemente en segundo plano, evitando la pérdida de paquetes de datos de la cámara.</li>
+  <li><b>Simplicidad de Cableado:</b> Solo requiere cruzar TX y RX, sin necesidad de calcular resistencias <i>pull-up</i> adicionales en placas perforadas.</li>
 </ul>
 
 <p><b>Lógica de Posicionamiento:</b></p>
 <p>
-  Dividimos el campo visual en tres sectores (Izquierda, Centro, Derecha) comparando la coordenada <code>m_x</code> del bloque con el <code>UMBRAL_CENTRO_PIXY (15)</code>. Esto permite que el robot sepa no solo qué color ve, sino exactamente dónde está el obstáculo para decidir si debe realizar una <b>esquiva preventiva</b> o una <b>maniobra de evasión completa</b>.
+  Dividimos el campo visual (resolución de 320x240) en tres sectores (Izquierda, Centro, Derecha) comparando la coordenada <code>result.xCenter</code> del bloque con un umbral central (aprox. <code>160</code>). Esto permite que el robot sepa no solo qué color ve (ID), sino exactamente dónde está el obstáculo en su campo visual para decidir si debe realizar una <b>esquiva preventiva suave</b> o una <b>maniobra de evasión completa</b>.
 </p>
 
-<p><b>Conexión de Pines (Bus VSPI):</b></p>
+<p><b>Conexión de Pines (Hardware Serial 2):</b></p>
 
 <table width="100%" style="border: 1px solid #444; border-collapse: collapse;">
   <thead style="background-color: rgba(255, 255, 255, 0.1);">
     <tr>
-      <th style="padding: 10px; border: 1px solid #444;">Pin Pixy2</th>
-      <th style="padding: 10px; border: 1px solid #444;">Pin ESP32 (VSPI)</th>
+      <th style="padding: 10px; border: 1px solid #444;">Pin HuskyLens 2</th>
+      <th style="padding: 10px; border: 1px solid #444;">Pin ESP32 (UART2)</th>
       <th style="padding: 10px; border: 1px solid #444;">Función</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>CS</b></td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 5</td>
-      <td style="padding: 10px; border: 1px solid #444;">Selección de dispositivo para SPI.</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>TX (Transmisión)</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 16 (RX2)</td>
+      <td style="padding: 10px; border: 1px solid #444;">Envía los datos de los bloques detectados al ESP32.</td>
     </tr>
     <tr>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>MOSI</b></td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 23</td>
-      <td style="padding: 10px; border: 1px solid #444;">Transmisión de comandos.</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>RX (Recepción)</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 17 (TX2)</td>
+      <td style="padding: 10px; border: 1px solid #444;">Recibe peticiones de lectura desde el ESP32.</td>
     </tr>
     <tr>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>MISO</b></td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 19</td>
-      <td style="padding: 10px; border: 1px solid #444;">Recepción de datos de bloques.</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>5V / VCC</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">VIN / 5V</td>
+      <td style="padding: 10px; border: 1px solid #444;">Alimentación principal de la cámara.</td>
     </tr>
     <tr>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>SCK</b></td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GPIO 18</td>
-      <td style="padding: 10px; border: 1px solid #444;">Reloj de sincronización SPI.</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>GND</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GND</td>
+      <td style="padding: 10px; border: 1px solid #444;">Referencia común de tierra.</td>
     </tr>
   </tbody>
 </table>
@@ -1258,8 +1255,8 @@ Usa un circuito **puente H (H-bridge)** interno:
 <p><b>Ventajas para nuestro robot Heimdall:</b></p>
 
 <ul>
-  <li><b>Arquitectura Dual-Core:</b> Aprovechamos el procesamiento en paralelo para que el control PID del <code>MPU6050</code> no se vea interrumpido por la latencia de escritura en la <code>Tarjeta SD</code>.</li>
-  <li><b>Gestión de Buses SPI:</b> El WROOM-32 expone eficientemente los buses <b>VSPI</b> y <b>HSPI</b>, permitiendo que la Pixy2 y el módulo SD compartan el microcontrolador con transferencias de datos independientes.</li>
+  <li><b>Arquitectura Dual-Core:</b> Aprovechamos el procesamiento en paralelo para que el control PID del <code>BNO055</code> no se vea interrumpido por la lectura y el procesamiento de visión de la <code>HuskyLens 2</code>.</li>
+  <li><b>Gestión de Comunicaciones (UART/I2C):</b> El WROOM-32 expone eficientemente sus periféricos de hardware, permitiendo que la cámara <b>HuskyLens 2</b> y el giroscopio <b>BNO055</b> se comuniquen con el microcontrolador mediante transferencias de datos totalmente independientes y sin cuellos de botella.</li>
   <li><b>Versatilidad PWM (LEDC):</b> La precisión del hardware nos permite controlar el servomotor en el <code>GPIO 2</code> con una resolución de 13 bits, garantizando giros suaves en las curvas del desafío.</li>
 </ul>
 
