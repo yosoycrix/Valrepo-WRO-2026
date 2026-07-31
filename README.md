@@ -1046,7 +1046,7 @@ Usa un circuito **puente H (H-bridge)** interno:
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <tr style="background-color: rgba(255, 255, 255, 0.05);">
     <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
-      <img src="./images/huskylens.jpg" alt="DFRobot HuskyLens 2" width="100%">
+      <img src="./images/huskylens.jpg" alt="DFRobot HuskyLens 2" width="900">
     </td>
     <td style="padding: 20px; border: 1px solid #444; vertical-align: top;">
       <h4 style="margin-top: 0;">⚡ Especificaciones</h4>
