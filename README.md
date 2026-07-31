@@ -1977,13 +1977,12 @@ Para optimizar nuestro rendimiento en la pista y asegurar la adaptabilidad del r
 | Componente | Cantidad | Link |
 |------------|-----------|----------------|
 | ESP32 WROOM 32 Microcontroller | 1 | [Amazon](https://www.amazon.com/-/es/DIYables-ESP-WROOM-32-desarrollo-microcontrolador-compatible/dp/B0DRBKM49W?th=1) |
-| PixyCam (Pixy2 CMUcam5) | 1 | [Amazon](https://www.amazon.com/-/es/Charmed-Labs-Pixy2-Vision-Sensor/dp/B07D1CLYD2) |
+| Huskylens2 (Huskylens2) | 1 | [DFROBOT](https://www.dfrobot.com/product-2995.html) |
 | Servomotor INJORA 180° (Injora 2065) | 1 | [Amazon](https://www.amazon.com/-/es/INJORA-digital-impermeable-voltaje-Sub-Micro/dp/B0BLBMVYCW?th=1) |
 | Motor Hytech GA37-520 12V con Encoder | 1 | [Amazon](https://www.amazon.com.mx/velocidad-inteligente-GA37-520-3V6V12V24V-engranado/dp/B0CWTW8NGN) |
 | Tenergy 12V 2000mAh NiMH Battery Pack | 1 | [Amazon](https://www.amazon.com/-/es/Tenergy-bater%C3%ADas-capacidad-recargable-bricolaje/dp/B077Y9HNTF?th=1) |
 | Sensor de Ultrasonido | 3 | [Amazon](https://www.amazon.com/-/es/HC-SR04-ultras%C3%B3nico-distancia-transmisor-compatible/dp/B07PFCVM9D) |
-| Giroscopio (MPU6050 / IMU) | 1 | [Amazon](https://www.amazon.com/-/es/MPU-6050-MPU6050-aceler%C3%B3metro-giroscopio-convertidor/dp/B09TVYVC6X?th=1) |
-| Módulo de Micro SD | 1 | [Amazon](https://www.amazon.com/-/es/HiLetgo-tarjeta-interfaz-controlador-conversi%C3%B3n/dp/B07BJ2P6X6) |
+| Giroscopio (BNO055 / IMU) | 1 | [Adafruit](https://www.adafruit.com/product/2472) |
 | Step Down Voltage Regulator | 2 | [Amazon](https://www.amazon.com/-/es/Seloky-convertidores-estabilizador-electr%C3%B3nico-alimentaci%C3%B3n/dp/B0DBVYP91F?th=1) |
 | Motor Driver Module | 1 | [Amazon](https://www.amazon.com/-/es/BOJACK-H-puente-controlador-Inteligente-Potencia/dp/B0C5JCF5RS) |
 | Tornillos, Tuercas de Seguridad y Arandelas M2 | Various | [Amazon](https://www.amazon.com/-/es/Fgruh-tornillos-hexagonal-arandelas-niquelado/dp/B0FGV5K8BT?th=1) |
