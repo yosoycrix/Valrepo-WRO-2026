@@ -30,8 +30,7 @@
     - [3.1.3 Motor Driver](#313-motor-driver)
     - [3.1.4 Ultrasonico](#314-sensor-de-ultrasonido)
     - [3.1.5 Giroscopio](#315-giroscopio)
-    - [3.1.6 Modulo SD](#316-modulo-de-micro-sd)
-    - [3.1.7 Huskylens](#317-huskylens-2)
+    - [3.1.6 Huskylens](#317-huskylens-2)
   - [3.2 Microcontrolador](#32-microcontrolador)
     - [3.2.1 ESP32](#321-esp32-wroom-32)
   - [3.3 Diagrama de Conexiones](#33-diagrama-de-conexiones)
@@ -1041,7 +1040,7 @@ Usa un circuito **puente H (H-bridge)** interno:
 <br>
 <hr>
 
-### 3.1.7 **HuskyLens 2**
+### 3.1.6 **HuskyLens 2**
 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <tr style="background-color: rgba(255, 255, 255, 0.05);">
