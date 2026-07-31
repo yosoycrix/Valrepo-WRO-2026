@@ -31,7 +31,7 @@
     - [3.1.4 Ultrasonico](#314-sensor-de-ultrasonido)
     - [3.1.5 Giroscopio](#315-giroscopio)
     - [3.1.6 Modulo SD](#316-modulo-de-micro-sd)
-    - [3.1.7 PixyCam](#317-pixycam)
+    - [3.1.7 Huskylens](#317-huskylens-2)
   - [3.2 Microcontrolador](#32-microcontrolador)
     - [3.2.1 ESP32](#321-esp32-wroom-32)
   - [3.3 Diagrama de Conexiones](#33-diagrama-de-conexiones)
