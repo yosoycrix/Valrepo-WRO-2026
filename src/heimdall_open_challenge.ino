@@ -420,12 +420,8 @@ void actualizarFinal() {
 void setup() {
   Serial.begin(115200);
   Serial.println("\n");
-  Serial.println("=========================================");
-  Serial.println("ROBOT CON BNO055 - ÁNGULO RELATIVO");
-  Serial.println("=========================================");
   Serial.printf("Giro IZQUIERDA: %.1f°\n", ANGULO_GIRO_IZQUIERDA);
   Serial.printf("Giro DERECHA: %.1f°\n", ANGULO_GIRO_DERECHA);
-  Serial.println("=========================================");
   Serial.println();
 
   pinMode(PIN_BOTON, INPUT_PULLUP);
