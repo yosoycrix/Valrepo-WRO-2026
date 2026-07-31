@@ -1179,7 +1179,6 @@ Usa un circuito **puente H (H-bridge)** interno:
   <tr style="background-color: rgba(255, 255, 255, 0.05);">
     <td align="center" style="padding: 20px; border: 1px solid #444;">
       <img src="./images/detecciohusky.png" alt="Entrenamiento en Huskylens" width="80%" style="border-radius: 5px; border: 1px solid #666;">
-      <p><i>Interfaz de la Huskylens durante el entrenamiento de deteccion de color.</i></p>
     </td>
   </tr>
 </table>
