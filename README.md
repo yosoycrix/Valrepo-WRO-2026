@@ -30,7 +30,7 @@
     - [3.1.3 Motor Driver](#313-motor-driver)
     - [3.1.4 Ultrasonico](#314-sensor-de-ultrasonido)
     - [3.1.5 Giroscopio](#315-giroscopio)
-    - [3.1.6 Huskylens](#317-huskylens-2)
+    - [3.1.6 Huskylens](#316-huskylens-2)
   - [3.2 Microcontrolador](#32-microcontrolador)
     - [3.2.1 ESP32](#321-esp32-wroom-32)
   - [3.3 Diagrama de Conexiones](#33-diagrama-de-conexiones)
