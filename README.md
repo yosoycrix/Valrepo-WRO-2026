@@ -78,7 +78,7 @@ Somos **[Team ValGrind]**, entusiastas de la robótica y la innovación. Represe
     <!-- Información del Integrante -->
     <td style="border: none; padding-left: 20px; vertical-align: top;">
       <h2>Sebastián Salina</h2>
-      <p><b>🎂 Edad:</b> 17 años (22/08/2008)</p>
+      <p><b>🎂 Edad:</b> 18 años (22/08/2008)</p>
       <p><b>🎖️ Rol:</b> Capitán / Mecánico del equipo</p>
       <hr>
       <p><b>🛠️ Habilidades:</b></p>
