@@ -1186,29 +1186,30 @@ Usa un circuito **puente H (H-bridge)** interno:
 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <tr>
-    <td style="padding: 20px; vertical-align: top;">
-      <h4 style="margin-top: 0; color: #58a6ff;">1. Preparación del Entorno</h4>
+    <td style="padding: 20px; vertical-align: top; width: 50%;">
+      <h4 style="margin-top: 0; color: #58a6ff;">1. Inicio y Encuadre Inicial</h4>
       <ul>
-        <li><b>Iluminación:</b> Se debe iluminar el objeto de manera uniforme para evitar sombras o reflejos que distorsionen la firma.</li>
-        <li><b>Contraste:</b> Utilizar fondos contrastados (ej: bloque rojo sobre superficie blanca) para facilitar la segmentación del color.</li>
+        <li><b>Selección de Algoritmo:</b> Deslizar en la pantalla táctil de la HuskyLens 2 hasta posicionar la interfaz en la función <b>Color Recognition</b>.</li>
+        <li><b>Enfoque por Marcador Central:</b> Apuntar la cámara de modo que la cruz blanca central (<b>+</b>) coincida exactamente sobre la superficie o bloque a reconocer.</li>
+        <li><b>Pre-detección Dinámica:</b> Observar el recuadro blanco que la cámara genera automáticamente alrededor del tono delimitado por la cruz central.</li>
       </ul>
-      <h4 style="color: #58a6ff;">2. Captura de Firmas (Signatures)</h4>
+      <h4 style="color: #58a6ff;">2. Captura y Clasificación de Firmas</h4>
       <ul>
-        <li><b>Conexión:</b> Conectar la Pixy2 vía USB y abrir <b>PixyMon → Menú Action → Set Signature...</b></li>
-        <li><b>Selección:</b> Presionar el botón físico en la cámara o usar el ratón en PixyMon para seleccionar el área del bloque.</li>
-        <li><b>Saturación:</b> Ajustar el deslizador de saturación según la intensidad del color (alto para colores vivos).</li>
+        <li><b>Aprendizaje de Primera Firma (ID1):</b> Posicionar el marcador sobre el objetivo y presionar el <b>Botón A</b> (esquina superior derecha). El recuadro cambiará a un color sólido con la etiqueta <code>Color: ID1</code>.</li>
+        <li><b>Entrenamiento Multicolor (ID2, ID3...):</b> Apuntar la cruz hacia un nuevo bloque de color y presionar nuevamente el <b>Botón A</b> para registrar identificadores adicionales de forma secuencial.</li>
+        <li><b>Asignación de Nombres (Set Name):</b> Acceder al parámetro <i>Set Name</i>, elegir el ID correspondiente y utilizar el teclado en pantalla para guardar nombres personalizados (ej: <i>VERDE</i>, <i>ROJO</i>, <i>MAGENTA</i>).</li>
       </ul>
     </td>
-    <td style="padding: 20px; vertical-align: top; border-left: 1px solid #444;">
-      <h4 style="margin-top: 0; color: #58a6ff;">3. Afinación Avanzada (Expert Mode)</h4>
+    <td style="padding: 20px; vertical-align: top; width: 50%; border-left: 1px solid #444;">
+      <h4 style="margin-top: 0; color: #58a6ff;">3. Calibración y Filtrado de Pista</h4>
       <ul>
-        <li><b>Rangos HSV:</b> Ajustar manualmente los rangos de Matiz (Hue), Saturación y Valor para reducir falsos positivos.</li>
-        <li><b>Color Codes:</b> Configurar firmas adyacentes para detectar combinaciones de colores específicas de la WRO.</li>
+        <li><b>Tolerancia de Color (Detection Threshold):</b> Ajustar la barra deslizante según las condiciones de iluminación. Un valor más alto incrementa la exigencia de pureza de color, reduciendo falsos positivos causados por sombras o reflejos.</li>
+        <li><b>Filtrado de Área (Color Block Area Threshold):</b> Aumentar el umbral de superficie mínima en píxeles para ignorar destellos lejanos, sombras de la pista o ruido visual de menor tamaño que el objeto objetivo.</li>
       </ul>
-      <h4 style="color: #58a6ff;">4. Pruebas en Tiempo Real</h4>
+      <h4 style="color: #58a6ff;">4. Mantenimiento y Memoria No Volátil</h4>
       <ul>
-        <li><b>Frame View:</b> Activar la vista de cuadros para verificar que los rectángulos de detección sigan al bloque sin parpadeos.</li>
-        <li><b>Min/Max Area:</b> Filtrar objetos por tamaño para ignorar ruidos visuales pequeños en el fondo de la pista.</li>
+        <li><b>Resguardo de Modelos (Export Model):</b> Seleccionar la opción <i>Export Model</i> para almacenar el entrenamiento en un slot de memoria interna (Slot 0 al 4). Esto genera los archivos <code>.json</code> y <code>.bin</code> para no perder las firmas al reiniciar el dispositivo.</li>
+        <li><b>Depuración de Firmas (Forget ID / Reset):</b> Utilizar <i>Forget ID</i> y apuntar hacia un objeto para eliminar una firma específica, o seleccionar <i>Restore Defaults</i> si se requiere reiniciar la configuración general a valores de fábrica.</li>
       </ul>
     </td>
   </tr>
