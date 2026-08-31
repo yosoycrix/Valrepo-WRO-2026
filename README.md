@@ -1183,30 +1183,37 @@ Usa un circuito **puente H (H-bridge)** interno:
   </tr>
 
 <br>
-
-<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
+<table style="width: 100%; border-collapse: collapse; border: 1px solid #30363d;">
+  <!-- FILA SUPERIOR: SECCIONES 1 Y 3 -->
   <tr>
-    <td style="padding: 20px; vertical-align: top; width: 50%;">
+    <td valign="top" style="width: 50%; padding: 15px; border-bottom: 1px solid #30363d; border-right: 1px solid #30363d;">
       <h4 style="margin-top: 0; color: #58a6ff;">1. Inicio y Encuadre Inicial</h4>
       <ul>
         <li><b>Selección de Algoritmo:</b> Deslizar en la pantalla táctil de la HuskyLens 2 hasta posicionar la interfaz en la función <b>Color Recognition</b>.</li>
         <li><b>Enfoque por Marcador Central:</b> Apuntar la cámara de modo que la cruz blanca central (<b>+</b>) coincida exactamente sobre la superficie o bloque a reconocer.</li>
         <li><b>Pre-detección Dinámica:</b> Observar el recuadro blanco que la cámara genera automáticamente alrededor del tono delimitado por la cruz central.</li>
       </ul>
-      <h4 style="color: #58a6ff;">2. Captura y Clasificación de Firmas</h4>
+    </td>
+    <td valign="top" style="width: 50%; padding: 15px; border-bottom: 1px solid #30363d;">
+      <h4 style="margin-top: 0; color: #58a6ff;">3. Calibración y Filtrado de Pista</h4>
+      <ul>
+        <li><b>Tolerancia de Color (Detection Threshold):</b> Ajustar la barra deslizante según las condiciones de iluminación. Un valor más alto incrementa la exigencia de pureza de color, reduciendo falsos positivos causados por sombras o reflejos.</li>
+        <li><b>Filtrado de Área (Color Block Area Threshold):</b> Aumentar el umbral de superficie mínima en píxeles para ignorar destellos lejanos, sombras de la pista o ruido visual de menor tamaño que el objeto objetivo.</li>
+      </ul>
+    </td>
+  </tr>
+  <!-- FILA INFERIOR: SECCIONES 2 Y 4 -->
+  <tr>
+    <td valign="top" style="width: 50%; padding: 15px; border-right: 1px solid #30363d;">
+      <h4 style="margin-top: 0; color: #58a6ff;">2. Captura y Clasificación de Firmas</h4>
       <ul>
         <li><b>Aprendizaje de Primera Firma (ID1):</b> Posicionar el marcador sobre el objetivo y presionar el <b>Botón A</b> (esquina superior derecha). El recuadro cambiará a un color sólido con la etiqueta <code>Color: ID1</code>.</li>
         <li><b>Entrenamiento Multicolor (ID2, ID3...):</b> Apuntar la cruz hacia un nuevo bloque de color y presionar nuevamente el <b>Botón A</b> para registrar identificadores adicionales de forma secuencial.</li>
         <li><b>Asignación de Nombres (Set Name):</b> Acceder al parámetro <i>Set Name</i>, elegir el ID correspondiente y utilizar el teclado en pantalla para guardar nombres personalizados (ej: <i>VERDE</i>, <i>ROJO</i>, <i>MAGENTA</i>).</li>
       </ul>
     </td>
-    <td style="padding: 20px; vertical-align: top; width: 50%; border-left: 1px solid #444;">
-      <h4 style="margin-top: 0; color: #58a6ff;">3. Calibración y Filtrado de Pista</h4>
-      <ul>
-        <li><b>Tolerancia de Color (Detection Threshold):</b> Ajustar la barra deslizante según las condiciones de iluminación. Un valor más alto incrementa la exigencia de pureza de color, reduciendo falsos positivos causados por sombras o reflejos.</li>
-        <li><b>Filtrado de Área (Color Block Area Threshold):</b> Aumentar el umbral de superficie mínima en píxeles para ignorar destellos lejanos, sombras de la pista o ruido visual de menor tamaño que el objeto objetivo.</li>
-      </ul>
-      <h4 style="color: #58a6ff;">4. Mantenimiento y Memoria No Volátil</h4>
+    <td valign="top" style="width: 50%; padding: 15px;">
+      <h4 style="margin-top: 0; color: #58a6ff;">4. Mantenimiento y Memoria No Volátil</h4>
       <ul>
         <li><b>Resguardo de Modelos (Export Model):</b> Seleccionar la opción <i>Export Model</i> para almacenar el entrenamiento en un slot de memoria interna (Slot 0 al 4). Esto genera los archivos <code>.json</code> y <code>.bin</code> para no perder las firmas al reiniciar el dispositivo.</li>
         <li><b>Depuración de Firmas (Forget ID / Reset):</b> Utilizar <i>Forget ID</i> y apuntar hacia un objeto para eliminar una firma específica, o seleccionar <i>Restore Defaults</i> si se requiere reiniciar la configuración general a valores de fábrica.</li>
