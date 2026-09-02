@@ -48,7 +48,7 @@
 ---
 
 ## Estructura del Repositorio
-- 📌 **[Documentación y Código v1.0.0](https://github.com/yosoycrix/Valrepo-WRO-2026/releases/tag/v1.0.0)** — Primer prototipo funcional de Heimdall.
+- [Documentación y Código v1.0.0](https://github.com/yosoycrix/Valrepo-WRO-2026/releases/tag/v1.0.0) — Primer prototipo funcional de Heimdall.
 - [T-photos/](https://github.com/yosoycrix/Valrepo-WRO-2026/tree/main/t-photos) - Fotos del Team
 - [V-photos/](https://github.com/yosoycrix/Valrepo-WRO-2026/tree/main/v-photos) - Fotos del Robot
 - [Schemes/](https://github.com/yosoycrix/Valrepo-WRO-2026/tree/main/schemes) - Eschematic diagrams
