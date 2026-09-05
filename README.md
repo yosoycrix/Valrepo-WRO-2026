@@ -298,7 +298,11 @@ Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay qu
 
 <p>Ahondando en lo mencionado anteriormente, <em>Heimdall</em> utiliza lo que normalmente es denominado <strong>sistema Ackermann positivo</strong>, el cual es un sistema derivado del principio de Ackermann, cuyo objetivo es lograr que en curvas la <strong>rueda interior (&theta;<sub>i</sub>) gire más que la exterior (&theta;<sub>o</sub>)</strong> para minimizar el deslizamiento lateral (<em>scrub</em>).</p>
 
-<img src="./images/steering_gif.gif" alt="steering_gif.gif">
+<p align="left">
+  <img src="./images/steering_gif.gif" alt="Sistema de Dirección Ackermann Positivo" style="width: 50%; max-width: 320px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0,0,0,0.3); border: 1px solid #30363d;">
+  <br>
+  <em><sub style="font-size: 0.85em; color: #8b949e;">Comportamiento del sistema Ackermann en curva</sub></em>
+</p>
 
 <h3>Ecuación Fundamental</h3>
 <p align="center">
