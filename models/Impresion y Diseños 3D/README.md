@@ -14,7 +14,7 @@ Se seleccionó **PETG-CF** por su elevada estabilidad estructural, resistencia a
 
 ### Configuración del Laminador (Slicer)
 
-Los parámetros de impresión empleados (configurados en **QidiStudio**) son los siguientes:
+Los parámetros de impresión empleados (configurados en **QidiStudio** son los siguientes:
 
 * **Parámetros Térmicos:** Temperatura de boquilla a 250 °C y temperatura de cama a 80 °C.
 * **Resolución y Dinámica:** Altura de capa de 0,2 mm, velocidad de perímetro de 150 mm/s, velocidad de rellenado de 250 mm/s y aceleración general de 8000 mm/s².
