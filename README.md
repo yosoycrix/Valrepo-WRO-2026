@@ -2088,7 +2088,7 @@ En este diagrama de flujo se halla una representación gráfica del funcionamien
 
 <hr/>
 
-<details open style="border: 1px solid #30363d; padding: 15px; border-radius: 8px; margin-bottom: 15px; background-color: #0d1117;">
+<details style="border: 1px solid #30363d; padding: 15px; border-radius: 8px; margin-bottom: 15px; background-color: #0d1117;">
   <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em; color: #58a6ff;">1. Librerías, Definición de Pines y Constantes de Control</summary>
   <div style="margin-top: 10px;">
     <p>Se declaran e incluyen los controladores de periféricos para la comunicación I2C/UART, sensórica inercial, lectura de ultrasonidos, manejo del servomotor de dirección y visión artificial mediante la HuskyLens 2. Se fijan las constantes de velocidad, ángulos de servomotor, umbrales de ticks por encoder y asignación física de pines en el ESP32.</p>
