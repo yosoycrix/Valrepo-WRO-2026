@@ -8,8 +8,7 @@ La estructura completa se compone de tres módulos biomecánicos optimizados, im
   Constituye la plataforma central de la arquitectura sensorial. Diseñada para posarse y atornillarse directamente sobre la parte superior del chasis, esta base asegura un centro de gravedad bajo y una fijación inamovible al chasis principal. Dispone de tres bahías de acople orientadas espacialmente hacia el frente, flanco izquierdo y flanco derecho, cubriendo el perímetro de navegación sin generar zonas ciegas. Su geometría incluye rutas internas para la canalización organizada del cableado y de alimentación, evitando interferencias con las partes móviles de la dirección.
 
   <p align="center">
-    <img src="../../images/baseultrasonicos.jpeg" alt="Base Principal de Ultrasónicos" width="600"><br>
-    <i>Figura 1: Vista tridimensional de la base principal y sus tres bahías de acople.</i>
+    <img src="../../images/baseultrasonicos.jpeg" alt="Base Principal de Ultrasónicos" width="800"><br>
   </p>
 
 ---
@@ -18,8 +17,7 @@ La estructura completa se compone de tres módulos biomecánicos optimizados, im
   Diseñados como carcasas de protección y fijación para los transductores de distancia. Estas piezas se acoplan mecánicamente a las bahías de la base principal mediante un ajuste de tolerancia preciso que permite montar y desmontar los sensores ultrasónicos de manera sencilla y rápida. Esta modularidad resulta vital en entornos de competencia, ya que permite reemplazar una unidad dañada o ajustar su orientación en cuestión de segundos sin necesidad de desarmar la estructura del chasis.
 
   <p align="center">
-    <img src="../../images/acopleultrasonicos.jpeg" alt="Acoples Modulares para Sensores Ultrasónicos" width="600"><br>
-    <i>Figura 2: Diseño de los acoples individuales para montaje y desmontaje rápido.</i>
+    <img src="../../images/acopleultrasonicos.jpeg" alt="Acoples Modulares para Sensores Ultrasónicos" width="800"><br>
   </p>
 
 ---
@@ -28,6 +26,5 @@ La estructura completa se compone de tres módulos biomecánicos optimizados, im
   Estructura vertical reforzada que se erige desde el centro de la base principal para otorgar la elevación y el ángulo de inclinación óptimos al módulo de visión artificial. Su diseño en torre eleva la lente por encima del tren delantero, asegurando un campo de visión despejado para el reconocimiento de colores, bloques y marcas de pista. Adicionalmente, cuenta con una arquitectura de perfil abierto que favorece la convección natural del aire, garantizando una refrigeración pasiva constante para el procesador de la cámara durante secuencias largas de procesamiento de imagen.
 
   <p align="center">
-    <img src="../../images/soporte_camarajpeg" alt="Soporte Elevado de Cámara" width="600"><br>
-    <i>Figura 3: Torre vertical optimizada para la disipación térmica y campo de visión de la cámara.</i>
+    <img src="../../images/soporte_camarajpeg" alt="Soporte Elevado de Cámara" width="800"><br>
   </p>
