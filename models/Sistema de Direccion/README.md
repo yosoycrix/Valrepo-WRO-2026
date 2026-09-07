@@ -1,26 +1,16 @@
-### Sistema de Dirección
+### Sistema de Direccion
 
 Este sistema cuenta con libertad total de las ruedas delanteras para girar e inclinarse sin la presencia de ejes de transmisión conectados, lo cual elimina por completo el arrastre mecánico y aporta una fluidez absoluta al desplazamiento del robot. Esta configuración otorga la máxima libertad posible al afrontar las curvas más cerradas de la pista, trabajando en conjunto con una geometría de dirección articulada donde los brazos de dirección se acoplan directamente a los nudillos de dirección y al servomotor central.
 
 ---
 
-### Componentes Mecánicos y Archivos 3D (STL)
+### Componentes Mecánicos del Tren Delantero
 
 * **Brazo de Dirección:**  
   Eslabones mecánicos de alta rigidez encargados de vincular el acople de la boquilla del servo con los nudillos de dirección de cada rueda. Su función principal es transmitir el movimiento angular generado por el servomotor de forma simétrica e instantánea a ambas ruedas delanteras. Este diseño de bieletas garantiza virajes estables y permite alcanzar ángulos de cruce de hasta 55° (±5°) con un juego mecánico prácticamente inexistente, permitiendo correcciones de trayectoria finas a alta velocidad.
 
-  [<img src="https://img.shields.io/badge/Descargar_STL-brazos__de__direccion.stl-blue?style=for-the-badge&logo=autodesk" />](./brazos%20de%20direccion.stl)  
-  *(Haz clic en el botón para ver o descargar el modelo 3D interactivo en GitHub)*
-
----
-
 * **Acople de Bocina de Servomotor:**  
   Componente maestro de distribución de par montado de forma directa sobre la boquilla metálica del servomotor INJORA. Diseñado con puntos de articulación optimizados, actúa como el puente mecánico central que divide la fuerza de rotación del servo y la convierte en un movimiento de empuje y tracción lineal hacia los brazos de dirección. Su tolerancia de encaje elimina la histeresis en el centrado de la dirección, asegurando que el robot mantenga una línea recta perfecta tras salir de una curva.
-
-  [<img src="https://img.shields.io/badge/Descargar_STL-boquilla__del__bracket__del__servo.stl-orange?style=for-the-badge&logo=autodesk" />](./boquilla%20del%20bracket%20del%20servo.stl)  
-  *(Haz clic en el botón para ver o descargar el modelo 3D interactivo en GitHub)*
-
----
 
 * **Nudillo de Dirección:**  
   Pieza pivotante de alta precisión encargada de albergar los rodamientos de la rueda y permitir su rotación angular respecto al eje vertical del chasis. Se encuentra fijado en sus extremos superior e inferior mediante pernos de pivote que actúan como manguetas de dirección, permitiéndole girar con total libertad para cambiar la orientación de los neumáticos según el empuje dinámico recibido desde los brazos de dirección.
