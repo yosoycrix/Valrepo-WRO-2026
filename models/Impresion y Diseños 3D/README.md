@@ -22,7 +22,6 @@ Los parámetros de impresión empleados (configurados en **QidiStudio**) son los
 
   <p align="center">
     <img src="../../images/impresion3d.jpeg" alt="Proceso de Impresión 3D del Chasis en Qidi Q2" width="800"><br>
-    <i>Figura 1: Proceso de fabricación en cama caliente de la base del chasis en filamento PETG-CF.</i>
   </p>
 
 ---
