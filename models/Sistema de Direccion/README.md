@@ -1,3 +1,5 @@
+### Sistema de Direccion
+
 Este sistema cuenta con libertad total de las ruedas delanteras para girar e inclinarse sin la presencia de ejes de transmisión conectados, lo cual elimina por completo el arrastre mecánico y aporta una fluidez absoluta al desplazamiento del robot. Esta configuración otorga la máxima libertad posible al afrontar las curvas más cerradas de la pista, trabajando en conjunto con una geometría de dirección articulada donde los brazos de dirección se acoplan directamente a los nudillos de dirección y al servomotor central.
 
 ---
