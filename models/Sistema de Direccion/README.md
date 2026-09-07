@@ -7,9 +7,9 @@ Este sistema cuenta con libertad total de las ruedas delanteras para girar e inc
 ### Componentes Mecánicos del Tren Delantero
 
 * **Brazo de Dirección:**  
-  Eslabones mecánicos de alta rigidez encargados de vincular el acople de la boquilla del servo con los nudillos de dirección de cada rueda. Su función principal es transmitir el movimiento angular generado por el servomotor de forma simétrica e instantánea a ambas ruedas delanteras. Este diseño de bieletas garantiza virajes estables y permite alcanzar ángulos de cruce de hasta 55° (±5°) con un juego mecánico prácticamente inexistente, permitiendo correcciones de trayectoria finas a alta velocidad.
+  Eslabones mecánicos de alta rigidez encargados de vincular el acople de la bocina del servo con los nudillos de dirección de cada rueda. Su función principal es transmitir el movimiento angular generado por el servomotor de forma simétrica e instantánea a ambas ruedas delanteras. Este diseño de bieletas garantiza virajes estables y permite alcanzar ángulos de cruce de hasta 55° (±5°) con un juego mecánico prácticamente inexistente, permitiendo correcciones de trayectoria finas a alta velocidad.
 
-* **Acople de Bocina de Servomotor:**  
+* **Acople de Bocina:**  
   Componente maestro de distribución de par montado de forma directa sobre la boquilla metálica del servomotor INJORA. Diseñado con puntos de articulación optimizados, actúa como el puente mecánico central que divide la fuerza de rotación del servo y la convierte en un movimiento de empuje y tracción lineal hacia los brazos de dirección. Su tolerancia de encaje elimina la histeresis en el centrado de la dirección, asegurando que el robot mantenga una línea recta perfecta tras salir de una curva.
 
 * **Nudillo de Dirección:**  
