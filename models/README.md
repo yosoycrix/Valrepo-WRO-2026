@@ -19,23 +19,23 @@
     <td width="65%"><b>Propósito y Contenido</b></td>
   </tr>
   <tr>
-    <td><b><code>/Bases y Acoples de Sensores y Camara/</code></b></td>
+    <td><b><a href="./Bases%20y%20Acoples%20de%20Sensores%20y%20Camara/">/Bases y Acoples de Sensores y Camara/</a></b></td>
     <td>Modelos 3D de bases, soportes y acoples para la fijación exacta de la HuskyLens 2 y el arreglo de sensores ultrasónicos.</td>
   </tr>
   <tr>
-    <td><b><code>/Heimdall Version Final/</code></b></td>
+    <td><b><a href="./Heimdall%20Version%20Final/">/Heimdall Version Final/</a></b></td>
     <td>Ensamblaje maestro del prototipo completo. Incluye el archivo de intercambio en formato <code>.STEP</code> con el diseño definitivo del robot para inspección o modificación CAD integral.</td>
   </tr>
   <tr>
-    <td><b><code>/Impresion yDiseños 3D/</code></b></td>
+    <td><b><a href="./Impresion%20yDiseños%203D/">/Impresion yDiseños 3D/</a></b></td>
     <td>Archivos fuente (<code>.STL</code>, <code>.STEP</code>), guías de fabricación, parámetros de impresión, materiales recomendados y configuraciones de slicing.</td>
   </tr>
   <tr>
-    <td><b><code>/Sistema de Direccion/</code></b></td>
+    <td><b><a href="./Sistema%20de%20Direccion/">/Sistema de Direccion/</a></b></td>
     <td>Componentes del tren delantero, manguetas, eslabones y piezas del sistema de dirección Ackermann diseñadas para el servomotor INJORA.</td>
   </tr>
   <tr>
-    <td><b><code>/Sistema de Transmision/</code></b></td>
+    <td><b><a href="./Sistema%20de%20Transmision/">/Sistema de Transmision/</a></b></td>
     <td>Diseños de la tracción trasera: soportes del motor Hytech GA37-520, acoples de eje, engranajes y fijaciones del tren motriz.</td>
   </tr>
 </table>
