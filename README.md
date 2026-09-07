@@ -2700,6 +2700,12 @@ void loop() {
  <p><b>Explicación:</b> Administra los cambios de estado según las entradas de los sensores. Evalúa la prioridad entre la esquiva por visión y el retroceso evasivo de emergencia ante muros frontales ($< 10 \text{ cm}$). Cada fase de esquiva y reajuste cuenta con un tiempo límite (*timeout*) de seguridad para evitar bloqueos si el encoder pierde lecturas.</p>
   </div>
 </details>
+
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
+
+---
    
 ## 5. Randomizador
 
