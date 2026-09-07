@@ -14,7 +14,7 @@ Este sistema cuenta con libertad total de las ruedas delanteras para girar e inc
   Pieza pivotante de alta precisión encargada de albergar los rodamientos de la rueda y permitir su rotación angular respecto al eje vertical del chasis. Se encuentra fijado en sus extremos superior e inferior mediante pernos de pivote que actúan como manguetas de dirección, permitiéndole girar con total libertad para cambiar la orientación de los neumáticos según el empuje dinámico recibido desde los brazos de dirección.
 
   <p align="center">
-    <img src="../../images/cruce.jpeg" alt="Geometría del Sistema de Dirección en CAD" width="600"><br>
+    <img src="../../images/cruce.jpeg" alt="Geometría del Sistema de Dirección en CAD" width="800"><br>
   </p>
 
 ---
@@ -24,5 +24,5 @@ Este sistema cuenta con libertad total de las ruedas delanteras para girar e inc
 El ensamble físico demuestra la integración real de la articulación de dirección, el servomotor central y las ruedas montadas sobre la estructura impresa en 3D:
 
 <p align="center">
-  <img src="../../images/cruce2.jpeg" alt="Ensamble Físico del Tren Delantero" width="600"><br>
+  <img src="../../images/cruce2.jpeg" alt="Ensamble Físico del Tren Delantero" width="800"><br>
 </p>
