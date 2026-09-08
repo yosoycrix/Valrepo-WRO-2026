@@ -275,7 +275,7 @@ Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay qu
 > [!NOTE]
 > Fusion 360 es una plataforma de software de modelado 3D, CAD, CAM, CAE y PCB basada en la nube, destinada al diseño y la fabricación de productos. Nos permite diseñar y crear productos de acuerdo a sus especificaciones particulares, garantizando que cada pieza cumpla con los más exigentes criterios de estética, forma, ajuste y funcionalidad. Además, incorpora un conjunto integral de herramientas avanzadas para el diseño de placas de circuito impreso y componentes electrónicos, lo que facilita la conceptualización y materialización de cualquier idea, incluso las más complejas. Al implementar estas funciones, la plataforma optimiza significativamente tanto el tiempo como los costos asociados, asegurando que el proceso de producción se realice de manera eficiente y que las piezas obtenidas sean de la más alta calidad. Nosotros usamos esta herramienta gráfica y de diseño para realizar los diseños del chasis y las piezas personalizadas de nuestro robot.
 
-<img src="./images/3dheimdall.jpg" alt="Hei=mdall3d" width=80%>
+<img src="./images/heimdall_final1.jpeg" alt="Hei=mdall3d" width=80%>
 
 <h2>2.4 Movilidad</h2>
 
@@ -283,7 +283,7 @@ Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay qu
 
 <p>Nuestro robot emplea un <strong>sistema de tracción diferencial</strong>, ofreciendo maniobrabilidad precisa para enfrentar los retos del campo de competencia. El sistema de cruces se realiza mediante un servo que ajusta la dirección del robot en intersecciones de forma eficaz. También cabe destacar el hecho de que utilizamos una técnica llamada <strong>Ackermann Positivo</strong> para emplear el sistema de movilidad de nuestro vehículo.</p>
 
-  <img src="./images/delantera.jpeg" alt="Delantera del vehículo" width="80%">
+  <img src="./images/cruce.jpeg" alt="Delantera del vehículo" width="80%">
 
 > [!NOTE]
  El diferencial de los vehículos, como su nombre lo indica, permite que exista una diferencia en la velocidad de giro entre la rueda interna y la rueda externa del vehículo cuando se da una vuelta o se está girando la dirección. No importa si el vehículo es tracción trasera o delantera, la función es la misma.
