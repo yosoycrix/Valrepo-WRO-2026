@@ -2719,14 +2719,14 @@ void loop() {
   <thead>
     <tr style="background-color: #1a7a60; color: white; text-align: center;">
       <th style="padding: 8px;">N° Prueba</th>
-      <th style="padding: 8px;">Umbral de Tolerancia de Color (huskylens)</th>
-      <th style="padding: 8px;">TICKS_VERDE_PRIMER</th>
-      <th style="padding: 8px;">TICKS_VERDE_SEGUNDO</th>
-      <th style="padding: 8px;">TICKS_VERDE_GIRO_CONTRARIO</th>
-      <th style="padding: 8px;">TICKS_VERDE_GIRO_VUELTA</th>
-      <th style="padding: 8px;">TICKS_VERDE_RETROCESO_VERIF</th>
-      <th style="padding: 8px;">Lo Logro?</th>
-      <th style="padding: 8px; width: 45%;">Estado / Observaciones</th>
+      <th style="padding: 15px;">Umbral de Tolerancia de Color (huskylens)</th>
+      <th style="padding: 10px;">TICKS_VERDE_PRIMER</th>
+      <th style="padding: 10px;">TICKS_VERDE_SEGUNDO</th>
+      <th style="padding: 10px;">TICKS_VERDE_GIRO_CONTRARIO</th>
+      <th style="padding: 10px;">TICKS_VERDE_GIRO_VUELTA</th>
+      <th style="padding: 10px;">TICKS_VERDE_RETROCESO_VERIF</th>
+      <th style="padding: 10px;">Lo Logro?</th>
+      <th style="padding: 10px; width: 45%;">Estado / Observaciones</th>
     </tr>
   </thead>
   <tbody>
