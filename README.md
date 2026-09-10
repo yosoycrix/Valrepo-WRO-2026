@@ -484,15 +484,15 @@ A continuación, se desglosa cómo cada pieza clave se integra en la arquitectur
 </p>
 
 <ul>
-  <li><b>Ángulo Central:</b> 98° (Alineación neutra para línea recta).</li>
-  <li><b>Rango Máximo (Derecha):</b> 128°.</li>
-  <li><b>Rango Mínimo (Izquierda):</b> 68°.</li>
-  <li><b>Ángulo de Esquiva:</b> 25° (Giro primario) y 20° (Giro secundario) para maniobras rápidas.</li>
+  <li><b>Ángulo Central:</b> 96° (Alineación neutra para línea recta).</li>
+  <li><b>Rango Máximo (Derecha):</b> 140°.</li>
+  <li><b>Rango Mínimo (Izquierda):</b> 50°.</li>
+  <li><b>Ángulo de Esquiva:</b> 45° (Giro primario) y 45° (Giro secundario) para maniobras rápidas.</li>
 </ul>
 
 <p><b>Ventajas en Competencia:</b></p>
 <ul>
-  <li><b>Respuesta Dinámica:</b> Su motor de núcleo permite cambios de dirección instantáneos, esenciales cuando la cámara Pixy2 detecta un bloque a alta velocidad.</li>
+  <li><b>Respuesta Dinámica:</b> Su motor de núcleo permite cambios de dirección instantáneos, esenciales cuando la cámara Huskylens2 detecta un bloque a alta velocidad.</li>
   <li><b>Soporte de Voltaje:</b> Al soportar hasta 8.4V, podemos alimentarlo directamente desde el sistema de potencia para maximizar su torque y velocidad.</li>
   <li><b>Maniobras Preventivas:</b> Gracias a su precisión, implementamos ángulos de 20° para las esquivas preventivas, logrando trayectorias más fluidas y evitando colisiones accidentales.</li>
 </ul>
@@ -771,7 +771,7 @@ El LM2596 es un regulador step down DC-DC diseñado para transformar tensiones e
   <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
     <li><b>Regulación eficiente:</b> Convierte los 12V de la batería a los 5V estables que requiere la lógica, minimizando el calor generado.</li>
     <li><b>Protección de componentes:</b> Aísla al ESP32 y sensores de los ruidos eléctricos y picos de tensión de los motores.</li>
-    <li><b>Alta potencia:</b> Soporta hasta 3A, suficiente para alimentar la PixyCam, el servo y el microcontrolador al mismo tiempo.</li>
+    <li><b>Alta potencia:</b> Soporta hasta 3A, suficiente para alimentar la Huskylens2, el servo y el microcontrolador al mismo tiempo.</li>
     <li><b>Versatilidad:</b> Su amplio rango de entrada permite adaptar diferentes tipos de baterías sin cambiar el hardware.</li>
   </ul>
 </div>
