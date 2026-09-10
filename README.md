@@ -2754,6 +2754,7 @@ void loop() {
     </tr>
     <tr style="background-color: #f4f6f4; text-align: center;">
       <td><b>3</b></td>
+      <td>34</td>
       <td>510</td>
       <td>550</td>
       <td>300</td>
@@ -2764,6 +2765,7 @@ void loop() {
     </tr>
     <tr style="background-color: #ffffff; text-align: center;">
       <td><b>4</b></td>
+      <td>34</td>
       <td>510</td>
       <td>550</td>
       <td>450</td>
@@ -2774,6 +2776,7 @@ void loop() {
     </tr>
     <tr style="background-color: #f4f6f4; text-align: center;">
       <td><b>5</b></td>
+      <td>34</td>
       <td>510</td>
       <td>550</td>
       <td>370</td>
@@ -2784,6 +2787,7 @@ void loop() {
     </tr>
      <tr style="background-color: #f4f6f4; text-align: center;">
       <td><b>6</b></td>
+      <td>34</td>
       <td>480</td>
       <td>500</td>
       <td>370</td>
@@ -2794,6 +2798,7 @@ void loop() {
     </tr>
     <tr style="background-color: #f4f6f4; text-align: center;">
       <td><b>7</b></td>
+      <td>34</td>
       <td>480</td>
       <td>500</td>
       <td>370</td>
