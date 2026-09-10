@@ -2705,66 +2705,152 @@ void loop() {
 
 ## 4.3.3 Pruebas de Esquivamiento
 
-<p>
-  Durante la ronda cerrada, el sistema de navegación autónoma requiere una respuesta dinámica rápida y precisa para detectar, clasificar y esquivar los obstáculos fijados en la pista sin perder la referencia del carril. En esta fase se evaluó la integración entre la lectura de los sensores de visión/distancia, el cálculo del ángulo de dirección y la regulación de la velocidad de tracción.
-</p>
+  <p>
+    Durante la ronda cerrada, el sistema de navegación autónoma requiere una respuesta dinámica rápida y precisa para detectar, clasificar y esquivar los obstáculos fijados en la pista sin perder la referencia del carril. En esta fase se evaluó la integración entre la lectura de los sensores de visión/distancia, el cálculo del ángulo de dirección y la regulación de la velocidad de tracción.
+  </p>
 
-<h3>Parámetros de Calibración</h3>
+  <h3>Parámetros de Calibración</h3>
 
-<p>
-  Las pruebas se ejecutaron ajustando experimentalmente los umbrales de detección, los ángulos de desviación del servomotor y la velocidad base del motor de propulsión para encontrar el punto óptimo entre estabilidad y tiempo de respuesta.
-</p>
+  <p>
+    Las pruebas se ejecutaron ajustando experimentalmente los umbrales de detección, los ángulos de desviación del servomotor y la velocidad base del motor de propulsión para encontrar el punto óptimo entre estabilidad y tiempo de respuesta.
+  </p>
 
-<h4>Pruebas de Trayectoria: Bloque Verde</h4>
+  <h4 style="color: #1a7a60; border-bottom: 2px solid #1a7a60; padding-bottom: 4px; margin-top: 20px;">Pruebas de Trayectoria: Bloque Verde</h4>
 
-| Parámetro / Variable | Prueba 1 | Prueba 2 | Prueba 3 | Prueba 4 | Prueba 5 | Prueba 6 | Prueba 7 |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Tolerancia Color (HuskyLens)** | 34 | 34 | 34 | 34 | 34 | 34 | 34 |
-| **TICKS_VERDE_PRIMER** | 410 | 510 | 510 | 510 | 510 | 480 | 480 |
-| **TICKS_VERDE_SEGUNDO** | 470 | 570 | 550 | 550 | 550 | 500 | 500 |
-| **TICKS_VERDE_GIRO_CONTRARIO** | 400 | 500 | 300 | 450 | 370 | 370 | 370 |
-| **TICKS_VERDE_GIRO_VUELTA** | 500 | 550 | 400 | 450 | 480 | 570 | 570 |
-| **TICKS_VERDE_RETROCESO_VERIF** | 250 | 220 | 250 | 250 | 230 | 190 | 190 |
-| **¿Lo logró?** | No | Parcialmente | Parcialmente | Parcialmente | Parcialmente | **Sí** | **Sí** |
+  <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 13px; text-align: center;">
+    <thead>
+      <tr style="background-color: #1a7a60; color: #ffffff;">
+        <th style="padding: 8px; text-align: left;">Parámetro / Variable</th>
+        <th style="padding: 8px;">P1</th>
+        <th style="padding: 8px;">P2</th>
+        <th style="padding: 8px;">P3</th>
+        <th style="padding: 8px;">P4</th>
+        <th style="padding: 8px;">P5</th>
+        <th style="padding: 8px; background-color: #135d49;">P6</th>
+        <th style="padding: 8px; background-color: #135d49;">P7</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background-color: #ffffff;">
+        <td style="text-align: left; padding: 6px; font-weight: 600;">Tolerancia Color (HuskyLens)</td>
+        <td>34</td><td>34</td><td>34</td><td>34</td><td>34</td><td>34</td><td>34</td>
+      </tr>
+      <tr style="background-color: #f8f9fa;">
+        <td style="text-align: left; padding: 6px; font-weight: 600;">TICKS_VERDE_PRIMER</td>
+        <td>410</td><td>510</td><td>510</td><td>510</td><td>510</td><td>480</td><td>480</td>
+      </tr>
+      <tr style="background-color: #ffffff;">
+        <td style="text-align: left; padding: 6px; font-weight: 600;">TICKS_VERDE_SEGUNDO</td>
+        <td>470</td><td>570</td><td>550</td><td>550</td><td>550</td><td>500</td><td>500</td>
+      </tr>
+      <tr style="background-color: #f8f9fa;">
+        <td style="text-align: left; padding: 6px; font-weight: 600;">TICKS_VERDE_GIRO_CONTRARIO</td>
+        <td>400</td><td>500</td><td>300</td><td>450</td><td>370</td><td>370</td><td>370</td>
+      </tr>
+      <tr style="background-color: #ffffff;">
+        <td style="text-align: left; padding: 6px; font-weight: 600;">TICKS_VERDE_GIRO_VUELTA</td>
+        <td>500</td><td>550</td><td>400</td><td>450</td><td>480</td><td>570</td><td>570</td>
+      </tr>
+      <tr style="background-color: #f8f9fa;">
+        <td style="text-align: left; padding: 6px; font-weight: 600;">TICKS_VERDE_RETROCESO_VERIF</td>
+        <td>250</td><td>220</td><td>250</td><td>250</td><td>230</td><td>190</td><td>190</td>
+      </tr>
+      <tr style="background-color: #e8f5e9; font-weight: bold;">
+        <td style="text-align: left; padding: 6px;">¿Lo logró?</td>
+        <td style="color: #c62828;">No</td>
+        <td style="color: #ef6c00;">Parcial</td>
+        <td style="color: #ef6c00;">Parcial</td>
+        <td style="color: #ef6c00;">Parcial</td>
+        <td style="color: #ef6c00;">Parcial</td>
+        <td style="color: #2e7d32;">Sí</td>
+        <td style="color: #2e7d32;">Sí</td>
+      </tr>
+    </tbody>
+  </table>
 
-<ul>
-  <li><b>Prueba 1:</b> Primeros dos giros suficientes (aunque muy pegado al bloque), mucho retroceso (colisión con el bloque).</li>
-  <li><b>Prueba 2:</b> Esquivó el obstáculo, pero giró de más al reincorporarse al centro.</li>
-  <li><b>Prueba 3:</b> Esquivó el obstáculo, pero le falta más giro al reincorporarse al centro.</li>
-  <li><b>Prueba 4:</b> Esquivó el obstáculo, aunque retrocedió mucho y chocó con la esquina del bloque; se reincorporó a medias.</li>
-  <li><b>Prueba 5:</b> Esquivó el obstáculo; sin embargo, falla al reincorporarse al centro por falta de cruce al final.</li>
-  <li><b>Pruebas 6 y 7 (Óptimo):</b> Trayectoria fluida, esquivó el bloque y logró reincorporación rápida al carril. Repetibilidad confirmada sin pérdida de tracción ni falsos positivos.</li>
-</ul>
+  <ul style="font-size: 13px; margin-top: 5px; padding-left: 20px; color: #333333;">
+    <li><b>Prueba 1:</b> Primeros dos giros suficientes (aunque muy pegado al bloque), mucho retroceso (colisión con el bloque).</li>
+    <li><b>Prueba 2:</b> Esquivó el obstáculo, pero giró de más al reincorporarse al centro.</li>
+    <li><b>Prueba 3:</b> Esquivó el obstáculo, pero le falta más giro al reincorporarse al centro.</li>
+    <li><b>Prueba 4:</b> Esquivó el obstáculo, aunque retrocedió mucho y chocó con la esquina del bloque; se reincorporó a medias.</li>
+    <li><b>Prueba 5:</b> Esquivó el obstáculo; sin embargo, falla al reincorporarse al centro por falta de cruce al final.</li>
+    <li><b>Pruebas 6 y 7 (Óptimo):</b> Trayectoria fluida, esquivó el bloque y logró reincorporación rápida al carril. Repetibilidad confirmada sin pérdida de tracción ni falsos positivos.</li>
+  </ul>
 
-<h4>Pruebas de Trayectoria: Bloque Rojo</h4>
+  <br>
 
-| Parámetro / Variable | Prueba 1 | Prueba 2 | Prueba 3 | Prueba 4 | Prueba 5 | Prueba 6 | Prueba 7 |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Tolerancia Color (HuskyLens)** | 34 | 34 | 34 | 34 | 34 | 34 | 34 |
-| **TICKS_ROJO_PRIMER** | 440 | 530 | 530 | 530 | 530 | 500 | 500 |
-| **TICKS_ROJO_SEGUNDO** | 500 | 600 | 580 | 580 | 580 | 530 | 530 |
-| **TICKS_ROJO_GIRO_CONTRARIO** | 380 | 480 | 280 | 420 | 350 | 350 | 350 |
-| **TICKS_ROJO_GIRO_VUELTA** | 480 | 530 | 380 | 430 | 460 | 540 | 540 |
-| **TICKS_ROJO_RETROCESO_VERIF** | 240 | 210 | 240 | 240 | 220 | 220 | 220 |
-| **¿Lo logró?** | No | Parcialmente | Parcialmente | Parcialmente | Parcialmente | **Sí** | **Sí** |
+  <h4 style="color: #1a7a60; border-bottom: 2px solid #1a7a60; padding-bottom: 4px; margin-top: 10px;">Pruebas de Trayectoria: Bloque Rojo</h4>
 
-<ul>
-  <li><b>Prueba 1:</b> Cruzo demasiado por lo tanto tardo y rozó la esquina del bloque rojo.</li>
-  <li><b>Prueba 2:</b> Exceso de avance en el segundo tramo, se salió ligeramente de la línea de carril al retornar al centro.</li>
-  <li><b>Prueba 3:</b> Falta de aumentar <code>TICKS_ROJO_GIRO_CONTRARIO</code>, no logro reincorporarse al centro.</li>
-  <li><b>Prueba 4:</b> Ajuste cerca del óptimo, pero el retroceso de verificación desalineó la dirección.</li>
-  <li><b>Prueba 5:</b> Retorno casi perfecto; faltó leve corrección en la recta final.</li>
-  <li><b>Pruebas 6 y 7 (Óptimo):</b> Trayectoria fluida, esquivó el bloque y logró reincorporación rápida al carril. Repetibilidad confirmada sin pérdida de tracción ni falsos positivos.</li>
-</ul>
+  <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 13px; text-align: center;">
+    <thead>
+      <tr style="background-color: #1a7a60; color: #ffffff;">
+        <th style="padding: 8px; text-align: left;">Parámetro / Variable</th>
+        <th style="padding: 8px;">P1</th>
+        <th style="padding: 8px;">P2</th>
+        <th style="padding: 8px;">P3</th>
+        <th style="padding: 8px;">P4</th>
+        <th style="padding: 8px;">P5</th>
+        <th style="padding: 8px; background-color: #135d49;">P6</th>
+        <th style="padding: 8px; background-color: #135d49;">P7</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background-color: #ffffff;">
+        <td style="text-align: left; padding: 6px; font-weight: 600;">Tolerancia Color (HuskyLens)</td>
+        <td>34</td><td>34</td><td>34</td><td>34</td><td>34</td><td>34</td><td>34</td>
+      </tr>
+      <tr style="background-color: #f8f9fa;">
+        <td style="text-align: left; padding: 6px; font-weight: 600;">TICKS_ROJO_PRIMER</td>
+        <td>440</td><td>530</td><td>530</td><td>530</td><td>530</td><td>500</td><td>500</td>
+      </tr>
+      <tr style="background-color: #ffffff;">
+        <td style="text-align: left; padding: 6px; font-weight: 600;">TICKS_ROJO_SEGUNDO</td>
+        <td>500</td><td>600</td><td>580</td><td>580</td><td>580</td><td>530</td><td>530</td>
+      </tr>
+      <tr style="background-color: #f8f9fa;">
+        <td style="text-align: left; padding: 6px; font-weight: 600;">TICKS_ROJO_GIRO_CONTRARIO</td>
+        <td>380</td><td>480</td><td>280</td><td>420</td><td>350</td><td>350</td><td>350</td>
+      </tr>
+      <tr style="background-color: #ffffff;">
+        <td style="text-align: left; padding: 6px; font-weight: 600;">TICKS_ROJO_GIRO_VUELTA</td>
+        <td>480</td><td>530</td><td>380</td><td>430</td><td>460</td><td>540</td><td>540</td>
+      </tr>
+      <tr style="background-color: #f8f9fa;">
+        <td style="text-align: left; padding: 6px; font-weight: 600;">TICKS_ROJO_RETROCESO_VERIF</td>
+        <td>240</td><td>210</td><td>240</td><td>240</td><td>220</td><td>220</td><td>220</td>
+      </tr>
+      <tr style="background-color: #e8f5e9; font-weight: bold;">
+        <td style="text-align: left; padding: 6px;">¿Lo logró?</td>
+        <td style="color: #c62828;">No</td>
+        <td style="color: #ef6c00;">Parcial</td>
+        <td style="color: #ef6c00;">Parcial</td>
+        <td style="color: #ef6c00;">Parcial</td>
+        <td style="color: #ef6c00;">Parcial</td>
+        <td style="color: #2e7d32;">Sí</td>
+        <td style="color: #2e7d32;">Sí</td>
+      </tr>
+    </tbody>
+  </table>
 
-<br>
+  <ul style="font-size: 13px; margin-top: 5px; padding-left: 20px; color: #333333;">
+    <li><b>Prueba 1:</b> Cruzó demasiado por lo tanto tardó y rozó la esquina del bloque rojo.</li>
+    <li><b>Prueba 2:</b> Exceso de avance en el segundo tramo, se salió ligeramente de la línea de carril al retornar al centro.</li>
+    <li><b>Prueba 3:</b> Falta de aumentar <code>TICKS_ROJO_GIRO_CONTRARIO</code>, no logró reincorporarse al centro.</li>
+    <li><b>Prueba 4:</b> Ajuste cerca del óptimo, pero el retroceso de verificación desalineó la dirección.</li>
+    <li><b>Prueba 5:</b> Retorno casi perfecto; faltó leve corrección en la recta final.</li>
+    <li><b>Pruebas 6 y 7 (Óptimo):</b> Trayectoria fluida, esquivó el bloque y logró reincorporación rápida al carril. Repetibilidad confirmada sin pérdida de tracción ni falsos positivos.</li>
+  </ul>
 
-<h3>Análisis de Resultados</h3>
+  <br>
 
-<ul>
-  <li><b>Respuesta Dinámica:</b> Al encontrar los valores exactos de calibración se garantizó el despeje suficiente respecto al obstáculo, evitando el derrape de las ruedas traseras y permitiendo que el algoritmo de alineación recuperase el centro de la pista inmediatamente después de rebasar el elemento.</li>
-  <li><b>Conclusión de la Prueba:</b> La configuración validada en las iteraciones 6 y 7 demostró un comportamiento robusto y repetible, quedando establecida como la calibración predeterminada para el despliegue en la ronda cerrada.</li>
-</ul>
+  <h3>Análisis de Resultados</h3>
+
+  <ul>
+    <li><b>Respuesta Dinámica:</b> Al encontrar los valores exactos de calibración se garantizó el despeje suficiente respecto al obstáculo, evitando el derrape de las ruedas traseras y permitiendo que el algoritmo de alineación recuperase el centro de la pista inmediatamente después de rebasar el elemento.</li>
+    <li><b>Conclusión de la Prueba:</b> La configuración validada en las iteraciones 6 y 7 demostró un comportamiento robusto y repetible, quedando establecida como la calibración predeterminada para el despliegue en la ronda cerrada.</li>
+  </ul>
+
+</div>
 
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
