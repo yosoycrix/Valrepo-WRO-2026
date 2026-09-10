@@ -22,7 +22,7 @@ Unidad de procesamiento principal encargada del control en tiempo real, gestión
 
 ---
 
-### Módulo Regulador Step-Down (Convertidor DC-DC Buck)
+### Módulo Regulador Step-Down
 Módulo encargado de la regulación eficiente del voltaje proveniente de la batería, reduciendo y estabilizando la tensión a los niveles requeridos por la electrónica de control y sensores (5V / 3.3V).
 
 **Archivo:**
@@ -38,11 +38,11 @@ Controlador de potencia encargado de gestionar el sentido de giro y la velocidad
 
 ---
 
-### Sensor IMU BNO055 (Bosch Sensortec)
+### Sensor IMU BNO055
 Unidad de medición inercial de 9 ejes con fusión de datos integrada para la lectura precisa de orientación y aceleración.
 
 **Archivo:**
-* [<img src="https://img.shields.io/badge/Descargar_PDF-BNO055__Datasheet-red?style=flat-square&logo=adobeacrobatreader" />](./BNO055.pdf)
+* [<img src="https://img.shields.io/badge/BNO055__Datasheet-blue?style=flat-square&logo=adobeacrobatreader" />](./BNO055.pdf)
 
 ---
 
@@ -50,7 +50,7 @@ Unidad de medición inercial de 9 ejes con fusión de datos integrada para la le
 Arreglo de sensores para la detección periférica de obstáculos y cálculo de distancias por ultrasonido.
 
 **Archivo:**
-* [<img src="https://img.shields.io/badge/Descargar_PDF-HC--SR04__Datasheet-red?style=flat-square&logo=adobeacrobatreader" />](./HC-SR04%20-%20HCSR04.pdf)
+* [<img src="https://img.shields.io/badge/HC--SR04__Datasheet-blue?style=flat-square&logo=adobeacrobatreader" />](./HC-SR04%20-%20HCSR04.pdf)
 
 ---
 
@@ -61,18 +61,18 @@ Módulo de visión por IA dedicado al reconocimiento de colores, seguimiento de 
 > *Debido a la ausencia de un documento PDF oficial descargable por parte del fabricante, se redactó una ficha técnica detallada dentro del repositorio.*
 
 **Documentación:**
-* [<img src="https://img.shields.io/badge/Ver_Ficha_Técnica-HuskyLens_2-blue?style=flat-square&logo=markdown" />](./huskylens2.md)
+* [<img src="https://img.shields.io/badge/HuskyLens_2-orange?style=flat-square&logo=markdown" />](./huskylens2.md)
 
 ---
 
-### Servomotor INJORA INJ2065 (7 kg/cm)
+### Servomotor INJORA INJ2065 7
 Servomotor digital reforzado de perfil bajo y piñonería metálica, encargado del sistema de dirección articulada.
 
 > [!NOTE]
 > *Dado que el fabricante provee especificaciones directas de catálogo en lugar de un datasheet formal, se elaboró una guía técnica de referencia.*
 
 **Documentación:**
-* [<img src="https://img.shields.io/badge/Ver_Ficha_Técnica-Injora_INJ2065-blue?style=flat-square&logo=markdown" />](./injora2065.md)
+* [<img src="https://img.shields.io/badge/Injora_INJ2065-blue?style=flat-square&logo=markdown" />](./injora2065.md)
 
 ---
 
@@ -83,7 +83,7 @@ Motor DC de tracción trasera integrado con caja reductora y encoder de efecto H
 > *Se sintetizaron los parámetros mecánicos, relación de reducción y diagrama del encoder en una ficha técnica Markdown dedicada.*
 
 **Documentación:**
-* [<img src="https://img.shields.io/badge/Ver_Ficha_Técnica-Hytech_GA37--520-blue?style=flat-square&logo=markdown" />](./hytech_ga37_520.md)
+* [<img src="https://img.shields.io/badge/Hytech_GA37--520-grean?style=flat-square&logo=markdown" />](./hytech_ga37.md)
 
 ---
 
