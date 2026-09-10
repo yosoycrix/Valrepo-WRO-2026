@@ -2701,6 +2701,120 @@ void loop() {
   </div>
 </details>
 
+---
+
+## 4.3.3 Pruebas de Esquivamiento
+
+<p>
+  Durante la ronda cerrada, el sistema de navegación autónoma requiere una respuesta dinámica rápida y precisa para detectar, clasificar y esquivar los obstáculos fijados en la pista sin perder la referencia del carril. En esta fase se evaluó la integración entre la lectura de los sensores de visión/distancia, el cálculo del ángulo de dirección y la regulación de la velocidad de tracción.
+</p>
+
+<h3>Parámetros de Calibración</h3>
+
+<p>
+  Las pruebas se ejecutaron ajustando experimentalmente los umbrales de detección, los ángulos de desviación del servomotor y la velocidad base del motor de propulsión para encontrar el punto óptimo entre estabilidad y tiempo de respuesta.
+</p>
+
+<table>
+  <thead>
+    <tr style="background-color: #1a7a60; color: white; text-align: center;">
+      <th style="padding: 8px;">N° Prueba</th>
+      <th style="padding: 8px;">Umbral de Tolerancia de Color (huskylens)</th>
+      <th style="padding: 8px;">TICKS_VERDE_PRIMER</th>
+      <th style="padding: 8px;">TICKS_VERDE_SEGUNDO</th>
+      <th style="padding: 8px;">TICKS_VERDE_GIRO_CONTRARIO</th>
+      <th style="padding: 8px;">TICKS_VERDE_GIRO_VUELTA</th>
+      <th style="padding: 8px;">TICKS_VERDE_RETROCESO_VERIF</th>
+      <th style="padding: 8px;">Lo Logro?</th>
+      <th style="padding: 8px; width: 45%;">Estado / Observaciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background-color: #f4f6f4; text-align: center;">
+      <td><b>1</b></td>
+      <td>34</td>
+      <td>410</td>
+      <td>470</td>
+      <td>400</td>
+      <td>500</td>
+      <td>250</td>
+      <td>No</td>
+      <td style="text-align: left; padding-left: 10px;">Primeros dos giros suficientes (aunque muy pegado al bloque), mucho retroceso (colision con el bloque).</td>
+    </tr>
+    <tr style="background-color: #ffffff; text-align: center;">
+      <td><b>2</b></td>
+      <td>34</td>
+      <td>510</td>
+      <td>570</td>
+      <td>500</td>
+      <td>550</td>
+      <td>220</td>
+      <td>Parcialmente</td>
+      <td style="text-align: left; padding-left: 10px;">Esquivó el obstáculo, pero giro de mas al reincorporarse al centro.</td>
+    </tr>
+    <tr style="background-color: #f4f6f4; text-align: center;">
+      <td><b>3</b></td>
+      <td>510</td>
+      <td>550</td>
+      <td>300</td>
+      <td>400</td>
+      <td>250</td>
+      <td>Parcialmente</td>
+      <td style="text-align: left; padding-left: 10px;">Esquivó el obstáculo, pero le falta mas giro al reincorporarse al centro</td>
+    </tr>
+    <tr style="background-color: #ffffff; text-align: center;">
+      <td><b>4</b></td>
+      <td>510</td>
+      <td>550</td>
+      <td>450</td>
+      <td>450</td>
+      <td>250</td>
+      <td>Parcialmente</td>
+      <td style="text-align: left; padding-left: 10px;">Esquivó el obstáculo, aunque retrocedio mucho y choco con la esquina del bloque, se reincorporo a medias al bloque (casi lo logra).</td>
+    </tr>
+    <tr style="background-color: #f4f6f4; text-align: center;">
+      <td><b>5</b></td>
+      <td>510</td>
+      <td>550</td>
+      <td>370</td>
+      <td>480</td>
+      <td>230</td>
+      <td>Parcialmete</td>
+      <td style="text-align: left; padding-left: 10px;">Esquivó el obstáculo, sin embargo falla al reincorporarse al centro falta mas cruce a lo ultimo</td>
+    </tr>
+     <tr style="background-color: #f4f6f4; text-align: center;">
+      <td><b>6</b></td>
+      <td>480</td>
+      <td>500</td>
+      <td>370</td>
+      <td>570</td>
+      <td>190</td>
+      <td>Si</td>
+      <td style="text-align: left; padding-left: 10px;"><b>Óptimo:</b> Trayectoria fluida, esquivo el bloque y reincorporación rápida al carril.</td>
+    </tr>
+    <tr style="background-color: #f4f6f4; text-align: center;">
+      <td><b>7</b></td>
+      <td>480</td>
+      <td>500</td>
+      <td>370</td>
+      <td>570</td>
+      <td>190</td>
+      <td>Si</td>
+      <td style="text-align: left; padding-left: 10px;">Repetibilidad confirmada sin pérdida de tracción ni falsos positivos.</td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<h3>Análisis de Resultados</h3>
+
+<ul>
+  <li><b>Respuesta Dinámica:</b> Al encontrar los valores exactos de <b>Calibracion</b> garantizó el despeje suficiente respecto al obstáculo, evitando el derrape de las ruedas traseras y permitiendo que el algoritmo de alineación recuperase el centro de la pista inmediatamente después de rebasar el elemento.</li>
+  <li><b>Conclusión de la Prueba:</b> La configuración validada en las iteraciones 5 y 6 demostró un comportamiento robusto y repetible, quedando establecida como la calibración predeterminada para el despliegue en la ronda cerrada.</li>
+</ul>
+
+
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
 </p>
