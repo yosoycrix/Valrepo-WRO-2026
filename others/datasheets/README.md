@@ -18,7 +18,7 @@ Estos documentos y fichas fueron consultados y utilizados durante:
 Unidad de procesamiento principal encargada del control en tiempo real, gestión de sensores, lógica de navegación y algoritmo de dirección.
 
 **Archivo:**
-* [<img src="https://img.shields.io/badge/Descargar_PDF-ESP32--WROOM--32D-red?style=flat-square&logo=adobeacrobatreader" />](./esp32-wroom-32_datasheet_en.pdf)
+* [<img src="https://img.shields.io/badge/ESP32--WROOM--32D-black?style=flat-square&logo=adobeacrobatreader" />](./esp32-wroom-32_datasheet_en.pdf)
 
 ---
 
@@ -26,7 +26,7 @@ Unidad de procesamiento principal encargada del control en tiempo real, gestión
 Módulo encargado de la regulación eficiente del voltaje proveniente de la batería, reduciendo y estabilizando la tensión a los niveles requeridos por la electrónica de control y sensores (5V / 3.3V).
 
 **Archivo:**
-* [<img src="https://img.shields.io/badge/Descargar_PDF-Step__Down__Converter-red?style=flat-square&logo=adobeacrobatreader" />](./LM2596%20SIMPLE%20SWITCHER®%20Power%20Converter%20150-kHz%203-A%20Step-Down%20Voltage%20Regulator%20datasheet%20(Rev.%20G)%20-%20lm2596.pdf)
+* [<img src="https://img.shields.io/badge/Step__Down-blue?style=flat-square&logo=adobeacrobatreader" />](./LM2596%20SIMPLE%20SWITCHER®%20Power%20Converter%20150-kHz%203-A%20Step-Down%20Voltage%20Regulator%20datasheet%20(Rev.%20G)%20-%20lm2596.pdf)
 
 ---
 
@@ -34,7 +34,7 @@ Módulo encargado de la regulación eficiente del voltaje proveniente de la bate
 Controlador de potencia encargado de gestionar el sentido de giro y la velocidad mediante señales PWM aplicadas al motor DC de tracción trasera.
 
 **Archivo:**
-* [<img src="https://img.shields.io/badge/Descargar_PDF-Puente__H__Driver-red?style=flat-square&logo=adobeacrobatreader" />](./L298N%20Motor%20Driver.pdf)
+* [<img src="https://img.shields.io/badge/Puente__H__Driver-red?style=flat-square&logo=adobeacrobatreader" />](./L298N%20Motor%20Driver.pdf)
 
 ---
 
