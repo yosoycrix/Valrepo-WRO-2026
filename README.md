@@ -2736,8 +2736,6 @@ void loop() {
   <li><b>Pruebas 6 y 7 (Óptimo):</b> Trayectoria fluida, esquivó el bloque y logró reincorporación rápida al carril. Repetibilidad confirmada sin pérdida de tracción ni falsos positivos.</li>
 </ul>
 
-<br>
-
 <h4>Pruebas de Trayectoria: Bloque Rojo</h4>
 
 | Parámetro / Variable | Prueba 1 | Prueba 2 | Prueba 3 | Prueba 4 | Prueba 5 | Prueba 6 | Prueba 7 |
