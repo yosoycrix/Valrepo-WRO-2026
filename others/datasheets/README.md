@@ -18,7 +18,7 @@ Estos documentos y fichas fueron consultados y utilizados durante:
 Unidad de procesamiento principal encargada del control en tiempo real, gestión de sensores, lógica de navegación y algoritmo de dirección.
 
 **Archivo:**
-* [<img src="https://img.shields.io/badge/ESP32--WROOM--32D-black?style=flat-square&logo=adobeacrobatreader" />](./esp32-wroom-32_datasheet_en.pdf)
+* [<img src="https://img.shields.io/badge/ESP32--WROOM--32D-grey?style=flat-square&logo=adobeacrobatreader" />](./esp32-wroom-32_datasheet_en.pdf)
 
 ---
 
