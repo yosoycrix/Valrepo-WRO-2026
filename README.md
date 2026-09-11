@@ -42,6 +42,7 @@
   - [4.2 Desafio Cerrado](#42-desafio-cerrado)
     - [4.2.1 Flowchart Cerrada](#421-flowchart-cerrada)
     - [4.2.2 Explicación del Codigo](#422-explicacion-del-codigo)
+    - [4.2.3 Pruebas de Esquivamiento](#423-pruebas-de-esquivamiento)
 - [5. Randomizador](#5-Randomizador)
 - [6. Recursos para armar nuestro robot](#6-recursos-para-hacer-el-robot)
 
@@ -2705,15 +2706,15 @@ void loop() {
 
 ## 4.3.3 Pruebas de Esquivamiento
 
-  <p>
-    Durante la ronda cerrada, el sistema de navegación autónoma requiere una respuesta dinámica rápida y precisa para detectar, clasificar y esquivar los obstáculos fijados en la pista sin perder la referencia del carril. En esta fase se evaluó la integración entre la lectura de los sensores de visión/distancia, el cálculo del ángulo de dirección y la regulación de la velocidad de tracción.
-  </p>
+ <p>
+  Durante la ronda cerrada, el sistema de navegación autónoma requiere una respuesta dinámica rápida y precisa para detectar, clasificar y esquivar los obstáculos de color (verde y rojo) fijados en la pista. En esta fase se evaluó la integración entre la detección de color mediante la cámara HuskyLens, el algoritmo de control por odometría/encoders y la secuencia de maniobras de esquiva, verificando los desplazamientos mediante conteo de impulsos (<i>ticks</i>).
+</p>
 
-  <h3>Parámetros de Calibración</h3>
+<h3>Parámetros de Calibración</h3>
 
-  <p>
-    Las pruebas se ejecutaron ajustando experimentalmente los umbrales de detección, los ángulos de desviación del servomotor y la velocidad base del motor de propulsión para encontrar el punto óptimo entre estabilidad y tiempo de respuesta.
-  </p>
+<p>
+  Las pruebas se ejecutaron ajustando experimentalmente la tolerancia del sensor HuskyLens y los valores del conteo de impulsos (<i>ticks</i>) para cada tramo de la maniobra de esquiva (primer giro, segundo giro, giro contrario, giro de vuelta y retroceso de verificación), buscando el equilibrio óptimo entre el despeje del bloque y una reincorporación limpia al carril.
+</p>
 
   <h4 style="color: #1a7a60; border-bottom: 2px solid #1a7a60; padding-bottom: 4px; margin-top: 20px;">Pruebas de Trayectoria: Bloque Verde</h4>
 
