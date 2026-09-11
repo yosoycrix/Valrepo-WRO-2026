@@ -2704,7 +2704,7 @@ void loop() {
 
 ---
 
-## 4.3.3 Pruebas de Esquivamiento
+## 4.2.3 Pruebas de Esquivamiento
 
  <p>
   Durante la ronda cerrada, el sistema de navegación autónoma requiere una respuesta dinámica rápida y precisa para detectar, clasificar y esquivar los obstáculos de color (verde y rojo) fijados en la pista. En esta fase se evaluó la integración entre la detección de color mediante la cámara HuskyLens, el algoritmo de control por odometría/encoders y la secuencia de maniobras de esquiva, verificando los desplazamientos mediante conteo de impulsos (<i>ticks</i>).
