@@ -456,13 +456,20 @@ A diferencia de la arquitectura empleada en el diseño anterior del chasis, en e
 
 Al haber ganado este valioso espacio estructural y haber eliminado una etapa entera de reducción, se aprovechó la oportunidad para rediseñar la cinemática de transmisión, estableciendo una relación de engranajes overdrive de 4:5 ($i = 1.25$). Esta nueva relación fue seleccionada intencionalmente con el fin de entregar un comportamiento dinámico mucho más estable y lineal durante la navegación autónoma. Al mantener el motor trabajando en una zona eficiente de su curva de torque, el vehículo adquiere una mejor respuesta motriz y una aceleración más firme para responder de manera ágil y controlada ante maniobras bruscas, cambios rápidos de trayectoria en curvas o correcciones repentinas impulsadas por el sistema de control.
 
-| Ventajas | Desventajas |
-| :--- | :--- |
-| **Ahorro de espacio y peso:** Optimización del volumen interno y reducción de la masa total del chasis. | **Reducción de velocidad:** Disminución en la velocidad máxima final respecto al sistema previo. |
-| **Reducción de piezas móviles:** Menor cantidad de componentes propensos a desgaste, desalineación o fallas mecánicas. | **Menor protección:** Transmisión con menor cobertura estructural frente a impactos o agentes externos. |
-| **Mejora en la respuesta de fuerza:** Mayor capacidad de torque para responder con estabilidad ante maniobras bruscas. | |
-| **Reducción de costos:** Menor consumo de material de impresión/manufactura y reducción en la compra de componentes. | |
-| **Ensamblaje y mantenimiento simplificado:** Acceso directo para inspección, reparación o reemplazo rápido de piezas. | |
+| Ventajas de la Nueva Arquitectura |
+| :--- |
+| **Ahorro de espacio y peso:** Optimización del volumen interno del chasis y reducción de la masa total de Heimdall. |
+| **Reducción de piezas móviles:** Menor cantidad de componentes mecánicos propensos a desgaste, desalineación o fallas. |
+| **Mejora en la respuesta de fuerza:** Incremento de torque para responder con estabilidad y agilidad ante maniobras bruscas. |
+| **Reducción de costos:** Menor consumo de filamento/material de manufactura y disminución en la compra de componentes mecánicos extra. |
+| **Mantenimiento simplificado:** Diseño accesible que facilita el reemplazo rápido de piezas, inspección y reparaciones en pits. |
+
+---
+
+| Desventajas y Puntos a Considerar |
+| :--- |
+| **Reducción de velocidad final:** Disminución de la velocidad máxima teórica en comparación con la configuración del prototipo anterior. |
+| **Menor protección del tren motriz:** Expansión de espacio que deja la transmisión con menor cobertura estructural frente a impactos o agentes externos. |
 
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
