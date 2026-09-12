@@ -463,12 +463,12 @@ A continuación, se desglosa cómo cada pieza clave se integra en la arquitectur
     <tr valign="top">
       <td align="center">
         <img src="./images/sistemaantiguo1.jpeg" width="48%" alt="Vista superior sistema antiguo" />
-        <img src="./images/sistemaantiguo2.jpg" width="48%" alt="Vista en perspectiva sistema antiguo" />
+        <img src="./images/sistemaantiguo2.jpeg" width="48%" alt="Vista en perspectiva sistema antiguo" />
         <br />
         <small><i>Configuración previa con motor desplazado, eje secundario de transferencia y piñón cónico de ataque.</i></small>
       </td>
       <td align="center">
-        <img src="./images/sistemaactual1.jpg" width="48%" alt="Vista superior sistema actual" />
+        <img src="./images/sistemaactual1.jpeg" width="48%" alt="Vista superior sistema actual" />
         <img src="./images/sistemaactual2.jpeg" width="48%" alt="Vista en perspectiva sistema actual" />
         <br />
         <small><i>Configuración optimizada con motor alineado, acoplamiento directo engranaje-diferencial (4:5) y chasis compacto.</i></small>
