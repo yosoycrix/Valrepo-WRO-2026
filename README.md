@@ -46,7 +46,6 @@
     - [4.2.3 Pruebas de Esquivamiento](#423-pruebas-de-esquivamiento)
 - [5. Randomizador](#5-Randomizador)
 - [6. Recursos para armar nuestro robot](#6-recursos-para-hacer-el-robot)
-- [7. Historia del Team Valgrind](#7-historia-team-valgrind)
 
 
 ---
@@ -3010,16 +3009,6 @@ Para optimizar nuestro rendimiento en la pista y asegurar la adaptabilidad del r
 **Impresora Usada:**
 
 - [Qidi Tech Q2](https://www.amazon.com/QIDI-Enclosed-Filtration-Leveling-270x270x256mm/dp/B0G399G3WB?th=1)
-
-<p align="right">
-  <a href="#inicio">Volver Al Inicio</a>
-</p>
-
----
-
-## 7. Historia Team Valgrind
-
-
 
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
