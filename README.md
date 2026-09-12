@@ -456,6 +456,8 @@ A diferencia de la arquitectura empleada en el diseño anterior del chasis, en e
 
 Al haber ganado este valioso espacio estructural y haber eliminado una etapa entera de reducción, se aprovechó la oportunidad para rediseñar la cinemática de transmisión, estableciendo una relación de engranajes overdrive de 4:5 ($i = 1.25$). Esta nueva relación fue seleccionada intencionalmente con el fin de entregar un comportamiento dinámico mucho más estable y lineal durante la navegación autónoma. Al mantener el motor trabajando en una zona eficiente de su curva de torque, el vehículo adquiere una mejor respuesta motriz y una aceleración más firme para responder de manera ágil y controlada ante maniobras bruscas, cambios rápidos de trayectoria en curvas o correcciones repentinas impulsadas por el sistema de control.
 
+## Ventajas y Desventajas de nuestro sistema de transmision 4x2
+
 | Ventajas de la Nueva Arquitectura |
 | :--- |
 | **Ahorro de espacio y peso:** Optimización del volumen interno del chasis y reducción de la masa total de Heimdall. |
