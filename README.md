@@ -458,20 +458,29 @@ Al haber ganado este valioso espacio estructural y haber eliminado una etapa ent
 
 ## Ventajas y Desventajas de nuestro sistema de transmision 4x2
 
-| Ventajas de la Nueva Arquitectura |
-| :--- |
-| **Ahorro de espacio y peso:** Optimización del volumen interno del chasis y reducción de la masa total de Heimdall. |
-| **Reducción de piezas móviles:** Menor cantidad de componentes mecánicos propensos a desgaste, desalineación o fallas. |
-| **Mejora en la respuesta de fuerza:** Incremento de torque para responder con estabilidad y agilidad ante maniobras bruscas. |
-| **Reducción de costos:** Menor consumo de filamento/material de manufactura y disminución en la compra de componentes mecánicos extra. |
-| **Mantenimiento simplificado:** Diseño accesible que facilita el reemplazo rápido de piezas, inspección y reparaciones en pits. |
-
----
-
-| Desventajas y Puntos a Considerar |
-| :--- |
-| **Reducción de velocidad final:** Disminución de la velocidad máxima teórica en comparación con la configuración del prototipo anterior. |
-| **Menor protección del tren motriz:** Expansión de espacio que deja la transmisión con menor cobertura estructural frente a impactos o agentes externos. |
+<table width="100%">
+  <tr>
+    <th width="50%">Ventajas de la Nueva Arquitectura</th>
+    <th width="50%">Desventajas</th>
+  </tr>
+  <tr valign="top">
+    <td>
+      <ul>
+        <li><b>Ahorro de espacio y peso:</b> Optimización del volumen interno y masa total.</li>
+        <li><b>Reducción de piezas móviles:</b> Menor desgaste y puntos de falla.</li>
+        <li><b>Mejora de fuerza:</b> Mayor torque para maniobras bruscas.</li>
+        <li><b>Reducción de costos:</b> Menor uso de material y piezas.</li>
+        <li><b>Mantenimiento simplificado:</b> Acceso rápido a reemplazos.</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li><b>Reducción de velocidad final:</b> Menor velocidad máxima teórica.</li>
+        <li><b>Menor protección:</b> Mayor exposición a impactos o polvo.</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
