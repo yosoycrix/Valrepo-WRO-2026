@@ -440,9 +440,44 @@ A continuación, se desglosa cómo cada pieza clave se integra en la arquitectur
 
 ## Evolucion del sistema de trasmision 4x2
 
-A diferencia de la arquitectura empleada en el diseño anterior del chasis, en esta nueva iteración se logró eliminar por completo el complejo arreglo de ejes y engranajes adicionales que anteriormente se utilizaban para retransmitir la potencia rotacional del motor desde la sección lateral del vehículo. Para conseguir esto, se modificó estratégicamente la posición y orientación del motor dentro de la estructura general, permitiendo acoplar de forma directa su piñón de salida a la caja de la transmisión diferencial. Este cambio geométrico no solo optimizó el uso del espacio interno del robot para la distribución del hardware electrónico, sino que también erradicó puntos de fallas mecánicas recurrentes y redujo la necesidad de mantenimiento preventivo, liberando al sistema de componentes propensos al desgaste como el piñón de ataque intermedio. 
+<p>
+  A diferencia de la arquitectura empleada en el diseño anterior del chasis, en esta nueva iteración se logró eliminar por completo el complejo arreglo de ejes y engranajes adicionales que anteriormente se utilizaban para retransmitir la potencia rotacional del motor desde la sección lateral del vehículo. Para conseguir esto, se modificó estratégicamente la posición y orientación del motor dentro de la estructura general, permitiendo acoplar de forma directa su piñón de salida a la caja de la transmisión diferencial. Este cambio geométrico no solo optimizó el uso del espacio interno del robot para la distribución del hardware electrónico, sino que también erradicó puntos de fallas mecánicas recurrentes y redujo la necesidad de mantenimiento preventivo, liberando al sistema de componentes propensos al desgaste como el piñón de ataque intermedio.
+</p>
 
-Al haber ganado este valioso espacio estructural y haber eliminado una etapa entera de reducción, se aprovechó la oportunidad para rediseñar la cinemática de transmisión, estableciendo una relación de engranajes overdrive de 4:5 ($i = 1.25$). Esta nueva relación fue seleccionada intencionalmente con el fin de entregar un comportamiento dinámico mucho más estable y lineal durante la navegación autónoma. Al mantener el motor trabajando en una zona eficiente de su curva de torque, el vehículo adquiere una mejor respuesta motriz y una aceleración más firme para responder de manera ágil y controlada ante maniobras bruscas, cambios rápidos de trayectoria en curvas o correcciones repentinas impulsadas por el sistema de control.
+<p>
+  Al haber ganado este valioso espacio estructural y haber eliminado una etapa entera de reducción, se aprovechó la oportunidad para rediseñar la cinemática de transmisión, estableciendo una relación de engranajes overdrive de 4:5 (<i>i</i> = 1.25). Esta nueva relación fue seleccionada intencionalmente con el fin de entregar un comportamiento dinámico mucho más estable y lineal durante la navegación autónoma. Al mantener el motor trabajando en una zona eficiente de su curva de torque, el vehículo adquiere una mejor respuesta motriz y una aceleración más firme para responder de manera ágil y controlada ante maniobras bruscas, cambios rápidos de trayectoria en curvas o correcciones repentinas impulsadas por el sistema de control.
+</p>
+
+<hr />
+
+<h4>Comparativa Visual de la Transmisión</h4>
+
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="50%" align="center">Prototipo Anterior (Transmisión Lateral)</th>
+      <th width="50%" align="center">Prototipo Actual (Acoplamiento Directo)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr valign="top">
+      <td align="center">
+        <img src="sistemaantiguo1.jpeg" width="48%" alt="Vista superior sistema antiguo" />
+        <img src="sistemaantiguo2.jpg" width="48%" alt="Vista en perspectiva sistema antiguo" />
+        <br />
+        <small><i>Configuración previa con motor desplazado, eje secundario de transferencia y piñón cónico de ataque.</i></small>
+      </td>
+      <td align="center">
+        <img src="sistemaactual1.jpg" width="48%" alt="Vista superior sistema actual" />
+        <img src="sistemaactual2.jpeg" width="48%" alt="Vista en perspectiva sistema actual" />
+        <br />
+        <small><i>Configuración optimizada con motor alineado, acoplamiento directo engranaje-diferencial (4:5) y chasis compacto.</i></small>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
 
 ## Ventajas y Desventajas de nuestro sistema de transmision 4x2
 
