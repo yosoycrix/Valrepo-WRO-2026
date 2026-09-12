@@ -2119,6 +2119,7 @@ void loop() {
         <td style="padding: 6px;">Hizo la pista con completo exito con un tiempo aceptable</td>
         <td style="padding: 6px;">Hizo la pista con completo exito con un tiempo aceptable</td>
         <td style="padding: 6px;">Hizo la pista con completo exito con un tiempo aceptable</td>
+        <td style="padding: 6px;">Hizo la pista con completo exito con un tiempo aceptable</td>
       </tr>
     </tbody>
   </table>
