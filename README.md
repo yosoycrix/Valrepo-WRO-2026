@@ -621,8 +621,43 @@ La reducción total del sistema es:
 Reducción total = Reducción interna del motor × (dientes engranaje grande / dientes piñón)
 ```
 
-Con el Piñón de lego de 36 dientes acomplado a nuestro motor, transmitiendo su fuerza de rotación al Piñon de 16 dientes obtenemos un aumento de 2.11 veces la velocidad original del motor (550 rpm) obteniendo así 1164.7 rpm, siendo reducidos por el Piñón de ataque a una reducción de 1:2.24 
-Dando un total de 521 rpm las cuales se transmiten directamente a los ejes de transmisión conectados a las ruedas
+En el diseño anterior del tren motriz, la potencia del motor se transmitía a través de un sistema compuesto por dos etapas mecánicas con componentes tipo LEGO:
+
+1. **Primera Etapa (Amplificación Cinemática):**  
+   Un piñón conductor de $Z_1 = 36\text{ dientes}$ acoplado a la salida del motor ($n_{\text{motor, ant}} = 550\text{ RPM}$) transmitía su fuerza de rotación a un piñón secundario de $Z_2 = 16\text{ dientes}$. La relación de transmisión teórica de esta etapa ($i_1$) se expresa como:
+
+   $$i_1 = \frac{Z_1}{Z_2} = \frac{36}{16} = 2.25$$
+
+   Considerando las holguras mecánicas y la fricción interdentado, se obtenía un incremento real de $2.11\times$ respecto a la velocidad original del motor, alcanzando una velocidad intermedia ($n_{\text{int}}$) de:
+
+   $$n_{\text{int}} = n_{\text{motor, ant}} \times 2.11 = 550\text{ RPM} \times 2.11 = 1164.7\text{ RPM}$$
+
+2. **Segunda Etapa (Reducción Final):**  
+   Posteriormente, esta velocidad intermedia pasaba a través de un piñón de ataque configurado con una relación de reducción de $1 : 2.24$ ($i_2 = \frac{1}{2.24} \approx 0.4464$). La velocidad angular entregada directamente a los ejes de transmisión de las ruedas ($n_{\text{ruedas, ant}}$) se determinaba mediante:
+
+   $$n_{\text{ruedas, ant}} = \frac{n_{\text{int}}}{2.24} = \frac{1164.7\text{ RPM}}{2.24} \approx 521\text{ RPM}$$
+
+   Para las ruedas instaladas de diámetro $D = 33\text{ mm}$ (radio $r = 0.0165\text{ m}$), esta velocidad angular de $521\text{ RPM}$ equivalía a una velocidad lineal teórica de avance ($v_{\text{ant}}$) calculada como:
+
+   $$\omega_{\text{ant}} = 521 \times \frac{2\pi}{60} \approx 54.56\text{ rad/s}$$
+
+   $$v_{\text{ant}} = \omega_{\text{ant}} \cdot r = 54.56\text{ rad/s} \times 0.0165\text{ m} \approx 0.90\text{ m/s}$$
+
+Sin embargo, debido al elevado juego mecánico (*backlash*) y a las pérdidas de torque asociadas al engrane de dos etapas plásticas, este diseño fue sustituido por la configuración actual de transmisión directa al diferencial.
+
+En el sistema actual, un piñón de $Z_{\text{motor}} = 25\text{ dientes}$ acoplado al motor ($n_{\text{motor, act}} = 360\text{ RPM}$) impulsa directamente la caja del diferencial de $Z_{\text{dif}} = 20\text{ dientes}$, estableciendo una relación *overdrive* de $4:5$ ($i_{\text{act}} = 1.25$):
+
+$$i_{\text{act}} = \frac{Z_{\text{motor}}}{Z_{\text{dif}}} = \frac{25}{20} = 1.25$$
+
+$$n_{\text{ruedas, act}} = n_{\text{motor, act}} \times i_{\text{act}} = 360\text{ RPM} \times 1.25 = 450\text{ RPM}$$
+
+Con el mismo diámetro de rueda ($D = 33\text{ mm}$), la velocidad angular final de $450\text{ RPM}$ produce una velocidad lineal estable ($v_{\text{act}}$) de:
+
+$$\omega_{\text{act}} = 450 \times \frac{2\pi}{60} = 15\pi \approx 47.12\text{ rad/s}$$
+
+$$v_{\text{act}} = \omega_{\text{act}} \cdot r = 47.12\text{ rad/s} \times 0.0165\text{ m} \approx 0.778\text{ m/s}$$
+
+Esta transición de $521\text{ RPM}$ ($0.90\text{ m/s}$ con fricción y deslices) a $450\text{ RPM}$ ($0.78\text{ m/s}$ constantes) optimiza la eficiencia del tren de rodaje, elimina la holgura cinemática y garantiza una respuesta rígida para el control de odometría sobre la pista.
 
 #### ¿Por qué es importante la reducción?
 
