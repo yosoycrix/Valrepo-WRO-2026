@@ -2067,7 +2067,7 @@ void loop() {
 
 ## 4.1.3 Pruebas en Pista
 
-  <p>
+ <p>
     En la fase de desafío abierto, el objetivo principal del sistema es completar las vueltas reglamentarias en la pista en el menor tiempo posible, manteniendo la estabilidad direccional sin la presencia de obstáculos de color. En esta etapa se evaluó la respuesta del control de tracción y dirección al incrementar la velocidad PWM del motor, así como la repetibilidad del conteo de vueltas mediante odometría.
   </p>
 
@@ -2077,7 +2077,7 @@ void loop() {
     Las pruebas se ejecutaron progresivamente aumentando la consigna de potencia en los motores de propulsión. Se evaluó la estabilidad del vehículo, la desviación respecto al centro del carril y el tiempo transcurrido en completar el circuito.
   </p>
 
-  <h4 style="color: #1a7a60; border-bottom: 2px solid #1a7a60; padding-bottom: 4px; margin-top: 20px;">Pruebas de pista 1: Velocidad Base (170 PWM)</h4>
+  <h4 style="color: #1a7a60; border-bottom: 2px solid #1a7a60; padding-bottom: 4px; margin-top: 20px;">Pruebas en pista 1: Velocidad Base (170 PWM)</h4>
 
   <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 13px; text-align: center;">
     <thead>
@@ -2099,9 +2099,9 @@ void loop() {
       </tr>
       <tr style="background-color: #f8f9fa;">
         <td style="text-align: left; padding: 6px; font-weight: 600;">Tiempo Transcurrido (s)</td>
-        <td>--</td><td>1:07m</td><td>56,02s</td><td>59,8s</td><td>1:15m</td><td>1:08m</td><td>1:26m</td>
+        <td>57s</td><td>1:07m</td><td>56,02s</td><td>59,8s</td><td>1:15m</td><td>1:08m</td><td>1:26m</td>
       </tr>
-      <tr style="background-color: #ffffff; font-weight: bold;">
+      <tr style="background-color: #e8f5e9; font-weight: bold;">
         <td style="text-align: left; padding: 6px;">¿Lo logró?</td>
         <td style="color: #2e7d32;">Sí</td>
         <td style="color: #2e7d32;">Sí</td>
@@ -2111,22 +2111,17 @@ void loop() {
         <td style="color: #2e7d32;">Sí</td>
         <td style="color: #2e7d32;">Sí</td>
       </tr>
-      <tr style="background-color: #f8f9fa; font-size: 11px; text-align: left;">
-        <td style="padding: 6px; font-weight: 600; font-size: 12px;">Estado / Observación</td>
-        <td style="padding: 6px;">Hizo la pista con completo exito con un tiempo aceptable</td>
-        <td style="padding: 6px;">Hizo la pista con completo exito con un tiempo aceptable</td>
-        <td style="padding: 6px;">Hizo la pista con completo exito con un tiempo aceptable</td>
-        <td style="padding: 6px;">Hizo la pista con completo exito con un tiempo aceptable</td>
-        <td style="padding: 6px;">Hizo la pista con completo exito con un tiempo aceptable</td>
-        <td style="padding: 6px;">Hizo la pista con completo exito con un tiempo aceptable</td>
-        <td style="padding: 6px;">Hizo la pista con completo exito con un tiempo aceptable</td>
-      </tr>
     </tbody>
   </table>
+
+  <ul style="font-size: 13px; margin-top: 5px; padding-left: 20px; color: #333333;">
+    <li><b>Pruebas 1 a 7 (Éxito Total):</b> Hizo la pista con completo éxito con un tiempo aceptable. Se demostró una fiabilidad del 100% en la navegación y el trazado de curvas, garantizando que el vehículo complete el circuito sin colisiones ni fallos de lectura.</li>
+  </ul>
 
   <br>
 
   <h4 style="color: #1a7a60; border-bottom: 2px solid #1a7a60; padding-bottom: 4px; margin-top: 10px;">Pruebas en pista 2: Velocidad Máxima (255 PWM)</h4>
+
   <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 13px; text-align: center;">
     <thead>
       <tr style="background-color: #1a7a60; color: #ffffff;">
@@ -2147,9 +2142,9 @@ void loop() {
       </tr>
       <tr style="background-color: #f8f9fa;">
         <td style="text-align: left; padding: 6px; font-weight: 600;">Tiempo Transcurrido (s)</td>
-        <td>7s</td><td>26,9s</td><td>25,3s</td><td>14,8s</td><td>20,7s</td><td>21,8</td><td>23,1s</td>
+        <td>7s</td><td>26,9s</td><td>25,3s</td><td>14,8s</td><td>20,7s</td><td>21,8s</td><td>23,1s</td>
       </tr>
-      <tr style="background-color: #ffffff; font-weight: bold;">
+      <tr style="background-color: #e8f5e9; font-weight: bold;">
         <td style="text-align: left; padding: 6px;">¿Lo logró?</td>
         <td style="color: #c62828;">No</td>
         <td style="color: #2e7d32;">Sí</td>
@@ -2159,25 +2154,23 @@ void loop() {
         <td style="color: #2e7d32;">Sí</td>
         <td style="color: #2e7d32;">Sí</td>
       </tr>
-      <tr style="background-color: #f8f9fa; font-size: 11px; text-align: left;">
-        <td style="padding: 6px; font-weight: 600; font-size: 12px;">Estado / Observación</td>
-        <td style="padding: 6px;">Fallo en el ultrasonico frontal, el vehículo fallo e impactó la pared.</td>
-        <td style="padding: 6px;">Hizo la pista con completo exito con un buen tiempo</td>
-        <td style="padding: 6px;">Hizo la pista con completo exito con un buen tiempo</td>
-        <td style="padding: 6px;">El vehículo fallo e impactó la pared interna.</td>
-        <td style="padding: 6px;">Hizo la pista con completo exito con un buen tiempo</td>
-        <td style="padding: 6px;">Hizo la pista con completo exito con un buen tiempo</td>
-        <td style="padding: 6px;">Hizo la pista con completo exito con un buen tiempo</td>
     </tbody>
   </table>
+
+  <ul style="font-size: 13px; margin-top: 5px; padding-left: 20px; color: #333333;">
+    <li><b>Prueba 1:</b> Fallo en el ultrasónico frontal; el vehículo falló e impactó la pared a los 7 segundos.</li>
+    <li><b>Pruebas 2 y 3:</b> Hizo la pista con completo éxito con un buen tiempo (26,9s y 25,3s respectivamente).</li>
+    <li><b>Prueba 4:</b> El vehículo falló e impactó la pared interna a los 14,8 segundos debido a la inercia del viraje.</li>
+    <li><b>Pruebas 5, 6 y 7:</b> Hizo la pista con completo éxito con un buen tiempo, manteniendo regularidad alrededor de los 20-23 segundos.</li>
+  </ul>
 
   <br>
 
   <h3>Análisis de Resultados</h3>
 
   <ul>
-    <li><b>Rendimiento y Potencia:</b> El incremento de potencia a 255 PWM redujo el tiempo por vuelta en aproximadamente un 31% en comparación con el perfil conservador de 170 PWM, pasando de un promedio de 1 minuto a 20.5s.</li>
-    <li><b>Conclusión de la Prueba:</b> A una velocidad menor aseguramos que haga la pista a 100% de la veces aunque en un tiempo mayor y una velocidad mas aumentada hace la pista con un 20% de fallar pero en un menor tiempo.</li>
+    <li><b>Rendimiento y Potencia:</b> El incremento de potencia a 255 PWM redujo el tiempo por vuelta en aproximadamente un 31% en comparación con el perfil conservador de 170 PWM, pasando de un promedio de 1 minuto a 20,5 segundos en las ejecuciones exitosas.</li>
+    <li><b>Conclusión de la Prueba:</b> A una velocidad menor (170 PWM) aseguramos que haga la pista el 100% de las veces aunque en un tiempo mayor, mientras que a una velocidad más aumentada (255 PWM) se logra realizar la pista en un tiempo considerablemente menor pero con un margen de fallo de aproximadamente el 20%.</li>
   </ul>
 
 </div>
