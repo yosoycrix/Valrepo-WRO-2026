@@ -994,6 +994,28 @@ Usa un circuito **puente H (H-bridge)** interno:
 > - Asegúrate de que el sensor no esté expuesto a interferencias magnéticas fuertes (motores de alta potencia muy cercanos sin blindaje), ya que el magnetómetro integrado podría afectar temporalmente la precisión del yaw si se opera en modo NDOF. 
 > - En caso de requerir máxima estabilidad en entornos con ruido magnético, se recomienda configurar el sensor en modo **IMU** (utilizando solo Acelerómetro + Giroscopio para la fusión).
 
+<p><b>Proceso de Calibración Aplicado en el Robot:</b></p>
+
+<p>
+  Para garantizar la máxima precisión en el control de trayectoria de <b>Heimdall</b>, ejecutamos una rutina de calibración práctica de los tres sensores internos (acelerómetro, giroscopio y magnetómetro) midiendo los estados de auto-calibración en una escala de <b>0 (sin calibrar)</b> a <b>3 (completamente calibrado)</b>:
+</p>
+
+<ul>
+  <li><b>Giroscopio (Gyro - Nivel 3):</b> Colocamos el chasis sobre una superficie completamente nivelada y firme sin moverlo durante 3 segundos para fijar el offset del cero absoluto.</li>
+  <li><b>Acelerómetro (Accel - Nivel 3):</b> Orientamos la estructura en 6 posiciones estáticas distintas (sobre sus ruedas, de lado y verticalmente) para permitir que el sensor calcule el vector de gravedad en los tres ejes.</li>
+  <li><b>Magnetómetro (Mag - Nivel 3):</b> Sostenemos el robot y realizamos un movimiento suave en forma de 8 en el aire para mapear el campo magnético local del entorno y filtrar posibles distorsiones.</li>
+</ul>
+
+<p><b>Lectura y Almacenamiento de Offsets en Flash/EEPROM:</b></p>
+
+<p>
+  Una vez que la función <code>getCalibration(&sys, &gyro, &accel, &mag)</code> confirma un estado global de 3, leemos la estructura de calibración <code>adafruit_bno055_offsets_t</code> mediante <code>getSensorOffsets()</code> y la guardamos directamente en la memoria no volátil del ESP32.
+</p>
+
+<p>
+  Al encender el robot en la línea de salida durante la competencia, ejecutamos <code>setSensorOffsets()</code> al inicio del <code>setup()</code> para inyectar estos parámetros. Esto elimina por completo la necesidad de repetir la rutina de calibración física en la pista, reduciendo el tiempo de preparación a milisegundos.
+</p>
+
 <p><b>Gestión Avanzada en el Desafío Cerrado:</b></p> 
 
 <p>Dada la exigencia de navegación en la WRO, implementamos una gestión optimizada de datos inerciales con el BNO055:</p> 
