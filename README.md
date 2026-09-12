@@ -438,18 +438,6 @@ A continuación, se desglosa cómo cada pieza clave se integra en la arquitectur
 
 ---
 
-## Diferencias mas importantes entre transmisión 4x4 y 4x2 
-
-| Característica                  | 4x4 (Tracción en las 4 ruedas)            | 4x2 (Tracción en 2 ruedas)                  |
-|----------------------------------|-------------------------------------------|---------------------------------------------|
-| **Motricidad** | Alta, ideal para terrenos irregulares o cruces complejos. | Moderada, suficiente para la mayoría de maniobras en pista controlada. |
-| **Ángulo de cruce** | Limitado por la presencia de ejes delanteros. | Mayor libertad de giro y mejor ángulo de cruce. |
-| **Estabilidad en curvas** | Más estable en condiciones extremas.       | Buena estabilidad, pero depende más del diseño del chasis y el diferencial. |
-| **Peso total** | Mayor, por la cantidad extra de componentes (ejes y diferenciales delanteros). | Menor, lo que contribuye a una mejor relación peso-potencia.              |
-| **Complejidad mecánica** | Más alta; requiere mayor mantenimiento y ajuste. | Más sencilla, facilita el mantenimiento y reduce fallos mecánicos.         |
-| **Consumo energético** | Más elevado por la transmisión a cuatro ruedas. | Menor, lo que puede aumento de la autonomía.                                |
-| **Aplicación recomendada** | Terrenos difíciles, obstáculos, máxima tracción. | Pistas controladas, mayor maniobrabilidad y agilidad.                     |
-
 ## Evolucion del sistema de trasmision 4x2
 
 A diferencia de la arquitectura empleada en el diseño anterior del chasis, en esta nueva iteración se logró eliminar por completo el complejo arreglo de ejes y engranajes adicionales que anteriormente se utilizaban para retransmitir la potencia rotacional del motor desde la sección lateral del vehículo. Para conseguir esto, se modificó estratégicamente la posición y orientación del motor dentro de la estructura general, permitiendo acoplar de forma directa su piñón de salida a la caja de la transmisión diferencial. Este cambio geométrico no solo optimizó el uso del espacio interno del robot para la distribución del hardware electrónico, sino que también erradicó puntos de fallas mecánicas recurrentes y redujo la necesidad de mantenimiento preventivo, liberando al sistema de componentes propensos al desgaste como el piñón de ataque intermedio. 
@@ -481,6 +469,21 @@ Al haber ganado este valioso espacio estructural y haber eliminado una etapa ent
     </td>
   </tr>
 </table>
+
+---
+
+## Diferencias mas importantes entre transmisión 4x4 y 4x2 
+
+| Característica                  | 4x4 (Tracción en las 4 ruedas)            | 4x2 (Tracción en 2 ruedas)                  |
+|----------------------------------|-------------------------------------------|---------------------------------------------|
+| **Motricidad** | Alta, ideal para terrenos irregulares o cruces complejos. | Moderada, suficiente para la mayoría de maniobras en pista controlada. |
+| **Ángulo de cruce** | Limitado por la presencia de ejes delanteros. | Mayor libertad de giro y mejor ángulo de cruce. |
+| **Estabilidad en curvas** | Más estable en condiciones extremas.       | Buena estabilidad, pero depende más del diseño del chasis y el diferencial. |
+| **Peso total** | Mayor, por la cantidad extra de componentes (ejes y diferenciales delanteros). | Menor, lo que contribuye a una mejor relación peso-potencia.              |
+| **Complejidad mecánica** | Más alta; requiere mayor mantenimiento y ajuste. | Más sencilla, facilita el mantenimiento y reduce fallos mecánicos.         |
+| **Consumo energético** | Más elevado por la transmisión a cuatro ruedas. | Menor, lo que puede aumento de la autonomía.                                |
+| **Aplicación recomendada** | Terrenos difíciles, obstáculos, máxima tracción. | Pistas controladas, mayor maniobrabilidad y agilidad.                     |
+
 
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
