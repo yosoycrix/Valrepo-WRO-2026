@@ -470,12 +470,6 @@ flowchart LR
 </p>
 <hr style="border-color: #30363d; margin: 25px 0;"
 
-<p align="right">
-  <a href="#inicio">Volver Al Inicio</a>
-</p>
-
----
-
 ## 2.6 Piezas de Mecanica
 El núcleo de la movilidad de nuestro robot reside en un subsistema mecánico de transmisión y tracción meticulosamente diseñado. Cada componente ha sido fabricado y seleccionado de forma personalizada para optimizar el espacio, la transferencia de potencia y la eficiencia dinámica del prototipo. 
 
