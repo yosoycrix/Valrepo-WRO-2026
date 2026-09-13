@@ -894,72 +894,102 @@ El LM2596 es un regulador step down DC-DC diseñado para transformar tensiones e
 
 ### 3.1.3 **Motor Driver**
 
-<table>
-  <tr>
-    <td width="350px" align="center" style="vertical-align: middle;">
+<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
+  <tr style="background-color: rgba(255, 255, 255, 0.05);">
+    <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;">
       <img src="./images/puenteh.jpg" alt="Puente H L298N" width="100%">
     </td>
-    <td style="vertical-align: top; padding-left: 20px;">
-      <h3>⚡ Especificaciones</h3>
+    <td style="padding: 20px; border: 1px solid #444; vertical-align: top;">
+      <h4 style="margin-top: 0;">⚡ Especificaciones</h4>
       <ul>
-        <li>Chip de control: L298N (Doble Puente H)</li>
-        <li>Voltaje de operación (Motores): 5V a 35V DC</li>
-        <li>Corriente máxima (Pico): 2 Amperios por canal</li>
-        <li>Corriente continua: 1.2 Amperios por canal</li>
-        <li>Voltaje lógico: 5V DC</li>
-        <li>Corriente lógica: 0mA - 36mA</li>
-        <li>Potencia máxima: 25 Watts</li>
-        <li>Modo de control: PWM (Modulación por ancho de pulsos)</li>
-        <li>Temperatura operativa: -20°C a +135°C</li>
-        <li>Dimensiones: 43 x 43 x 27 mm</li>
-        <li>Peso: 30 Gramos aprox.</li>
-        <li>Extras: Regulador 78M05 integrado y diodos de protección</li>
+        <li><b>Chip de control:</b> L298N (Doble Puente H de alta potencia).</li>
+        <li><b>Voltaje de operación (Motores):</b> 5V a 35V DC.</li>
+        <li><b>Corriente máxima (Pico):</b> 2 Amperios por canal.</li>
+        <li><b>Corriente continua:</b> 1.2 Amperios por canal.</li>
+        <li><b>Voltaje lógico:</b> 5V DC (mediante regulador integrado).</li>
+        <li><b>Corriente lógica:</b> 0mA - 36mA.</li>
+        <li><b>Potencia máxima:</b> 25 Watts.</li>
+        <li><b>Modo de control:</b> PWM (Modulación por ancho de pulsos) y niveles lógicos GPIO.</li>
+        <li><b>Temperatura operativa:</b> -20°C a +135°C.</li>
+        <li><b>Dimensiones y Peso:</b> 43 x 43 x 27 mm | 30 g aprox.</li>
+        <li><b>Extras:</b> Regulador 78M05 integrado de 5V y diodos de protección anti-retorno.</li>
       </ul>
     </td>
   </tr>
 </table>
 
-Es un **controlador de motores de doble puente H (dual H-bridge)** encapsulado en un circuito integrado. Su función principal es actuar como un "intermediario de potencia" entre dispositivos de control de baja potencia (como Arduino) y motores de alta potencia (como tu motor DC 12V).
+<p style="margin-top: 15px;">
+  El driver <b>L298N</b> actúa como el "intermediario de potencia" esencial en la arquitectura de <b>Heimdall</b>. Su función clave es aislar los pines de control del microcontrolador (ESP32) de las altas corrientes que exigen los motores de tracción, transformando las señales de control de baja potencia en corrientes de hasta 2A para permitir cambios de marcha, aceleración progresiva por PWM y frenado activo.
+</p>
 
-**Es extremadamente útil para nuestro proyecto debido a su:**
+<p><b>¿Por qué decidimos elegir el L298N sobre otros Motor Drivers?</b></p>
+<p>
+  Durante la fase de diseño evaluamos distintas alternativas del mercado (como el TB6612FNG o módulos basados en MOSFETs aislados). Seleccionamos el <b>L298N</b> por su alta robustez mecánica, su disipador de calor integrado y, fundamentalmente, por contar con un <b>regulador lineal 78M05 de 5V a bordo</b>.
+</p>
 
-1. **Amplificación de corriente:**  
-   - Los microcontroladores solo pueden entregar ~20-40mA por pin.  
-   - El L298N soporta hasta **2A por canal** (suficiente para motores medianos).  
-2. **Control direccional:**  
-   - Permite invertir la polaridad del voltaje aplicado al motor para cambiar su giro (adelante/atrás).  
-3. **Protección eléctrica:**  
-   - Aísla el circuito de control de los picos de voltaje generados por el motor.  
-4. **Manejo de alta tensión:**  
-   - Soporta motores de 5V a 35V (ideal para tu motor 12V).  
+| Criterio de Selección | L298N (Elegido) | TB6612FNG | L293D (Shield) |
+| :--- | :--- | :--- | :--- |
+| **Suministro de 5V Onboard** | **Sí (Regulador 78M05 dedicado)** | No (Requiere regulador externo) | Algunas versiones no integran regulador |
+| **Corriente Continua** | **1.2A por canal (Picos de 2A)** | 1.2A por canal (Picos de 3.2A) | 600mA por canal |
+| **Disipación Térmica** | **Disipador de aluminio masivo** | Sin disipador (requiere cobre en PCB) | Disipación limitada por encapsulado DIP |
+| **Robustez ante Picos** | **Alta (Diodos de protección integrados)** | Media (Sensible a sobrevoltajes de retorno) | Baja |
 
----
+> [!TIP]
+> - El regulador **78M05** integrado en el controlador genera una **salida de 5V DC completamente estable**. Esta línea de alimentación es un punto neurálgico en nuestro robot, ya que alimenta de forma limpia y constante al ESP32 (mediante su pin VIN/5V), a la HuskyLens 2 y a los sensores de ultrasonido, evitando la necesidad de añadir un convertidor Buck externo adicional.
 
-#### **Partes clave del módulo L298N:**  
-| **Componente**      | **Función**                                                                 |
-|---------------------|-----------------------------------------------------------------------------|
-| **Puertos de salida** (OUT1, OUT2, OUT3, OUT4) | Conectan los motores (2 motores DC o 1 motor paso a paso).                  |
-| **Entradas lógicas** (IN1, IN2, IN3, IN4) | Reciben señales de control desde Arduino (determinan dirección).          |
-| **Pines de habilitación** (ENA, ENB) | Activan/desactivan los canales (con/sin PWM).                             |
-| **Regulador de 5V** | Provee energía a la lógica (puede alimentar al Arduino si se usa el jumper).|
-| **Disipador de calor** | Metálico, previene sobrecalentamiento durante uso prolongado.             |
-| **Jumpers**         | Configuran el modo de operación (ej: habilitación permanente de canales). |
+<p><b>Partes Clave del Módulo L298N:</b></p>
 
----
+<table width="100%" style="border: 1px solid #444; border-collapse: collapse; margin: 15px 0;">
+  <thead style="background-color: rgba(255, 255, 255, 0.1);">
+    <tr>
+      <th style="padding: 10px; border: 1px solid #444; text-align: left;">Componente</th>
+      <th style="padding: 10px; border: 1px solid #444; text-align: left;">Función en el Sistema</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Puertos de salida (OUT1, OUT2)</b></td>
+      <td style="padding: 10px; border: 1px solid #444;">Conexión directa a los bornes del motor principal de tracción de Heimdall.</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Entradas lógicas (IN1, IN2)</b></td>
+      <td style="padding: 10px; border: 1px solid #444;">Reciben los estados lógicos desde el ESP32 para determinar el sentido de giro (Avance / Reversa / Freno).</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Pin de Habilitación (ENA)</b></td>
+      <td style="padding: 10px; border: 1px solid #444;">Recibe la señal **PWM** desde el ESP32 para controlar la velocidad lineal de tracción.</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Salida Regulada de 5V</b></td>
+      <td style="padding: 10px; border: 1px solid #444;">Entrega voltaje regulado a la lógica del sistema (ESP32, HuskyLens 2 y Sensores).</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;"><b>Jumper 5V-EN</b></td>
+      <td style="padding: 10px; border: 1px solid #444;">Mantiene activo el regulador interno cuando el voltaje de batería principal es de $7.4\text{V} - 12\text{V}$.</td>
+    </tr>
+  </tbody>
+</table>
 
-#### **¿Cómo controla un motor DC?**  
-Usa un circuito **puente H (H-bridge)** interno:  
-``` 
-   [IN1] --[SW1]---- Motor ----[SW3]-- [IN2]  
-               |                   |  
-              [SW2]               [SW4]  
-```  
-- **Giro adelante:**  
-  `IN1 = HIGH` (SW1 cerrado) + `IN2 = LOW` (SW4 cerrado) → Corriente fluye: SW1 → Motor → SW4  
-- **Giro atrás:**  
-  `IN1 = LOW` (SW2 cerrado) + `IN2 = HIGH` (SW3 cerrado) → Corriente fluye: SW3 → Motor → SW2  
-- **Frenado:**  
-  `IN1 = HIGH` + `IN2 = HIGH` → Cortocircuito en bornes del motor (frena rápidamente).  
+<p><b>¿Cómo controla el sentido de giro y la velocidad? (Diagrama de Conmutación):</b></p>
+<p>
+  El chip L298N utiliza cuatro transistores/MOSFETs internos organizados en una topología en H. Dependiendo de las señales enviadas a las entradas <code>IN1</code> e <code>IN2</code>, el flujo de corriente atraviesa el motor en una dirección u otra:
+</p>
+
+```text
+    [VCC Motor +12V]
+           |
+   +-------+-------+
+   |               |
+ [SW1]           [SW3]   <-- Controlados por IN1 e IN2
+   |               |
+   +---[ MOTOR ]---+
+   |               |
+ [SW2]           [SW4]
+   |               |
+   +-------+-------+
+           |
+         [GND]
+```
 
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
