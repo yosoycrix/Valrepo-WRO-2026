@@ -1082,8 +1082,6 @@ Usa un circuito **puente H (H-bridge)** interno:
 
 ### 3.1.5 **Giroscopio**
 
-### 3.1.5 **Giroscopio**
-
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;"> 
   <tr style="background-color: rgba(255, 255, 255, 0.05);"> 
     <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;"> 
