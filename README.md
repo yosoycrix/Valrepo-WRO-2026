@@ -869,36 +869,49 @@ Se decidió tomar la decisión de tener tornillos M2 y M3 de forma simultánea p
 
 Por lo tanto hemos decidido usar:
 
-### 3.1.1 **Baterias**
+### 3.1.1 **Baterías**
 
 <table>
   <tr>
-    <td align="center" width="450" >
-      <img src="./images/bateria.webp" alt="bateria.webp" >
+    <td align="center" width="450">
+      <img src="./images/bateria.webp" alt="bateria.webp">
     </td>
     <td>
-      <h3>:battery: Especificaciones</h3>
+      <h3>🔋 Especificaciones Técnicas</h3>
       <ul>
-      <li>Voltaje: 12 Voltios</li>
-      <li>Amperaje: 2 Amperios</li>
-      <li>Reutilización: Recargable</li>
-      <li>Peso de la batería: 225 Gramos</li>
-      <li>Dimensiones del producto: 2,13 x 2,91 x 1,22 pulgadas</li>
-      <li>Fabricante: Tenergy</li>
-      <li>Opinión media de los clientes: 4.5 de 5 estrellas (748 opiniones)</li>
-      <li>Producto en amazon.com desde: marzo 10, 2018</li>
-      <li>Descatalogado por el fabricante: No </li> 
-      <li>UPC: 844949030014</li>
-      <li>Número de modelo del producto: 19676</li>
+        <li><b>Tipo de Química:</b> Níquel-Metal Hidruro (NiMH)</li>
+        <li><b>Voltaje Nominal:</b> 12 V DC (10 Celdas AA)</li>
+        <li><b>Capacidad / Amperaje:</b> 2000 mAh (2 Ah)</li>
+        <li><b>Conector / Salida:</b> Cables desnudos (Adaptable a Molex / XT60)</li>
+        <li><b>Tasa de Carga Máxima:</b> 1A - 2A (Recomendada ≤ 1A)</li>
+        <li><b>Peso:</b> 225 g</li>
+        <li><b>Dimensiones:</b> 2.13 x 2.91 x 1.22 in (54 x 74 x 31 mm)</li>
+        <li><b>Fabricante / Modelo:</b> Tenergy / 19676</li>
+        <li><b>Vida Útil Promedio:</b> ~500 ciclos completos de carga/descarga</li>
       </ul>
     </td>
   </tr>
 </table>
 
-Diseñadas para potenciar el rendimiento en competiciones de robótica como la WRO, las baterías Tenergy NiMH de 12 V y 2000 mAh ofrecen dos ventajas críticas: su ausencia de efecto memoria garantiza máxima capacidad en cada uso tras recargas frecuentes (ideal para sesiones de prueba extensas), y su formato compacto (1.969x1.142x2.835 pulgadas) con cables desnudos facilita la integración en espacios reducidos de robots. Con carga rápida ≤1A y larga vida útil, son una solución fiable para  cuando necesitemos usarlas por un tiempo prolongado, ya sea en la propia competición o en pruebas.
+### Justificación de Selección e Integración Mecánica
+
+La elección de la batería **Tenergy NiMH de 12V y 2000 mAh** responde directamente a los requerimientos de consumo dinámico y autonomía extendida que exige la arquitectura electrónica de *Heimdall* en la WRO.
+
+* **Autonomía Prolongada y Eficiencia Energética:** La capacidad de 2000 mAh garantiza una entrega constante de corriente a la etapa de potencia (drivers y motores) y al sistema de control sin caídas de tensión bruscas. La batería mantiene su curva de descarga estable durante sesiones intensas de pruebas continuas en pista, evitando variaciones en la velocidad de avance o en la velocidad del servo de dirección.
+* **Resistencia a Recargas Frecuentes (Cero Efecto Memoria):** Su química de Níquel-Metal Hidruro no padece del fenómeno de memorización de carga. Esto nos permite efectuar ciclos de recarga parciales en boxes entre rondas de competencia sin reducir la capacidad útil del pack.
+* **Seguridad Química en Entornos de Pruebas:** A diferencia de las baterías LiPo (que presentan riesgos de perforación, inflamación o sobrecarga crítica), las baterías NiMH ofrecen una química robusta ante impactos mecánicos leves e imprecisiones de carga, factor fundamental durante la fase de prototipado del chasis.
+* **Factor de Forma y Densidad Energética:** Con un peso optimizado de solo 225 g y un formato sumamente compacto, se integra en la sección media del vehículo sin comprometer el centro de gravedad ni sobrecargar la masa suspendida del eje delantero.
+
+<hr style="border-color: #30363d; margin: 25px 0;">
 
 > [!TIP]
-> Para maximizar rendimiento y seguridad en robots**, cargue siempre estas baterías con un cargador compatible NiMH (como el Tenergy 6V-12V) a ≤1A para evitar sobrecalentamiento y prolongar su vida útil (~500 ciclos). Durante competiciones WRO, monitoree la temperatura (detenga si supera 45°C) y verifique el voltaje post-uso (>10.8V ideal); evite descargas profundas (<0.9V/celda) recargando tras 3-4 sesiones. Almacénelas con 40-60% de carga en ambiente fresco (15-25°C), realice mantenimiento cada 4 semanas si no se usan, y en robots proteja el pack contra golpes con aislante anti-vibración.
+> ### Protocolo de Mantenimiento y Rendimiento en Competición
+>
+> * **Carga Recomendada:** Emplear un cargador inteligente específico parapacks NiMH de 6V–12V ajustado a **≤ 1A** (0.5C). Esto previene el estrés térmico en las celdas y maximiza su vida útil.
+> * **Monitoreo Térmico en Pista:** Supervisar la temperatura del pack tras cada carrera. Si la batería supera los **45 °C**, debe dejar enfriar a temperatura ambiente antes de iniciar un nuevo ciclo de recarga.
+> * **Umbral de Descarga Segura:** Detener el uso si el voltaje total del pack cae por debajo de **10.8 V** (~1.08 V por celda). Evitar descargas profundas inferiores a 9.0 V para no polarizar irreversiblemente las celdas internas.
+> * **Almacenamiento Prolongado:** Guardar en un lugar fresco y seco (15–25 °C) con una carga del **40% al 60%**. En periodos sin uso, realizar un ciclo completo de carga/descarga de mantenimiento cada 4 semanas.
+> * **Aislamiento Antivibración:** Integrar una almohadilla de espuma o goma eva de alta densidad dentro del chasis impreso en PETG-CF para absorber los impactos mecánicos y proteger el wrap térmico del pack.
 
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
@@ -907,115 +920,30 @@ Diseñadas para potenciar el rendimiento en competiciones de robótica como la W
 ---
 
 ### 3.1.2 **Step Down**
-
-<div style="background-color: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 15px; margin: 15px 0; display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
   
-  <!-- Columna de Imagen -->
-<div style="display: flex; gap: 15px; margin: 15px 0; flex-wrap: wrap;">
-  
-  <!-- Tarjeta Izquierda: Imagen y Descripción Básica -->
-  <div style="flex: 1; min-width: 250px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-    <h4 style="margin-top: 0; color: #58a6ff; width: 100%; text-align: center;">Módulo Regulator Buck LM2596</h4>
-    <img src="./images/stepdown.jpg" alt="Step Down LM2596" style="width: 100%; max-width: 260px; border-radius: 6px; border: 1px solid #30363d; margin: 10px 0;">
-    <p style="margin: 5px 0 0 0; font-size: 0.85em; color: #8b949e; text-align: center;">
-      Regulador DC-DC Step-Down para alimentación del sistema lógico.
-    </p>
-  </div>
-
-  <!-- Tarjeta Derecha: Tabla de Especificaciones Tácticas -->
-  <div style="flex: 2; min-width: 300px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px;">
-    <h4 style="margin-top: 0; color: #58a6ff;">Especificaciones Técnicas</h4>
-    <table style="width: 100%; border-collapse: collapse; color: #c9d1d9; font-size: 13.5px;">
-      <thead style="background-color: #0d1117; color: #f0f6fc;">
-        <tr>
-          <th style="padding: 8px; border: 1px solid #30363d; text-align: left;">Parámetro</th>
-          <th style="padding: 8px; border: 1px solid #30363d; text-align: left;">Valor</th>
-          <th style="padding: 8px; border: 1px solid #30363d; text-align: left;">Puntos Relevantes</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;"><b>Rango Entrada</b></td>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;">3.2–40 V DC</td>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;">Compatible con baterías LiPo.</td>
-        </tr>
-        <tr>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;"><b>Rango Salida</b></td>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;">1.25–37 V DC</td>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;">Alimenta microcontrolador y sensores.</td>
-        </tr>
-        <tr>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;"><b>Corriente</b></td>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;">2A (3A Pico)</td>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;">Suficiente para servomotores y cámaras.</td>
-        </tr>
-        <tr>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;"><b>Eficiencia</b></td>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;">Hasta 92%</td>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;">Minimiza pérdidas térmicas.</td>
-        </tr>
-        <tr>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;"><b>Frecuencia</b></td>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;">150 kHz</td>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;">Filtrado estable de bajo ruido.</td>
-        </tr>
-        <tr>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;"><b>Protecciones</b></td>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;">Térmica / Corriente</td>
-          <td style="padding: 6px 8px; border: 1px solid #30363d;">Evita daños por cortocircuitos.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-</div>
-
-  <!-- Columna de Tabla de Especificaciones -->
-  <div style="flex: 2; min-width: 300px; overflow-x: auto;">
-    <table style="width: 100%; border-collapse: collapse; color: #c9d1d9; font-size: 14px;">
-      <thead style="background-color: #161b22; color: #f0f6fc;">
-        <tr>
-          <th style="padding: 10px; border-bottom: 1px solid #30363d; text-align: left;">Parámetro</th>
-          <th style="padding: 10px; border-bottom: 1px solid #30363d; text-align: left;">Valor</th>
-          <th style="padding: 10px; border-bottom: 1px solid #30363d; text-align: left;">Puntos Relevantes</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Rango Entrada</b></td>
-          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">3.2–40 V DC</td>
-          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Compatible con LiPo, Pb y solares.</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Rango Salida</b></td>
-          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">1.25–37 V DC</td>
-          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Microcontroladores, sensores o motores.</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Corriente</b></td>
-          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">2A (3A Pico con disipador)</td>
-          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Suficiente para servos, cámaras y sensores.</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Eficiencia</b></td>
-          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Hasta 92%</td>
-          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Reduce pérdidas térmicas en competencia.</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Frecuencia</b></td>
-          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">150 kHz (Fija)</td>
-          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Diseño compacto y filtrado estable.</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px 10px;"><b>Protecciones</b></td>
-          <td style="padding: 8px 10px;">Limitación de corriente / Térmica</td>
-          <td style="padding: 8px 10px;">Evita daños por sobrecargas y cortocircuitos.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-</div>
+<table>
+  <tr>
+    <td align="center" width="450">
+      <img src="./images/stepdown.jpg" alt="Step Down LM2596" width="100%">
+    </td>
+    <td>
+      <h3>⚡ Especificaciones</h3>
+      <ul>
+        <li>Rango de Entrada: 3.2 – 40 V DC</li>
+        <li>Rango de Salida: 1.25 – 37 V DC (Ajustable)</li>
+        <li>Corriente de Salida: 2A continuos (hasta 3A Pico con disipador)</li>
+        <li>Eficiencia de Conversión: Hasta 92%</li>
+        <li>Frecuencia de Conmutación: 150 kHz</li>
+        <li>Rizo de Salida: &lt; 30 mV</li>
+        <li>Regulación de Carga: ±0.5%</li>
+        <li>Regulación de Voltaje: ±2.5%</li>
+        <li>Temperatura de Trabajo: -40 °C a +85 °C</li>
+        <li>Protecciones: Limitación de corriente y desconexión térmica integrada</li>
+        <li>Tipo de Módulo: Regulador de voltaje Step-Down (Buck) no aislado</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
 <p style="margin-top: 15px;">
   El <b>LM2596</b> es un regulador conmutado de tipo <i>Step Down</i> (Buck Converter) DC-DC diseñado para transformar tensiones elevadas en niveles de voltaje inferiores de forma altamente eficiente. Acepta un amplio rango de entrada entre 3.2V y 40V DC, lo cual demuestra una gran versatilidad operativa en la gestión de potencia del robot. Por esta razón, nuestro equipo decidió integrarlo como una etapa de regulación clave para acondicionar la alimentación del circuito lógico.
