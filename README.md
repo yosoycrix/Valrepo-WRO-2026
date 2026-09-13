@@ -2576,6 +2576,13 @@ void loop() {
 
 </div>
 
+> **Tip / Recomendación:**
+> * **Escalado Dinámico de PWM:** Implementa una lectura analógica del voltaje de la batería para escalar la potencia de los motores, garantizando que el control PID mantenga la misma respuesta angular sin importar la descarga.
+> * **Desaceleración Previa a Virajes:** Utiliza la odometría para reducir la velocidad objetivo en un 20% justo antes de tomar las curvas de $90^\circ$ para evitar el deslizamiento del eje trasero.
+
+> **Warning / Advertencia:**
+> * **Calibración In Situ del BNO055:** Nunca inicies la rutina sin calibrar o fijar el punto cero ($0^\circ$) directamente en la pista de prueba. Las estructuras metálicas o motores cercanos pueden distorsionar la lectura inercial inicial.
+
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
 </p>
@@ -3372,6 +3379,13 @@ void loop() {
   </ul>
 
 </div>
+
+> **Tip / Recomendación:**
+> * **Filtrado por Área de Bounding Box:** Configura un umbral mínimo de superficie (`width * height > 1200 px`) a los bloques detectados por la HuskyLens 2 para ignorar obstáculos lejanos ubicados en otros tramos del circuito.
+> * **Bloqueo Temporal de Visión Post-Evasión:** Tras completar la esquiva, deshabilita la toma de decisiones por cámara durante 300 ms y fuerza la reorientación con el BNO055 para evitar falsos positivos con el mismo bloque al retornar al carril.
+
+> **Warning / Advertencia:**
+> * **Prioridad de Red de Seguridad (Ultrasónicos):** La lógica de evasión por visión NUNCA debe ignorar los sensores HC-SR04. Configúralos con prioridad alta: si la distancia cae por debajo de los $12\text{ cm}$, el robot debe priorizar la maniobra de emergencia sobre cualquier instrucción de la cámara para evitar impactos severos.
 
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
