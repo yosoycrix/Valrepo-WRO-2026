@@ -908,56 +908,59 @@ Diseñadas para potenciar el rendimiento en competiciones de robótica como la W
 
 ### 3.1.2 **Step Down**
 
-<table style="border: 1px solid #30363d; border-collapse: collapse; width: 100%; background-color: #0d1117;">
-  <tr>
-    <td width="30%" align="center" style="border: 1px solid #30363d; background-color: #f0f6fc; padding: 10px;">
-      <img src="./images/stepdown.jpg" alt="Step Down LM2596" width="100%" style="border-radius: 4px;">
-    </td>
-    <td width="70%" style="border: 1px solid #30363d; vertical-align: top; padding: 0;">
-      <table style="width: 100%; border-collapse: collapse; color: #c9d1d9; font-size: 14px;">
-        <thead style="background-color: #161b22; color: #f0f6fc;">
-          <tr>
-            <th style="padding: 10px; border-bottom: 1px solid #30363d; text-align: left;">Parámetro</th>
-            <th style="padding: 10px; border-bottom: 1px solid #30363d; text-align: left;">Valor</th>
-            <th style="padding: 10px; border-bottom: 1px solid #30363d; text-align: left;">Puntos Relevantes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Rango Entrada</b></td>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">3.2–40 V DC</td>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Compatible con LiPo, Pb y solares.</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Rango Salida</b></td>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">1.25–37 V DC</td>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Microcontroladores, sensores o motores.</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Corriente</b></td>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">2A (3A Pico con disipador)</td>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Suficiente para servos, cámaras y sensores.</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Eficiencia</b></td>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Hasta 92%</td>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Reduce pérdidas térmicas en competencia.</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Frecuencia</b></td>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">150 kHz (Fija)</td>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Diseño compacto y filtrado estable.</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px 10px;"><b>Protecciones</b></td>
-            <td style="padding: 8px 10px;">Limitación de corriente / Térmica</td>
-            <td style="padding: 8px 10px;">Evita daños por sobrecargas y cortocircuitos.</td>
-          </tr>
-        </tbody>
-      </table>
-    </td>
-  </tr>
-</table>
+<div style="background-color: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 15px; margin: 15px 0; display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
+  
+  <!-- Columna de Imagen -->
+  <div style="flex: 1; min-width: 220px; text-align: center;">
+    <img src="./images/stepdown.jpg" alt="Step Down LM2596" style="width: 100%; max-width: 280px; border-radius: 6px; border: 1px solid #30363d; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+  </div>
+
+  <!-- Columna de Tabla de Especificaciones -->
+  <div style="flex: 2; min-width: 300px; overflow-x: auto;">
+    <table style="width: 100%; border-collapse: collapse; color: #c9d1d9; font-size: 14px;">
+      <thead style="background-color: #161b22; color: #f0f6fc;">
+        <tr>
+          <th style="padding: 10px; border-bottom: 1px solid #30363d; text-align: left;">Parámetro</th>
+          <th style="padding: 10px; border-bottom: 1px solid #30363d; text-align: left;">Valor</th>
+          <th style="padding: 10px; border-bottom: 1px solid #30363d; text-align: left;">Puntos Relevantes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Rango Entrada</b></td>
+          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">3.2–40 V DC</td>
+          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Compatible con LiPo, Pb y solares.</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Rango Salida</b></td>
+          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">1.25–37 V DC</td>
+          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Microcontroladores, sensores o motores.</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Corriente</b></td>
+          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">2A (3A Pico con disipador)</td>
+          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Suficiente para servos, cámaras y sensores.</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Eficiencia</b></td>
+          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Hasta 92%</td>
+          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Reduce pérdidas térmicas en competencia.</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Frecuencia</b></td>
+          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">150 kHz (Fija)</td>
+          <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Diseño compacto y filtrado estable.</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 10px;"><b>Protecciones</b></td>
+          <td style="padding: 8px 10px;">Limitación de corriente / Térmica</td>
+          <td style="padding: 8px 10px;">Evita daños por sobrecargas y cortocircuitos.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
 
 <p style="margin-top: 15px;">
   El <b>LM2596</b> es un regulador conmutado de tipo <i>Step Down</i> (Buck Converter) DC-DC diseñado para transformar tensiones elevadas en niveles de voltaje inferiores de forma altamente eficiente. Acepta un amplio rango de entrada entre 3.2V y 40V DC, lo cual demuestra una gran versatilidad operativa en la gestión de potencia del robot. Por esta razón, nuestro equipo decidió integrarlo como una etapa de regulación clave para acondicionar la alimentación del circuito lógico.
