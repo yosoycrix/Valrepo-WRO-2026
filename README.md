@@ -443,27 +443,51 @@ flowchart LR
 ```
 
 > [!WARNING]
-> ### Inconvenientes Críticos Detectados en Pruebas Prácticas
+> ### Inconvenientes Críticos y Riesgos Detectados en Pruebas Prácticas
 >
 > 1. **Paradox Steering (Dirección Paradójica):**
->    * **Causa:** La tracción en la rueda interior (baja adherencia) contrarresta el ángulo de giro.  
->    * **Solución:** Control electrónico (freno vectorial) y ajuste de geometría en los brazos de dirección.
+>    * **Causa:** Cuando la rueda interior pierde adherencia, el par de tracción vence al ángulo de giro e intenta rectificar la dirección del robot en sentido opuesto al trazo requerido.
+>    * **Solución:** Control electrónico de torque diferencial (freno vectorial) y ajuste de geometría en los brazos de dirección.
 >
-> 2. **Fatiga y Desfase en Semiejes / Nudillos:**
->    * **Causa:** Torsión excesiva en juntas debido a $\theta_i$ máximo + par motor, lo que desarticulaba los pivotes antiguos.  
->    * **Solución:** Reemplazo por el tornillo pasante continuo y relocalización de rodamientos de la rueda directamente al rin.
+> 2. **Fatiga Mecánica y Desfase en Nudillos:**
+>    * **Causa:** La combinación de par motor + ángulo $\theta_i$ máximo ejercía un brazo de palanca crítico sobre los pivotes independientes, desarticulando los tornillos de fijación.
+>    * **Solución:** Implementación de tornillo pasante continuo de extremo a extremo y relocalización de los rodamientos directamente en el hub/rin de la rueda.
+>
+> 3. **Holgura por Desgaste Abración en Puntos de Pivote:**
+>    * **Causa:** El uso de **PETG-CF (PETG reforzado con fibra de carbono)** aporta una rigidez estructural y resistencia térmica excepcionales, pero las microfibras expuestas generan una superficie abrasiva que degrada las zonas de fricción directa en los ejes si no existe un buje metálico intermediario.
+>    * **Solución:** Inserción de casquillos/bujes metálicos (bronce/latón) en los orificios del nudillo de PETG-CF y calibración mediante rótulas roscadas ajustables.
+>
+> 4. **Pérdida de Adherencia en Eje Delantero (Understeer/Subviraje):**
+>    * **Causa:** Transferencia de masa desfavorable hacia el eje posterior durante aceleraciones bruscas, restando carga normal sobre la dirección.
+>    * **Solución:** Redistribución de masa pesada (batería) hacia la sección central-delantera y optimización del perfil de aceleración mediante rampas en el software.
 
 <hr style="border-color: #30363d; margin: 25px 0;">
 
-<h3>Soluciones de Ingeniería</h3>
-<h4>Estrategias Recomendadas</h4>
+> [!TIP]
+> ### Recomendaciones Técnicas para Ajustes y Uso de PETG-CF
+>
+> * **Optimización de Impresión en PETG-CF:** Imprimir con boquilla de acero endurecido o rubí ($\ge 0.4\text{ mm}$), orientar las capas de las solapas de dirección de forma paralela a los esfuerzos torsionales para maximizar la adhesión entre capas y evitar fracturas frágiles por fricción.
+> * **Inspección de Convergencia (Toe-in/Toe-out):** Verificar con galga o plantilla láser que las ruedas delanteras mantengan un ángulo neutro en recta para evitar desgaste prematuro y resistencia al avance.
+> * **Verificación de Par de Apriete:** Utilizar tuercas de seguridad con inserto de nylon (*Nyloc*) en el tornillo pasante de los nudillos para evitar el aflojamiento provocado por las vibraciones continuas.
+> * **Lubricación en Uniones PETG-CF / Metal:** Usar grasa de litio sintética o lubricante seco de PTFE en las zonas donde la fibra de carbono del PETG-CF esté en contacto con elementos mecánicos móviles.
 
-| Componente | Innovación | Beneficio |
-| :--- | :--- | :--- |
-| **Cuadro / Chasis** | Subchasis desmontable con rigidez variable y paso de eje pasante vertical. | Permite ajustes finos en competición y distribuye equitativamente las cargas horizontales de giro. |
-| **Diferencial** | Electrónico con mapas por ángulo de giro. | Regula el par según $\theta_i$ / $\theta_o$ para maximizar tracción sin desestabilizar el trazo. |
-| **Dirección** | Brazo de Ackermann ajustable (rótulas roscadas). | Compensa el desgaste de neumáticos e imprecisiones de tolerancia en impresión 3D. |
-| **Nudillos de Dirección** | Eje/Tornillo pasante continuo con rodamientos trasladados al Rin. | Elimina por completo el juego mecánico y previene que la rueda se salga del chasis. |
+<hr style="border-color: #30363d; margin: 25px 0;">
+
+<h3>Soluciones de Ingeniería y Matriz de Optimización</h3>
+
+| Componente | Innovación Mecánica / Electrónica | Riqueza Técnica / Modificación | Beneficio Directo |
+| :--- | :--- | :--- | :--- |
+| **Cuadro / Chasis** | Subchasis desmontable de rigidez variable. | Puntos de anclaje integrados para eje pasante vertical y distribución modular de peso. | Permite ajustes rápidos en boxes y absorbe las cargas horizontales sin deformar la estructura central. |
+| **Diferencial / Tracción** | Control electrónico vectorial con mapeo de giro. | Regulación de PWM diferencial basada en la lectura en tiempo real del ángulo de dirección ($\theta_i$, $\theta_o$). | Maximiza la tracción en curva, elimina el *Paradox Steering* y desestabilizaciones de trayectoria. |
+| **Brazos de Dirección** | Linkage Ackermann de alta precisión con rótulas roscadas. | Tirantes ajustables en longitud mediante rosca fina pasante (macho/hembra). | Compensa tolerancias de manufactura en PETG-CF y permite calibrar milimétricamente el valor de $W/L$. |
+| **Nudillos de Dirección** | Eje pasante continuo en **PETG-CF** y rodamientos desplazados al Rin. | Pasador M3/M4 de alta tenacidad en solapas rígidas de composite con bearings directamente alojados en el rim. | Elimina por completo el juego mecánico, soporta elevadas cargas de par torsional y previene el desprendimiento de las ruedas. |
+| **Puntos de Pivote** | Casquillos metálicos anticorrosivos (*Bushing/Bearings*). | Casquillos de latón/bronce insertados a presión en las caras de fricción para aislar la abrasión del composite. | Elimina el desgaste abrasivo inter-capa de la fibra de carbono, reduce la fricción y prolonga la vida útil del sistema. |
+
+<p align="center">
+  <a href="https://postimg.cc/8syssXPz">
+    <img src="https://i.postimg.cc/CL08P93k/Ackermann-turning-svg.png" alt="Geometría de giro de Ackermann" width="50%">
+  </a>
+</p>
 
 <p align="center">
   <a href="https://postimg.cc/8syssXPz">
