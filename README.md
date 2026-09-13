@@ -1019,6 +1019,32 @@ Usa un circuito **puente H (H-bridge)** interno:
   <li><b>Cálculo Cinemático:</b> Basándonos en la velocidad del sonido (~340m/s), el código transforma el tiempo medido en una magnitud lineal (cm).</li>
 </ul>
 
+<p><b>Cálculo de Distancia y Algoritmo Interno de NewPing:</b></p>
+
+<p>
+  La librería <b>NewPing</b> optimiza la lectura del tiempo de vuelo ($t$) eliminando los bloqueos en el hilo de ejecución principal del ESP32. El proceso técnico y la matemática empleada se estructuran de la siguiente manera:
+</p>
+
+<ul>
+  <li><b>Fase 1: Disparo de precisión:</b> NewPing genera un pulso digital en ALTO de 10 $\mu s$ en el pin <code>Trigger</code> del sensor seleccionado.</li>
+  <li><b>Fase 2: Conteo de tiempo ($t$):</b> El transductor ultrasónico envía 8 ráfagas a 40 kHz. En el momento en que se emite la señal, el pin <code>Echo</code> cambia a estado ALTO. NewPing mide la duración exacta en microsegundos ($\mu s$) que el pin permanece en este estado hasta que la señal reflejada regresa.</li>
+  <li><b>Fase 3: Conversión mediante Ecuación Física:</b> Sabiendo que la velocidad del sonido a temperatura ambiente es aproximadamente de $343\text{ m/s}$ (o lo que es lo mismo, $0.0343\text{ cm/}\mu s$), la onda recorre la distancia ida y vuelta. Por lo tanto, la fórmula cinemática base es:
+    <p align="center">
+      $$\text{Distancia (cm)} = \frac{t \times 0.0343}{2}$$
+    </p>
+  </li>
+  <li><b>Fase 4: Simplificación por constante de velocidad (US_ROUNDTRIP_CM):</b> Para evitar realizar operaciones matemáticas en coma flotante en cada iteración del ciclo —lo cual consumiría ciclos innecesarios del microcontrolador— NewPing define internamente una constante basada en el tiempo de viaje de ida y vuelta por centímetro:
+    <p align="center">
+      $$\text{Constante ID/Vuelta} = \frac{2}{0.0343} \approx 57.57 \space \mu s/\text{cm} \quad \rightarrow \quad \texttt{US\_ROUNDTRIP\_CM} = 57$$
+    </p>
+    Por consiguiente, la librería ejecuta la distancia mediante una división entera ultra rápida:
+    <p align="center">
+      $$\text{Distancia (cm)} = \frac{\text{Tiempo de Echo } (t \text{ en } \mu s)}{\text{US\_ROUNDTRIP\_CM}}$$
+    </p>
+  </li>
+  <li><b>Fase 5: Filtrado de Ruido y Ping en Temporizador:</b> En lugar de usar la función bloqueante <code>pulseIn()</code> del entorno tradicional de Arduino, NewPing emplea interrupciones de temporizador por hardware para medir la respuesta del pin <code>Echo</code>. Si el eco excede el tiempo de límite configurado (o no regresa), la librería retorna inmediatamente un valor de $0\text{ cm}$, evitando que el robot se detenga a esperar una señal perdida.</li>
+</ul>
+
 <p><b>Distribución de Pines en Heimdall:</b></p>
 
 <table width="100%" style="border: 1px solid #444; border-collapse: collapse;">
@@ -1047,7 +1073,6 @@ Usa un circuito **puente H (H-bridge)** interno:
     </tr>
   </tbody>
 </table>
-<br>
 
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
