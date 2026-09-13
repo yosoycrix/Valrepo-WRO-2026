@@ -369,29 +369,29 @@ Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay qu
 <!-- Galería Dinámica - Sistema Anterior -->
 <div style="background-color: #161b22; border: 1px solid #f85149; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
   <h4 style="margin-top: 0; color: #f85149; display: flex; align-items: center; gap: 8px;">
-    ❌ Sistema Anterior: Pivotes Independientes Simulados
+    Sistema Anterior: Pivotes Independientes Simulados
   </h4>
   <p style="font-size: 0.95em; color: #c9d1d9; margin-bottom: 12px;">
     Inicialmente, los nudillos se fijaban con dos tornillos de cabeza redondeada independientes para simular el comportamiento de una rótula <i>Rod End</i> y permitir el pivoteo libre. No obstante, las vibraciones y el par del motor desfasaban continuamente estos tornillos de sus alojamientos, provocando que la rueda se saliera por completo del chasis e incapacitara al robot.
   </p>
   <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-    <img src="./images/sistemaviejo1.jpg" alt="Corte del sistema viejo" style="width: 48%; max-width: 320px; border-radius: 6px; border: 1px solid #30363d; object-fit: cover;">
-    <img src="./images/sistemaviejo2.jpg" alt="Vista de sección sistema viejo" style="width: 48%; max-width: 320px; border-radius: 6px; border: 1px solid #30363d; object-fit: cover;">
+    <img src="./images/sistemaviejo1.jpeg" alt="Corte del sistema viejo" style="width: 48%; max-width: 320px; border-radius: 6px; border: 1px solid #30363d; object-fit: cover;">
+    <img src="./images/sistemaviejo2.jpeg" alt="Vista de sección sistema viejo" style="width: 48%; max-width: 320px; border-radius: 6px; border: 1px solid #30363d; object-fit: cover;">
   </div>
 </div>
 
 <!-- Galería Dinámica - Sistema Nuevo -->
 <div style="background-color: #161b22; border: 1px solid #3fb950; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
   <h4 style="margin-top: 0; color: #3fb950; display: flex; align-items: center; gap: 8px;">
-    ✅ Sistema Optimizado: Tornillo Pasante Continuo
+    Sistema Optimizado: Tornillo Pasante Continuo
   </h4>
   <p style="font-size: 0.95em; color: #c9d1d9; margin-bottom: 12px;">
     Se reemplazaron ambos tornillos redondeados por un <b>único tornillo pasante central</b> que atraviesa completamente ambas caras del chasis y el nudillo. Para lograrlo, los rodamientos de la rueda se trasladaron directamente hacia el propio <b>rin/rim</b> (dejando una abertura con perno de sujeción). Esta solución eliminó por completo el juego mecánico, reforzó la rigidez estructural y conservó la fluidez de viraje.
   </p>
   <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
     <img src="./images/sistemanuevo1.jpeg" alt="Render 3D sistema nuevo" style="width: 31%; max-width: 220px; border-radius: 6px; border: 1px solid #30363d; object-fit: cover;">
-    <img src="./images/sistemanuevo2.jpg" alt="Corte frontal del rim y tornillo" style="width: 31%; max-width: 220px; border-radius: 6px; border: 1px solid #30363d; object-fit: cover;">
-    <img src="./images/sistemanuevo3.jpg" alt="Corte superior de la transmisión" style="width: 31%; max-width: 220px; border-radius: 6px; border: 1px solid #30363d; object-fit: cover;">
+    <img src="./images/sistemanuevo2.jpeg" alt="Corte frontal del rim y tornillo" style="width: 31%; max-width: 220px; border-radius: 6px; border: 1px solid #30363d; object-fit: cover;">
+    <img src="./images/sistemanuevo3.jpeg" alt="Corte superior de la transmisión" style="width: 31%; max-width: 220px; border-radius: 6px; border: 1px solid #30363d; object-fit: cover;">
   </div>
 </div>
 
@@ -429,15 +429,15 @@ Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay qu
 
 ```mermaid
 flowchart LR
-    A[Motor de Tracción] --> B[Diferencial]
-    B --> C[Semieje der. / Rueda ext. ωₒ]
-    B --> D[Semieje izq. / Rueda int. ωᵢ]
-    C --> E[Fuerza de Tracción Vectorial ↑]
-    D --> F[Ángulo de Giro Ackermann θᵢ > θₒ]
-    E & F --> G[Estructura del Chasis]
-    G --> H{¿Flexión o Desfase?}
-    H -->|Sí (Sistema Viejo)| I[Pérdida de Geometría e Incapacitación]
-    H -->|No (Sistema Pasante)| J[Trayectoria Eficiente y Controlada]
+    A["Motor de Tracción"] --> B["Diferencial"]
+    B --> C["Semieje der. / Rueda ext. ωₒ"]
+    B --> D["Semieje izq. / Rueda int. ωᵢ"]
+    C --> E["Fuerza de Tracción Vectorial ↑"]
+    D --> F["Ángulo de Giro Ackermann θᵢ > θₒ"]
+    E & F --> G["Estructura del Chasis"]
+    G --> H{"¿Flexión o Desfase?"}
+    H -->|"Sí (Sistema Viejo)"| I["Pérdida de Geometría e Incapacitación"]
+    H -->|"No (Sistema Pasante)"| J["Trayectoria Eficiente y Controlada"]
 ```
 
 > [!WARNING]
