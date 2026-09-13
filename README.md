@@ -2517,11 +2517,11 @@ void loop() {
 
 </div>
 
-> [!TIP]:
+> [!TIP]
 > * **Escalado Dinámico de PWM:** Implementa una lectura analógica del voltaje de la batería para escalar la potencia de los motores, garantizando que el control PID mantenga la misma respuesta angular sin importar la descarga.
 > * **Desaceleración Previa a Virajes:** Utiliza la odometría para reducir la velocidad objetivo en un 20% justo antes de tomar las curvas de $90^\circ$ para evitar el deslizamiento del eje trasero.
 
-> [!WARNING]:
+> [!WARNING]
 > * **Calibración In Situ del BNO055:** Nunca inicies la rutina sin calibrar o fijar el punto cero ($0^\circ$) directamente en la pista de prueba. Las estructuras metálicas o motores cercanos pueden distorsionar la lectura inercial inicial.
 
 <p align="right">
