@@ -911,9 +911,64 @@ Diseñadas para potenciar el rendimiento en competiciones de robótica como la W
 <div style="background-color: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 15px; margin: 15px 0; display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
   
   <!-- Columna de Imagen -->
-  <div style="flex: 1; min-width: 220px; text-align: center;">
-    <img src="./images/stepdown.jpg" alt="Step Down LM2596" style="width: 100%; max-width: 280px; border-radius: 6px; border: 1px solid #30363d; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+<div style="display: flex; gap: 15px; margin: 15px 0; flex-wrap: wrap;">
+  
+  <!-- Tarjeta Izquierda: Imagen y Descripción Básica -->
+  <div style="flex: 1; min-width: 250px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <h4 style="margin-top: 0; color: #58a6ff; width: 100%; text-align: center;">Módulo Regulator Buck LM2596</h4>
+    <img src="./images/stepdown.jpg" alt="Step Down LM2596" style="width: 100%; max-width: 260px; border-radius: 6px; border: 1px solid #30363d; margin: 10px 0;">
+    <p style="margin: 5px 0 0 0; font-size: 0.85em; color: #8b949e; text-align: center;">
+      Regulador DC-DC Step-Down para alimentación del sistema lógico.
+    </p>
   </div>
+
+  <!-- Tarjeta Derecha: Tabla de Especificaciones Tácticas -->
+  <div style="flex: 2; min-width: 300px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px;">
+    <h4 style="margin-top: 0; color: #58a6ff;">Especificaciones Técnicas</h4>
+    <table style="width: 100%; border-collapse: collapse; color: #c9d1d9; font-size: 13.5px;">
+      <thead style="background-color: #0d1117; color: #f0f6fc;">
+        <tr>
+          <th style="padding: 8px; border: 1px solid #30363d; text-align: left;">Parámetro</th>
+          <th style="padding: 8px; border: 1px solid #30363d; text-align: left;">Valor</th>
+          <th style="padding: 8px; border: 1px solid #30363d; text-align: left;">Puntos Relevantes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;"><b>Rango Entrada</b></td>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;">3.2–40 V DC</td>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;">Compatible con baterías LiPo.</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;"><b>Rango Salida</b></td>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;">1.25–37 V DC</td>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;">Alimenta microcontrolador y sensores.</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;"><b>Corriente</b></td>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;">2A (3A Pico)</td>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;">Suficiente para servomotores y cámaras.</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;"><b>Eficiencia</b></td>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;">Hasta 92%</td>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;">Minimiza pérdidas térmicas.</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;"><b>Frecuencia</b></td>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;">150 kHz</td>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;">Filtrado estable de bajo ruido.</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;"><b>Protecciones</b></td>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;">Térmica / Corriente</td>
+          <td style="padding: 6px 8px; border: 1px solid #30363d;">Evita daños por cortocircuitos.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
 
   <!-- Columna de Tabla de Especificaciones -->
   <div style="flex: 2; min-width: 300px; overflow-x: auto;">
