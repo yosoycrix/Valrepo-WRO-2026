@@ -1057,6 +1057,8 @@ Usa un circuito **puente H (H-bridge)** interno:
 
 ### 3.1.5 **Giroscopio**
 
+### 3.1.5 **Giroscopio**
+
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;"> 
   <tr style="background-color: rgba(255, 255, 255, 0.05);"> 
     <td width="350px" align="center" style="padding: 20px; border: 1px solid #444;"> 
@@ -1080,6 +1082,20 @@ Usa un circuito **puente H (H-bridge)** interno:
 <p style="margin-top: 15px;"> 
   El <b>BNO055</b> es el sistema de orientación absoluta inercial de nuestro robot. A diferencia de un giroscopio tradicional, integra un microcontrolador de 32 bits que ejecuta algoritmos de fusión de sensores en tiempo real. Esto permite obtener ángulos de Euler directos y cuaterniones para medir el eje Z (yaw) sin sobrecargar el procesador principal, garantizando trayectorias completamente rectas y giros de alta precisión.
 </p> 
+
+<p><b>¿Por qué reemplazamos el MPU6050 por el BNO055?</b></p>
+<p>
+  En las etapas iniciales del desarrollo de Heimdall utilizamos el sensor MPU6050. Sin embargo, migramos al <b>BNO055</b> debido a la necesidad de obtener una mayor precisión de lectura angular y la inclusión de un <b>magnetómetro integrado</b> de 3 ejes. Mientras que el MPU6050 acumula deriva (<i>drift</i>) severa con el tiempo y requiere que el microcontrolador principal ejecute complejos filtros software (Kalman o Complementario), el BNO055 integra un coprocesador ARM Cortex-M0 que realiza la fusión de sensores de 9 grados de libertad por hardware, entregando ángulos de Euler estables y limpios al instante.
+</p>
+
+| Criterio de Comparación | Bosch BNO055 | InvenSense MPU6050 |
+| :--- | :--- | :--- |
+| **Grados de Libertad (DoF)** | **9 DoF** (Acelerómetro + Giroscopio + Magnetómetro) | 6 DoF (Acelerómetro + Giroscopio) |
+| **Magnetómetro Integrado** | **Sí** (Permite orientación absoluta con respecto al norte magnético) | No (Propenso a deriva constante en el eje Z / Yaw) |
+| **Fusión de Datos (Sensor Fusion)** | **Hardware Onboard (ARM Cortex-M0 interno)** | Requiere software externo / procesado en el ESP32 |
+| **Precisión de Lectura (Yaw/Z)** | **Alta (Ángulos absolutos sin acumulativo de deriva)** | Media-Baja (Alta deriva con el paso del tiempo) |
+| **Calibración y Offsets** | **Autocalibración activa y exportación directa de offsets** | Requiere rutinas manuales extensas al iniciar |
+| **Carga de Cómputo en el ESP32** | **Nula** (Entrega Euler/Cuaterniones listos) | Alta (Requiere procesar matrices y filtros software) |
 
 <p><b>¿Por qué decidimos usar este sensor y las librerías de Adafruit?</b></p> 
 
@@ -1131,7 +1147,7 @@ Usa un circuito **puente H (H-bridge)** interno:
 
   <li><b>Persistencia de Offsets en Memoria:</b> La librería nos permite extraer la estructura de datos `adafruit_bno055_offsets_t` e inyectarla al reiniciar. El robot inicia operativo en milisegundos sin requerir rutinas de movimiento previas.</li> 
 
-  <li><b>Compensación Dinámica:</b> Validamos la integridad de las lecturas mediante la verificación de estado (`getSystemStatus`), asegurando que si ocurre una desconexión o caída de voltaje, el código ejecute un restablecimiento controlado del bus I2C.</li> 
+  <li><b>Compensación Dinámica:</b> Validamos la integridad de las lecturas mediante la verificación de estado (`getSystemStatus`), asegurando que si ocurre una desconexión o caída de voltaje, el código ejecute un restablecimiento controlled del bus I2C.</li> 
 
   <li><b>Dead-Band Control:</b> Mantenemos una "banda muerta" de sensibilidad para evitar que ligeras vibraciones del chasis transmitidas al sensor generen oscilaciones o correcciones innecesarias en el servo de dirección.</li> 
 
@@ -1169,7 +1185,7 @@ Usa un circuito **puente H (H-bridge)** interno:
       <td style="padding: 10px; border: 1px solid #444;">Línea de datos del bus I2C.</td> 
     </tr> 
   </tbody> 
-</table> 
+</table>
 
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
@@ -1210,6 +1226,20 @@ Usa un circuito **puente H (H-bridge)** interno:
 
 > [!WARNING]
 > - A veces, por más de que hayas configurado bien la cámara, si no vuelves a calibrar los colores en la ronda de práctica, los reflejos o cambios drásticos en la luz del recinto pueden causar falsos negativos.
+
+<p><b>¿Por qué reemplazamos la Pixy2 por la HuskyLens 2?</b></p>
+<p>
+  Inicialmente consideramos el uso de la cámara Pixy2; sin embargo, durante las pruebas operativas decidimos migrar a la <b>HuskyLens 2</b> debido a su superioridad técnica en la clasificación de colores bajo condiciones variables de luz. La HuskyLens 2 ofrece un rendimiento visual de mayor definición, algoritmos integrados basados en aprendizaje automático y un consumo de corriente significativamente menor, optimizando la autonomía energética del sistema.
+</p>
+
+| Criterio de Comparación | DFRobot HuskyLens 2 | Pixy2 Camera |
+| :--- | :--- | :--- |
+| **Sensor óptico y Calidad** | **OV2640 (2.0 MP HD)** | CMOS (0.3 MP - $1280 \times 800$ procesado) |
+| **Precisión en Color** | **Superior (Entrenamiento con IA y filtrado de sombras)** | Media (Basado únicamente en firmas HSV estándar) |
+| **Procesador Onboard** | **Kendryte K210 (Dual-Core 64-bit RISC-V con NPU)** | NXP LPC4330 (Dual-Core ARM Cortex M4/M0) |
+| **Consumo de Corriente** | **~230 mA @ 5V** (Menor consumo) | ~140 mA a 400 mA (picos altos con LEDs) |
+| **Funciones Adicionales** | **Reconocimiento Facial, Objetos, AprilTags, Clasificación IA** | Seguimiento de líneas y firmas de color básicas |
+| **Ajuste en Competencia** | **Pantalla IPS 2.0" y aprendizaje mediante un botón** | Requiere PC y software PixyMon para calibres finos |
 
 <p><b>¿Por qué decidimos usar esta cámara?:</b></p>
 
