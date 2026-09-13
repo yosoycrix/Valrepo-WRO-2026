@@ -38,14 +38,15 @@
     - [3.3.2 Gestion de Energia](#332-gestion-de-energia)
     - [3.3.3 Sistema de Alimetacion](#333-sistema-de-alimentacion)
 - [4. Apartado de Programacion](#4-apartado-de-programacion)
-  - [4.1 Desafio Abierto](#41-desafio-abierto)
-    - [4.1.1 Flowchart Abierta](#411-flowchart-abierta)
-    - [4.1.2 Explicación del Codigo](#412-explicacion-del-codigo)
-    - [4.1.3 Pruebas en Pista](#413-pruebas-en-pista)
-  - [4.2 Desafio Cerrado](#42-desafio-cerrado)
-    - [4.2.1 Flowchart Cerrada](#421-flowchart-cerrada)
+  - [4.1 Arquitectura de Software](#41-arquitectura-de-software)
+  - [4.2 Desafio Abierto](#42-desafio-abierto)
+    - [4.2.1 Flowchart Abierta](#421-flowchart-abierta)
     - [4.2.2 Explicación del Codigo](#422-explicacion-del-codigo)
-    - [4.2.3 Pruebas de Esquivamiento](#423-pruebas-de-esquivamiento)
+    - [4.2.3 Pruebas en Pista](#423-pruebas-en-pista)
+  - [4.3 Desafio Cerrado](#43-desafio-cerrado)
+    - [4.3.1 Flowchart Cerrada](#431-flowchart-cerrada)
+    - [4.3.2 Explicación del Codigo](#432-explicacion-del-codigo)
+    - [4.3.3 Pruebas de Esquivamiento](#433-pruebas-de-esquivamiento)
 - [5. Randomizador](#5-Randomizador)
 - [6. Recursos para armar nuestro robot](#6-recursos-para-hacer-el-robot)
 
@@ -1785,7 +1786,65 @@ graph TD
 
 ## 4. Apartado de Programacion
 
-## 4.1 Desafio Abierto
+## 4.1 Arquitectura de Software
+
+La arquitectura de software de **Heimdall** se estructura mediante un paradigma modular guiado por eventos e implementado sobre una **Máquina de Estados Finitos (FSM)**. El sistema ejecuta el procesamiento de visión por computadora, la telemetría inercial y las rutinas de control en el microcontrolador **ESP32-WROOM-32**.
+
+#### Distribución de Procesamiento y Tareas
+
+* **Visión y Percepción Inercial:** Procesa las tramas UART transmitidas por la cámara **HuskyLens 2** a 115200 baudios (identificación de bloques, coordenadas X/Y y área del cuadro delimitador) y actualiza de manera continua la orientación en el eje Z (*Yaw*) proveniente del giroscopio **BNO055** mediante bus I2C.
+* **Control de Movimiento y Actuación:** Calcula las correcciones mediante un bucle de control **PID** para la dirección servoasistida (servomotor INJORA) y gestiona la modulación PWM enviada al driver del motor de tracción basándose en la retroalimentación del **encoder magnético**.
+
+```mermaid
+flowchart TD
+    subgraph Percepcion [Percepción y Sensado]
+        HL[HuskyLens 2] -->|UART2 - ID / Bloques| ESP[ESP32-WROOM-32]
+        IMU[Sensor BNO055] -->|I2C - Yaw / Orientación| ESP
+        ENC[Encoder Magnético] -->|GPIO Interrupciones - Odometría| ESP
+        US[Ultrasónicos HC-SR04] -->|GPIO Echo/Trig - Distancia Muros| ESP
+    end
+
+    subgraph Logica [Control y Lógica]
+        ESP --> FSM[Máquina de Estados Finitos]
+        FSM --> PID_Dir[Controlador PID de Orientación]
+        FSM --> PID_Vel[Controlador de Velocidad / Odometría]
+    end
+
+    subgraph Actuacion [Control de Actuadores]
+        PID_Dir -->|PWM| SERVO[Servomotor INJORA - Dirección]
+        PID_Vel -->|PWM / DIR| DRIVER[Driver de Motor - Tracción]
+    end
+```
+
+#### Diagrama de la Máquina de Estados Finitos (FSM)
+
+```mermaid
+stateDiagram-v2
+    [*] --> INICIALIZACION
+    INICIALIZACION --> NAVEGACION_LINEAL : Botón de Arranque / Calibración OK
+    
+    state NAVEGACION_LINEAL {
+        [*] --> Mantener_Rumbo
+        Mantener_Rumbo --> Correccion_PID_Yaw : Desviación detectada por BNO055
+    }
+    
+    NAVEGACION_LINEAL --> CLASIFICACION_OBSTACULO : HuskyLens detecta Bloque (Área > Umbral)
+    
+    state CLASIFICACION_OBSTACULO {
+        [*] --> Evaluacion_ID
+        Evaluacion_ID --> Maniobra_Evadir_Derecha : Bloque Rojo (ID 2)
+        Evaluacion_ID --> Maniobra_Evadir_Izquierda : Bloque Verde (ID 1)
+    }
+    
+    Maniobra_Evadir_Derecha --> REALINEACION_TRAYECTORIA : Distancia Encoder Alcanzada
+    Maniobra_Evadir_Izquierda --> REALINEACION_TRAYECTORIA : Distancia Encoder Alcanzada
+    
+    REALINEACION_TRAYECTORIA --> NAVEGACION_LINEAL : Orientación BNO055 Restablecida
+```
+
+---
+
+## 4.2 Desafio Abierto
 
 * **Objetivo:** El robot autónomo debe completar con éxito **3 vueltas consecutivas** al circuito en el menor tiempo posible, manteniendo un control absoluto de su trayectoria y deteniéndose de forma controlada al finalizar el recorrido.
 * **Restricciónes:** Está estrictamente prohibido que el chasis o cualquier componente del robot toque las paredes o los muros internos de la pista. Cualquier impacto o roce continuo puede penalizar la puntuación de la ronda o invalidar el intento.
@@ -1797,7 +1856,7 @@ graph TD
   <a href="#inicio">Volver Al Inicio</a>
 </p>
 
-## 4.1.1 Flowchart Abierta
+## 4.2.1 Flowchart Abierta
 
 En este diagrama de flujo se halla una representación gráfica del funcionamiento lógico de nuestra programación, así como de lo que se espera sea el desempeño del robot al inicializar el programa.
 
@@ -1807,7 +1866,7 @@ En este diagrama de flujo se halla una representación gráfica del funcionamien
   <a href="#inicio">Volver Al Inicio</a>
 </p>
 
-## 4.1.2 Explicacion del Codigo
+## 4.2.2 Explicacion del Codigo
 
 <p>Nuestro código implementa una <b>Máquina de Estados Finitos (FSM)</b> que opera en tiempo real de forma asíncrona. La toma de decisiones está diseñada para ejecutarse de manera lineal y estrecha, eliminando los <code>delay()</code> bloqueantes durante el recorrido mediante el uso de <code>millis()</code> y <code>micros()</code> para garantizar una respuesta ultrarrápida del IMU (<b>BNO055</b>) y de los sensores ultrasónicos.</p>
 
@@ -2407,7 +2466,7 @@ void loop() {
 
 ---
 
-## 4.1.3 Pruebas en Pista
+## 4.2.3 Pruebas en Pista
 
  <p>
     En la fase de desafío abierto, el objetivo principal del sistema es completar las vueltas reglamentarias en la pista en el menor tiempo posible, manteniendo la estabilidad direccional sin la presencia de obstáculos de color. En esta etapa se evaluó la respuesta del control de tracción y dirección al incrementar la velocidad PWM del motor, así como la repetibilidad del conteo de vueltas mediante odometría.
@@ -2523,7 +2582,7 @@ void loop() {
 
 ---
 
-## 4.2 Desafio Cerrado
+## 4.3 Desafio Cerrado
 
 * **Objetivo:** El robot autónomo debe completar **3 vueltas al circuito** esquivando señales de tráfico representadas por pilares de colores. El robot debe procesar la información visual e interactuar con los obstáculos bajo las siguientes reglas de tránsito:
   * **Pilares Rojos:** Indican una restricción de paso por la izquierda. El robot debe esquivarlos obligatoriamente manteniéndose por el **lado derecho** del carril.
@@ -2532,7 +2591,7 @@ void loop() {
 * **Restricciones de Parqueo:** El carro debe quedar estático dentro del espacio delimitado sin tocar ninguna de las barreras o líneas que rodean el área de estacionamiento.
 * **Factores Aleatorios:** Al igual que en el reto abierto, tanto la dirección de la marcha como la ubicación exacta y el orden de los pilares de colores en la pista se configuran de manera completamente aleatoria antes de cada intento, poniendo a prueba la robustez del algoritmo de detección.
 
-## 4.2.1 Flowchart Cerrada
+## 4.3.1 Flowchart Cerrada
 
 En este diagrama de flujo se halla una representación gráfica del funcionamiento lógico de nuestra programación, así como de lo que se espera sea el desempeño del robot al inicializar el programa.
 
@@ -2542,7 +2601,7 @@ En este diagrama de flujo se halla una representación gráfica del funcionamien
   <a href="#inicio">Volver Al Inicio</a>
 </p>
 
-## 4.2.2 Explicacion del Codigo
+## 4.3.2 Explicacion del Codigo
 
 <p>Nuestro código implementa una <b>Máquina de Estados Finitos (FSM)</b> que opera en tiempo real de forma asíncrona. La toma de decisiones está diseñada para ejecutarse de manera lineal y continua, eliminando los <code>delay()</code> bloqueantes durante el recorrido mediante el uso de <code>millis()</code> y <code>micros()</code> para garantizar una respuesta ultrarrápida del IMU (<b>BNO055</b>), la visión artificial (<b>HuskyLens 2</b>) y el conteo de ticks por <b>encoders magnéticos</b>.</p>
 
@@ -3165,7 +3224,7 @@ void loop() {
 
 ---
 
-## 4.2.3 Pruebas de Esquivamiento
+## 4.3.3 Pruebas de Esquivamiento
 
  <p>
   Durante la ronda cerrada, el sistema de navegación autónoma requiere una respuesta dinámica rápida y precisa para detectar, clasificar y esquivar los obstáculos de color (verde y rojo) fijados en la pista. En esta fase se evaluó la integración entre la detección de color mediante la cámara HuskyLens, el algoritmo de control por odometría/encoders y la secuencia de maniobras de esquiva, verificando los desplazamientos mediante conteo de impulsos (<i>ticks</i>).
