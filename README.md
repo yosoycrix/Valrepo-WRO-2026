@@ -395,6 +395,8 @@ Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay qu
   </div>
 </div>
 
+<hr style="border-color: #30363d; margin: 25px 0;">
+
 <!-- Comparativo Resumido -->
 <table width="100%" style="border-collapse: collapse; margin: 15px 0; border: 1px solid #30363d; font-size: 14px;">
   <thead style="background-color: #161b22; color: #f0f6fc;">
@@ -471,6 +473,7 @@ flowchart LR
 <hr style="border-color: #30363d; margin: 25px 0;"
 
 ## 2.6 Piezas de Mecanica
+
 El núcleo de la movilidad de nuestro robot reside en un subsistema mecánico de transmisión y tracción meticulosamente diseñado. Cada componente ha sido fabricado y seleccionado de forma personalizada para optimizar el espacio, la transferencia de potencia y la eficiencia dinámica del prototipo. 
 
 A continuación, se desglosa cómo cada pieza clave se integra en la arquitectura de ingeniería del robot **Heimdall**:
