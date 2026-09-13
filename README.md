@@ -489,13 +489,6 @@ flowchart LR
   </a>
 </p>
 
-<p align="center">
-  <a href="https://postimg.cc/8syssXPz">
-    <img src="https://i.postimg.cc/CL08P93k/Ackermann-turning-svg.png" alt="Geometría de giro de Ackermann" width="50%">
-  </a>
-</p>
-<hr style="border-color: #30363d; margin: 25px 0;"
-
 ## 2.6 Piezas de Mecanica
 
 El núcleo de la movilidad de nuestro robot reside en un subsistema mecánico de transmisión y tracción meticulosamente diseñado. Cada componente ha sido fabricado y seleccionado de forma personalizada para optimizar el espacio, la transferencia de potencia y la eficiencia dinámica del prototipo. 
