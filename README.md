@@ -299,110 +299,182 @@ Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay qu
 
 <hr>
 
-<h2>2.5 Sistema de Movimiento y Traccion</h2>
+### 2.5 Sistema de Movimiento y Tracción
 
-<p>Ahondando en lo mencionado anteriormente, <em>Heimdall</em> utiliza lo que normalmente es denominado <strong>sistema Ackermann positivo</strong>, el cual es un sistema derivado del principio de Ackermann, cuyo objetivo es lograr que en curvas la <strong>rueda interior (&theta;<sub>i</sub>) gire más que la exterior (&theta;<sub>o</sub>)</strong> para minimizar el deslizamiento lateral (<em>scrub</em>).</p>
+<p>Ahondando en lo mencionado anteriormente, <em>Heimdall</em> utiliza un <strong>sistema Ackermann positivo</strong>, cuyo objetivo es lograr que en curvas la <strong>rueda interior (&theta;<sub>i</sub>) gire más que la exterior (&theta;<sub>o</sub>)</strong> para minimizar el deslizamiento lateral (<em>scrub</em>) y garantizar un trazo limpio a alta velocidad.</p>
 
-<p align="left">
-  <img src="./images/steering_gif.gif" alt="Sistema de Dirección Ackermann Positivo" style="width: 50%; max-width: 320px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0,0,0,0.3); border: 1px solid #30363d;">
+<p align="center">
+  <img src="./images/steering_gif.gif" alt="Sistema de Dirección Ackermann Positivo" style="width: 100%; max-width: 380px; border-radius: 10px; box-shadow: 0px 4px 12px rgba(0,0,0,0.4); border: 1px solid #30363d;">
   <br>
-  <em><sub style="font-size: 0.85em; color: #8b949e;">Comportamiento del sistema Ackermann en curva</sub></em>
+  <em><sub style="font-size: 0.85em; color: #8b949e;">Comportamiento dinámico del sistema Ackermann en curva</sub></em>
 </p>
 
-<h3>Ecuación Fundamental</h3>
-<p align="center">
-  <strong>cot(&theta;<sub>o</sub>) - cot(&theta;<sub>i</sub>) = W / L</strong>
+<h3>Ecuaciones Fundamentales</h3>
+
+<div style="display: flex; gap: 15px; margin: 15px 0;">
+  <div style="flex: 1; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px;">
+    <h4 style="margin-top: 0; color: #58a6ff;">1. Geometría de Giro</h4>
+    <p align="center" style="font-size: 1.1em; color: #f0f6fc;">
+      $$\cot(\theta_o) - \cot(\theta_i) = \frac{W}{L}$$
+    </p>
+    <ul style="margin-bottom: 0; padding-left: 20px; font-size: 0.9em; color: #c9d1d9;">
+      <li><strong>W:</strong> Ancho de vía (distancia entre pivotes de dirección).</li>
+      <li><strong>L:</strong> Batalla (distancia entre ejes).</li>
+    </ul>
+  </div>
+
+  <div style="flex: 1; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px;">
+    <h4 style="margin-top: 0; color: #58a6ff;">2. Relación de Velocidades</h4>
+    <p align="center" style="font-size: 1.1em; color: #f0f6fc;">
+      $$\frac{\omega_o}{\omega_i} = \frac{R + W/2}{R - W/2}$$
+    </p>
+    <ul style="margin-bottom: 0; padding-left: 20px; font-size: 0.9em; color: #c9d1d9;">
+      <li><strong>&omega;<sub>o</sub> / &omega;<sub>i</sub>:</strong> Vel. angular rueda exterior / interior.</li>
+      <li><strong>R:</strong> Radio de giro al centro del eje posterior.</li>
+    </ul>
+  </div>
+</div>
+
+<div style="display: flex; gap: 15px; margin: 15px 0;">
+  <div style="flex: 1; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px;">
+    <h4 style="margin-top: 0; color: #58a6ff;">3. Radio Efectivo de Giro (R)</h4>
+    <p align="center" style="font-size: 1.1em; color: #f0f6fc;">
+      $$R = \frac{L}{\tan(\delta)} \quad \text{ó} \quad R = \frac{L}{\sin(\delta_i)} - \frac{W}{2}$$
+    </p>
+    <ul style="margin-bottom: 0; padding-left: 20px; font-size: 0.9em; color: #c9d1d9;">
+      <li><strong>R:</strong> Distancia desde el ICR (Centro Instantáneo de Rotación) al centro del eje trasero.</li>
+      <li><strong>&delta;:</strong> Ángulo equivalente de rueda equivalente central.</li>
+    </ul>
+  </div>
+
+  <div style="flex: 1; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px;">
+    <h4 style="margin-top: 0; color: #58a6ff;">4. Ángulo Medio de Dirección (&delta;)</h4>
+    <p align="center" style="font-size: 1.1em; color: #f0f6fc;">
+      $$\delta = \arctan\left(\frac{2 \cdot L \cdot \sin(\theta_i) \cdot \sin(\theta_o)}{L (\sin(\theta_i) + \sin(\theta_o))}\right)$$
+    </p>
+    <ul style="margin-bottom: 0; padding-left: 20px; font-size: 0.9em; color: #c9d1d9;">
+      <li><strong>&delta;:</strong> Ángulo global de orientación de la trayectoria utilizado por la IMU / Navegación.</li>
+    </ul>
+  </div>
+</div>
+
+<hr style="border-color: #30363d; margin: 25px 0;">
+
+<h3>Rediseño Evolutivo de los Nudillos de Dirección</h3>
+
+<p>
+  El diseño mecánico de los nudillos de dirección de <em>Heimdall</em> atravesó una reingeniería clave para corregir fallos estructurales severos detectados durante las pruebas dinámicas.
 </p>
 
-<ul>
-  <li><strong>W</strong>: Distancia entre pivotes de dirección (batalla)</li>
-  <li><strong>L</strong>: Distancia entre ejes</li>
-</ul>
+<!-- Galería Dinámica - Sistema Anterior -->
+<div style="background-color: #161b22; border: 1px solid #f85149; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+  <h4 style="margin-top: 0; color: #f85149; display: flex; align-items: center; gap: 8px;">
+    ❌ Sistema Anterior: Pivotes Independientes Simulados
+  </h4>
+  <p style="font-size: 0.95em; color: #c9d1d9; margin-bottom: 12px;">
+    Inicialmente, los nudillos se fijaban con dos tornillos de cabeza redondeada independientes para simular el comportamiento de una rótula <i>Rod End</i> y permitir el pivoteo libre. No obstante, las vibraciones y el par del motor desfasaban continuamente estos tornillos de sus alojamientos, provocando que la rueda se saliera por completo del chasis e incapacitara al robot.
+  </p>
+  <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+    <img src="./images/sistemaviejo1.jpg" alt="Corte del sistema viejo" style="width: 48%; max-width: 320px; border-radius: 6px; border: 1px solid #30363d; object-fit: cover;">
+    <img src="./images/sistemaviejo2.jpg" alt="Vista de sección sistema viejo" style="width: 48%; max-width: 320px; border-radius: 6px; border: 1px solid #30363d; object-fit: cover;">
+  </div>
+</div>
 
-<h3>Implementación Física</h3>
+<!-- Galería Dinámica - Sistema Nuevo -->
+<div style="background-color: #161b22; border: 1px solid #3fb950; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+  <h4 style="margin-top: 0; color: #3fb950; display: flex; align-items: center; gap: 8px;">
+    ✅ Sistema Optimizado: Tornillo Pasante Continuo
+  </h4>
+  <p style="font-size: 0.95em; color: #c9d1d9; margin-bottom: 12px;">
+    Se reemplazaron ambos tornillos redondeados por un <b>único tornillo pasante central</b> que atraviesa completamente ambas caras del chasis y el nudillo. Para lograrlo, los rodamientos de la rueda se trasladaron directamente hacia el propio <b>rin/rim</b> (dejando una abertura con perno de sujeción). Esta solución eliminó por completo el juego mecánico, reforzó la rigidez estructural y conservó la fluidez de viraje.
+  </p>
+  <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+    <img src="./images/sistemanuevo1.jpeg" alt="Render 3D sistema nuevo" style="width: 31%; max-width: 220px; border-radius: 6px; border: 1px solid #30363d; object-fit: cover;">
+    <img src="./images/sistemanuevo2.jpg" alt="Corte frontal del rim y tornillo" style="width: 31%; max-width: 220px; border-radius: 6px; border: 1px solid #30363d; object-fit: cover;">
+    <img src="./images/sistemanuevo3.jpg" alt="Corte superior de la transmisión" style="width: 31%; max-width: 220px; border-radius: 6px; border: 1px solid #30363d; object-fit: cover;">
+  </div>
+</div>
+
+<!-- Comparativo Resumido -->
+<table width="100%" style="border-collapse: collapse; margin: 15px 0; border: 1px solid #30363d; font-size: 14px;">
+  <thead style="background-color: #161b22; color: #f0f6fc;">
+    <tr>
+      <th style="padding: 10px; border: 1px solid #30363d; text-align: left;">Parámetro</th>
+      <th style="padding: 10px; border: 1px solid #30363d; text-align: left; color: #f85149;">Diseño Anterior</th>
+      <th style="padding: 10px; border: 1px solid #30363d; text-align: left; color: #3fb950;">Diseño Actual (Reforzado)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #30363d;"><b>Pivote Principal</b></td>
+      <td style="padding: 10px; border: 1px solid #30363d;">2 tornillos cortos independientes.</td>
+      <td style="padding: 10px; border: 1px solid #30363d;"><b>Tornillo pasante continuo</b> de lado a lado.</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #30363d;"><b>Rodamientos</b></td>
+      <td style="padding: 10px; border: 1px solid #30363d;">Alojados dentro del nudillo.</td>
+      <td style="padding: 10px; border: 1px solid #30363d;">Reubicados directamente en el <b>Rin/Rim</b>.</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #30363d;"><b>Estabilidad</b></td>
+      <td style="padding: 10px; border: 1px solid #30363d;">Holgura constante y riesgo de desprendimiento.</td>
+      <td style="padding: 10px; border: 1px solid #30363d;">Alineación perfecta y rigidez estructural extra.</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr style="border-color: #30363d; margin: 25px 0;">
+
+<h3>Análisis de Fuerzas y Fenómenos Dinámicos</h3>
 
 ```mermaid
 flowchart LR
-    %% Definición de Nodos
-    R_ext[Rueda exterior θₒ]
-    R_int[Rueda interior θᵢ > θₒ]
-    Cuadro[Cuadro / Chasis]
-    B_ext[Brazo de dirección Ext]
-    B_int[Brazo de dirección Int]
-    Centro((● Centro teórico<br>Eje trasero))
-
-    %% Conexiones y Flujo
-    Cuadro --- B_ext
-    Cuadro --- B_int
-    
-    R_ext --> B_ext
-    R_int --> B_int
-    
-    B_ext ----> Centro
-    B_int ----> Centro
-```
-
-<h3>Relación de Velocidades en Curva</h3>
-<p align="center">
-  <strong>&omega;<sub>o</sub> / &omega;<sub>i</sub> = (R + W/2) / (R - W/2)</strong>
-</p>
-
-<ul>
-  <li><strong>&omega;<sub>o</sub></strong>: Velocidad angular de la rueda exterior.</li>
-  <li><strong>&omega;<sub>i</sub></strong>: Velocidad angular de la rueda interior.</li>
-  <li><strong>R</strong>: Radio de giro del centro del eje.</li>
-</ul>
-
-<hr>
-
-<h3>Fuerzas en Conflicto</h3>
-
-```mermaid
-flowchart LR
-    A[Motor] --> B[Diferencial]
-    B --> C[Semieje der.\nRueda ext. ωₒ]
-    B --> D[Semieje izq.\nRueda int. ωᵢ]
-    C --> E[Fuerza de tracción ↑]
-    D --> F[Ángulo de giro θᵢ > θₒ]
-    E & F --> G[Cuadro]
-    G --> H{Deflexión estructural?}
-    H -->|Sí| I[Pérdida de Ackermann]
-    H -->|No| J[Comportamiento ideal]
+    A[Motor de Tracción] --> B[Diferencial]
+    B --> C[Semieje der. / Rueda ext. ωₒ]
+    B --> D[Semieje izq. / Rueda int. ωᵢ]
+    C --> E[Fuerza de Tracción Vectorial ↑]
+    D --> F[Ángulo de Giro Ackermann θᵢ > θₒ]
+    E & F --> G[Estructura del Chasis]
+    G --> H{¿Flexión o Desfase?}
+    H -->|Sí (Sistema Viejo)| I[Pérdida de Geometría e Incapacitación]
+    H -->|No (Sistema Pasante)| J[Trayectoria Eficiente y Controlada]
 ```
 
 > [!WARNING]
-> De utilizar estos sistemas, recomendamos tener cuidado con los siguientes inconvenientes los cuales aparecieron dentro de nuestras prácticas con la implementación del mencionado sistema:
+> ### Inconvenientes Críticos Detectados en Pruebas Prácticas
 >
-> ---
+> 1. **Paradox Steering (Dirección Paradójica):**
+>    * **Causa:** La tracción en la rueda interior (baja adherencia) contrarresta el ángulo de giro.  
+>    * **Solución:** Control electrónico (freno vectorial) y ajuste de geometría en los brazos de dirección.
 >
-> ### 1. Paradox Steering
-> * **Causa:** La tracción en la rueda interior (baja adherencia) contrarresta el ángulo de giro.  
-> * **Solución:** Control electrónico (freno vectorial).  
->
-> ---
->
-> ### 2. Fatiga en semiejes
-> * **Causa:** Torsión excesiva en juntas homocinéticas debido a θᵢ máximo + par motor.  
-> * **Solución:** Semiejes asimétricos con ángulos de trabajo optimizados.  
->
+> 2. **Fatiga y Desfase en Semiejes / Nudillos:**
+>    * **Causa:** Torsión excesiva en juntas debido a $\theta_i$ máximo + par motor, lo que desarticulaba los pivotes antiguos.  
+>    * **Solución:** Reemplazo por el tornillo pasante continuo y relocalización de rodamientos de la rueda directamente al rin.
 
-<hr>
+<hr style="border-color: #30363d; margin: 25px 0;">
 
-### Soluciones de Ingeniería
+<h3>Soluciones de Ingeniería</h3>
 <h4>Estrategias Recomendadas</h4>
 
 | Componente | Innovación | Beneficio |
 | :--- | :--- | :--- |
-| **Cuadro** | Subchasis desmontable con rigidez variable. | Permite ajustes finos en competición. |
-| **Diferencial** | Electrónico con mapas por ángulo de giro. | Regula par según &theta;<sub>i</sub> / &theta;<sub>o</sub> (ej: Honda SH-AWD). |
-| **Dirección** | Brazo de Ackermann ajustable (rótulas roscadas). | Compensa desgaste o cambios de neumáticos. |
+| **Cuadro / Chasis** | Subchasis desmontable con rigidez variable y paso de eje pasante vertical. | Permite ajustes finos en competición y distribuye equitativamente las cargas horizontales de giro. |
+| **Diferencial** | Electrónico con mapas por ángulo de giro. | Regula el par según $\theta_i$ / $\theta_o$ para maximizar tracción sin desestabilizar el trazo. |
+| **Dirección** | Brazo de Ackermann ajustable (rótulas roscadas). | Compensa el desgaste de neumáticos e imprecisiones de tolerancia en impresión 3D. |
+| **Nudillos de Dirección** | Eje/Tornillo pasante continuo con rodamientos trasladados al Rin. | Elimina por completo el juego mecánico y previene que la rueda se salga del chasis. |
 
 <p align="center">
   <a href="https://postimg.cc/8syssXPz">
     <img src="https://i.postimg.cc/CL08P93k/Ackermann-turning-svg.png" alt="Geometría de giro de Ackermann" width="50%">
   </a>
 </p>
-<hr>
+<hr style="border-color: #30363d; margin: 25px 0;"
+
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
+
+---
 
 ## 2.6 Piezas de Mecanica
 El núcleo de la movilidad de nuestro robot reside en un subsistema mecánico de transmisión y tracción meticulosamente diseñado. Cada componente ha sido fabricado y seleccionado de forma personalizada para optimizar el espacio, la transferencia de potencia y la eficiencia dinámica del prototipo. 
@@ -527,6 +599,7 @@ A continuación, se desglosa cómo cada pieza clave se integra en la arquitectur
 </p>
 
 ---
+
 ### 2.6.2 **Servomotor INJORA 180°**
 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
@@ -844,27 +917,27 @@ Diseñadas para potenciar el rendimiento en competiciones de robótica como la W
           <tr>
             <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Rango Salida</b></td>
             <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">1.25–37 V DC</td>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">microcontroladores, sensores o motores.</td>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Microcontroladores, sensores o motores.</td>
           </tr>
           <tr>
             <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Corriente</b></td>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">2A (3A Pico)</td>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Suficiente para servos y sensores.</td>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">2A (3A Pico con disipador)</td>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Suficiente para servos, cámaras y sensores.</td>
           </tr>
           <tr>
             <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Eficiencia</b></td>
             <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Hasta 92%</td>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Reduce pérdidas térmicas.</td>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Reduce pérdidas térmicas en competencia.</td>
           </tr>
           <tr>
             <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;"><b>Frecuencia</b></td>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">150 kHz</td>
-            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Diseño compacto y eficiente.</td>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">150 kHz (Fija)</td>
+            <td style="padding: 8px 10px; border-bottom: 1px solid #21262d;">Diseño compacto y filtrado estable.</td>
           </tr>
           <tr>
             <td style="padding: 8px 10px;"><b>Protecciones</b></td>
-            <td style="padding: 8px 10px;">Limitación de corriente.</td>
-            <td style="padding: 8px 10px;">Evita daños por cortocircuitos.</td>
+            <td style="padding: 8px 10px;">Limitación de corriente / Térmica</td>
+            <td style="padding: 8px 10px;">Evita daños por sobrecargas y cortocircuitos.</td>
           </tr>
         </tbody>
       </table>
@@ -872,19 +945,74 @@ Diseñadas para potenciar el rendimiento en competiciones de robótica como la W
   </tr>
 </table>
 
-<br>
-
-El LM2596 es un regulador step down DC-DC diseñado para transformar tensiones elevadas en niveles adecuados para circuitos electrónicos.  Acepta un rango de entrada entre 3.2 y 40V, Lo cual evidentemente demuestra que es un componente electrónico bastante versátil en lo que al manejo de voltaje respecta, por lo tanto nuestro equipo decidió utilizarlo para poder manejar el voltaje en el circuito del robot de forma idónea.
+<p style="margin-top: 15px;">
+  El <b>LM2596</b> es un regulador conmutado de tipo <i>Step Down</i> (Buck Converter) DC-DC diseñado para transformar tensiones elevadas en niveles de voltaje inferiores de forma altamente eficiente. Acepta un amplio rango de entrada entre 3.2V y 40V DC, lo cual demuestra una gran versatilidad operativa en la gestión de potencia del robot. Por esta razón, nuestro equipo decidió integrarlo como una etapa de regulación clave para acondicionar la alimentación del circuito lógico.
+</p>
 
 <div style="margin-top: 15px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px; font-size: 14px; color: #c9d1d9;">
   <p style="margin-bottom: 10px;"><b>Es extremadamente útil para nuestro proyecto debido a su:</b></p>
   <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
-    <li><b>Regulación eficiente:</b> Convierte los 12V de la batería a los 5V estables que requiere la lógica, minimizando el calor generado.</li>
-    <li><b>Protección de componentes:</b> Aísla al ESP32 y sensores de los ruidos eléctricos y picos de tensión de los motores.</li>
-    <li><b>Alta potencia:</b> Soporta hasta 3A, suficiente para alimentar la Huskylens2, el servo y el microcontrolador al mismo tiempo.</li>
-    <li><b>Versatilidad:</b> Su amplio rango de entrada permite adaptar diferentes tipos de baterías sin cambiar el hardware.</li>
+    <li><b>Regulación eficiente de alta conversión:</b> Convierte los ~11.1V / 12V entregados por la fuente principal a los 5V nominales que exige la lógica del sistema. A diferencia de un regulador lineal (como el 7805), el LM2596 no disipa el exceso de voltaje como puro calor, logrando eficiencias de hasta el 92%.</li>
+    <li><b>Protección e inmunidad al ruido de motores:</b> Actúa como una barrera entre el sistema lógico y el sistema de potencia, previniendo que las caídas de tensión bruscas causadas por el consumo del motor de tracción reinicien el ESP32 o distorsionen la señal de la HuskyLens 2.</li>
+    <li><b>Alta capacidad de corriente activa:</b> Proporciona 2A continuos (con picos tolerados de 3A), suficiente para abastecer en paralelo la demanda simultánea del microcontrolador, los tres sensores ultrasónicos, el servo de dirección y la HuskyLens 2.</li>
+    <li><b>Ajuste Fino por Potenciómetro Trimmer:</b> Permite calibrar la salida mediante un potenciómetro multivuelta de precisión para compensar caídas por longitud de cableado y fijar exactamente los voltajes lógicos deseados ($5.0\text{V}$ o $6.0\text{V}$ según los servos requeridos).</li>
+    <li><b>Versatilidad de Fuente Alimentadora:</b> Su amplio rango de tolerancia permite probar con diversas químicas de batería (LiPo 2S/3S, baterías selladas o fuentes de taller) sin necesidad de rediseñar el hardware del robot.</li>
   </ul>
 </div>
+
+<p><b>Principio de Funcionamiento y Ecuaciones Básicas:</b></p>
+<p>
+  A diferencia de los reguladores lineales, el LM2596 conmuta un transistor interno a una frecuencia de <b>150 kHz</b>. Al alternar rápidamente entre estado conduciendo y corte, junto con el trabajo de un inductor y un diodo Schottky de alta velocidad, se logra adaptar la energía almacenada reduciendo el voltaje sin perder potencia útil.
+</p>
+
+<p>
+  La relación ideal de conversión en un regulador <i>Buck</i> se define por el ciclo de trabajo ($D$):
+</p>
+
+<p align="center">
+  $$V_{\text{salida}} = V_{\text{entrada}} \times D \quad \text{donde} \quad D = \frac{T_{\text{ON}}}{T_{\text{ON}} + T_{\text{OFF}}}$$
+</p>
+
+<p>
+  Esto garantiza que el calor generado durante la conversión sea mínimo, manteniendo estable el ecosistema de sensores de <b>Heimdall</b> incluso durante carreras prolongadas.
+</p>
+
+> [!WARNING]
+> - Antes de conectar por primera vez componentes sensibles como el ESP32 o la HuskyLens 2 al regulador, se debe medir con un multímetro la salida de los pines **OUT+** y **OUT-** y girar el potenciómetro fino hasta asegurar un voltaje de $5.0\text{V}$ exactos. Un voltaje descalibrado por encima de $5.5\text{V}$ puede dañar de forma permanente el módulo de visión y los procesadores.
+
+<p><b>Esquema de Distribución de Potencia:</b></p>
+
+<table width="100%" style="border: 1px solid #444; border-collapse: collapse; margin-top: 10px;">
+  <thead style="background-color: rgba(255, 255, 255, 0.1);">
+    <tr>
+      <th style="padding: 10px; border: 1px solid #444;">Terminal LM2596</th>
+      <th style="padding: 10px; border: 1px solid #444;">Origen / Destino en el Robot</th>
+      <th style="padding: 10px; border: 1px solid #444;">Función en el Sistema</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>IN+</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">Positivo Batería / Interruptor Principal</td>
+      <td style="padding: 10px; border: 1px solid #444;">Recibe el voltaje bruto (+7.4V a +12V).</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>IN-</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">Negativo Batería (GND General)</td>
+      <td style="padding: 10px; border: 1px solid #444;">Tierra común de entrada.</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>OUT+</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">Bus Lógico 5V (ESP32, Sensors, HuskyLens 2)</td>
+      <td style="padding: 10px; border: 1px solid #444;">Suministra voltaje regulado y filtrado a 5.0V.</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;"><b>OUT-</b></td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">GND Lógico / Tierra General del Chasis</td>
+      <td style="padding: 10px; border: 1px solid #444;">Referencia cero común para todos los módulos.</td>
+    </tr>
+  </tbody>
+</table>
 
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
