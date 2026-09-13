@@ -32,9 +32,11 @@
     - [3.1.5 Giroscopio](#315-giroscopio)
     - [3.1.6 Huskylens](#316-huskylens-2)
   - [3.2 Microcontrolador](#32-microcontrolador)
-    - [3.2.1 ESP32](#321-esp32-wroom-32)
+    - [3.2.2 ESP32](#322-esp32-wroom-32)
   - [3.3 Diagrama de Conexiones](#33-diagrama-de-conexiones)
-    - [3.3.1 Consumo de Energia](#331-consumo-de-energia)
+    - [3.3.1 Distribucion de Pines](#331-distribucion-de-pines)
+    - [3.3.2 Gestion de Energia](#332-gestion-de-energia)
+    - [3.3.3 Sistema de Alimetacion](#333-sistema-de-alimentacion)
 - [4. Apartado de Programacion](#4-apartado-de-programacion)
   - [4.1 Desafio Abierto](#41-desafio-abierto)
     - [4.1.1 Flowchart Abierta](#411-flowchart-abierta)
@@ -1417,6 +1419,46 @@ Usa un circuito **puente H (H-bridge)** interno:
 > [!WARNING]
 > ☑️ **Niveles Lógicos:** El módulo opera estrictamente a 3.3V. Todos los periféricos de 5V integrados en Heimdall pasan por una etapa de acondicionamiento de señal para proteger las entradas del WROOM-32.
 
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
+
+<br>
+<hr>
+
+## 3.3 Diagrama de Conexiones
+
+<img src="./schemes/electronics/heimdall_diagrama.jpg" alt="Diagrama de Conexiones" width=70%>
+
+El esquema eléctrico anterior ilustra la topología completa de interconexión entre la unidad central de procesamiento (ESP32-WROOM-32), los subsistemas de regulación de energía, la etapa de potencia y la interfaz sensórica del robot Heimdall. Se destaca la distribución independiente de las líneas de alimentación para evitar caídas de tensión lógicas (*brownouts*), la unificación de la referencia de masa (*Star Ground*) para mitigar el ruido electromagnético (EMI) y la asignación estratégica de los pines de E/S evitando el uso de *strapping pins* críticos durante el arranque del microcontrolador
+
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
+
+---
+
+## 3.3.1 Distribucion de Pines
+
+<p><b>Justificación en la Selección de Pines ESP32:</b></p>
+<p>
+  La asignación de pines GPIO en Heimdall fue configurada estratégicamente para maximizar el uso de los periféricos dedicados por hardware de la ESP32 y evitar interferencias durante la secuencia de arranque (<i>strapping pins</i>):
+</p>
+
+<ul>
+  <li><b>Encoder (GPIO 34 y 35):</b> Se asignaron a estos pines debido a que son GPI exclusivamente de entrada (<i>Input Only</i>). Como el encoder solo requiere enviar pulsos de conteo a la placa, su uso libera pines de entrada/salida para los actuadores.</li>
+  <li><b>Control de Motores y Servomotor (GPIO 18, 19 y 2):</b>
+    <ul>
+      <li><b>GPIO 18 y 19 (IN1/IN2):</b> Permiten control digital directo o modulación PWM mediante el periférico MCPWM/LEDC de la ESP32.</li>
+      <li><b>GPIO 2:</b> Reservado para la señal PWM del servo de dirección. Se mantiene libre de resistencias pull-up externas al arranque para no interfering en el bootloader del microcontrolador.</li>
+    </ul>
+  </li>
+  <li><b>Sensores Ultrasónicos (GPIO 12, 13, 14, 25, 26 y 27):</b> Pines digitales de propósito general de conmutación rápida. Se distribuyeron en pares adyacentes (Trig/Echo) para optimizar el enrutamiento del cableado físico en el chasis.</li>
+  <li><b>HuskyLens 2 - UART2 (GPIO 16 y 17):</b> Se asignaron al puerto de serie por hardware secundario (<b>RX2: 16, TX2: 17</b>). Esto garantiza una velocidad de transmisión alta y constante para el procesador de visión sin interferir con la comunicación serial principal USB/UART0.</li>
+  <li><b>Giroscopio BNO055 - I2C (GPIO 21 y 22):</b> Corresponden a las patillas predeterminadas por hardware para el bus I2C (<b>SDA: GPIO 21, SCL: GPIO 22</b>), ofreciendo alta estabilidad en la lectura de la orientación.</li>
+  <li><b>Botón de Inicio (GPIO 15):</b> Configurado como entrada digital mediante lectura con resistencia <i>pull-down</i> interna para activar el arranque de carrera.</li>
+</ul>
+
 <p><b>Distribución de Pines en Heimdall (Pinout):</b></p>
 
 <table width="100%" style="border: 1px solid #444; border-collapse: collapse;">
@@ -1431,7 +1473,7 @@ Usa un circuito **puente H (H-bridge)** interno:
     <tr>
       <td rowspan="3" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>Control</b></td>
       <td style="padding: 10px; border: 1px solid #444;">Motor Tracción (IN1/IN2)</td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">19, 18</td
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">19, 18</td>
     </tr>
     <tr>
       <td style="padding: 10px; border: 1px solid #444;">Encoder</td>
@@ -1456,11 +1498,11 @@ Usa un circuito **puente H (H-bridge)** interno:
     </tr>
     <tr>
       <td rowspan="1" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>UART</b></td>
-      <td style="padding: 10px; border: 1px solid #444;">Huskylens2 (RX2: 16, TX2:17)</td>
+      <td style="padding: 10px; border: 1px solid #444;">Huskylens2 (RX2: 16, TX2: 17)</td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">16, 17</td>
     </tr>
     <tr>
-      <td rowspan="2" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>I2C  & Sistema</b></td>
+      <td rowspan="2" style="padding: 10px; border: 1px solid #444; text-align: center;"><b>I2C & Sistema</b></td>
       <td style="padding: 10px; border: 1px solid #444;">Giroscopio BNO055 (SDA: 21 / SCL: 22)</td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">21, 22</td>
     </tr>
@@ -1471,16 +1513,16 @@ Usa un circuito **puente H (H-bridge)** interno:
   </tbody>
 </table>
 
-<p align="right">
-  <a href="#inicio">Volver Al Inicio</a>
-</p>
+> [!WARNING]
+> **Pines Prohibidos y Limite de Hardware (SPI Flash & Input Only):**
+> * **GPIO 6 al 11 (PROHIBIDOS):** Conectados internamente a la memoria SPI Flash integrada. **Deben mantenerse completamente libres**, de lo contrario la ESP32 no podrá ejecutar el programa y quedará en bucle de reinicio (*crash loop*).
+> * **GPIO 34, 35, 36 y 39 (Input Only):** Son pines diseñados **únicamente como entradas digital/analógica**. No poseen la electrónica necesaria para conmutar salidas ni resistencias de *pull-up/pull-down* configurables por código.
 
-<br>
-<hr>
-
-## 3.3 Diagrama de Conexiones
-
-<img src="./schemes/electronics/heimdall_diagrama.jpg" alt="Diagrama de Conexiones" width=70%>
+> [!TIP]
+> **Recomendaciones de Selección de Pines:**
+> * **Reserva los pines GPI (34 y 35) para entradas:** Al no poseer etapa de salida, son idóneos para recibir pulsos de encoders, liberando pines con capacidad PWM para el control de actuadores.
+> * **Prioriza ADC1 sobre ADC2:** Para entradas analógicas adicionales, utiliza pines del bloque ADC1 (GPIO 32 a 39), ya que el bloque ADC2 puede generar lecturas erróneas si la conectividad Wi-Fi está activa.
+> * **Conserva los buses por hardware:** Mantén el uso de los pines nativos para **I2C** (SDA: 21, SCL: 22) y **UART2** (RX2: 16, TX2: 17) para garantizar la máxima velocidad de comunicación sin sobrecargar la CPU remapeando pines por software..
 
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
@@ -1488,7 +1530,53 @@ Usa un circuito **puente H (H-bridge)** interno:
 
 ---
 
-## 3.3.1 Consumo de Energia
+## 3.3.2 Gestion de Energia
+
+<p>
+  La gestión de energía en Heimdall implementa un <b>esquema de regulación segmentada</b> derivado de la batería principal de 12V. Esta distribución independiza la etapa de potencia, los procesadores de visión y la lógica de control, garantizando estabilidad operativa y evitando caídas de voltaje (<i>brownouts</i>) en la tarjeta principal:
+</p>
+
+```mermaid
+graph TD
+    %% Fuente Principal
+    BAT[Batería 12V LiPo] -->|12V Directos| L298N_PWR[L298N - Etapa Potencia]
+    BAT -->|12V Entrada| LM_6V[LM2596 Step-Down 1]
+    BAT -->|12V Entrada| LM_5V[LM2596 Step-Down 2]
+
+    %% Riel 12V
+    L298N_PWR -->|12V PWM| MOT[Motor GA37-520]
+
+    %% Riel 6V
+    LM_6V -->|6V Regulated| SERVO[Servo INJORA 180°]
+
+    %% Riel 5V Buck
+    LM_5V -->|5V Regulated| HUSKY[HuskyLens 2]
+
+    %% Riel 5V L298N
+    L298N_PWR -->|5V Reg. Interno| ESP32[ESP32-WROOM-32]
+    L298N_PWR -->|5V Reg. Interno| HC[3x Ultrasónicos HC-SR04]
+    L298N_PWR -->|5V Reg. Interno| BNO[Giroscopio BNO055]
+```
+
+<ul>
+  <li>
+    <b>Riel Principal de Potencia (12V Directos):</b> La batería alimenta directamente la etapa de potencia del controlador L298N y el motor de tracción (GA37-520). Este riel absorbe transitorios y picos mecánicos de hasta <b>2.1A</b> sin afectar la electrónica sensible.
+  </li>
+  <li>
+    <b>Alimentación Dedicada para Dirección (LM2596 Step-Down a 6V):</b> El servomotor INJORA se alimenta mediante un regulador buck independiente ajustado a 6V. Contar con su propia línea evita que los picos de hasta <b>1.5A</b> generados por el torque del servo causen caídas de tensión en los componentes lógicos.
+  </li>
+  <li>
+    <b>Alimentación Exclusiva para Visión (LM2596 Step-Down a 5V):</b> Se utiliza un segundo convertidor buck ajustado a 5V para alimentar únicamente la HuskyLens 2. Esto provee un flujo de corriente continuo y limpio (350mA - 600mA) indispensable para el procesamiento en tiempo real.
+  </li>
+  <li>
+    <b>Línea de Control e Inercial (5V Salida L298N):</b> El regulador lineal interno de 5V del driver L298N se aprovecha para energizar la ESP32, el giroscopio BNO055 y los tres sensores ultrasónicos HC-SR04. Con un consumo nominal combinado de solo <b>172.5 mA</b>, se mantiene muy por debajo del límite operativo del regulador del puente H.
+  </li>
+  <li>
+    <b>Masa Común (GND):</b> Todas las líneas de masa del sistema se encuentran unificadas para garantizar una referencia fija en los buses de comunicación I2C, UART y las señales de control PWM.
+  </li>
+</ul>
+
+<p><b>Resumen de Consumo de Corriente por Componente:</b></p>
 
 <table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
   <thead>
@@ -1560,6 +1648,111 @@ Usa un circuito **puente H (H-bridge)** interno:
     </tr>
   </tbody>
 </table>
+
+<p><b>Balance de Carga por Línea de Alimentación:</b></p>
+
+<table style="border: 1px solid #444; border-collapse: collapse; width: 100%;">
+  <thead>
+    <tr style="background-color: rgba(255, 255, 255, 0.08); border-bottom: 2px solid #444;">
+      <th style="padding: 10px; border: 1px solid #444; text-align: left;">Línea de Alimentación</th>
+      <th style="padding: 10px; border: 1px solid #444; text-align: left;">Cargas Conectadas</th>
+      <th style="padding: 10px; border: 1px solid #444; text-align: center;">Consumo Nominal</th>
+      <th style="padding: 10px; border: 1px solid #444; text-align: center;">Consumo Pico Max.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;"><b>12V Directo</b></td>
+      <td style="padding: 10px; border: 1px solid #444;">Motor GA37-520 + L298N (Lógica)</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">1.07 A</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">2.10 A</td>
+    </tr>
+    <tr style="background-color: rgba(255, 255, 255, 0.02);">
+      <td style="padding: 10px; border: 1px solid #444;"><b>6V Buck (LM2596 #1)</b></td>
+      <td style="padding: 10px; border: 1px solid #444;">Servomotor INJORA 180°</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">0.50 A</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">1.50 A</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #444;"><b>5V Buck (LM2596 #2)</b></td>
+      <td style="padding: 10px; border: 1px solid #444;">HuskyLens 2</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">0.50 A</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">0.60 A</td>
+    </tr>
+    <tr style="background-color: rgba(255, 255, 255, 0.02);">
+      <td style="padding: 10px; border: 1px solid #444;"><b>5V Salida L298N</b></td>
+      <td style="padding: 10px; border: 1px solid #444;">ESP32 + 3x HC-SR04 + BNO055</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">0.17 A</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">0.40 A</td>
+    </tr>
+  </tbody>
+</table>
+
+<p align="right">
+  <a href="#inicio">Volver Al Inicio</a>
+</p>
+
+---
+
+## 3.3.3 Sistema de Alimentacion
+
+El diseño del sistema de alimentación de Heimdall se concibió bajo los principios de **eficiencia energética, estabilidad de voltaje e inmunidad al ruido electromagnético**. Debido a que el robot combina componentes con requerimientos eléctricos muy divergentes (actuadores inductivos de alto consumo junto a sensores inerciales y de visión de alta precisión), la arquitectura resuelve tres desafíos críticos:
+
+* **Topología de Regulación Conmutada vs. Lineal:**
+  * Se seleccionaron convertidores conmutados (*Buck Converters* LM2596) para los rieles de 6V y 5V principales debido a su alta eficiencia (hasta 92%), reduciendo la disipación de calor y optimizando la autonomía de la batería.
+  * Se reservó la regulación lineal integrada del L298N exclusivamente para la ESP32 y sensores (BNO055, HC-SR04), garantizando un rizado de voltaje (*ripple*) mínimo para la estabilidad del procesamiento.
+* **Desacoplamiento y Protección Transitoria:**
+  * **Aislamiento inductivo:** La separación de líneas previene los reinicios imprevistos (*brownouts*) en la ESP32 cuando el motor principal exige picos de arranque (*stall current*) de hasta 2A.
+  * **Interruptor General (Master Switch):** Colocado en el polo positivo de los 12V para permitir un corte de energía rápido y seguro en pista.
+
+#### Diagrama de Flujo del Diseño de Alimentación
+
+```mermaid
+graph TD
+    %% Entradas y Criterios
+    BAT[Batería 12V LiPo] --> SW[Master Switch / Corte General]
+    
+    %% Ramificación por Criterio de Carga
+    SW -->|Carga Inductiva Variable| BUCK1[LM2596 #1: 6V Step-Down]
+    SW -->|Procesamiento de Visión Continuo| BUCK2[LM2596 #2: 5V Step-Down]
+    SW -->|Alta Potencia / Transitorios| L298N_PWR[L298N: Etapa Potencia 12V]
+    
+    %% Salidas a Componentes
+    BUCK1 -->|Voltaje Dedicado| SERVO[Servo INJORA - Dirección]
+    BUCK2 -->|Voltaje Dedicado| HUSKY[HuskyLens 2 - Cámara]
+    L298N_PWR -->|PWM 12V| MOT[Motor GA37-520 - Tracción]
+    
+    %% Regulador Secundario Lineal
+    L298N_PWR -->|Regulador Lineal Interno 5V| REG_5V[Riel de Control 5V]
+    REG_5V --> MCU[ESP32-WROOM-32]
+    REG_5V --> SENS[3x HC-SR04 + Giroscopio BNO055]
+```
+
+<p><b>Esquema Técnico de Aislamiento Eléctrico:</b></p>
+
+```mermaid
+flowchart LR
+    subgraph ETAPA_ALTA ["Etapa de Alta Potencia (12V / 6V)"]
+        BAT_IN["Batería 12V"]
+        M_TRAC["Motor GA37-520"]
+        S_DIR["Servo INJORA"]
+    end
+
+    subgraph ETAPA_BAJA ["Etapa Lógica y Sensórica (5V / 3.3V)"]
+        ESP["ESP32 Controller"]
+        CAM["HuskyLens 2"]
+        IMU["BNO055 IMU"]
+        SONAR["Sensores HC-SR04"]
+    end
+
+    BAT_IN -.->|Regulación Buck / Lineal| ETAPA_BAJA
+    ETAPA_BAJA -->|Señales Control PWM / UART / I2C| ETAPA_ALTA
+    ETAPA_ALTA -.->|Masa Unificada GND| ETAPA_BAJA
+```
+
+> [!TIP]
+> **Criterio de Aislamiento y Punto Común de Masa (Star Grounding):**
+> Aunque las etapas de potencia (12V/6V) y lógica (5V/3.3V) operan en rieles de voltaje independientes, todas comparten una referencia de masa unificada. Para prevenir bucles de tierra (*ground loops*) y evitar que el ruido del motor altere las lecturas del giroscopio BNO055 o la cámara HuskyLens 2, la conexión a GND se realiza en una **topología en estrella (Star Ground)** conectada directamente al terminal negativo de la batería LiPo.
 
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
