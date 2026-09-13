@@ -1665,7 +1665,7 @@ graph TD
       <td style="padding: 10px; border: 1px solid #444;"><b>12V Directo</b></td>
       <td style="padding: 10px; border: 1px solid #444;">Motor GA37-520 + L298N (Lógica)</td>
       <td style="padding: 10px; border: 1px solid #444; text-align: center;">1.07 A</td>
-      <td style="padding: 10px; border: 1px solid #444; text-align: center;">2.10 A</td>
+      <td style="padding: 10px; border: 1px solid #444; text-align: center;">2 A</td>
     </tr>
     <tr style="background-color: rgba(255, 255, 255, 0.02);">
       <td style="padding: 10px; border: 1px solid #444;"><b>6V Buck (LM2596 #1)</b></td>
@@ -1735,19 +1735,30 @@ flowchart LR
     subgraph ETAPA_ALTA ["Etapa de Alta Potencia (12V / 6V)"]
         BAT_IN["Batería 12V"]
         M_TRAC["Motor GA37-520"]
-        S_DIR["Servo INJORA"]
+        S_DIR["Servo INJORA 180°"]
     end
 
     subgraph ETAPA_BAJA ["Etapa Lógica y Sensórica (5V / 3.3V)"]
         ESP["ESP32 Controller"]
         CAM["HuskyLens 2"]
         IMU["BNO055 IMU"]
-        SONAR["Sensores HC-SR04"]
+        SONAR["3x HC-SR04"]
     end
 
-    BAT_IN -.->|Regulación Buck / Lineal| ETAPA_BAJA
-    ETAPA_BAJA -->|Señales Control PWM / UART / I2C| ETAPA_ALTA
-    ETAPA_ALTA -.->|Masa Unificada GND| ETAPA_BAJA
+    %% Líneas de Alimentación (Punteadas)
+    BAT_IN -.->|Regulación Buck / Lineal| ESP
+    BAT_IN -.->|Regulación Buck| CAM
+
+    %% Líneas de Control (Sólidas)
+    ESP -->|Señales PWM| M_TRAC
+    ESP -->|Señales PWM| S_DIR
+    ESP <-->|UART / I2C| CAM
+    ESP <-->|I2C| IMU
+    ESP <-->|Trig / Echo| SONAR
+
+    %% Masa Unificada
+    M_TRAC -.->|GND Estrella| ESP
+    S_DIR -.->|GND Estrella| ESP
 ```
 
 > [!TIP]
