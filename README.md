@@ -1731,34 +1731,46 @@ graph TD
 <p><b>Esquema Técnico de Aislamiento Eléctrico:</b></p>
 
 ```mermaid
-flowchart LR
-    subgraph ETAPA_ALTA ["Etapa de Alta Potencia (12V / 6V)"]
-        BAT_IN["Batería 12V"]
-        M_TRAC["Motor GA37-520"]
-        S_DIR["Servo INJORA 180°"]
-    end
+graph TD
+    %% Nivel 1: Fuente principal
+    BAT[Batería 12V LiPo]
 
-    subgraph ETAPA_BAJA ["Etapa Lógica y Sensórica (5V / 3.3V)"]
-        ESP["ESP32 Controller"]
-        CAM["HuskyLens 2"]
-        IMU["BNO055 IMU"]
-        SONAR["3x HC-SR04"]
-    end
+    %% Nivel 2: Reguladores y Potencia
+    L298N[L298N Driver]
+    BUCK_6V[LM2596 6V]
+    BUCK_5V[LM2596 5V]
 
-    %% Líneas de Alimentación (Punteadas)
-    BAT_IN -.->|Regulación Buck / Lineal| ESP
-    BAT_IN -.->|Regulación Buck| CAM
+    BAT -->|12V Directos| L298N
+    BAT -->|12V Entrada| BUCK_6V
+    BAT -->|12V Entrada| BUCK_5V
 
-    %% Líneas de Control (Sólidas)
-    ESP -->|Señales PWM| M_TRAC
-    ESP -->|Señales PWM| S_DIR
-    ESP <-->|UART / I2C| CAM
-    ESP <-->|I2C| IMU
-    ESP <-->|Trig / Echo| SONAR
+    %% Nivel 3: Distribución a Actuadores y Control
+    MOT[Motor GA37-520]
+    SERVO[Servo INJORA 180°]
+    HUSKY[HuskyLens 2]
+    ESP[ESP32 Controller]
 
-    %% Masa Unificada
-    M_TRAC -.->|GND Estrella| ESP
-    S_DIR -.->|GND Estrella| ESP
+    L298N -->|Potencia 12V| MOT
+    BUCK_6V -->|500mA - 1.5A| SERVO
+    BUCK_5V -->|500mA| HUSKY
+    L298N -->|5V Lógica Interna| ESP
+
+    %% Nivel 4: Sensórica e Interconexión de Control
+    IMU[Giroscopio BNO055]
+    SONAR[3x HC-SR04]
+
+    ESP -->|Reg. 3.3V / I2C| IMU
+    ESP -->|5V / GPIO| SONAR
+    ESP -->|PWM| L298N
+    ESP -->|PWM| SERVO
+    ESP <-->|UART / I2C| HUSKY
+
+    %% Referencia GND
+    GND((Masa Común Estrella))
+    L298N --- GND
+    BUCK_6V --- GND
+    BUCK_5V --- GND
+    ESP --- GND
 ```
 
 > [!TIP]
