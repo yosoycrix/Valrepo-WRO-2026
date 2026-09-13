@@ -1392,8 +1392,22 @@ Usa un circuito **puente H (H-bridge)** interno:
 </table>
 
 <p style="margin-top: 15px;">
-  El <b>ESP32-WROOM-32</b> es un potente módulo MCU todo-en-uno que actúa como el cerebro central de <b>Heimdall</b>. Elegimos esta plataforma por su arquitectura de doble núcleo, que permite gestionar procesos multihilo: mientras un núcleo se encarga de la lógica de visión artificial, el otro procesa la lectura de sensores ultrasónicos y el control PID en tiempo real. Su versatilidad lo hace ideal para robótica móvil, permitiendo una programación eficiente mediante Arduino IDE.
+  El <b>ESP32-WROOM-32</b> es un potente módulo MCU todo-en-uno que actúa como el cerebro central de <b>Heimdall</b>. Elegimos esta plataforma principalmente por su elevada velocidad de procesamiento (240 MHz) y su arquitectura de doble núcleo, que permite gestionar procesos multihilo: mientras un núcleo se encarga de la lógica de visión artificial, el otro procesa la lectura de sensores ultrasónicos y el control PID en tiempo real. Su versatilidad lo hace ideal para robótica móvil, permitiendo una programación eficiente mediante Arduino IDE.
 </p>
+
+<p><b>¿Por qué elegimos el ESP32 sobre otros microcontroladores?</b></p>
+<p>
+  Frente a alternativas tradicionales como el Arduino Mega o el Raspberry Pi Pico, el ESP32 ofrece la mayor frecuencia de reloj (240 MHz) y una arquitectura nativa de doble núcleo a un bajo consumo energético. Esta velocidad de cómputo superior es fundamental para ejecutar la FSM y los algoritmos PID sin retrasos de procesamiento al recibir paquetes pesados por UART desde la HuskyLens 2.
+</p>
+
+| Criterio | ESP32-WROOM-32 | Arduino Mega 2560 | Raspberry Pi Pico (RP2040) |
+| :--- | :--- | :--- | :--- |
+| **Frecuencia de CPU** | **240 MHz (Dual-Core)** | 16 MHz (Single-Core) | 133 MHz (Dual-Core) |
+| **Memoria SRAM** | **520 KB** | 8 KB | 264 KB |
+| **Memoria Flash** | **4 MB** | 256 KB | 2 MB |
+| **Arquitectura** | **32-bit Xtensa LX6** | 8-bit AVR | 32-bit ARM Cortex-M0+ |
+| **Multihilo Nativo** | **Sí (FreeRTOS / 2 Cores)** | No | Limitado |
+| **Rendimiento PID / Visión** | **Excelente (Sin latencia)** | Deficiente (Cuello de botella) | Aceptable |
 
 <p><b>Ventajas para nuestro robot Heimdall:</b></p>
 
@@ -1417,7 +1431,7 @@ Usa un circuito **puente H (H-bridge)** interno:
 </ul>
 
 > [!WARNING]
-> ☑️ **Niveles Lógicos:** El módulo opera estrictamente a 3.3V. Todos los periféricos de 5V integrados en Heimdall pasan por una etapa de acondicionamiento de señal para proteger las entradas del WROOM-32.
+> ☑️ **Niveles Lógicos:** El módulo opera strictly a 3.3V. Todos los periféricos de 5V integrados en Heimdall pasan por una etapa de acondicionamiento de señal para proteger las entradas del WROOM-32.
 
 <p align="right">
   <a href="#inicio">Volver Al Inicio</a>
