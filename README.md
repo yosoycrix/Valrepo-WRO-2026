@@ -2184,23 +2184,13 @@ graph LR
 <hr style="border-color: #30363d; margin: 25px 0;">
 
 <!-- Modo de Uso en Heimdall -->
-<h4>¿De qué manera lo utilizamos en <em>Heimdall</em>?</h4>
+### ¿De qué manera lo utilizamos en *Heimdall*?
 
-<div style="display: flex; gap: 15px; margin: 15px 0; flex-wrap: wrap;">
-  <div style="flex: 1; min-width: 250px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px;">
-    <h5 style="margin-top: 0; color: #3fb950;">1. PID de Dirección (Servo Ackermann)</h5>
-    <p style="font-size: 0.88em; color: #c9d1d9;">
-      El error $e[n]$ representa el desplazamiento del centro del carril detectado por la visión computacional (HuskyLens 2). La salida $u[n]$ ajusta el ángulo del servo respetando la geometría de dirección para evitar derrapes.
-    </p>
-  </div>
+> **1. PID de Dirección (Servo Ackermann)**
+> El error *e[n]* representa el desplazamiento del centro del carril detectado por la visión computacional (HuskyLens 2). La salida *u[n]* ajusta el ángulo del servo respetando la geometría de dirección para evitar derrapes.
 
-  <div style="flex: 1; min-width: 250px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px;">
-    <h5 style="margin-top: 0; color: #3fb950;">2. PID de Orientación Giroscópica (IMU BNO055)</h5>
-    <p style="font-size: 0.88em; color: #c9d1d9;">
-      Durante las rectas prolongadas o maniobras de evasión, el error $e[n]$ es la diferencia entre el ángulo Yaw objetivo y el medido por la IMU. Garantiza un avance rectilíneo perfecto eliminando desviaciones por asimetría mecánica.
-    </p>
-  </div>
-</div>
+> **2. PID de Orientación Giroscópica (IMU BNO055)**
+> Durante las rectas prolongadas o maniobras de evasión, el error *e[n]* es la diferencia entre el ángulo Yaw objetivo y el medido por la IMU. Garantiza un avance rectilíneo perfecto eliminando desviaciones por asimetría mecánica.
 
 ---
 
@@ -2221,7 +2211,7 @@ graph LR
 
 | Característica | Implementación Convencional | Arquitectura de *Heimdall* | Beneficio Directo |
 | :--- | :--- | :--- | :--- |
-| **Estructura** | Bloqueante con <code>delay()</code> | FSM no bloqueante en FreeRTOS | Respuestas instantáneas ante imprevistos en pista. |
+| **Estructura** | Bloqueante con `delay()` | FSM no bloqueante en FreeRTOS | Respuestas instantáneas ante imprevistos en pista. |
 | **Control de Giro** | Proporcional básico o On/Off | **PID Discreto con Anti-Windup** | Trazo fluido sin oscilaciones en la dirección Ackermann. |
 | **Filtrado** | Datos crudos de sensores | Filtro Paso Bajo + BNO055 Fusion | Señales estables libres de ruido térmico y vibración. |
 | **Consumo Térmico** | Servo forzado por correcciones bruscas | Transiciones continuas $K_p/K_d$ | Menor consumo de batería y mayor vida útil de servos. |
