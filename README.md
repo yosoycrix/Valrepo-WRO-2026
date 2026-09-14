@@ -282,22 +282,96 @@ Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay qu
 
 <img src="./images/heimdall_final1.jpeg" alt="Hei=mdall3d" width=80%>
 
-<h2>2.4 Movilidad</h2>
+## 2.4 Movilidad
 
-<p>Ahora bien, ya habiendo dilucidado cómo podemos elegir, diseñar e imprimir las piezas de nuestro robot, hay que asegurarnos de que este cuente con las herramientas necesarias para moverse y evadir los obstáculos de la pista.</p>
+### Justificación Técnica de la Arquitectura de Movilidad de *Heimdall*
 
-<p>Nuestro robot emplea un <strong>sistema de tracción diferencial</strong>, ofreciendo maniobrabilidad precisa para enfrentar los retos del campo de competencia. El sistema de cruces se realiza mediante un servo que ajusta la dirección del robot en intersecciones de forma eficaz. También cabe destacar el hecho de que utilizamos una técnica llamada <strong>Ackermann Positivo</strong> para emplear el sistema de movilidad de nuestro vehículo.</p>
+Una vez definidas la selección, diseño y manufactura por impresión 3D de los componentes mecánicos de *Heimdall*, el siguiente hito fundamental consiste en garantizar un sistema de locomoción que combine alta maniobrabilidad, velocidad y control preciso para enfrentar las exigencias del circuito de competencia.
 
+Para responder a estos requerimientos, se desestimaron las configuraciones tradicionales de robótica móvil orientándonos hacia una arquitectura inspirada en la automoción de alto rendimiento: **Dirección delantera con Geometría Ackermann Positiva asistida por Servo, acoplada a una Tracción Trasera Diferencial con Encoders**.
+
+```mermaid
+graph TD
+    A["Análisis de Requerimientos en Pista"] --> B["Búsqueda de Máxima Adherencia y Altas Velocidades"]
+    B --> C["Selección: Dirección Ackermann Positiva + Tracción Trasera"]
+    
+    C --> D["Eje Delantero: Dirección Guiada"]
+    C --> E["Eje Trasero: Tracción y Empuje"]
+    
+    D --> F["Geometría Ackermann (CIR Único)"]
+    E --> G["Diferencial / Encoders Independientes"]
+    
+    F --> H["Rodadura Limpia (0% Arrastre Transversal)"]
+    G --> I["Potencia Constante sin Pérdida de Control"]
+```
+#### ¿Por qué elegimos esta arquitectura sobre otros sistemas?
+
+**1. Dinámica de Giro y Geometría del Centro Instantáneo de Rotación (CIR):**
+En un vehículo en viraje, la rueda ubicada en el interior de la curva describe un arco con un radio notablemente menor que la rueda ubicada en el exterior. Si ambas ruedas girasen en el mismo ángulo (dirección paralela), la rueda interna se vería forzada a arrastrarse transversalmente sobre el piso. 
+
+La **Geometría Ackermann Positiva** resuelve este dilema mediante un eslabonamiento mecánico diseñado para que el ángulo de viraje de la rueda interna ($\theta_{in}$) sea mayor que el de la rueda externa ($\theta_{out}$). Esto garantiza que las perpendiculares trazadas desde los ejes de ambas ruedas delanteras y el eje trasero converjan en un único punto geométrico conocido como el **Centro Instantáneo de Rotación (CIR)**.
+
+```mermaid
+graph LR
+    subgraph Geometria_Ackermann[" Principio del CIR Único "]
+        direction TB
+        R1["Rueda Delantera Interior (Ángulo Mayor θ_in)"]
+        R2["Rueda Delantera Exterior (Ángulo Menor θ_out)"]
+        R3["Eje Trasero Rígido / Diferencial"]
+    end
+    
+    R1 -->|"Perpendicular"| CIR(("Punto CIR Único"))
+    R2 -->|"Perpendicular"| CIR
+    R3 -->|"Prolongación del Eje"| CIR
+```
+
+<p align="center">
   <img src="./images/cruce.jpeg" alt="Delantera del vehículo" width="80%">
+  <br>
+  <em>Figura 2.1: Implementación del tren delantero de Heimdall con manguetas y servo de dirección Ackermann.</em>
+</p>
 
 > [!NOTE]
- El diferencial de los vehículos, como su nombre lo indica, permite que exista una diferencia en la velocidad de giro entre la rueda interna y la rueda externa del vehículo cuando se da una vuelta o se está girando la dirección. No importa si el vehículo es tracción trasera o delantera, la función es la misma.
+> **Función del Diferencial en el Eje de Tracción:**
+> El diferencial permite que exista una diferencia en la velocidad de giro entre la rueda interna y la rueda externa del vehículo al tomar una curva. Independientemente de si la tracción es delantera o trasera, este mecanismo es vital para evitar el deslizamiento de las ruedas motrices cuando recorren distancias desiguales durante un viraje.
 
-  <a href="https://postimg.cc/G4sWpg3Z">
-    <img src="https://i.postimg.cc/K89xJC6v/10a4.jpg" alt="10a4.jpg" width="60%">
+<p align="center">
+  <a href="https://postimg.cc/G4sWpg3Z" target="_blank">
+    <img src="https://i.postimg.cc/K89xJC6v/10a4.jpg" alt="Diagrama Mecánico del Diferencial" width="60%">
   </a>
+  <br>
+  <em>Figura 2.2: Esquema cinemático del diferencial trasero implementado en el sistema de tracción.</em>
+</p>
 
-<hr>
+**2. Optimización del Agarre y Conservación de Energía:**
+En la tracción diferencial pura (2WD o tipo tanque), los giros se efectúan forzando el deslizamiento relativo de los cauchos contra la pista. En *Heimdall*, al lograr una rodadura pura mediante Ackermann, se elimina el desprendimiento de fricción parásita. Esto trae tres grandes ventajas mecánicas y térmicas:
+* **Cero Arrastre Lateral:** Previene el desgaste acelerado y el ablandamiento de los cauchos por fricción térmica.
+* **Reducción de Esfuerzos Estructurales:** Evita someter los nudillos, manguetas y chasis impresos en **PETG-CF** a momentos de torsión o esfuerzo cortante innecesarios.
+* **Eficiencia Energética:** La Batería LiPo no pierde energía disipando potencia contra la pista en forma de fricción, maximizando la aceleración disponible en tramos rectos.
+
+**3. Transición de Carga y Estabilidad de Lectura (IMU y Odometría):**
+Los cambios bruscos de orientación típicos de la tracción diferencial generan sobrepicos en el giroscopio y desacoplamientos bruscos en el PID de dirección. El viraje guiado por Ackermann genera una transferencia de peso progresiva hacia las ruedas exteriores durante la curva. Esto garantiza lecturas estables en el giroscopio **BNO055** y evita descalibraciones en los *encoders* traseros, permitiendo una odometría de altísima fidelidad.
+
+---
+
+#### Desglose de Inconvenientes de las Alternativas Rechazadas
+
+* **Tracción Diferencial Pura (2WD / Tank Drive):** Aunque es mecánicamente simple, su dinámica a alta velocidad provoca el efecto conocido como *chattering* o bamboleo del PID cuando intenta corregir trayectoria en recta. Además, no cuenta con un eje de dirección independiente, forzando al algoritmo a alternar constantemente la potencia de los motores.
+* **Sistemas Holonómicos (Omnidireccionales / Mecanum):** A pesar de su capacidad para desplazarse en 360°, los rodillos de las ruedas omnidireccionales sufren de un margen de deslizamiento constante (*slip ratio*). Esto hace impredecible la trayectoria matemática a alta velocidad y destruye la odometría por fricción irregular contra el suelo.
+
+---
+
+### Cuadro Comparativo Técnico de Movilidad
+
+| Criterio de Selección | Dirección Ackermann + Tracción Trasera (*Heimdall*) | Tracción Diferencial Pura (2WD / Tanque) | Sistemas Holonómicos (Omni / Mecanum) |
+| :--- | :--- | :--- | :--- |
+| **Mecanismo Cinemático** | Servo en eje delantero con trapecio Ackermann + Motores en eje trasero | Diferencia de velocidad angular entre ruedas izquierda y derecha | Vectores de velocidad independientes en 3 o 4 ruedas con rodillos |
+| **Punto CIR (Centro Instantáneo)** | **Único y Variable:** Convergencia geométrica perfecta en todo el rango de giro | **Fijo en el Eje Trasero:** Fuerza el arrastre del resto de la estructura | **Inexistente / Volátil:** Cambia según el deslizamiento de los rodillos |
+| **Estabilidad a Alta Velocidad** | **Muy Alta:** Comportamiento idéntico al de un vehículo real sin coleos | **Media/Baja:** Propenso a sobrevirajes e inestabilidad del PID de dirección | **Baja:** El movimiento vectorial es susceptible a turbulencias y derrapes |
+| **Eficiencia de Fricción** | **Máxima:** Rodadura pura sin arrastre transversal de los cauchos | **Baja:** Las ruedas sufren arrastre transversal continuo durante giros | **Muy Baja:** Pérdida masiva de potencia por el juego libre de los rodillos |
+| **Fiabilidad de Odometría (Encoders + IMU)** | **Muy Alta:** El deslizamiento mínimo garantiza lecturas lineales exactas | **Media:** El derrape en curvas introduce errores acumulativos en la posición | **Deficiente:** El vector de desplazamiento sufre deslizamiento imponderable |
+| **Radio Mínimo de Giro** | Limitado mecánicamente por el rango del servo y geometría de manguetas | Giro sobre su propio centro de masa (Radio cero) | Omnidireccional (Capacidad de desplazamiento lateral directo) |
+| **Complejidad de Control** | **Optimizada:** Control desacoplado (Servo = Dirección, Motores = Tracción) | **Acoplada:** Tracción y Dirección comparten los mismos actuadores | **Compleja:** Exige matrices de transformación cinemática continuas |
 
 ### 2.5 Sistema de Movimiento y Tracción
 
@@ -2206,7 +2280,7 @@ graph LR
 
 <div style="background-color: #161b22; border-left: 4px solid #d29922; border-radius: 6px; padding: 16px; margin: 20px 0;">
   <p style="margin-top: 0; margin-bottom: 10px; color: #d29922; font-weight: bold; font-size: 0.95em;">
-    Advertencias Técnicas y Fenómenos a Prevenir en el PID
+    <strong>Advertencias Técnicas y Fenómenos a Prevenir en el PID</strong>
   </p>
   <ul style="margin: 0; padding-left: 20px; color: #c9d1d9; font-size: 0.88em;">
     <li style="margin-bottom: 8px;">
@@ -2226,7 +2300,7 @@ graph LR
 
 <div style="background-color: #161b22; border-left: 4px solid #2f81f7; border-radius: 6px; padding: 16px; margin: 20px 0;">
   <p style="margin-top: 0; margin-bottom: 10px; color: #2f81f7; font-weight: bold; font-size: 0.95em;">
-    Procedimiento Práctico de Sintonización en Pista (Tuning)
+    <strong>Procedimiento Práctico de Sintonización en Pista (Tuning)</strong>
   </p>
   <ul style="margin: 0; padding-left: 20px; color: #c9d1d9; font-size: 0.88em;">
     <li style="margin-bottom: 8px;">
@@ -3265,7 +3339,7 @@ void detenerMotor() {
 </details>
 
 <details style="border: 1px solid #30363d; padding: 15px; border-radius: 8px; margin-bottom: 15px; background-color: #0d1117;">
-  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em; color: #58a6ff;">4. Algoritmo de Control PID y Discriminación de Visión (HuskyLens)</summary>
+  <summary style="font-weight: bold; cursor: pointer; font-size: 1.1em; color: #58a6ff;">4. Algoritmo de Control PID, Discriminación de Visión (HuskyLens) y Seguimiento de Carril</summary>
   <div style="margin-top: 10px;">
     <p>Contiene el bucle de control en lazo cerrado para la rectificación de dirección y el procesamiento del flujo de datos serie proveniente de la cámara HuskyLens 2.</p>
 
