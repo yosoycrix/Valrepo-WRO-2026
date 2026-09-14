@@ -2217,7 +2217,7 @@ graph LR
 
 ---
 
-<h3>Resumen de Beneficios del Firmware Optimizado</h3>
+### Resumen de Beneficios del Firmware Optimizado
 
 | Característica | Implementación Convencional | Arquitectura de *Heimdall* | Beneficio Directo |
 | :--- | :--- | :--- | :--- |
