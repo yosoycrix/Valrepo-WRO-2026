@@ -2010,6 +2010,250 @@ graph TD
 
 ## 4. Apartado de Programacion
 
+<p>El firmware de <em>Heimdall</em> está estructurado bajo un enfoque modular orientado a tiempo real sobre el microcontrolador ESP32. Para lograr un comportamiento autónomo predecible y altamente reactivo, el software se divide en dos pilares fundamentales: una <strong>Máquina de Estados Finitos (FSM)</strong> para la toma de decisiones lógicas y un <b>Controlador PID (Proporcional-Integral-Derivativo)</b> para la corrección continua del avance y la dirección.</p>
+
+<hr style="border-color: #30363d; margin: 25px 0;">
+
+## 4.1 Máquina de Estados Finitos (FSM) Coordinada
+
+<p>En lugar de una arquitectura secuencial rígida basada en retardos (<code>delay()</code>), la lógica de control emplea una FSM no bloqueante impulsada por eventos y lecturas de sensores (cámara HuskyLens 2, IMU BNO055 y encoders). Esto garantiza que el robot pueda interrumpir o transicionar de estado en microsegundos ante cualquier imprevisto en la pista.</p>
+
+```mermaid
+graph TD
+    %% Estilos de Nodos
+    classDef startEnd fill:#238636,stroke:#2ea043,stroke-width:2px,color:#fff;
+    classDef state fill:#161b22,stroke:#30363d,stroke-width:2px,color:#c9d1d9;
+    classDef alert fill:#da3633,stroke:#f85149,stroke-width:2px,color:#fff;
+
+    %% Definición de Nodos
+    START((Inicio)) ::: startEnd
+    INIT[1. INIT<br/>Calibracion Hardware] ::: state
+    SCAN[2. SCAN_START<br/>Busqueda de Orientacion] ::: state
+    TRACK[3. TRACKING<br/>Lazo Principal PID] ::: state
+    AVOID[4. OBSTACLE_AVOID<br/>Rebase Vectorial] ::: state
+    CORNER[5. CORNERING<br/>Viraje Asistido IMU] ::: state
+    STOP[6. STOP<br/>Fin de Carrera] ::: startEnd
+    EMERGENCY[7. EMERGENCY_STOP<br/>Parada de Seguridad] ::: alert
+    END_NODE((Fin)) ::: startEnd
+
+    %% Conexiones
+    START --> INIT
+    INIT -->|Sensores OK| SCAN
+    SCAN -->|Bloque / Linea| TRACK
+    
+    %% Bucle Principal de Control
+    TRACK -->|Obstaculo| AVOID
+    AVOID -->|Esquiva OK| TRACK
+    
+    TRACK -->|Curva Detectada| CORNER
+    CORNER -->|Giro OK| TRACK
+    
+    %% Condición de Fin
+    TRACK -->|Vueltas Completadas| STOP
+    STOP --> END_NODE
+    
+    %% Paradas de Emergencia
+    AVOID -->|Bloqueo / Colision| EMERGENCY
+    CORNER -->|Derrape / Yaw Error| EMERGENCY
+    EMERGENCY --> END_NODE
+```
+
+<h3>Lazo Cerrado de Control PID de Dirección</h3>
+
+<p>Para corregir las desviaciones dinámicas respecto al centro del carril o mantener el rumbo deseado durante los tramos rectos, el firmware procesa la ecuación discreta del algoritmo PID en cada ciclo de ejecución de $10\text{ ms}$:</p>
+
+<div style="display: flex; gap: 15px; margin: 15px 0; flex-wrap: wrap;">
+  <div style="flex: 1; min-width: 220px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px;">
+    <h4 style="margin-top: 0; color: #58a6ff;">Término Proporcional ($K_p$)</h4>
+    <p style="font-size: 0.88em; color: #c9d1d9; margin-bottom: 0;">Responde de forma inmediata y directa al error de alineación actual ($e(t)$). Genera el par primario de giro sobre el servo en función del descentramiento detectado por la HuskyLens 2.</p>
+  </div>
+  <div style="flex: 1; min-width: 220px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px;">
+    <h4 style="margin-top: 0; color: #58a6ff;">Término Integral ($K_i$)</h4>
+    <p style="font-size: 0.88em; color: #c9d1d9; margin-bottom: 0;">Acumula los errores pasados en el tiempo. Permite corregir desviaciones sistemáticas permanentes provocadas por holguras mecánicas o imperfecciones en la superficie de la pista.</p>
+  </div>
+  <div style="flex: 1; min-width: 220px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px;">
+    <h4 style="margin-top: 0; color: #58a6ff;">Término Derivativo ($K_d$)</h4>
+    <p style="font-size: 0.88em; color: #c9d1d9; margin-bottom: 0;">Evalúa la tasa de variación instantánea del error. Actúa como un freno amortiguador que anticipa el sobrepaso (<i>overshoot</i>) para estabilizar el chasis antes de volver al centro.</p>
+  </div>
+</div>
+
+<div style="background-color: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 15px; margin: 20px 0; text-align: center;">
+  <h4 style="margin-top: 0; color: #f0f6fc;">Diagrama de Bloques del Lazo Cerrado de Control</h4>
+  
+```mermaid
+graph LR
+    classDef input fill:#1f6beb,stroke:#388bfd,stroke-width:1px,color:#fff;
+    classDef sum fill:#30363d,stroke:#8b949e,stroke-width:2px,color:#fff;
+    classDef esp fill:#238636,stroke:#2ea043,stroke-width:1px,color:#fff;
+    classDef plant fill:#8957e5,stroke:#a371f7,stroke-width:1px,color:#fff;
+    classDef sensor fill:#9e6a03,stroke:#d29922,stroke-width:1px,color:#fff;
+
+    SP["<b>Setpoint r(t)</b><br/>Centro de Carril / Yaw = 0°"] ::: input
+    SUM((<b>Σ</b>)) ::: sum
+    
+    subgraph ESP32[" ESP32-WROOM (Firmware) "]
+        CONTROLLER["<b>Algoritmo PID Discreto</b><br/>u[n] = Kp·e + Ki·Σe·Δt + Kd·Δe/Δt"] ::: esp
+    end
+
+    subgraph ACTUATOR[" Actuador y Planta "]
+        SERVO["<b>Servo de Dirección</b><br/>Ángulo θ (Ackermann)"] ::: plant
+        ROBOT["<b>Dinámica de Heimdall</b><br/>Trayectoria en Pista"] ::: plant
+    end
+
+    subgraph SENSORS[" Sistema de Realimentación "]
+        FEEDBACK["<b>HuskyLens 2 / IMU BNO055</b><br/>Posición y Yaw Medido y(t)"] ::: sensor
+    end
+
+    SP -->|"+"| SUM
+    SUM -->|"- Error e(t)"| CONTROLLER
+    CONTROLLER -->|"u[n]"| SERVO
+    SERVO --> ROBOT
+    ROBOT --> FEEDBACK
+    FEEDBACK -->|"- Realimentación"| SUM
+```
+
+  <p style="margin-bottom: 0; font-size: 0.85em; color: #8b949e;">
+    <em>Estructura de realimentación continua entre la HuskyLens 2 / BNO055, el ESP32 y el servo de dirección Ackermann.</em>
+  </p>
+</div>
+
+<h3>Comparativa y Análisis Matemático del Sistema PID</h3>
+
+<p>
+  El control **PID (Proporcional-Integral-Derivativo)** es el núcleo algorítmico que permite a <em>Heimdall</em> mantener una trayectoria precisa y corregir las desviaciones del chasis en tiempo real. A continuación, se detallan sus bases matemáticas, su modo de aplicación directa en la dirección/tracción y sus ventajas frente a otros métodos de control.
+</p>
+
+<!-- Cuadro Comparativo de Sistemas de Control -->
+<h4>Matriz Comparativa de Métodos de Control</h4>
+
+<table width="100%" style="border-collapse: collapse; margin: 15px 0; border: 1px solid #30363d; font-size: 14px;">
+  <thead style="background-color: #161b22; color: #f0f6fc;">
+    <tr>
+      <th style="padding: 10px; border: 1px solid #30363d; text-align: left;">Sistema de Control</th>
+      <th style="padding: 10px; border: 1px solid #30363d; text-align: left;">Principio de Funcionamiento</th>
+      <th style="padding: 10px; border: 1px solid #30363d; text-align: left;">Respuesta Dinámica</th>
+      <th style="padding: 10px; border: 1px solid #30363d; text-align: left;">Impacto Mecánico / Térmico</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #30363d;"><b>Control On-Off (Todo / Nada)</b></td>
+      <td style="padding: 10px; border: 1px solid #30363d;">Aplica corrección máxima o nula según el signo del error.</td>
+      <td style="padding: 10px; border: 1px solid #30363d; color: #f85149;">Inestable; produce oscilación constante (<i>hunting</i>) alrededor del centro.</td>
+      <td style="padding: 10px; border: 1px solid #30363d;">Sobrecarga el servo de dirección y aumenta la fatiga en los nudillos de PETG-CF.</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #30363d;"><b>Control Proporcional Puro (P)</b></td>
+      <td style="padding: 10px; border: 1px solid #30363d;">Ajusta el giro de forma proporcional al error actual ($u(t) = K_p \cdot e(t)$).</td>
+      <td style="padding: 10px; border: 1px solid #30363d; color: #d29922;">Aceptable, pero deja un error en estado estacionario sin corregir.</td>
+      <td style="padding: 10px; border: 1px solid #30363d;">Respuesta brusca en giros cerrados si $K_p$ es muy elevado.</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #30363d;"><b>Control PID Continuo (Implementado)</b></td>
+      <td style="padding: 10px; border: 1px solid #30363d;">Combina la acción del error presente ($P$), la historia del error ($I$) y la velocidad de cambio ($D$).</td>
+      <td style="padding: 10px; border: 1px solid #30363d; color: #3fb950;"><b>Excelente;</b> trazo suave, sin sobrepaso y corrección de deriva instantánea.</td>
+      <td style="padding: 10px; border: 1px solid #30363d;">Movimientos fluidos en el servo, menor consumo energético y conservación de componentes.</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr style="border-color: #30363d; margin: 25px 0;">
+
+<!-- Ecuaciones e Implementación Discreta -->
+<h4>Formulación Matemática y Discretización en Código</h4>
+
+<p>
+  En la teoría de control continuo, la señal de salida $u(t)$ se define mediante la ecuación diferencial fundamental:
+</p>
+
+<p align="center" style="font-size: 1.15em; color: #f0f6fc;">
+  $$u(t) = K_p \cdot e(t) + K_i \int_{0}^{t} e(\tau) \, d\tau + K_d \frac{de(t)}{dt}$$
+</p>
+
+<p>
+  Dado que el microcontrolador (ESP32) procesa datos a intervalos discretos de tiempo ($\Delta t$), la ecuación se aproxima numéricamente en el firmware de la siguiente manera:
+</p>
+
+<div style="display: flex; gap: 15px; margin: 15px 0; flex-wrap: wrap;">
+  <div style="flex: 1; min-width: 280px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px;">
+    <h5 style="margin-top: 0; color: #58a6ff;">Ecuación Discreta Implementada</h5>
+    <p align="center" style="font-size: 1.05em; color: #f0f6fc;">
+      $$u[n] = K_p \cdot e[n] + K_i \sum_{k=0}^{n} (e[k] \cdot \Delta t) + K_d \left( \frac{e[n] - e[n-1]}{\Delta t} \right)$$
+    </p>
+  </div>
+
+  <div style="flex: 1; min-width: 280px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px;">
+    <h5 style="margin-top: 0; color: #58a6ff;">Variables del Lazo</h5>
+    <ul style="margin-bottom: 0; padding-left: 20px; font-size: 0.88em; color: #c9d1d9;">
+      <li><b>$e[n]$:</b> Error actual ($Target - Actual$).</li>
+      <li><b>$e[n-1]$:</b> Error en la iteración anterior.</li>
+      <li><b>$\Delta t$:</b> Tiempo transcurrido entre lecturas (fijado en $10\text{ ms}$).</li>
+      <li><b>$u[n]$:</b> Salida de ángulo para el servo o comando PWM para tracción.</li>
+    </ul>
+  </div>
+</div>
+
+<hr style="border-color: #30363d; margin: 25px 0;">
+
+<!-- Modo de Uso en Heimdall -->
+<h4>¿De qué manera lo utilizamos en <em>Heimdall</em>?</h4>
+
+<div style="display: flex; gap: 15px; margin: 15px 0; flex-wrap: wrap;">
+  <div style="flex: 1; min-width: 250px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px;">
+    <h5 style="margin-top: 0; color: #3fb950;">1. PID de Dirección (Servo Ackermann)</h5>
+    <p style="font-size: 0.88em; color: #c9d1d9;">
+      El error $e[n]$ representa el desplazamiento del centro del carril detectado por la visión computacional (HuskyLens 2). La salida $u[n]$ ajusta el ángulo del servo respetando la geometría de dirección para evitar derrapes.
+    </p>
+  </div>
+
+  <div style="flex: 1; min-width: 250px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px;">
+    <h5 style="margin-top: 0; color: #3fb950;">2. PID de Orientación Giroscópica (IMU BNO055)</h5>
+    <p style="font-size: 0.88em; color: #c9d1d9;">
+      Durante las rectas prolongadas o maniobras de evasión, el error $e[n]$ es la diferencia entre el ángulo Yaw objetivo y el medido por la IMU. Garantiza un avance rectilíneo perfecto eliminando desviaciones por asimetría mecánica.
+    </p>
+  </div>
+</div>
+
+> [!WARNING]
+> ### Advertencias Técnicas y Fenómenos a Prevenir en el PID
+>
+> 1. **Integral Windup (Saturación Integral):**
+>    * **Riesgo:** Si el robot se queda atascado físicamente contra un obstáculo, la acumulación del término $K_i$ crecerá descontroladamente. Al liberarse, el robot girará bruscamente fuera de control.
+>    * **Solución en Código:** Implementar un límite máximo o <i>Clamping</i> en la suma acumulada de la integral ($I_{max}$).
+>
+> 2. **Ruido Derivativo:**
+>    * **Riesgo:** Pequeños saltos bruscos en las lecturas de la cámara o la IMU generan picos gigantescos en la derivada ($K_d$), provocando vibraciones fuertes en el servo de dirección.
+>    * **Solución en Código:** Aplicar un filtro de media móvil o un filtro paso bajo (<i>Low-Pass Filter</i>) a la lectura del error antes de calcular la derivada.
+>
+> 3. **Frecuencia de Muestreo Variable ($\Delta t$ Unstable):**
+>    * **Riesgo:** Si el tiempo entre iteraciones del PID no es estrictamente constante, la integral y la derivada calculan valores erróneos.
+>    * **Solución en Código:** Calcular el lazo dentro de una tarea de FreeRTOS con tiempo fijo o asegurando la diferencia exacta con <code>micros()</code>.
+>
+> 4. **Saturación del Actuador (Servo Limit):**
+>    * **Riesgo:** Un cálculo desmedido de $u(t)$ puede requerir un ángulo superior al rango físico del sistema Ackermann, forzando mecánicamente las articulaciones impresas en PETG-CF.
+>    * **Solución en Código:** Acotar electrónicamente la salida $u(t)$ entre $[\theta_{min}, \theta_{max}]$ para no sobrepasar el límite físico de los nudillos.
+
+<hr style="border-color: #30363d; margin: 25px 0;">
+
+> [!TIP]
+> ### Procedimiento Práctico de Sintonización en Pista (Tuning)
+>
+> * **Paso 1 (Proporcional Puro):** Fijar $K_i = 0$ y $K_d = 0$. Incrementar $K_p$ progresivamente hasta que el robot siga la línea o carril pero comience a oscilar suavemente de un lado a otro.
+> * **Paso 2 (Amortiguamiento Derivativo):** Aumentar $K_d$ paulatinamente para amortiguar el bamboleo introducido por $K_p$. Ajustar hasta que la entrada al tramo recto sea limpia y sin rebotes.
+> * **Paso 3 (Ajuste Integral Fino):** Introducir valores muy pequeños de $K_i$ únicamente si se detecta un sesgo constante hacia un lado de la pista producido por la asimetría del peso o desgaste desigual en los cauchos.
+
+<hr style="border-color: #30363d; margin: 25px 0;">
+
+<h3>Resumen de Beneficios del Firmware Optimizado</h3>
+
+| Característica | Implementación Convencional | Arquitectura de *Heimdall* | Beneficio Directo |
+| :--- | :--- | :--- | :--- |
+| **Estructura** | Bloqueante con <code>delay()</code> | FSM no bloqueante en FreeRTOS | Respuestas instantáneas ante imprevistos en pista. |
+| **Control de Giro** | Proporcional básico o On/Off | **PID Discreto con Anti-Windup** | Trazo fluido sin oscilaciones en la dirección Ackermann. |
+| **Filtrado** | Datos crudos de sensores | Filtro Paso Bajo + BNO055 Fusion | Señales estables libres de ruido térmico y vibración. |
+| **Consumo Térmico** | Servo forzado por correcciones bruscas | Transiciones continuas $K_p/K_d$ | Menor consumo de batería y mayor vida útil de servos. |
+| **Gobernanza** | Bucle único secuencial | Asignación Dual-Core en ESP32 | Procesamiento paralelo de algoritmos sin cuello de botella. |
+
 ## 4.1 Desafio Abierto
 
 * **Objetivo:** El robot autónomo debe completar con éxito **3 vueltas consecutivas** al circuito en el menor tiempo posible, manteniendo un control absoluto de su trayectoria y deteniéndose de forma controlada al finalizar el recorrido.
