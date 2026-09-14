@@ -2202,6 +2202,44 @@ graph LR
   </div>
 </div>
 
+---
+
+<div style="background-color: #161b22; border-left: 4px solid #d29922; border-radius: 6px; padding: 16px; margin: 20px 0;">
+  <p style="margin-top: 0; margin-bottom: 10px; color: #d29922; font-weight: bold; font-size: 0.95em;">
+    Advertencias Técnicas y Fenómenos a Prevenir en el PID
+  </p>
+  <ul style="margin: 0; padding-left: 20px; color: #c9d1d9; font-size: 0.88em;">
+    <li style="margin-bottom: 8px;">
+      <b>Integral Windup (Saturación Integral):</b> Si el robot se queda atascado, la acumulación de <i>K<sub>i</sub></i> crecerá descontroladamente. <b>Solución:</b> Implementar un límite máximo (<i>Clamping</i>) en la suma acumulada de la integral (<i>I<sub>max</sub></i>).
+    </li>
+    <li style="margin-bottom: 8px;">
+      <b>Ruido Derivativo:</b> Saltos bruscos en las lecturas generan picos en <i>K<sub>d</sub></i> que hacen vibrar el servo. <b>Solución:</b> Aplicar un filtro de media móvil o paso bajo (<i>Low-Pass Filter</i>) al error antes de calcular la derivada.
+    </li>
+    <li style="margin-bottom: 8px;">
+      <b>Frecuencia de Muestreo Variable (Δt Inestable):</b> Si el tiempo entre iteraciones no es constante, el cálculo del PID falla. <b>Solución:</b> Ejecutar el lazo dentro de una tarea de FreeRTOS con tiempo fijo o calcular la diferencia exacta con <code>micros()</code>.
+    </li>
+    <li style="margin-bottom: 0;">
+      <b>Saturación del Actuador (Límite del Servo):</b> Un ángulo <i>u(t)</i> desmedido fuerza las articulaciones mecánicas en PETG-CF. <b>Solución:</b> Acotar electrónicamente la salida <i>u(t)</i> entre [θ<sub>min</sub>, θ<sub>max</sub>] para no sobrepasar el límite de los nudillos.
+    </li>
+  </ul>
+</div>
+
+<div style="background-color: #161b22; border-left: 4px solid #2f81f7; border-radius: 6px; padding: 16px; margin: 20px 0;">
+  <p style="margin-top: 0; margin-bottom: 10px; color: #2f81f7; font-weight: bold; font-size: 0.95em;">
+    Procedimiento Práctico de Sintonización en Pista (Tuning)
+  </p>
+  <ul style="margin: 0; padding-left: 20px; color: #c9d1d9; font-size: 0.88em;">
+    <li style="margin-bottom: 8px;">
+      <b>Paso 1 (Proporcional Puro):</b> Fijar <i>K<sub>i</sub></i> = 0 y <i>K<sub>d</sub></i> = 0. Incrementar <i>K<sub>p</sub></i> progresivamente hasta que el robot siga el carril pero comience a oscilar suavemente de un lado a otro.
+    </li>
+    <li style="margin-bottom: 8px;">
+      <b>Paso 2 (Amortiguamiento Derivativo):</b> Aumentar <i>K<sub>d</sub></i> paulatinamente para amortiguar el bamboleo de <i>K<sub>p</sub></i> hasta que la entrada al tramo recto sea limpia y sin rebotes.
+    </li>
+    <li style="margin-bottom: 0;">
+      <b>Paso 3 (Ajuste Integral Fino):</b> Introducir valores muy pequeños de <i>K<sub>i</sub></i> únicamente si se detecta un sesgo constante hacia un lado de la pista por asimetría de peso o desgaste en los cauchos.
+    </li>
+  </ul>
+</div>
 
 ---
 
@@ -2214,19 +2252,6 @@ graph LR
 | **Filtrado** | Datos crudos de sensores | Filtro Paso Bajo + BNO055 Fusion | Señales estables libres de ruido térmico y vibración. |
 | **Consumo Térmico** | Servo forzado por correcciones bruscas | Transiciones continuas $K_p/K_d$ | Menor consumo de batería y mayor vida útil de servos. |
 | **Gobernanza** | Bucle único secuencial | Asignación Dual-Core en ESP32 | Procesamiento paralelo de algoritmos sin cuello de botella. |
-
----
-
-> [!WARNING]
-> * **Integral Windup (Saturación Integral):** Si el robot se queda atascado, la acumulación de Ki crecerá descontroladamente. **Solución:** Implementar un límite máximo (Clamping) en la suma acumulada de la integral (Imax).
-> * **Ruido Derivativo:** Saltos bruscos en las lecturas generan picos en Kd que hacen vibrar el servo. **Solución:** Aplicar un filtro de media móvil o paso bajo (Low-Pass Filter) al error antes de calcular la derivada.
-> * **Frecuencia de Muestreo Variable (Δt Inestable):** Si el tiempo entre iteraciones no es constante, el cálculo del PID falla. **Solución:** Ejecutar el lazo dentro de una tarea de FreeRTOS con tiempo fijo o calcular la diferencia exacta con `micros()`.
-> * **Saturación del Actuador (Límite del Servo):** Un ángulo u(t) desmedido fuerza las articulaciones mecánicas en PETG-CF. **Solución:** Acotar electrónicamente la salida u(t) entre [θmin, θmax] para no sobrepasar el límite de los nudillos.
-
-> [!TIP]
-> * **Paso 1 (Proporcional Puro):** Fijar Ki = 0 y Kd = 0. Incrementar Kp progresivamente hasta que el robot siga el carril pero comience a oscilar suavemente de un lado a otro.
-> * **Paso 2 (Amortiguamiento Derivativo):** Aumentar Kd paulatinamente para amortiguar el bamboleo de Kp hasta que la entrada al tramo recto sea limpia y sin rebotes.
-> * **Paso 3 (Ajuste Integral Fino):** Introducir valores muy pequeños de Ki únicamente si se detecta un sesgo constante hacia un lado de la pista por asimetría de peso o desgaste en los cauchos.
 
 ---
 
