@@ -2203,14 +2203,14 @@ graph LR
 </div>
 
 > [!WARNING]
-> ### Advertencias Técnicas y Fenómenos a Prevenir en el PID
+> **Advertencias Técnicas y Fenómenos a Prevenir en el PID**
 >
 > 1. **Integral Windup (Saturación Integral):**
->    * **Riesgo:** Si el robot se queda atascado físicamente contra un obstáculo, la acumulación del término *K<sub>i</sub>* crecerá descontroladamente. Al liberarse, el robot girará bruscamente fuera de control.
->    * **Solución en Código:** Implementar un límite máximo o *Clamping* en la suma acumulada de la integral (*I<sub>max</sub>*).
+>    * **Riesgo:** Si el robot se queda atascado físicamente contra un obstáculo, la acumulación del término *Ki* crecerá descontroladamente. Al liberarse, el robot girará bruscamente fuera de control.
+>    * **Solución en Código:** Implementar un límite máximo o *Clamping* en la suma acumulada de la integral (*Imax*).
 >
 > 2. **Ruido Derivativo:**
->    * **Riesgo:** Pequeños saltos bruscos en las lecturas de la cámara o la IMU generan picos gigantescos en la derivada (*K<sub>d</sub>*), provocando vibraciones fuertes en el servo de dirección.
+>    * **Riesgo:** Pequeños saltos bruscos en las lecturas de la cámara o la IMU generan picos gigantescos en la derivada (*Kd*), provocando vibraciones fuertes en el servo de dirección.
 >    * **Solución en Código:** Aplicar un filtro de media móvil o un filtro paso bajo (*Low-Pass Filter*) a la lectura del error antes de calcular la derivada.
 >
 > 3. **Frecuencia de Muestreo Variable (Δt Inestable):**
@@ -2219,16 +2219,16 @@ graph LR
 >
 > 4. **Saturación del Actuador (Límite del Servo):**
 >    * **Riesgo:** Un cálculo desmedido de *u(t)* puede requerir un ángulo superior al rango físico del sistema Ackermann, forzando mecánicamente las articulaciones impresas en PETG-CF.
->    * **Solución en Código:** Acotar electrónicamente la salida *u(t)* entre [θ<sub>min</sub>, θ<sub>max</sub>] para no sobrepasar el límite físico de los nudillos.
+>    * **Solución en Código:** Acotar electrónicamente la salida *u(t)* entre [θmin, θmax] para no sobrepasar el límite físico de los nudillos.
 
 ---
 
 > [!TIP]
-> ### Procedimiento Práctico de Sintonización en Pista (Tuning)
+> **Procedimiento Práctico de Sintonización en Pista (Tuning)**
 >
-> * **Paso 1 (Proporcional Puro):** Fijar *K<sub>i</sub>* = 0 y *K<sub>d</sub>* = 0. Incrementar *K<sub>p</sub>* progresivamente hasta que el robot siga la línea o carril pero comience a oscilar suavemente de un lado a otro.
-> * **Paso 2 (Amortiguamiento Derivativo):** Aumentar *K<sub>d</sub>* paulatinamente para amortiguar el bamboleo introducido por *K<sub>p</sub>*. Ajustar hasta que la entrada al tramo recto sea limpia y sin rebotes.
-> * **Paso 3 (Ajuste Integral Fino):** Introducir valores muy pequeños de *K<sub>i</sub>* únicamente si se detecta un sesgo constante hacia un lado de la pista producido por la asimetría del peso o desgaste desigual en los cauchos.
+> * **Paso 1 (Proporcional Puro):** Fijar *Ki* = 0 y *Kd* = 0. Incrementar *Kp* progresivamente hasta que el robot siga la línea o carril pero comience a oscilar suavemente de un lado a otro.
+> * **Paso 2 (Amortiguamiento Derivativo):** Aumentar *Kd* paulatinamente para amortiguar el bamboleo introducido por *Kp*. Ajustar hasta que la entrada al tramo recto sea limpia y sin rebotes.
+> * **Paso 3 (Ajuste Integral Fino):** Introducir valores muy pequeños de *Ki* únicamente si se detecta un sesgo constante hacia un lado de la pista producido por la asimetría del peso o desgaste desigual en los cauchos.
 
 <hr style="border-color: #30363d; margin: 25px 0;">
 
