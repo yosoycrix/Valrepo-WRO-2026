@@ -2206,29 +2206,29 @@ graph LR
 > ### Advertencias Técnicas y Fenómenos a Prevenir en el PID
 >
 > 1. **Integral Windup (Saturación Integral):**
->    * **Riesgo:** Si el robot se queda atascado físicamente contra un obstáculo, la acumulación del término $K_i$ crecerá descontroladamente. Al liberarse, el robot girará bruscamente fuera de control.
->    * **Solución en Código:** Implementar un límite máximo o <i>Clamping</i> en la suma acumulada de la integral ($I_{max}$).
+>    * **Riesgo:** Si el robot se queda atascado físicamente contra un obstáculo, la acumulación del término *K*<sub>*i*</sub> crecerá descontroladamente. Al liberarse, el robot girará bruscamente fuera de control.
+>    * **Solución en Código:** Implementar un límite máximo o *Clamping* en la suma acumulada de la integral (*I*<sub>*max*</sub>).
 >
 > 2. **Ruido Derivativo:**
->    * **Riesgo:** Pequeños saltos bruscos en las lecturas de la cámara o la IMU generan picos gigantescos en la derivada ($K_d$), provocando vibraciones fuertes en el servo de dirección.
->    * **Solución en Código:** Aplicar un filtro de media móvil o un filtro paso bajo (<i>Low-Pass Filter</i>) a la lectura del error antes de calcular la derivada.
+>    * **Riesgo:** Pequeños saltos bruscos en las lecturas de la cámara o la IMU generan picos gigantescos en la derivada (*K*<sub>*d*</sub>), provocando vibraciones fuertes en el servo de dirección.
+>    * **Solución en Código:** Aplicar un filtro de media móvil o un filtro paso bajo (*Low-Pass Filter*) a la lectura del error antes de calcular la derivada.
 >
-> 3. **Frecuencia de Muestreo Variable ($\Delta t$ Unstable):**
+> 3. **Frecuencia de Muestreo Variable (Δt Inestable):**
 >    * **Riesgo:** Si el tiempo entre iteraciones del PID no es estrictamente constante, la integral y la derivada calculan valores erróneos.
->    * **Solución en Código:** Calcular el lazo dentro de una tarea de FreeRTOS con tiempo fijo o asegurando la diferencia exacta con <code>micros()</code>.
+>    * **Solución en Código:** Calcular el lazo dentro de una tarea de FreeRTOS con tiempo fijo o asegurando la diferencia exacta con `micros()`.
 >
-> 4. **Saturación del Actuador (Servo Limit):**
->    * **Riesgo:** Un cálculo desmedido de $u(t)$ puede requerir un ángulo superior al rango físico del sistema Ackermann, forzando mecánicamente las articulaciones impresas en PETG-CF.
->    * **Solución en Código:** Acotar electrónicamente la salida $u(t)$ entre $[\theta_{min}, \theta_{max}]$ para no sobrepasar el límite físico de los nudillos.
+> 4. **Saturación del Actuador (Límite del Servo):**
+>    * **Riesgo:** Un cálculo desmedido de *u(t)* puede requerir un ángulo superior al rango físico del sistema Ackermann, forzando mecánicamente las articulaciones impresas en PETG-CF.
+>    * **Solución en Código:** Acotar electrónicamente la salida *u(t)* entre [θ<sub>min</sub>, θ<sub>max</sub>] para no sobrepasar el límite físico de los nudillos.
 
-<hr style="border-color: #30363d; margin: 25px 0;">
+---
 
 > [!TIP]
 > ### Procedimiento Práctico de Sintonización en Pista (Tuning)
 >
-> * **Paso 1 (Proporcional Puro):** Fijar $K_i = 0$ y $K_d = 0$. Incrementar $K_p$ progresivamente hasta que el robot siga la línea o carril pero comience a oscilar suavemente de un lado a otro.
-> * **Paso 2 (Amortiguamiento Derivativo):** Aumentar $K_d$ paulatinamente para amortiguar el bamboleo introducido por $K_p$. Ajustar hasta que la entrada al tramo recto sea limpia y sin rebotes.
-> * **Paso 3 (Ajuste Integral Fino):** Introducir valores muy pequeños de $K_i$ únicamente si se detecta un sesgo constante hacia un lado de la pista producido por la asimetría del peso o desgaste desigual en los cauchos.
+> * **Paso 1 (Proporcional Puro):** Fijar *K*<sub>*i*</sub> = 0 y *K*<sub>*d*</sub> = 0. Incrementar *K*<sub>*p*</sub> progresivamente hasta que el robot siga la línea o carril pero comience a oscilar suavemente de un lado a otro.
+> * **Paso 2 (Amortiguamiento Derivativo):** Aumentar *K*<sub>*d*</sub> paulatinamente para amortiguar el bamboleo introducido por *K*<sub>*p*</sub>. Ajustar hasta que la entrada al tramo recto sea limpia y sin rebotes.
+> * **Paso 3 (Ajuste Integral Fino):** Introducir valores muy pequeños de *K*<sub>*i*</sub> únicamente si se detecta un sesgo constante hacia un lado de la pista producido por la asimetría del peso o desgaste desigual en los cauchos.
 
 <hr style="border-color: #30363d; margin: 25px 0;">
 
@@ -2241,6 +2241,8 @@ graph LR
 | **Filtrado** | Datos crudos de sensores | Filtro Paso Bajo + BNO055 Fusion | Señales estables libres de ruido térmico y vibración. |
 | **Consumo Térmico** | Servo forzado por correcciones bruscas | Transiciones continuas $K_p/K_d$ | Menor consumo de batería y mayor vida útil de servos. |
 | **Gobernanza** | Bucle único secuencial | Asignación Dual-Core en ESP32 | Procesamiento paralelo de algoritmos sin cuello de botella. |
+
+---
 
 ## 4.1 Desafio Abierto
 
