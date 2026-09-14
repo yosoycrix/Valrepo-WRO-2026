@@ -2202,6 +2202,8 @@ graph LR
   </div>
 </div>
 
+---
+
 > [!WARNING]
 > * **Integral Windup (Saturación Integral):** Si el robot se queda atascado, la acumulación de Ki crecerá descontroladamente. **Solución:** Implementar un límite máximo (Clamping) en la suma acumulada de la integral (Imax).
 > * **Ruido Derivativo:** Saltos bruscos en las lecturas generan picos en Kd que hacen vibrar el servo. **Solución:** Aplicar un filtro de media móvil o paso bajo (Low-Pass Filter) al error antes de calcular la derivada.
