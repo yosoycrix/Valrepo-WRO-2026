@@ -2203,7 +2203,7 @@ graph LR
 </div>
 
 > [!WARNING]
-> Advertencias Técnicas y Fenómenos a Prevenir en el PID
+> ## Advertencias Técnicas y Fenómenos a Prevenir en el PID
 >
 > 1. **Integral Windup (Saturación Integral):**
 >    * **Riesgo:** Si el robot se queda atascado físicamente contra un obstáculo, la acumulación del término *K*<sub>*i*</sub> crecerá descontroladamente. Al liberarse, el robot girará bruscamente fuera de control.
@@ -2224,7 +2224,7 @@ graph LR
 ---
 
 > [!TIP]
-> Procedimiento Práctico de Sintonización en Pista (Tuning)
+> ## Procedimiento Práctico de Sintonización en Pista (Tuning)
 >
 > * **Paso 1 (Proporcional Puro):** Fijar *K*<sub>*i*</sub> = 0 y *K*<sub>*d*</sub> = 0. Incrementar *K*<sub>*p*</sub> progresivamente hasta que el robot siga la línea o carril pero comience a oscilar suavemente de un lado a otro.
 > * **Paso 2 (Amortiguamiento Derivativo):** Aumentar *K*<sub>*d*</sub> paulatinamente para amortiguar el bamboleo introducido por *K*<sub>*p*</sub>. Ajustar hasta que la entrada al tramo recto sea limpia y sin rebotes.
