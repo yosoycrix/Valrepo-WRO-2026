@@ -2014,7 +2014,7 @@ graph TD
 
 <hr style="border-color: #30363d; margin: 25px 0;">
 
-## 4.1 Máquina de Estados Finitos (FSM) Coordinada
+## Máquina de Estados Finitos (FSM) Coordinada
 
 <p>En lugar de una arquitectura secuencial rígida basada en retardos (<code>delay()</code>), la lógica de control emplea una FSM no bloqueante impulsada por eventos y lecturas de sensores (cámara HuskyLens 2, IMU BNO055 y encoders). Esto garantiza que el robot pueda interrumpir o transicionar de estado en microsegundos ante cualquier imprevisto en la pista.</p>
 
@@ -2109,7 +2109,7 @@ graph LR
 <h3>Comparativa y Análisis Matemático del Sistema PID</h3>
 
 <p>
-  El control **PID (Proporcional-Integral-Derivativo)** es el núcleo algorítmico que permite a <em>Heimdall</em> mantener una trayectoria precisa y corregir las desviaciones del chasis en tiempo real. A continuación, se detallan sus bases matemáticas, su modo de aplicación directa en la dirección/tracción y sus ventajas frente a otros métodos de control.
+  El control <strong>PID (Proporcional-Integral-Derivativo)</strong> es el núcleo algorítmico que permite a <em>Heimdall</em> mantener una trayectoria precisa y corregir las desviaciones del chasis en tiempo real. A continuación, se detallan sus bases matemáticas, su modo de aplicación directa en la dirección/tracción y sus ventajas frente a otros métodos de control.
 </p>
 
 <!-- Cuadro Comparativo de Sistemas de Control -->
@@ -2203,7 +2203,7 @@ graph LR
 </div>
 
 > [!WARNING]
-> ### Advertencias Técnicas y Fenómenos a Prevenir en el PID
+> Advertencias Técnicas y Fenómenos a Prevenir en el PID
 >
 > 1. **Integral Windup (Saturación Integral):**
 >    * **Riesgo:** Si el robot se queda atascado físicamente contra un obstáculo, la acumulación del término *K*<sub>*i*</sub> crecerá descontroladamente. Al liberarse, el robot girará bruscamente fuera de control.
@@ -2224,7 +2224,7 @@ graph LR
 ---
 
 > [!TIP]
-> ### Procedimiento Práctico de Sintonización en Pista (Tuning)
+> Procedimiento Práctico de Sintonización en Pista (Tuning)
 >
 > * **Paso 1 (Proporcional Puro):** Fijar *K*<sub>*i*</sub> = 0 y *K*<sub>*d*</sub> = 0. Incrementar *K*<sub>*p*</sub> progresivamente hasta que el robot siga la línea o carril pero comience a oscilar suavemente de un lado a otro.
 > * **Paso 2 (Amortiguamiento Derivativo):** Aumentar *K*<sub>*d*</sub> paulatinamente para amortiguar el bamboleo introducido por *K*<sub>*p*</sub>. Ajustar hasta que la entrada al tramo recto sea limpia y sin rebotes.
