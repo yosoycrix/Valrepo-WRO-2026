@@ -2020,42 +2020,39 @@ graph TD
 
 ```mermaid
 graph TD
-    %% Estilos de Nodos
-    classDef startEnd fill:#238636,stroke:#2ea043,stroke-width:2px,color:#fff;
-    classDef state fill:#161b22,stroke:#30363d,stroke-width:2px,color:#c9d1d9;
-    classDef alert fill:#da3633,stroke:#f85149,stroke-width:2px,color:#fff;
+    START((Inicio))
+    INIT["1. INIT<br/>Calibracion Hardware"]
+    SCAN["2. SCAN_START<br/>Busqueda de Orientacion"]
+    TRACK["3. TRACKING<br/>Lazo Principal PID"]
+    AVOID["4. OBSTACLE_AVOID<br/>Rebase Vectorial"]
+    CORNER["5. CORNERING<br/>Viraje Asistido IMU"]
+    STOP["6. STOP<br/>Fin de Carrera"]
+    EMERGENCY["7. EMERGENCY_STOP<br/>Parada de Seguridad"]
+    END_NODE((Fin))
 
-    %% Definición de Nodos
-    START((Inicio)) ::: startEnd
-    INIT[1. INIT<br/>Calibracion Hardware] ::: state
-    SCAN[2. SCAN_START<br/>Busqueda de Orientacion] ::: state
-    TRACK[3. TRACKING<br/>Lazo Principal PID] ::: state
-    AVOID[4. OBSTACLE_AVOID<br/>Rebase Vectorial] ::: state
-    CORNER[5. CORNERING<br/>Viraje Asistido IMU] ::: state
-    STOP[6. STOP<br/>Fin de Carrera] ::: startEnd
-    EMERGENCY[7. EMERGENCY_STOP<br/>Parada de Seguridad] ::: alert
-    END_NODE((Fin)) ::: startEnd
-
-    %% Conexiones
     START --> INIT
     INIT -->|Sensores OK| SCAN
     SCAN -->|Bloque / Linea| TRACK
     
-    %% Bucle Principal de Control
     TRACK -->|Obstaculo| AVOID
     AVOID -->|Esquiva OK| TRACK
     
     TRACK -->|Curva Detectada| CORNER
     CORNER -->|Giro OK| TRACK
     
-    %% Condición de Fin
     TRACK -->|Vueltas Completadas| STOP
     STOP --> END_NODE
     
-    %% Paradas de Emergencia
     AVOID -->|Bloqueo / Colision| EMERGENCY
     CORNER -->|Derrape / Yaw Error| EMERGENCY
     EMERGENCY --> END_NODE
+
+    classDef default fill:#161b22,stroke:#30363d,stroke-width:1px,color:#c9d1d9;
+    classDef startEnd fill:#238636,stroke:#2ea043,stroke-width:2px,color:#fff;
+    classDef alert fill:#da3633,stroke:#f85149,stroke-width:2px,color:#fff;
+
+    class START,STOP,END_NODE startEnd;
+    class EMERGENCY alert;
 ```
 
 <h3>Lazo Cerrado de Control PID de Dirección</h3>
@@ -2079,37 +2076,29 @@ graph TD
 
 <div style="background-color: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 15px; margin: 20px 0; text-align: center;">
   <h4 style="margin-top: 0; color: #f0f6fc;">Diagrama de Bloques del Lazo Cerrado de Control</h4>
-  
+
 ```mermaid
 graph LR
-    classDef input fill:#1f6beb,stroke:#388bfd,stroke-width:1px,color:#fff;
-    classDef sum fill:#30363d,stroke:#8b949e,stroke-width:2px,color:#fff;
-    classDef esp fill:#238636,stroke:#2ea043,stroke-width:1px,color:#fff;
-    classDef plant fill:#8957e5,stroke:#a371f7,stroke-width:1px,color:#fff;
-    classDef sensor fill:#9e6a03,stroke:#d29922,stroke-width:1px,color:#fff;
+    SP["Setpoint r(t)<br/>Centro del Carril / Yaw = 0 deg"]
+    SUM(("Σ"))
+    CONTROLLER["<b>Algoritmo PID Discreto</b><br/>u[n] = Kp·e + Ki·Σe·Δt + Kd·Δe/Δt"]
+    SERVO["<b>Servo de Dirección</b><br/>Ángulo θ (Ackermann)"]
+    ROBOT["<b>Dinámica de Heimdall</b><br/>Trayectoria en Pista"]
+    FEEDBACK["<b>HuskyLens 2 / IMU BNO055</b><br/>Posición y Yaw Medido y(t)"]
 
-    SP["<b>Setpoint r(t)</b><br/>Centro de Carril / Yaw = 0°"] ::: input
-    SUM((<b>Σ</b>)) ::: sum
-    
-    subgraph ESP32[" ESP32-WROOM (Firmware) "]
-        CONTROLLER["<b>Algoritmo PID Discreto</b><br/>u[n] = Kp·e + Ki·Σe·Δt + Kd·Δe/Δt"] ::: esp
-    end
-
-    subgraph ACTUATOR[" Actuador y Planta "]
-        SERVO["<b>Servo de Dirección</b><br/>Ángulo θ (Ackermann)"] ::: plant
-        ROBOT["<b>Dinámica de Heimdall</b><br/>Trayectoria en Pista"] ::: plant
-    end
-
-    subgraph SENSORS[" Sistema de Realimentación "]
-        FEEDBACK["<b>HuskyLens 2 / IMU BNO055</b><br/>Posición y Yaw Medido y(t)"] ::: sensor
-    end
-
-    SP -->|"+"| SUM
+    SP -->|"+" Setpoint| SUM
     SUM -->|"- Error e(t)"| CONTROLLER
     CONTROLLER -->|"u[n]"| SERVO
     SERVO --> ROBOT
     ROBOT --> FEEDBACK
     FEEDBACK -->|"- Realimentación"| SUM
+
+    classDef default fill:#161b22,stroke:#30363d,stroke-width:1px,color:#c9d1d9;
+    classDef esp fill:#238636,stroke:#2ea043,stroke-width:1px,color:#fff;
+    classDef plant fill:#8957e5,stroke:#a371f7,stroke-width:1px,color:#fff;
+    
+    class CONTROLLER esp;
+    class SERVO,ROBOT plant;
 ```
 
   <p style="margin-bottom: 0; font-size: 0.85em; color: #8b949e;">
@@ -2182,15 +2171,14 @@ graph LR
     </p>
   </div>
 
-  <div style="flex: 1; min-width: 280px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px;">
-    <h5 style="margin-top: 0; color: #58a6ff;">Variables del Lazo</h5>
-    <ul style="margin-bottom: 0; padding-left: 20px; font-size: 0.88em; color: #c9d1d9;">
-      <li><b>$e[n]$:</b> Error actual ($Target - Actual$).</li>
-      <li><b>$e[n-1]$:</b> Error en la iteración anterior.</li>
-      <li><b>$\Delta t$:</b> Tiempo transcurrido entre lecturas (fijado en $10\text{ ms}$).</li>
-      <li><b>$u[n]$:</b> Salida de ángulo para el servo o comando PWM para tracción.</li>
-    </ul>
-  </div>
+<div style="flex: 1; min-width: 280px; background-color: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 15px;">
+  <h5 style="margin-top: 0; color: #58a6ff;">Variables del Lazo</h5>
+  <ul style="margin-bottom: 0; padding-left: 20px; font-size: 0.88em; color: #c9d1d9;">
+    <li><b><i>e[n]</i>:</b> Error actual (<i>Target − Actual</i>).</li>
+    <li><b><i>e[n-1]</i>:</b> Error en la iteración anterior.</li>
+    <li><b>Δt:</b> Tiempo transcurrido entre lecturas (fijado en 10 ms).</li>
+    <li><b><i>u[n]</i>:</b> Salida de ángulo para el servo o comando PWM para tracción.</li>
+  </ul>
 </div>
 
 <hr style="border-color: #30363d; margin: 25px 0;">
