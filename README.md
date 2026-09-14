@@ -2213,7 +2213,7 @@ graph LR
 > * **Paso 2 (Amortiguamiento Derivativo):** Aumentar Kd paulatinamente para amortiguar el bamboleo de Kp hasta que la entrada al tramo recto sea limpia y sin rebotes.
 > * **Paso 3 (Ajuste Integral Fino):** Introducir valores muy pequeños de Ki únicamente si se detecta un sesgo constante hacia un lado de la pista por asimetría de peso o desgaste en los cauchos.
 
-<hr style="border-color: #30363d; margin: 25px 0;">
+---
 
 <h3>Resumen de Beneficios del Firmware Optimizado</h3>
 
