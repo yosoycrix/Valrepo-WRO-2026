@@ -46,10 +46,13 @@
     - [4.2.1 Flowchart Cerrada](#421-flowchart-cerrada)
     - [4.2.2 Explicación del Codigo](#422-explicacion-del-codigo)
     - [4.2.3 Pruebas de Esquivamiento](#423-pruebas-de-esquivamiento)
-- [5. Pensamiento Sistemico y Decisiones de Ingeneria](#5-pensamiento'sistemico-y-decisiones-de-ingeneria)
+- [5. Pensamiento Sistemico y Decisiones de Ingeneria](#5-pensamiento-sistemico-y-decisiones-de-ingeneria)
+  - [5.1 Enfoque de Pensamiento Sistemico](#51-enfoque-de-pensamiento-sistémico)
+  - [5.2 Trade Offs e Iteraciones de Ingeneria](#52-trade-offs-e-iteraciones-de-ingeniería)
+  - [5.3 Validacion Robutez e Itegracion Tecnica](#53-validación-robustez-e-integración-técnica)
+  - [5.4 Diario de Ingeneria Bitacora de Componentes e Iteraciones](#54-diario-de-ingeniería-bitácora-de-componentes-e-iteraciones)
 - [6. Randomizador](#6-Randomizador)
 - [7. Recursos para armar nuestro robot](#7-recursos-para-hacer-el-robot)
-
 
 ---
 
@@ -3976,20 +3979,20 @@ sequenceDiagram
 <ul>
   <li><strong>Bucle de Control PID Angular (Realimentación Negativa):</strong>
     <ul>
-      <li><strong>Mecánica &rarr; Sensórica &rarr; Software &rarr; Mecánica:</strong> La inclinación o desvío físico del chasis es detectada por la IMU <strong>BNO055</strong> (eje Z/Yaw)[cite: 2]. El <strong>ESP32</strong> procesa el error respecto a la consigna y recalcula el ángulo del servomotor <strong>Injora</strong> mediante la geometría Ackermann[cite: 2]. El giro de las ruedas delanteras corrige el vector de avance, cerrando el bucle y anulando el error de desviación[cite: 2].</li>
+      <li><strong>Mecánica &rarr; Sensórica &rarr; Software &rarr; Mecánica:</strong> La inclinación o desvío físico del chasis es detectada por la IMU <strong>BNO055</strong> (eje Z/Yaw). El <strong>ESP32</strong> procesa el error respecto a la consigna y recalcula el ángulo del servomotor <strong>Injora</strong> mediante la geometría Ackermann. El giro de las ruedas delanteras corrige el vector de avance, cerrando el bucle y anulando el error de desviación.</li>
     </ul>
   </li>
   <li><strong>Bucle de Transferencia de Carga y Tracción (Realimentación Positiva Desestabilizadora):</strong>
     <ul>
-      <li><strong>Software &rarr; Electrónica &rarr; Mecánica &rarr; Sensórica:</strong> Una aceleración brusca ordenada por el PID envía un pulso PWM máximo al driver <strong>L298N</strong>, inyectando corriente al motor <strong>GA37-520</strong>[cite: 2]. La aceleración desplaza la masa del vehículo hacia el eje posterior, aligerando la carga normal sobre el tren delantero[cite: 2]. Esto reduce la adherencia de los neumáticos de dirección, provocando <em>subviraje (understeer)</em> y ruido en la trayectoria[cite: 2].</li>
-      <li><strong>Solución Sistémica:</strong> Se reconfiguró el software introduciendo rampas de aceleración progresivas en el algoritmo y se reubicó la batería NiMH físicamente hacia el centro-delantero del chasis para compensar dinámicamente la masa[cite: 2].</li>
+      <li><strong>Software &rarr; Electrónica &rarr; Mecánica &rarr; Sensórica:</strong> Una aceleración brusca ordenada por el PID envía un pulso PWM máximo al driver <strong>L298N</strong>, inyectando corriente al motor <strong>GA37-520</strong>. La aceleración desplaza la masa del vehículo hacia el eje posterior, aligerando la carga normal sobre el tren delantero. Esto reduce la adherencia de los neumáticos de dirección, provocando <em>subviraje (understeer)</em> y ruido en la trayectoria.</li>
+      <li><strong>Solución Sistémica:</strong> Se reconfiguró el software introduciendo rampas de aceleración progresivas en el algoritmo y se reubicó la batería NiMH físicamente hacia el centro-delantero del chasis para compensar dinámicamente la masa.</li>
     </ul>
   </li>
 </ul>
 
 <hr />
 
-<h2>5.2 Trade-Offs e Iteraciones de Ingeniería</h2>
+## 5.2 Trade-Offs e Iteraciones de Ingeniería
 
 <p>A lo largo del ciclo de desarrollo de <strong>Heimdall</strong>, la toma de decisiones se rigió por la evaluación continua de compromisos (<em>trade-offs</em>). Las siguientes métricas resumen los hitos clave alcanzados tras la optimización mecatrónica:</p>
 
@@ -4070,7 +4073,7 @@ sequenceDiagram
 
 <hr />
 
-<h2>5.3 Validación, Robustez e Integración Técnica</h2>
+## 5.3 Validación, Robustez e Integración Técnica
 
 <p>La validación de <strong>Heimdall</strong> combina la fundamentación analítica con la filosofía de tolerancia a fallos en pista:</p>
 
@@ -4079,49 +4082,57 @@ sequenceDiagram
 <h4>A. Geometría y Cinemática de Dirección Ackermann</h4>
 
 <p><strong>Condición Cinemática Ideal:</strong></p>
+
 $$\cot(\theta_o) - \cot(\theta_i) = \frac{W}{L}$$
 
-<p><strong>Radio de Giro Teórico ($R$):</strong></p>
+<p><strong>Radio de Giro Teórico (<i>R</i>):</strong></p>
+
 $$R = \frac{L}{\tan(\delta_{prom})}$$
 
 <p><strong>Variables y Parámetros del Vehículo:</strong></p>
 <ul>
-  <li>$\theta_i / \theta_o$: Ángulo de rueda interior / exterior.</li>
-  <li>$W$: Vía transversal (distancia entre pivotes = 140 mm).</li>
-  <li>$L$: Batalla o distancia entre ejes (180 mm).</li>
-  <li>$\delta_{prom}$: Ángulo equivalente en el centro de masa.</li>
+  <li>&theta;<sub>i</sub> / &theta;<sub>o</sub>: Ángulo de rueda interior / exterior.</li>
+  <li><i>W</i>: Vía transversal (distancia entre pivotes = 140 mm).</li>
+  <li><i>L</i>: Batalla o distancia entre ejes (180 mm).</li>
+  <li>&delta;<sub>prom</sub>: Ángulo equivalente en el centro de masa.</li>
 </ul>
+
 <p><strong>Impacto:</strong> Garantiza rodadura pura sin arrastre transversal (0% deslizamiento lateral en curvas).</p>
 
 <hr />
 
 <h4>B. Cinemática Rotacional y Transmisión (Overdrive 4:5)</h4>
 
-<p><strong>Velocidad Angular en Ruedas ($\omega_{rueda}$):</strong></p>
+<p><strong>Velocidad Angular en Ruedas (&omega;<sub>rueda</sub>):</strong></p>
+
 $$\omega_{rueda} = \frac{360\text{ RPM}}{0.8} = 450\text{ RPM} \implies 47.12\text{ rad/s}$$
 
-<p><strong>Velocidad Lineal Máxima ($v_{max}$):</strong></p>
+<p><strong>Velocidad Lineal Máxima (<i>v</i><sub>max</sub>):</strong></p>
+
 $$v_{max} = \omega_{rueda} \cdot r = 47.12 \times 0.0165\text{ m} \approx 0.78\text{ m/s}$$
 
 <p><strong>Variables y Relaciones:</strong></p>
 <ul>
-  <li>$\omega_{mot}$: Velocidad nominal del motor GA37-520 (360 RPM).</li>
-  <li>$i$: Relación de transmisión ($4/5 = 0.8$).</li>
-  <li>$r$: Radio de rueda motriz (16.5 mm).</li>
+  <li>&omega;<sub>mot</sub>: Velocidad nominal del motor GA37-520 (360 RPM).</li>
+  <li><i>i</i>: Relación de transmisión (4/5 = 0.8).</li>
+  <li><i>r</i>: Radio de rueda motriz (16.5 mm).</li>
 </ul>
+
 <p><strong>Impacto:</strong> Transmisión directa que optimiza el torque e independiza la odometría del juego mecánico.</p>
 
 <hr />
 
 <h4>C. Control PID Discreto y Odometría</h4>
 
-<p><strong>Lazo PID Discreto ($\Delta t = 10\text{ ms}$):</strong></p>
+<p><strong>Lazo PID Discreto (&Delta;<i>t</i> = 10 ms):</strong></p>
+
 $$u[k] = K_p \, e[k] + K_i \sum_{j=0}^{k} e[j] \, \Delta t + K_d \, \frac{e[k] - e[k-1]}{\Delta t}$$
 
-<p><strong>Odometría por Encoders ($\Delta s$):</strong></p>
+<p><strong>Odometría por Encoders (&Delta;<i>s</i>):</strong></p>
+
 $$\Delta s = \frac{N}{PPR} \cdot (2\pi r)$$
 
-<p><em>(Donde $N$ es el número de pulsos acumulados y $PPR$ la resolución por vuelta).</em></p>
+<p><i>(Donde N es el número de pulsos acumulados y PPR la resolución por vuelta).</i></p>
 
 <hr />
 
@@ -4131,8 +4142,6 @@ $$\Delta s = \frac{N}{PPR} \cdot (2\pi r)$$
   <li><strong>Aislamiento Eléctrico y Desacoplamiento (Anti-Brownout):</strong> La etapa de potencia (12V) alimentada por LiPo opera separada de la lógica (5V) mediante un regulador Buck <strong>LM2596</strong>. Esto absorbe las caídas de tensión inducidas por arranques de motor, evitando reinicios no programados del ESP32.</li>
   <li><strong>Validación Sensorial No Bloqueante:</strong> Filtrado dinámico de lecturas ultrasónicas desacopladas mediante <code>NewPing</code>, descartando picos fuera de rango real (&gt; 300 cm) sin detener el bucle principal.</li>
 </ul>
-
-<hr style="margin: 30px 0;" />
 
 ## 5.4 Diario de Ingeniería: Bitácora de Componentes e Iteraciones
 
