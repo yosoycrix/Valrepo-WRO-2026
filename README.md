@@ -3890,50 +3890,47 @@ void loop() {
 
 ```mermaid
 graph TD
-    classDef noBg fill:none,stroke:#4a5568,stroke-width:1.5px,stroke-dasharray: 5 5,color:#2d3748,font-weight:bold;
-    classDef nodeStyle fill:#ffffff,stroke:#2b6cb0,stroke-width:1.5px,color:#1a202c,font-weight:bold;
-
-    %% Subsistemas
-    subgraph Mecanica ["Subsistema Mecánico"]
-        A1[Geometría Ackermann]:::nodeStyle
-        A2[Transmisión Directa 4x2]:::nodeStyle
-        A3[Distribución de Masa / Chasis]:::nodeStyle
+    subgraph Mecanica [Subsistema Mecanico]
+        A1[Geometria Ackermann]
+        A2[Transmision Directa 4x2]
+        A3[Distribucion de Masa / Chasis]
     end
 
-    subgraph Electronica ["Subsistema Electrónico"]
-        B1[Batería NiMH 12V 2000mAh]:::nodeStyle
-        B2[Regulador Step-Down LM2596]:::nodeStyle
-        B3[Driver L298N]:::nodeStyle
+    subgraph Electronica [Subsistema Electronico]
+        B1[Bateria NiMH 12V 2000mAh]
+        B2[Regulador Step-Down LM2596]
+        B3[Driver L298N]
     end
 
-    subgraph Sensórica ["Subsistema de Percepción"]
-        C1[IMU BNO055 - 9 DoF]:::nodeStyle
-        C2[Cámara HuskyLens 2]:::nodeStyle
-        C3[Telemetría HC-SR04 x3]:::nodeStyle
+    subgraph Sensorica [Subsistema de Percepcion]
+        C1[IMU BNO055 - 9 DoF]
+        C2[Camara HuskyLens 2]
+        C3[Telemetria HC-SR04 x3]
     end
 
-    subgraph Software ["Subsistema de Control"]
-        D1[ESP32-WROOM-32]:::nodeStyle
-        D2[Control PID de Dirección / Velocidad]:::nodeStyle
-        D3[Odometría por Encoders]:::nodeStyle
+    subgraph Software [Subsistema de Control]
+        D1[ESP32-WROOM-32]
+        D2[Control PID de Direccion / Velocidad]
+        D3[Odometria por Encoders]
     end
 
-    %% Aplicación de Fondo Transparente a los Subgrafos
-    class Mecanica,Electronica,Sensórica,Software noBg;
-
-    %% Relaciones Cruzadas
-    B1 -->|Alimentación Principal| B3
-    B1 -->|Línea de Potencia| B2
-    B2 -->|5V Regulados Lógicos| D1
-    B2 -->|Alimentación Bus Lógico| Sensórica
+    B1 -->|Alimentacion Principal| B3
+    B1 -->|Linea de Potencia| B2
+    B2 -->|5V Regulados Logicos| D1
+    B2 -->|Alimentacion Bus Logico| C1
+    B2 -->|Alimentacion Bus Logico| C2
+    B2 -->|Alimentacion Bus Logico| C3
     
-    D1 -->|Señal PWM / Dirección| B3
+    D1 -->|Senal PWM / Direccion| B3
     B3 -->|Control de Corriente| A2
-    A2 -->|Retroalimentación Encoders| D1
+    A2 -->|Retroalimentacion Encoders| D1
     
-    Sensórica -->|I2C / UART / GPIO| D1
-    D1 -->|Corrección Angular Servo| A1
-    A1 -->|Dinámica de Giro / CIR| A3
+    C1 -->|I2C| D1
+    C2 -->|UART| D1
+    C3 -->|GPIO| D1
+    
+    D1 -->|Correccion Angular Servo| A1
+    A1 -->|Dinamica de Giro / CIR| A3
 ```
 
 <h3>Interacción entre subsistemas</h3>
