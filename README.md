@@ -3885,34 +3885,47 @@ void loop() {
 
 ## 5.1 Enfoque de Pensamiento Sistémico
 
-<p>El desarrollo de <strong>Heimdall</strong> no se concibió como la suma aislada de partes mecánicas, electrónicas y de software, sino como un <strong>sistema mecatrónico integrado</strong> donde cada modificación en un subsistema impacta dinámicamente sobre los demás[cite: 2]. Para comprender la complejidad del vehículo, el sistema global se subdividió en cuatro bloques interdependientes interconectados por la arquitectura del chasis y la gestión de potencia[cite: 2]:</p>
+<p>El desarrollo de <strong>Heimdall</strong> no se concibió como la suma aislada de partes mecánicas, electrónicas y de software, sino como un <strong>sistema mecatrónico integrado</strong> donde cada modificación en un subsistema impacta dinámicamente sobre los demás. Para comprender la complejidad del vehículo, el sistema global se subdividió en cuatro bloques interdependientes interconectados por la arquitectura del chasis y la gestión de potencia:</p>
 
 ```mermaid
 graph TD
-    %% Nodos Principales
-    subgraph Mecanica ["Subsistema Mecánico"]
-        A1[Geometría Ackermann]
-        A2[Transmisión Directa 4x2]
-        A3[Distribución de Masa / Chasis]
+    %% Estilos Visuales
+    classDef mec fill:#ebf8ff,stroke:#3182ce,stroke-width:2px,color:#1a365d;
+    classDef elec fill:#fffaf0,stroke:#dd6b20,stroke-width:2px,color:#7b341e;
+    classDef sens fill:#f0fff4,stroke:#38a169,stroke-width:2px,color:#22543d;
+    classDef soft fill:#faf5ff,stroke:#805ad5,stroke-width:2px,color:#4c1d95;
+    classDef nodeStyle fill:#ffffff,stroke:#a0aec0,stroke-width:1px,color:#2d3748,font-weight:bold;
+
+    %% Subsistemas
+    subgraph Mecanica [" dynamic Subsistema Mecánico "]
+        A1[Geometría Ackermann]:::nodeStyle
+        A2[Transmisión Directa 4x2]:::nodeStyle
+        A3[Distribución de Masa / Chasis]:::nodeStyle
     end
 
-    subgraph Electronica ["Subsistema Electrónico"]
-        B1[Batería NiMH 12V 2000mAh]
-        B2[Regulador Step-Down LM2596]
-        B3[Driver L298N]
+    subgraph Electronica [" dynamic Subsistema Electrónico "]
+        B1[Batería NiMH 12V 2000mAh]:::nodeStyle
+        B2[Regulador Step-Down LM2596]:::nodeStyle
+        B3[Driver L298N]:::nodeStyle
     end
 
-    subgraph Sensórica ["Subsistema de Percepción"]
-        C1[IMU BNO055 - 9 DoF]
-        C2[Cámara HuskyLens 2]
-        C3[Telemetría HC-SR04 x3]
+    subgraph Sensórica [" dynamic Subsistema de Percepción "]
+        C1[IMU BNO055 - 9 DoF]:::nodeStyle
+        C2[Cámara HuskyLens 2]:::nodeStyle
+        C3[Telemetría HC-SR04 x3]:::nodeStyle
     end
 
-    subgraph Software ["Subsistema de Control"]
-        D1[ESP32-WROOM-32]
-        D2[Control PID de Dirección / Velocidad]
-        D3[Odometría por Encoders]
+    subgraph Software [" dynamic Subsistema de Control "]
+        D1[ESP32-WROOM-32]:::nodeStyle
+        D2[Control PID de Dirección / Velocidad]:::nodeStyle
+        D3[Odometría por Encoders]:::nodeStyle
     end
+
+    %% Aplicación de Estilos a Subgrafos
+    class Mecanica mec;
+    class Electronica elec;
+    class Sensórica sens;
+    class Software soft;
 
     %% Relaciones Cruzadas
     B1 -->|Alimentación Principal| B3
@@ -3961,6 +3974,7 @@ sequenceDiagram
     E->>M: Torque al motor GA37-520 y movimiento del Servomotor
     M-->>E: Ingesta de corriente (Stall current) y posible ruido EMI
     M-->>S: Corrección del vector de avance (Cierra bucle)
+```
 
 
 <h3>Bucles de Realimentación y Dinámica Inter-sistema</h3>
@@ -3983,196 +3997,299 @@ sequenceDiagram
 
 <hr />
 
+<!-- ESTILOS INLINE PARA GARANTIZAR COMPATIBILIDAD Y DISEÑO DINÁMICO -->
+<style>
+  .eng-card { border: 1px solid #e0e0e0; border-radius: 8px; padding: 18px; margin-bottom: 20px; background: #ffffff; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+  .eng-card-header { font-size: 1.1em; font-weight: bold; color: #1a365d; border-bottom: 2px solid #3182ce; padding-bottom: 8px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
+  .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 10px; }
+  .grid-4metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 20px 0; }
+  .metric-box { background: #f7fafc; border-left: 4px solid #3182ce; padding: 12px; border-radius: 4px; text-align: center; }
+  .metric-val { font-size: 1.5em; font-weight: bold; color: #2b6cb0; }
+  .metric-lbl { font-size: 0.85em; color: #4a5568; text-transform: uppercase; font-weight: 600; }
+  .badge-imp { background: #c6f6d5; color: #22543d; font-size: 0.8em; padding: 3px 8px; border-radius: 12px; font-weight: bold; }
+  .badge-rej { background: #fed7d7; color: #742a2a; font-size: 0.8em; padding: 3px 8px; border-radius: 12px; font-weight: bold; }
+  .math-card { background: #f8f9fa; border: 1px solid #cbd5e0; border-radius: 6px; padding: 16px; margin: 15px 0; }
+  .timeline-container { display: flex; justify-content: space-between; position: relative; margin: 30px 0; }
+  .timeline-container::before { content: ''; position: absolute; top: 18px; left: 0; right: 0; height: 4px; background: #cbd5e0; z-index: 1; }
+  .timeline-step { position: relative; z-index: 2; background: white; padding: 0 10px; text-align: center; flex: 1; }
+  .timeline-node { width: 36px; height: 36px; border-radius: 50%; background: #3182ce; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 auto 8px auto; box-shadow: 0 0 0 4px white; }
+  .risk-callout { background: #fffaf0; border-left: 4px solid #dd6b20; padding: 10px 14px; margin: 10px 0; font-size: 0.9em; border-radius: 0 4px 4px 0; }
+</style>
+
 ## 5.2 Trade-Offs e Iteraciones de Ingeniería
 
-<p>A lo largo del ciclo de diseño de <strong>Heimdall</strong>, cada decisión técnica clave involucró la evaluación de compromisos (<em>trade-offs</em>) entre costo, peso, complejidad mecánica, velocidad de procesamiento y fiabilidad en pista[cite: 2].</p>
+<p>A lo largo del ciclo de desarrollo de <strong>Heimdall</strong>, la toma de decisiones se rigi&oacute; por la evaluaci&oacute;n continua de compromisos (<em>trade-offs</em>). Las siguientes m&eacute;tricas resumen los hitos clave alcanzados tras la optimizaci&oacute;n mecatr&oacute;nica:</p>
 
-```mermaid
-timeline
-    title Evolución e Iteraciones Principales de Heimdall
-    Fase 1 : MPU6050 (Eje Z Deriva) : Tracción 4x4 (Compleja) : Pivotes Dobles Nudillos
-    Fase 2 : Migración a BNO055 : Cambio a Tracción 4x2 Directa : Rediseño Eje Pasante Nudillos
-    Fase 3 : Optimización PID Odometría : Reducción Overdrive 4:5 : Chasis Modular PETG-CF
-```
+<!-- TARJETAS DE MÉTRICAS RÁPIDAS -->
+<div class="grid-4metrics">
+  <div class="metric-box">
+    <div class="metric-val">0.78 m/s</div>
+    <div class="metric-lbl">Velocidad Lineal Consistente</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-val">10 ms</div>
+    <div class="metric-lbl">Periodo Lazo PID Discreto</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-val">&lt; 1.2&deg;</div>
+    <div class="metric-lbl">Deriva Yaw M&aacute;x. (BNO055)</div>
+  </div>
+  <div class="metric-box">
+    <div class="metric-val">30 FPS</div>
+    <div class="metric-lbl">Procesamiento Visi&oacute;n (HuskyLens)</div>
+  </div>
+</div>
 
-<h3>Matriz de Decisiones Técnicas y Compromisos (<em>Trade-Offs</em>)</h3>
+<h3>Evoluci&oacute;n Temporal de la Arquitectura</h3>
 
-<table border="1" style="width:100%; border-collapse: collapse;">
+<!-- LÍNEA DE TIEMPO CSS -->
+<div class="timeline-container">
+  <div class="timeline-step">
+    <div class="timeline-node">1</div>
+    <strong>Fase 1: Prototipo Inicial</strong>
+    <p style="font-size:0.85em; color:#4a5568;">MPU6050 &bull; Tracci&oacute;n 4x4 &bull; Pivotes dobles independientes</p>
+  </div>
+  <div class="timeline-step">
+    <div class="timeline-node">2</div>
+    <strong>Fase 2: Redise&ntilde;o Estructural</strong>
+    <p style="font-size:0.85em; color:#4a5568;">BNO055 &bull; Tracci&oacute;n 4x2 Trasera &bull; Eje Pasante Nudillos</p>
+  </div>
+  <div class="timeline-step">
+    <div class="timeline-node">3</div>
+    <strong>Fase 3: Optimizaci&oacute;n Competición</strong>
+    <p style="font-size:0.85em; color:#4a5568;">Overdrive 4:5 &bull; Chasis PETG-CF &bull; HuskyLens 2 IA</p>
+  </div>
+</div>
+
+<h3>Matriz de Decisiones T&eacute;cnicas y Compromisos (<em>Trade-Offs</em>)</h3>
+
+<table border="1" style="width:100%; border-collapse: collapse; margin-top: 15px;">
   <thead>
-    <tr>
-      <th>Área</th>
-      <th>Opción Considerada</th>
-      <th>Opción Implementada</th>
-      <th>Justificación Técnica y Compromisos (<em>Trade-Offs</em>)</th>
+    <tr style="background-color: #2b6cb0; color: white;">
+      <th style="padding: 10px;">&Aacute;rea</th>
+      <th style="padding: 10px;">Opci&oacute;n Evaluada</th>
+      <th style="padding: 10px;">Opci&oacute;n Seleccionada</th>
+      <th style="padding: 10px;">Justificaci&oacute;n T&eacute;cnica y Compromisos</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>Arreglo de Tracción</strong></td>
-      <td>Tracción Integral <strong>4x4</strong></td>
-      <td>Tracción Trasera <strong>4x2 Directa</strong></td>
-      <td><strong>Compromiso:</strong> Se sacrificó tracción máxima en terrenos irregulares a cambio de eliminar la complejidad cinemática del eje delantero.<br><strong>Resultado:</strong> Reducción sustancial de masa, eliminación de puntos de falla en piñones cónicos delanteros y mayor libertad en el ángulo de cruce de la dirección Ackermann.</td>
+      <td style="padding: 10px;"><strong>Arreglo de Tracci&oacute;n</strong></td>
+      <td style="padding: 10px;"><span class="badge-rej">RECHAZADO</span><br>Tracci&oacute;n Integral <strong>4x4</strong></td>
+      <td style="padding: 10px;"><span class="badge-imp">IMPLEMENTADO</span><br>Tracci&oacute;n Trasera <strong>4x2 Directa</strong></td>
+      <td style="padding: 10px;"><strong>Compromiso:</strong> Reducci&oacute;n de tracci&oacute;n m&aacute;xima te&oacute;rica en pendiente.<br><strong>Resultado:</strong> Erradicaci&oacute;n de fricci&oacute;n par&aacute;sita en pi&ntilde;ones delanteros, menor peso total y mayor libertad para el &aacute;ngulo de giro Ackermann.</td>
     </tr>
     <tr>
-      <td><strong>Relación de Transmisión</strong></td>
-      <td>2 Etapas con engranajes plásticos (521 RPM)</td>
-      <td>Acoplamiento Directo al Diferencial 4:5 (450 RPM)</td>
-      <td><strong>Compromiso:</strong> Ligera reducción de la velocidad máxima teórica en recta ($0.90\text{ m/s} \rightarrow 0.78\text{ m/s}$).<br><strong>Resultado:</strong> Erradicación total del <em>backlash</em> (juego mecánico), menor desgaste, mayor torque disponible en maniobras bruscas y respuesta lineal exacta para la odometría.</td>
+      <td style="padding: 10px;"><strong>Transmisi&oacute;n</strong></td>
+      <td style="padding: 10px;"><span class="badge-rej">RECHAZADO</span><br>2 Etapas con engranajes pl&aacute;sticos (521 RPM)</td>
+      <td style="padding: 10px;"><span class="badge-imp">IMPLEMENTADO</span><br>Acoplamiento Directo al Diferencial <strong>4:5 (450 RPM)</strong></td>
+      <td style="padding: 10px;"><strong>Compromiso:</strong> Ligera penalizaci&oacute;n de velocidad pico ($0.90\text{ m/s} \rightarrow 0.78\text{ m/s}$).<br><strong>Resultado:</strong> Eliminaci&oacute;n total del <em>backlash</em> (juego mec&aacute;nico), respuesta lineal exacta para la odometr&iacute;a por encoder.</td>
     </tr>
     <tr>
-      <td><strong>Sensórica Inercial</strong></td>
-      <td>MPU6050 (6 DoF)</td>
-      <td>Bosch <strong>BNO055</strong> (9 DoF con Cortex-M0)</td>
-      <td><strong>Compromiso:</strong> Mayor costo del componente y sensibilidad a perturbaciones magnéticas externas.<br><strong>Resultado:</strong> Fusión de sensores por hardware <em>onboard</em>, lectura de ángulos de Euler directos sin acumulativo de deriva (<em>drift</em>) y liberación de ciclos de procesamiento crítico en el ESP32.</td>
+      <td style="padding: 10px;"><strong>Sens&oacute;rica Inercial</strong></td>
+      <td style="padding: 10px;"><span class="badge-rej">RECHAZADO</span><br>MPU6050 (6 DoF)</td>
+      <td style="padding: 10px;"><span class="badge-imp">IMPLEMENTADO</span><br>Bosch <strong>BNO055</strong> (9 DoF con Cortex-M0)</td>
+      <td style="padding: 10px;"><strong>Compromiso:</strong> Incremento en el costo monetario del componente.<br><strong>Resultado:</strong> Fusi&oacute;n de sensores por hardware, entrega directa de &aacute;ngulos Euler sin acumulación de deriva (<em>drift</em>), liberando procesamiento en el ESP32.</td>
     </tr>
     <tr>
-      <td><strong>Pivotes de Dirección</strong></td>
-      <td>2 Tornillos cortos independientes</td>
-      <td><strong>Tornillo pasante continuo</strong> con rodamientos en el Rin</td>
-      <td><strong>Compromiso:</strong> Requiere mayor tolerancia de impresión y ensamble milimétrico.<br><strong>Resultado:</strong> Eliminación del desprendimiento de ruedas por vibración, mayor rigidez ante cargas laterales de torsión y alineación constante.</td>
+      <td style="padding: 10px;"><strong>Pivotes Direcci&oacute;n</strong></td>
+      <td style="padding: 10px;"><span class="badge-rej">RECHAZADO</span><br>2 Tornillos cortos independientes</td>
+      <td style="padding: 10px;"><span class="badge-imp">IMPLEMENTADO</span><br><strong>Tornillo pasante continuo</strong> con rodamientos</td>
+      <td style="padding: 10px;"><strong>Compromiso:</strong> Ensamble milim&eacute;trico y tolerancias estrictas de impresi&oacute;n.<br><strong>Resultado:</strong> Correcci&oacute;n definitiva del desprendimiento de ruedas bajo cargas laterales de torsi&oacute;n.</td>
     </tr>
     <tr>
-      <td><strong>Material de Chasis</strong></td>
-      <td>PLA / ABS</td>
-      <td><strong>PETG-CF</strong> (PETG con Fibra de Carbono)</td>
-      <td><strong>Compromiso:</strong> Altamente abrasivo con ejes metálicos directos y susceptible a fractura frágil si no se orientan las capas correctamente.<br><strong>Resultado:</strong> Rigidez estructural superior y resistencia térmica elevadísima. Se resolvió la abrasión integrando bujes metálicos de latón/bronce en los puntos de fricción.</td>
+      <td style="padding: 10px;"><strong>Material Chasis</strong></td>
+      <td style="padding: 10px;"><span class="badge-rej">RECHAZADO</span><br>PLA / ABS Est&aacute;ndar</td>
+      <td style="padding: 10px;"><span class="badge-imp">IMPLEMENTADO</span><br><strong>PETG-CF</strong> (Fibra de Carbono)</td>
+      <td style="padding: 10px;"><strong>Compromiso:</strong> Alta abrasividad sobre ejes met&aacute;licos directos.<br><strong>Resultado:</strong> Elevada rigidez estructural. Se resolvi&oacute; la abrasi&oacute;n integrando bujes met&aacute;licos de bronce en puntos de fricci&oacute;n.</td>
     </tr>
   </tbody>
 </table>
 
-<hr />
+<hr style="margin: 30px 0;" />
 
-## 5.3 Validación, Robustez e Integración Técnica
+## 5.3 Validacion, Robustez e Integracion Tecnica<
 
-<p>Para respaldar el desempeño de <strong>Heimdall</strong>, la arquitectura del robot integra metodologías de análisis y verificación técnica enfocadas en tres ejes principales:</p>
+<p>La validaci&oacute;n de <strong>Heimdall</strong> combina la fundamentaci&oacute;n anal&iacute;tica con la filosof&iacute;a de tolerancia a fallos en pista:</p>
 
-<h3>1. Documentación del Proceso de Diseño e Iteración</h3>
+<h3>1. Fundamentaci&oacute;n Te&oacute;rica y Modelado Matem&aacute;tico</h3>
+
+<!-- CUADRO MATEMÁTICO 1: ACKERMANN -->
+<div class="math-card">
+  <h4 style="margin-top:0; color:#1a365d;">A. Geometr&iacute;a y Cinem&aacute;tica de Direcci&oacute;n Ackermann</h4>
+  <div class="grid-2col">
+    <div>
+      <p><strong>Condici&oacute;n Cinem&aacute;tica Ideal:</strong></p>
+      $$\cot(\theta_o) - \cot(\theta_i) = \frac{W}{L}$$
+      <p><strong>Radio de Giro Te&oacute;rico ($R$):</strong></p>
+      $$R = \frac{L}{\tan(\delta_{prom})}$$
+    </div>
+    <div style="font-size:0.9em; background:#ffffff; padding:10px; border-radius:4px;">
+      <strong>Variables y Par&aacute;metros del Veh&iacute;culo:</strong>
+      <ul>
+        <li>$\theta_i / \theta_o$: &Aacute;ngulo de rueda interior / exterior.</li>
+        <li>$W$: V&iacute;a transversal (distancia entre pivotes = $140\text{ mm}$).</li>
+        <li>$L$: Batalla o distancia entre ejes ($180\text{ mm}$).</li>
+        <li>$\delta_{prom}$: &Aacute;ngulo equivalente en el centro de masa.</li>
+      </ul>
+      <p style="margin-bottom:0; color:#2b6cb0;"><strong>Impacto:</strong> Garantiza rodadura pura sin arrastre transversal (0% deslizamiento lateral en curvas).</p>
+    </div>
+  </div>
+</div>
+
+<!-- CUADRO MATEMÁTICO 2: TRANSMISIÓN Y CINEMÁTICA -->
+<div class="math-card">
+  <h4 style="margin-top:0; color:#1a365d;">B. Cinem&aacute;tica Rotacional y Transmisi&oacute;n (Overdrive 4:5)</h4>
+  <div class="grid-2col">
+    <div>
+      <p><strong>Velocidad Angular en Ruedas ($\omega_{rad}$):</strong></p>
+      $$\omega_{rueda} = \frac{360\text{ RPM}}{0.8} = 450\text{ RPM} \implies 47.12\text{ rad/s}$$
+      <p><strong>Velocidad Lineal M&aacute;xima ($v_{max}$):</strong></p>
+      $$v_{max} = \omega_{rad} \cdot r = 47.12 \times 0.0165\text{ m} \approx 0.78\text{ m/s}$$
+    </div>
+    <div style="font-size:0.9em; background:#ffffff; padding:10px; border-radius:4px;">
+      <strong>Variables y Relaciones:</strong>
+      <ul>
+        <li>$\omega_{mot}$: Velocidad nominal del motor GA37-520 ($360\text{ RPM}$).</li>
+        <li>$i$: Relaci&oacute;n de transmisi&oacute;n ($4/5 = 0.8$).</li>
+        <li>$r$: Radio de rueda motriz ($16.5\text{ mm}$).</li>
+      </ul>
+      <p style="margin-bottom:0; color:#2b6cb0;"><strong>Impacto:</strong> Transmisi&oacute;n directa que optimiza el torque e independiza la odometr&iacute;a del juego mec&aacute;nico.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CUADRO MATEMÁTICO 3: CONTROL PID Y ODOMETRÍA -->
+<div class="math-card">
+  <h4 style="margin-top:0; color:#1a365d;">C. Control PID Discreto y Odometr&iacute;a</h4>
+  <div class="grid-2col">
+    <div>
+      <p><strong>Lazo PID Discreto ($\Delta t = 10\text{ ms}$):</strong></p>
+      $$u[k] = K_p \, e[k] + K_i \sum_{j=0}^{k} e[j] \, \Delta t + K_d \, \frac{e[k] - e[k-1]}{\Delta t}$$
+    </div>
+    <div>
+      <p><strong>Odometr&iacute;a por Encoders ($\Delta s$):</strong></p>
+      $$\Delta s = \frac{N}{PPR} \cdot (2\pi r)$$
+      <p style="font-size:0.85em; color:#4a5568;">Donde $N$ es el n&uacute;mero de pulsos acumulados y $PPR$ la resoluci&oacute;n por vuelta.</p>
+    </div>
+  </div>
+</div>
+
+<h3>2. Filosof&iacute;a de Diagn&oacute;stico y Gestion de Riesgos</h3>
 <ul>
-  <li><strong>Análisis de Fallas y Corrección Evolutiva:</strong> El desarrollo del vehículo no se dio en un único intento exitoso, sino a través de un ciclo continuo de pruebas empíricas en pista y refactorización técnica. En las etapas iniciales, se detectaron fallos mecánicos críticos como el desacople progresivo de las manguetas de dirección bajo esfuerzo lateral y el fenómeno de <em>Paradox Steering</em> (desalineación del trazado por holguras mecánicas). La transición hacia soluciones más maduras se documentó mediante comparativas de modelos CAD, validación de tolerancias geométricas y análisis de fatiga de materiales.</li>
-  <li><strong>Modularidad y Mantenibilidad:</strong> Pensando en las exigencias de tiempo durante la competición, el chasis se estructuró de manera modular utilizando PETG-CF. El tren de tracción posterior, el módulo de dirección delantero y la bahía electrónica se encuentran desacoplados mediante un sistema de fijación estándar con tornillería M2 y M3. Esta arquitectura permite la extracción, reemplazo o reparación de cualquier componente dañado en <em>boxes</em> en cuestión de minutos sin comprometer la alineación general del chasis.</li>
+  <li><strong>Aislamiento El&eacute;ctrico y Desacoplamiento (Anti-Brownout):</strong> La etapa de potencia ($12\text{V}$) alimentada por LiPo opera separada de la l&oacute;gica ($5\text{V}$) mediante un regulador Buck <strong>LM2596</strong>. Esto absorbe las ca&iacute;das de tensi&oacute;n inducidas por arranques de motor, evitando reinicios no programados del ESP32.</li>
+  <li><strong>Validaci&oacute;n Sensorial No Bloqueante:</strong> Filtrado din&aacute;mico de lecturas ultras&oacute;nicas desacopladas mediante <code>NewPing</code> descartando picos fuera de rango real ($>300\text{ cm}$) sin detener el bucle principal.</li>
 </ul>
 
-<h3>2. Fundamentación Teórica y Modelado Matemático</h3>
+<hr style="margin: 30px 0;" />
 
-<ul>
-  <li><strong>Geometría y Cinemática Ackermann:</strong> La dirección fue calculada analíticamente para resolver la trayectoria de las ruedas sobre sus arcos de giro independientes. Para evitar el deslizamiento lateral, las perpendiculares a los vectores de velocidad de todas las ruedas deben intersectar en un único punto denominado <strong>Centro Instantáneo de Rotación (CIR)</strong>. La condición cinemática ideal viene dada por la ecuación:</li>
-</ul>
+## 5.4 Diario de Ingenieria: Bitacora de Componentes e Iteraciones
 
-$$\cot(\theta_o) - \cot(\theta_i) = \frac{W}{L}$$
+<p>A continuaci&oacute;n se presentan las entradas clave de la bit&aacute;cora de desarrollo, estructuradas seg&uacute;n el ciclo de validaci&oacute;n experimental:</p>
 
-<p>Donde:</p>
-<ul>
-  <li>$\theta_i$: Ángulo de giro de la rueda interior.</li>
-  <li>$\theta_o$: Ángulo de giro de la rueda exterior.</li>
-  <li>$W$: Ancho de la vía o vía transversal (distancia entre pivotes de dirección).</li>
-  <li>$L$: Batalla o distancia entre ejes (eje delantero a eje trasero).</li>
-</ul>
+<!-- ENTRADA 1: MICROCONTROLADOR -->
+<div class="eng-card">
+  <div class="eng-card-header">
+    <span>Entrada 1: Selecci&oacute;n del Microcontrolador Central</span>
+    <span class="badge-imp">COMPLETADO</span>
+  </div>
+  <div class="grid-2col">
+    <div>
+      <strong>⚖️ Componentes Evaluados:</strong>
+      <p style="margin-top:4px; font-size:0.9em;">Arduino Mega 2560 vs. Raspberry Pi 4 B vs. <strong>ESP32-WROOM-32 (Dual-Core 240MHz)</strong>.</p>
+      <strong>🧪 Pruebas Realizadas:</strong>
+      <p style="margin-top:4px; font-size:0.9em;">Procesamiento simult&aacute;neo de visi&oacute;n UART e interrupciones de encoder a 10 kHz. Arduino presentó p&eacute;rdida de conteo; Raspberry Pi mostr&oacute; latencia de arranque inviable.</p>
+    </div>
+    <div>
+      <div class="risk-callout">
+        <strong>⚠️ Riesgo Identificado:</strong> Saturaci&oacute;n del bucle si no se dividen las tareas entre los dos n&uacute;cleos del microcontrolador.
+      </div>
+      <strong>🔄 Ciclo de Iteraci&oacute;n:</strong>
+      <ul style="margin-top:4px; font-size:0.85em; padding-left:18px;">
+        <li><em>Iteraci&oacute;n 1:</em> C&oacute;digo monol&iacute;tico en 1 n&uacute;cleo &rarr; P&eacute;rdida de pulsos durante comunicaci&oacute;n I2C.</li>
+        <li><em>Iteraci&oacute;n 2:</em> Core 0 para Odometr&iacute;a/Interrupciones; Core 1 para PID y Visi&oacute;n &rarr; Latencia cero.</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
-<p>El radio de giro teórico $R$ desde el centro del eje posterior se calcula como:</p>
+<!-- ENTRADA 2: IMU -->
+<div class="eng-card">
+  <div class="eng-card-header">
+    <span>Entrada 2: Migraci&oacute;n del Sistema de Navegaci&oacute;n Inercial (IMU)</span>
+    <span class="badge-imp">COMPLETADO</span>
+  </div>
+  <div class="grid-2col">
+    <div>
+      <strong>⚖️ Componentes Evaluados:</strong>
+      <p style="margin-top:4px; font-size:0.9em;">MPU6050 (6 DoF) vs. <strong>Bosch BNO055 (9 DoF con ARM Cortex-M0)</strong>.</p>
+      <strong>🧪 Pruebas Realizadas:</strong>
+      <p style="margin-top:4px; font-size:0.9em;">Giro continuo de 360&deg; por 5 min. El MPU6050 acumul&oacute; &gt;15&deg; de deriva Yaw; el BNO055 mantuvo error inferior a 1.2&deg;.</p>
+    </div>
+    <div>
+      <div class="risk-callout">
+        <strong>⚠️ Riesgo Identificado:</strong> P&eacute;rdida de la matriz de calibraci&oacute;n por interferencia electromagn&eacute;tica de los motores DC.
+      </div>
+      <strong>🔄 Ciclo de Iteraci&oacute;n:</strong>
+      <ul style="margin-top:4px; font-size:0.85em; padding-left:18px;">
+        <li><em>Iteraci&oacute;n 1:</em> MPU6050 con filtro por software &rarr; Alta deriva en tramos rectos.</li>
+        <li><em>Iteraci&oacute;n 2:</em> BNO055 con plano de tierra dedicado y guardado de offsets en memoria Flash/EEPROM.</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
-$$R = \frac{L}{\tan(\delta_{prom})}$$
+<!-- ENTRADA 3: TRACCIÓN -->
+<div class="eng-card">
+  <div class="eng-card-header">
+    <span>Entrada 3: Reconfiguraci&oacute;n del Tren de Tracci&oacute;n y Direcci&oacute;n</span>
+    <span class="badge-imp">COMPLETADO</span>
+  </div>
+  <div class="grid-2col">
+    <div>
+      <strong>⚖️ Componentes Evaluados:</strong>
+      <p style="margin-top:4px; font-size:0.9em;">Tracci&oacute;n 4x4 Doble Diferencial vs. <strong>Tracci&oacute;n Trasera 4x2 Directa ($4:5$)</strong>.</p>
+      <strong>🧪 Pruebas Realizadas:</strong>
+      <p style="margin-top:4px; font-size:0.9em;">Circuito en "8" continuo a 0.78 m/s. El 4x4 destru&iacute;a los pi&ntilde;ones impresos por fricci&oacute;n. El 4x2 en PETG-CF elimin&oacute; la resistencia.</p>
+    </div>
+    <div>
+      <div class="risk-callout">
+        <strong>⚠️ Riesgo Identificado:</strong> Desprendimiento de manguetas de direcci&oacute;n por carga lateral de torsi&oacute;n.
+      </div>
+      <strong>🔄 Ciclo de Iteraci&oacute;n:</strong>
+      <ul style="margin-top:4px; font-size:0.85em; padding-left:18px;">
+        <li><em>Iteraci&oacute;n 1:</em> Pivotes independientes de tornillo corto &rarr; Desprendimiento a los 10 min.</li>
+        <li><em>Iteraci&oacute;n 2:</em> Redise&ntilde;o con <strong>tornillo pasante continuo</strong>, rodamientos y bujes de lat&oacute;n.</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
-<p>Donde $\delta_{prom}$ es el ángulo de dirección equivalente del centro de masa. Este modelo garantiza una rodadura pura (0% de arrastre transversal).</p>
-
-<ul>
-  <li><strong>Cálculos de Transmisión y Cinemática Rotacional:</strong> Para optimizar la respuesta dinámica, se reemplazó la transmisión multietapa plástica por un acoplamiento con relación <em>Overdrive</em> $i = \frac{4}{5} = 0.8$. Partiendo de la velocidad nominal del motor <strong>GA37-520</strong> ($\omega_{mot} = 360\text{ RPM}$), la velocidad angular de salida en las ruedas ($\omega_{rueda}$) se calcula según:</li>
-</ul>
-
-$$\omega_{rueda} = \frac{\omega_{mot}}{i} = \frac{360\text{ RPM}}{0.8} = 450\text{ RPM}$$
-
-<p>Convertida a velocidad angular en radianes por segundo ($\omega_{rad}$):</p>
-
-$$\omega_{rad} = 450 \times \frac{2\pi}{60} \approx 47.12\text{ rad/s}$$
-
-<p>Sabiendo que el radio de la rueda motriz es $r = 0.0165\text{ m}$ (diámetro de $33\text{ mm}$), la velocidad lineal teórica máxima del vehículo ($v_{max}$) se determina mediante:</p>
-
-$$v_{max} = \omega_{rad} \cdot r = 47.12\text{ rad/s} \times 0.0165\text{ m} \approx 0.777\text{ m/s} \approx 0.78\text{ m/s}$$
-
-<p>Esta relación elimina el <em>backlash</em> (juego mecánico), permitiendo que las lecturas de los encoders de cuadratura sean enteramente lineales para los algoritmos de odometría del <strong>ESP32</strong>.</p>
-
-<ul>
-  <li><strong>Algoritmo de Control PID Angular:</strong> El control de dirección ajusta la posición del servomotor mediante un algoritmo PID discreto que calcula la salida $u(t)$ según el error angular $e(t) = \theta_{consigna} - \theta_{actual}$:</li>
-</ul>
-
-$$u(t) = K_p \, e(t) + K_i \int_{0}^{t} e(\tau) \, d\tau + K_d \, \frac{de(t)}{dt}$$
-
-<p>En su implementación discreta dentro del bucle del microcontrolador con periodo de muestreo $\Delta t$:</p>
-
-$$u[k] = K_p \, e[k] + K_i \sum_{j=0}^{k} e[j] \, \Delta t + K_d \, \frac{e[k] - e[k-1]}{\Delta t}$$
-
-<ul>
-  <li><strong>Cálculo de Odometría por Encoders:</strong> La distancia recorrida $\Delta s$ a partir de los pulsos del encoder $N$ con un número de pulsos por revolución $PPR$ viene dada por:</li>
-</ul>
-
-$$\Delta s = \frac{N}{PPR} \cdot (2\pi r)$$
-
-<h3>3. Filosofía de Diagnóstico y Gestión de Riesgos</h3>
-<ul>
-  <li><strong>Estrategia de Tolerancia a Fallos Electrónicos:</strong> Los picos de corriente demandados por los motores de tracción durante las maniobras bruscas representan un riesgo alto de <em>brownouts</em> (caídas de voltaje) que podrían reiniciar el microcontrolador central. Para mitigar este riesgo, el diseño desacopla eléctricamente la etapa de potencia de la lógica mediante un regulador Buck <strong>LM2596</strong> con aislamiento de ruido. Esto garantiza que mientras la etapa de potencia opera a $12\text{V}$, el bus lógico mantenga un voltaje de $5\text{V}$ completamente estable para el <strong>ESP32</strong> y el sistema de sensores.</li>
-  <li><strong>Validación de Datos Sensoriales y Filtrado:</strong> Dado que los sensores en un entorno dinámico están expuestos a lecturas erróneas, el software integra algoritmos de validación en tiempo real. Para los sensores ultrasónicos <strong>HC-SR04</strong>, se implementaron rutinas de temporización no bloqueantes con la librería <code>NewPing</code>, descartando lecturas no realistas o fuera de rango (como picos repentinos de $357\text{ cm}$). Simultáneamente, para la IMU <strong>BNO055</strong>, se implementó la autocalibración activa de los <em>offsets</em> inerciales guardados en la memoria Flash/EEPROM del microcontrolador, evitando derivas en la orientación Yaw incluso ante cambios repentinos de temperatura en la electrónica.</li>
-</ul>
-
-<hr />
-
-## 5.4 Diario de Ingeniería: Elección de Componentes, Pruebas, Riesgos e Iteraciones
-
-<p>A continuación se detalla la bitácora técnica con los ciclos de prueba, justificación de selección de componentes y gestión de riesgos observados durante la fase experimental de <strong>Heimdall</strong>:</p>
-
-<h3>Entrada 1: Selección del Microcontrolador Central</h3>
-<ul>
-  <li><strong>Componentes Evaluados:</strong> Arduino Mega 2560 vs. Raspberry Pi 4 B vs. <strong>ESP32-WROOM-32</strong>.</li>
-  <li><strong>Justificación de Elección:</strong> El ESP32 ofrece un procesador Dual-Core a 240 MHz con soporte de lecturas por interrupción por hardware necesarias para el análisis en tiempo real de encoders y comunicaciones I2C/UART concurrentes.</li>
-  <li><strong>Pruebas Realizadas:</strong> Prueba de estrés procesando procesamiento visual por UART mientras se leían interrupciones de encoder a 10 kHz. El Arduino Mega presentó pérdida de conteo por falta de frecuencia de reloj, mientras que la Raspberry Pi presentó una latencia de arranque inviable para la competición.</li>
-  <li><strong>Riesgos Identificados:</strong> Saturación del bucle principal si no se delegan tareas entre los dos núcleos de procesado.</li>
-  <li><strong>Ciclo de Iteración:</strong>
-    <ul>
-      <li><em>Iteración 1:</em> Código monolítico en un único núcleo. Pérdida de muestras de encoders durante transmisiones I2C con la IMU.</li>
-      <li><em>Iteración 2:</em> Asignación del Core 0 exclusivamente a tareas de Odometría/Sensórica y Core 1 a la lógica de navegación PID y comunicación con HuskyLens 2. Eliminación completa del retraso.</li>
-    </ul>
-  </li>
-</ul>
-
-<h3>Entrada 2: Migración del Sistema de Navegación Inercial (IMU)</h3>
-<ul>
-  <li><strong>Componentes Evaluados:</strong> MPU6050 (Gyro/Acelerómetro de 6 DoF) vs. <strong>Bosch BNO055 (9 DoF)</strong>.</li>
-  <li><strong>Justificación de Elección:</strong> La IMU BNO055 integra un microcontrolador ARM Cortex-M0 interno que ejecuta la fusión de datos mediante filtro de Kalman directamente en hardware, entregando ángulos de Euler sin recargar la CPU del ESP32.</li>
-  <li><strong>Pruebas Realizadas:</strong> Giro continuo de 360° durante 5 minutos en el banco de pruebas. El MPU6050 acumuló una deriva (<em>drift</em>) angular en el eje Yaw superior a los 15°, mientras que el BNO055 mantuvo la orientación con un margen de error menor a 1.2°.</li>
-  <li><strong>Riesgos Identificados:</strong> Pérdida de la matriz de calibración magnética al reiniciar o por presencia de campos magnéticos producidos por los motores DC.</li>
-  <li><strong>Ciclo de Iteración:</strong>
-    <ul>
-      <li><em>Iteración 1:</em> MPU6050 con filtro complementario por software. Alta deriva angular que provocaba desviaciones en tramos rectos.</li>
-      <li><em>Iteración 2:</em> Migración a BNO055 con aislamiento de planos de tierra en el PCB y rutina de lectura/escritura de los offsets de calibración guardados en la memoria Flash/EEPROM al encender.</li>
-    </ul>
-  </li>
-</ul>
-
-<h3>Entrada 3: Reconfiguración del Tren de Tracción y Dirección</h3>
-<ul>
-  <li><strong>Componentes Evaluados:</strong> Tracción 4x4 con doble diferencial plásticos vs. <strong>Tracción Trasera 4x2 Directa ($4:5$)</strong>.</li>
-  <li><strong>Justificación de Elección:</strong> Eliminación de la resistencia mecánica y la desalineación provocada por las juntas homocinéticas delanteras, permitiendo un mayor radio de giro sin bloqueo de ruedas.</li>
-  <li><strong>Pruebas Realizadas:</strong> Circuito en forma de "8" sostenido a velocidad máxima ($0.78\text{ m/s}$). El sistema 4x4 original generaba fricción abrasiva en los nudillos delanteros destruyendo los piñones impresos en PLA. El sistema 4x2 en PETG-CF eliminó la fricción indeseada.</li>
-  <li><strong>Riesgos Identificados:</strong> *Subviraje* (pérdida de adherencia en el eje delantero) durante aceleraciones bruscas por transferencia de peso al tren trasero.</li>
-  <li><strong>Ciclo de Iteración:</strong>
-    <ul>
-      <li><em>Iteración 1:</em> Nudillos de dirección sostenidos por tornillos cortos independientes. Se desprendían tras 10 minutos de vibración continua.</li>
-      <li><em>Iteración 2:</em> Rediseño con <strong>tornillo pasante continuo</strong> reinforced con rodamientos sobre la mangueta e integración de bujes metálicos de latón para reducir la fricción contra el chasis PETG-CF.</li>
-    </ul>
-  </li>
-</ul>
-
-<h3>Entrada 4: Sistema de Visión Artificial e Identificación de Marcas</h3>
-<ul>
-  <li><strong>Componentes Evaluados:</strong> ESP32-CAM vs. <strong>HuskyLens 2 (IA integrada)</strong>.</li>
-  <li><strong>Justificación de Elección:</strong> La HuskyLens procesa algoritmos de clasificación de color y reconocimiento de marcas directamente en su chip, enviando únicamente las coordenadas formateadas por UART al ESP32.</li>
-  <li><strong>Pruebas Realizadas:</strong> Detección de bloques de color en condiciones variables de luz ambiental (entre 200 y 800 lux). La ESP32-CAM producía caídas a menos de 5 FPS al procesar las imágenes en la CPU principal; la HuskyLens 2 mantuvo lecturas constantes a 30 FPS sin saturar el bus del ESP32.</li>
-  <li><strong>Riesgos Identificados:</strong> Sensibilidad a cambios severos de balance de blancos o sombras proyectadas en la pista.</li>
-  <li><strong>Ciclo de Iteración:</strong>
-    <ul>
-      <li><em>Iteración 1:</em> Clasificación por bloques de color simple. Sensible a reflejos luminosos en la pista.</li>
-      <li><em>Iteración 2:</em> Implementación de umbralizado dinámico y aprendizaje de marcas específicas combinado con confirmación por distancia mediante el sensor ultrasónico frontal para evitar falsos positivos.</li>
-    </ul>
-  </li>
-</ul>
+<!-- ENTRADA 4: VISIÓN -->
+<div class="eng-card">
+  <div class="eng-card-header">
+    <span>Entrada 4: Sistema de Visi&oacute;n Artificial e Identificaci&oacute;n de Marcas</span>
+    <span class="badge-imp">COMPLETADO</span>
+  </div>
+  <div class="grid-2col">
+    <div>
+      <strong>⚖️ Componentes Evaluados:</strong>
+      <p style="margin-top:4px; font-size:0.9em;">ESP32-CAM vs. <strong>HuskyLens 2 (Procesamiento IA integrado)</strong>.</p>
+      <strong>🧪 Pruebas Realizadas:</strong>
+      <p style="margin-top:4px; font-size:0.9em;">Detecci&oacute;n de bloques de color en pista (200-800 lux). ESP32-CAM ca&iacute;a a &lt;5 FPS; HuskyLens 2 sostuvo 30 FPS constantes.</p>
+    </div>
+    <div>
+      <div class="risk-callout">
+        <strong>⚠️ Riesgo Identificado:</strong> Sensibilidad a sombras y cambios severos de balance de blancos en el recinto.
+      </div>
+      <strong>🔄 Ciclo de Iteraci&oacute;n:</strong>
+      <ul style="margin-top:4px; font-size:0.85em; padding-left:18px;">
+        <li><em>Iteraci&oacute;n 1:</em> Clasificaci&oacute;n por color simple &rarr; Falso positivo por reflejos.</li>
+        <li><em>Iteraci&oacute;n 2:</em> Umbralizado din&aacute;mico + validaci&oacute;n cruzada de distancia con el ultras&oacute;nico frontal.</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 ---
    
