@@ -3890,7 +3890,6 @@ void loop() {
 
 ```mermaid
 graph TD
-    %% Estilo Transparente / Neutro sin fondo
     classDef noBg fill:none,stroke:#4a5568,stroke-width:1.5px,stroke-dasharray: 5 5,color:#2d3748,font-weight:bold;
     classDef nodeStyle fill:#ffffff,stroke:#2b6cb0,stroke-width:1.5px,color:#1a202c,font-weight:bold;
 
@@ -4183,7 +4182,6 @@ $$\Delta s = \frac{N}{PPR} \cdot (2\pi r)$$
         </ul>
       </td>
     </tr>
-
     <!-- ENTRADA 2 -->
     <tr style="background-color: #f8f9fa;">
       <td style="padding: 10px; vertical-align: top;">
@@ -4209,7 +4207,6 @@ $$\Delta s = \frac{N}{PPR} \cdot (2\pi r)$$
         </ul>
       </td>
     </tr>
-
     <!-- ENTRADA 3 -->
     <tr style="background-color: #ffffff;">
       <td style="padding: 10px; vertical-align: top;">
@@ -4235,7 +4232,6 @@ $$\Delta s = \frac{N}{PPR} \cdot (2\pi r)$$
         </ul>
       </td>
     </tr>
-
     <!-- ENTRADA 4 -->
     <tr style="background-color: #f8f9fa;">
       <td style="padding: 10px; vertical-align: top;">
