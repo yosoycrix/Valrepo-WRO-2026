@@ -135,7 +135,7 @@ Somos **[Team ValGrind]**, entusiastas de la robótica y la innovación. Represe
     <!-- Información del Integrante -->
     <td style="border: none; padding-left: 20px; vertical-align: top;">
       <h2>Diego Malaver</h2>
-      <p><b>🎂 Edad:</b> 15 años (09/09/2010)</p>
+      <p><b>🎂 Edad:</b> 16 años (09/09/2010)</p>
       <p><b>🎖️ Rol:</b> Mecanico / Electronico</p>
       <hr>
       <p><b>⚙️ Habilidades:</b></p>
