@@ -305,7 +305,7 @@ El robot cuenta con una estructura de dimensiones reducidas de **19.6 cm de larg
 
 A diferencia de los sistemas de dirección convencionales con múltiples eslabones flotantes, se implementó una variante de **geometría Ackermann positivo** conectada directamente a un servomotor central.
 
-![Sistema de Dirección y Tren Delantero](sistemadelantero2.jpeg)
+![Sistema de Dirección y Tren Delantero](./images/sistemadelantero2.jpeg)
 
 * **Respuesta Inmediata y Cero Holguras:** Al acoplar el brazo del servomotor directamente al mecanismo de articulación de la dirección, se eliminan los puntos de juego mecánico. Esto garantiza un control de trayectoria inmediato y repetible.
 * **Geometría Estable en un Solo Plano:** El mecanismo mantiene una geometría matemática pura que previene la alteración de los ángulos de giro ante fuerzas laterales generadas por el agarre en curvas.
@@ -317,7 +317,7 @@ A diferencia de los sistemas de dirección convencionales con múltiples eslabon
 
 Para transmitir el torque al suelo de manera eficiente y mantener una baja distancia sensorial, se diseñó un sistema de rodadura a medida impreso en 3D.
 
-![Detalle de Rueda y Rin Impreso en 3D](rueda.jpeg)
+![Detalle de Rueda y Rin Impreso en 3D](./images/rueda.jpeg)
 
 * **Rines Impresos en 3D con Alojamiento para Doble Rodamiento:** Los rines se diseñaron a medida con unas dimensiones de **43 mm de diámetro exterior por 22 mm de ancho**. Cada rin cuenta con una ranura interna a cada lado diseñada para alojar **dos rodamientos de bolas**, lo que elimina por completo el cabeceo de la rueda sobre el manguito/nudillo de dirección y garantiza una libertad de rotación fluida.
 * **Tracción y Distancia Sensorial:** La geometría del conjunto rueda/rin asegura una superficie de contacto uniforme contra el vinil de la pista. Además, al mantener un perfil compacto de 43 mm, el chasis permanece lo suficientemente bajo como para ubicar los sensores ultrasónicos y la matriz de navegación a una distancia óptima del suelo.
@@ -328,9 +328,9 @@ Para transmitir el torque al suelo de manera eficiente y mantener una baja dista
 
 La etapa de tracción trasera resuelve uno de los principales retos de empaquetamiento mecánico mediante el rediseño integral de una caja diferencial compacta.
 
-![Diseño CAD del Diferencial y Piñón Helicoidal](diferencialconengranajedemotor.jpeg)
+![Diseño CAD del Diferencial y Piñón Helicoidal](./images/diferencialconengranajedemotor.jpeg)
 
-![Corte y Ensamblaje del Sistema de Tracción Trasera](sistematraccion.jpeg)
+![Corte y Ensamblaje del Sistema de Tracción Trasera](./images/sistematraccion.jpeg)
 
 * **Engranajes Helicoidales Dobles (Spur / Herringbone):** La corona externa del diferencial y el piñón de ataque del motor fueron rediseñados como engranajes helicoidales dobles. Este perfil cancela las fuerzas axiales y permite posicionar el motor de tracción de forma totalmente **horizontal y paralela al eje trasero**.
 * **Reducción de Longitud (2 cm de ahorro):** La disposición horizontal del motor redujo la longitud total del chasis en **2 cm**, liberando el espacio central requerido para alojar la batería y el servo de dirección.
@@ -342,9 +342,9 @@ La etapa de tracción trasera resuelve uno de los principales retos de empaqueta
 
 El ensamblaje integral consolidado demuestra la convergencia de todos los subsistemas en una sola arquitectura monocasco y modular.
 
-![Vista Isométrica Trasera del Chasis Ensamblado](heimdall_final2.jpeg)
+![Vista Isométrica Trasera del Chasis Ensamblado](./images/heimdall_final2.jpeg)
 
-![Vista Isométrica Frontal con Sensores Integrados](heimdall_final1.jpeg)
+![Vista Isométrica Frontal con Sensores Integrados](./images/heimdall_final1.jpeg)
 
 * **Optimizaciones de Espacio Integradas:** Se evidencia la integración total del chasis compacto de **19.6 cm x 12.5 cm**, donde la bahía central alojada sobre la tracción trasera aprovecha exactamente los **2 cm de ahorro** logrados por la caja de transmisión helicoidal.
 * **Soportes Estructurales para Sensórica:** La torre central y la bahía frontal están moldeadas específicamente para soportar los módulos de visión y los sensores ultrasónicos de distancia sin sobredimensionar la huella (*footprint*) del vehículo ni interferir con el radio de giro de la dirección Ackermann.
