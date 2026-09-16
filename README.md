@@ -286,6 +286,71 @@ Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay qu
 
 <img src="./images/heimdall_final1.jpeg" alt="Hei=mdall3d" width=80%>
 
+## Justificación de Diseño
+
+El desarrollo mecatrónico del prototipo se concibió bajo la filosofía de diseño **"compacto, funcional y robusto"**, buscando maximizar la eficiencia en pista, optimizar el uso del espacio interno y garantizar una respuesta dinámica precisa sin comprometer la rigidez estructural.
+
+---
+
+### 1. Dimensionamiento y Distribución Espacial
+
+El robot cuenta con una estructura de dimensiones reducidas de **19.6 cm de largo por 12.5 cm de ancho**, posicionándose como un chasis ultra compacto. Esta decisión de diseño persigue objetivos clave:
+* **Centro de gravedad bajo y balanceado:** La disposición horizontal de los componentes internos distribuye la masa en un solo plano horizontal, minimizando la inercia rotacional y evitando volcamientos en maniobras a alta velocidad.
+* **Maniobrabilidad en pista:** El empaquetamiento compacto permite abordar curvas cerradas con mayor radio de giro efectivo dentro del trazado.
+* **Rigidez estructural:** La densidad del chasis y la calidad de construcción eliminan la flexión ante aceleraciones bruscas y cambios repentinos de dirección.
+
+---
+
+### 2. Tren Delantero y Dirección Ackermann
+
+A diferencia de los sistemas de dirección convencionales con múltiples eslabones flotantes, se implementó una variante de **geometría Ackermann positivo** conectada directamente a un servomotor central.
+
+![Sistema de Dirección y Tren Delantero](sistemadelantero2.jpeg)
+
+* **Respuesta Inmediata y Cero Holguras:** Al acoplar el brazo del servomotor directamente al mecanismo de articulación de la dirección, se eliminan los puntos de juego mecánico. Esto garantiza un control de trayectoria inmediato y repetible.
+* **Geometría Estable en un Solo Plano:** El mecanismo mantiene una geometría matemática pura que previene la alteración de los ángulos de giro ante fuerzas laterales generadas por el agarre en curvas.
+* **Optimización de Torque y Energía:** Dado que el mecanismo ofrece una ventaja mecánica optimizada, el servomotor realiza un recorrido menor para lograr un ángulo de cruce agresivo, reduciendo la fricción, el desgaste mecánico y el consumo eléctrico pico.
+
+---
+
+### 3. Rodadura y Acoplamiento a Medida
+
+Para transmitir el torque al suelo de manera eficiente y mantener una baja distancia sensorial, se diseñó un sistema de rodadura a medida impreso en 3D.
+
+![Detalle de Rueda y Rin Impreso en 3D](rueda.jpeg)
+
+* **Rines Impresos en 3D con Alojamiento para Doble Rodamiento:** Los rines se diseñaron a medida con unas dimensiones de **43 mm de diámetro exterior por 22 mm de ancho**. Cada rin cuenta con una ranura interna a cada lado diseñada para alojar **dos rodamientos de bolas**, lo que elimina por completo el cabeceo de la rueda sobre el manguito/nudillo de dirección y garantiza una libertad de rotación fluida.
+* **Tracción y Distancia Sensorial:** La geometría del conjunto rueda/rin asegura una superficie de contacto uniforme contra el vinil de la pista. Además, al mantener un perfil compacto de 43 mm, el chasis permanece lo suficientemente bajo como para ubicar los sensores ultrasónicos y la matriz de navegación a una distancia óptima del suelo.
+
+---
+
+### 4. Transmisión y Diferencial Helicoidal Modificado
+
+La etapa de tracción trasera resuelve uno de los principales retos de empaquetamiento mecánico mediante el rediseño integral de una caja diferencial compacta.
+
+![Diseño CAD del Diferencial y Piñón Helicoidal](diferencialconengranajedemotor.jpeg)
+
+![Corte y Ensamblaje del Sistema de Tracción Trasera](sistematraccion.jpeg)
+
+* **Engranajes Helicoidales Dobles (Spur / Herringbone):** La corona externa del diferencial y el piñón de ataque del motor fueron rediseñados como engranajes helicoidales dobles. Este perfil cancela las fuerzas axiales y permite posicionar el motor de tracción de forma totalmente **horizontal y paralela al eje trasero**.
+* **Reducción de Longitud (2 cm de ahorro):** La disposición horizontal del motor redujo la longitud total del chasis en **2 cm**, liberando el espacio central requerido para alojar la batería y el servo de dirección.
+* **Cinemática Interna Eficiente:** Internamente, el diferencial conserva su configuración estándar de engranajes cónicos planetarios y satélites, asegurando una correcta distribución de torque entre las ruedas izquierdas y derechas al abordar curvas sin perder tracción ni forzar los motores.
+
+---
+
+### 5. Integración Mecatrónica y Ensamblaje Final
+
+El ensamblaje integral consolidado demuestra la convergencia de todos los subsistemas en una sola arquitectura monocasco y modular.
+
+![Vista Isométrica Trasera del Chasis Ensamblado](heimdall_final2.jpeg)
+
+![Vista Isométrica Frontal con Sensores Integrados](heimdall_final1.jpeg)
+
+* **Optimizaciones de Espacio Integradas:** Se evidencia la integración total del chasis compacto de **19.6 cm x 12.5 cm**, donde la bahía central alojada sobre la tracción trasera aprovecha exactamente los **2 cm de ahorro** logrados por la caja de transmisión helicoidal.
+* **Soportes Estructurales para Sensórica:** La torre central y la bahía frontal están moldeadas específicamente para soportar los módulos de visión y los sensores ultrasónicos de distancia sin sobredimensionar la huella (*footprint*) del vehículo ni interferir con el radio de giro de la dirección Ackermann.
+
+---
+
 ## 2.4 Movilidad
 
 ### Justificación Técnica de la Arquitectura de Movilidad de *Heimdall*

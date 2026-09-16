@@ -24,5 +24,5 @@ En este directorio se aloja el modelo CAD tridimensional consolidado del robot. 
 </p>
 
 <p align="center">
-  <img src="../../images/heimdall_fInal2.jpeg" alt="Vista Frontal del Arreglo Sensorial y Tren Delantero" width="800"><br>
+  <img src="../../images/heimdall_final2.jpeg" alt="Vista Frontal del Arreglo Sensorial y Tren Delantero" width="800"><br>
 </p>
