@@ -16,6 +16,7 @@
   - [2.1 Videos del Robot](#21-videos-del-robot)
   - [2.2 Apartado Mecanico](#22-apartado-mecanico)
   - [2.3 Impresion 3D](#23-Impresion-3d)
+    - [2.3.1 Justificacion de Diseño](#231-justificación-de-diseño)
   - [2.4 Movilidad](#24-movilidad)
   - [2.5 Sistema de Movimiento y Traccion](#25-sistema-de-movimiento-y-traccion)
   - [2.6 Piezas de Mecanica](#26-piezas-de-mecanica)
@@ -286,13 +287,13 @@ Antes de hablar de la movilidad o funcionalidad de nuestro robot, primero hay qu
 
 <img src="./images/heimdall_final1.jpeg" alt="Hei=mdall3d" width=80%>
 
-## Justificación de Diseño
+## 2.3.1 Justificación de Diseño
 
 El desarrollo mecatrónico del prototipo se concibió bajo la filosofía de diseño **"compacto, funcional y robusto"**, buscando maximizar la eficiencia en pista, optimizar el uso del espacio interno y garantizar una respuesta dinámica precisa sin comprometer la rigidez estructural.
 
 ---
 
-### 1. Dimensionamiento y Distribución Espacial
+### Dimensionamiento y Distribución Espacial
 
 El robot cuenta con una estructura de dimensiones reducidas de **19.6 cm de largo por 12.5 cm de ancho**, posicionándose como un chasis ultra compacto. Esta decisión de diseño persigue objetivos clave:
 * **Centro de gravedad bajo y balanceado:** La disposición horizontal de los componentes internos distribuye la masa en un solo plano horizontal, minimizando la inercia rotacional y evitando volcamientos en maniobras a alta velocidad.
@@ -301,7 +302,7 @@ El robot cuenta con una estructura de dimensiones reducidas de **19.6 cm de larg
 
 ---
 
-### 2. Tren Delantero y Dirección Ackermann
+### Tren Delantero y Dirección Ackermann
 
 A diferencia de los sistemas de dirección convencionales con múltiples eslabones flotantes, se implementó una variante de **geometría Ackermann positivo** conectada directamente a un servomotor central.
 
@@ -315,7 +316,7 @@ A diferencia de los sistemas de dirección convencionales con múltiples eslabon
 
 ---
 
-### 3. Rodadura y Acoplamiento a Medida
+### Rodadura y Acoplamiento a Medida
 
 Para transmitir el torque al suelo de manera eficiente y mantener una baja distancia sensorial, se diseñó un sistema de rodadura a medida impreso en 3D.
 
@@ -328,7 +329,7 @@ Para transmitir el torque al suelo de manera eficiente y mantener una baja dista
 
 ---
 
-### 4. Transmisión y Diferencial Helicoidal Modificado
+### Transmisión y Diferencial Helicoidal Modificado
 
 La etapa de tracción trasera resuelve uno de los principales retos de empaquetamiento mecánico mediante el rediseño integral de una caja diferencial compacta.
 
@@ -346,7 +347,7 @@ La etapa de tracción trasera resuelve uno de los principales retos de empaqueta
 
 ---
 
-### 5. Integración Mecatrónica y Ensamblaje Final
+### Integración Mecatrónica y Ensamblaje Final
 
 El ensamblaje integral consolidado demuestra la convergencia de todos los subsistemas en una sola arquitectura monocasco y modular.
 
