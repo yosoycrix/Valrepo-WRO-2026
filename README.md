@@ -4335,12 +4335,6 @@ $$\Delta s = \frac{N}{PPR} \cdot (2\pi r)$$
   </tbody>
 </table>
 
-<p align="center">
-  <a href="https://postimg.cc/8syssXPz">
-    <img src="https://i.postimg.cc/CL08P93k/Ackermann-turning-svg.png" alt="Geometría de giro de Ackermann" width="50%">
-  </a>
-</p>
-
 ---
    
 ## 6. Randomizador
